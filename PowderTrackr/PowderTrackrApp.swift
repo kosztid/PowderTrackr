@@ -1,17 +1,17 @@
-//
-//  PowderTrackrApp.swift
-//  PowderTrackr
-//
-//  Created by Kosztolánczi Dominik on 2023. 06. 17..
-//
-
 import SwiftUI
+
+typealias Navigator = View
 
 @main
 struct PowderTrackrApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ViewFactory.powderTrackrView()
         }
+    }
+
+    init() {
     }
 }

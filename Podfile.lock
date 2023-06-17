@@ -1,0 +1,42 @@
+PODS:
+  - Amplify (1.30.1):
+    - Amplify/Default (= 1.30.1)
+  - Amplify/Default (1.30.1)
+  - Factory (1.2.9)
+  - FlowStacks (0.2.5)
+  - GoogleMaps (7.4.0):
+    - GoogleMaps/Maps (= 7.4.0)
+  - GoogleMaps/Base (7.4.0)
+  - GoogleMaps/Maps (7.4.0):
+    - GoogleMaps/Base
+  - SwiftGen (6.6.2)
+  - SwiftLint (0.52.2)
+
+DEPENDENCIES:
+  - Amplify
+  - Factory (~> 1.2.0)
+  - FlowStacks
+  - GoogleMaps (= 7.4.0)
+  - SwiftGen
+  - SwiftLint
+
+SPEC REPOS:
+  trunk:
+    - Amplify
+    - Factory
+    - FlowStacks
+    - GoogleMaps
+    - SwiftGen
+    - SwiftLint
+
+SPEC CHECKSUMS:
+  Amplify: 374e7d1fce6c00c79521d70f17b8551a3731ab6c
+  Factory: 883df5a392a7f4110597c42652b8db9c07618a09
+  FlowStacks: a8f2c03581f41c4206c8444843a659c8a1897604
+  GoogleMaps: 032f676450ba0779bd8ce16840690915f84e57ac
+  SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
+  SwiftLint: 1ac76dac888ca05cb0cf24d0c85887ec1209961d
+
+PODFILE CHECKSUM: 48a9b19b63c72c25e303660d6a182769bca53d11
+
+COCOAPODS: 1.12.1

@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-skiing-dev-202758-authRole",
+      "UnauthRoleArn": "arn:aws:iam::871734953448:role/amplify-skiing-dev-202758-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::871734953448:role/amplify-skiing-dev-202758-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-skiing-dev-202758-deployment",
+      "UnauthRoleName": "amplify-skiing-dev-202758-unauthRole",
+      "StackName": "amplify-skiing-dev-202758",
+      "StackId": "arn:aws:cloudformation:eu-central-1:871734953448:stack/amplify-skiing-dev-202758/ff004b10-c5c2-11ed-a98e-0a1198a738f4",
+      "AmplifyAppId": "dvfzbv74eucpp"
+    },
+    "categories": {
+      "auth": {
+        "skiing1c655691": {}
+      }
+    }
+  }
+}
