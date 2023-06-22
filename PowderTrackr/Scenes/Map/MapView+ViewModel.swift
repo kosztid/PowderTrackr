@@ -168,6 +168,10 @@ extension MapView {
 
             self.trackedPath?.tracks = modified
             self.track = modified
+            guard let modifiedLast = modified.last else { return }
+            Task {
+                await accountService.sendCurrentlyTracked(modifiedLast)
+            }
         }
 
         func stopTimer() {

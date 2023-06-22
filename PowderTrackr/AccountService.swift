@@ -5,6 +5,7 @@ import Combine
 import UIKit
 
 public protocol AccountServiceProtocol: AnyObject {
+    var trackingPublisher: AnyPublisher<TrackedPath?, Never> { get }
     var isSignedInPublisher: AnyPublisher<Bool, Never> { get }
     var userPublisher: AnyPublisher<AuthUser?, Never> { get }
     var emailPublisher: AnyPublisher<String?, Never> { get }
@@ -38,6 +39,8 @@ public protocol AccountServiceProtocol: AnyObject {
     func removeTrackedPath(_ trackedPath: TrackedPath) async
     func queryTrackedPaths() async
 
+    func sendCurrentlyTracked(_ trackedPath: TrackedPath) async
+
     func signOut() async
     func confirm() async
     func updateTracking(id: String) async
@@ -46,6 +49,7 @@ public protocol AccountServiceProtocol: AnyObject {
 }
 
 final class AccountService {
+    private let tracking: CurrentValueSubject<TrackedPath?, Never> = .init(nil)
     private let isSignedIn: CurrentValueSubject<Bool, Never> = .init(false)
     private let user: CurrentValueSubject<AuthUser?, Never> = .init(nil)
     private let email: CurrentValueSubject<String?, Never> = .init(nil)
@@ -97,6 +101,16 @@ final class AccountService {
 }
 
 extension AccountService: AccountServiceProtocol {
+    func sendCurrentlyTracked(_ trackedPath: TrackedPath) async {
+        tracking.send(trackedPath)
+    }
+
+    var trackingPublisher: AnyPublisher<TrackedPath?, Never> {
+        tracking
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
+
     var friendPositionPublisher: AnyPublisher<Location?, Never> {
         friendPosition
             .receive(on: DispatchQueue.main)

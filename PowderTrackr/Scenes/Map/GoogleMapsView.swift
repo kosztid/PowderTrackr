@@ -10,6 +10,7 @@ struct GoogleMapsView: UIViewRepresentable {
         let accountService: AccountServiceProtocol
         var innerMapView: GMSMapView?
         var trackedPath: [TrackedPath] = []
+        var currentlyTracked: TrackedPath?
         var friendLocations: [Location] = []
         var markers: [GMSMarker] = []
         var lines: [GMSPolyline] = []
@@ -44,6 +45,14 @@ struct GoogleMapsView: UIViewRepresentable {
                     self?.drawMapItems()
                 }
                 .store(in: &cancellables)
+
+            accountService.trackingPublisher
+                .sink { _ in
+                } receiveValue: { [weak self] currentTrack in
+                    self?.currentlyTracked = currentTrack
+                    self?.drawMapItems()
+                }
+                .store(in: &cancellables)
         }
 
         func mapView(_ mapView: GMSMapView, didTap overlay: GMSOverlay) {
@@ -70,7 +79,11 @@ struct GoogleMapsView: UIViewRepresentable {
 
         func makePolylines() {
             lines.removeAll()
-            for track in trackedPath where track.tracking {
+            var list = trackedPath
+            if let current = currentlyTracked {
+                list.append(current)
+            }
+            for track in list where track.tracking {
                 let path = GMSMutablePath()
                 for index in 0..<(track.xCoords?.count ?? 0) {
                     path.add(CLLocationCoordinate2D(latitude: track.xCoords?[index] ?? 0, longitude: track.yCoords?[index] ?? 0))
