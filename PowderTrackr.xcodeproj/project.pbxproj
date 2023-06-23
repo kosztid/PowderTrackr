@@ -51,6 +51,7 @@
 		5545881A2A3E30EA009A5485 /* RegularTextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554588132A3E30EA009A5485 /* RegularTextFieldStyle.swift */; };
 		5545881C2A3E30F0009A5485 /* SkiingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545881B2A3E30F0009A5485 /* SkiingButtonStyle.swift */; };
 		5545881E2A3E30F9009A5485 /* SkiingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545881D2A3E30F9009A5485 /* SkiingButton.swift */; };
+		556B616B2A44B08C006B2C68 /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556B616A2A44B08C006B2C68 /* MapService.swift */; };
 		558815B42A3E361600667C1A /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558815B12A3E361500667C1A /* Location.swift */; };
 		558815B52A3E361600667C1A /* TrackedPathModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558815B22A3E361600667C1A /* TrackedPathModel.swift */; };
 		558815B62A3E361600667C1A /* Friendlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558815B32A3E361600667C1A /* Friendlist.swift */; };
@@ -77,6 +78,7 @@
 		558816122A3E3E7700667C1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558816112A3E3E7700667C1A /* AppDelegate.swift */; };
 		558816152A3E426200667C1A /* AWSAPIPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 558816142A3E426200667C1A /* AWSAPIPlugin */; };
 		558816172A3E426200667C1A /* AWSCognitoAuthPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 558816162A3E426200667C1A /* AWSCognitoAuthPlugin */; };
+		55A318552A4625DA00EB0C5E /* FriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A318542A4625DA00EB0C5E /* FriendService.swift */; };
 		72D311DB8DCEA24E0C4CB14B /* FriendRequest+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D681CDF9130A0F1615DA65 /* FriendRequest+Schema.swift */; };
 		89E77F0BA3478441D85A6533 /* TrackedPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D60D5E7FF5741E73110C72 /* TrackedPath.swift */; };
 		93721D97E1A81377C189A5E6 /* Friend+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C663D785B3B203B1BDAEE41 /* Friend+Schema.swift */; };
@@ -143,6 +145,7 @@
 		554588132A3E30EA009A5485 /* RegularTextFieldStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularTextFieldStyle.swift; sourceTree = "<group>"; };
 		5545881B2A3E30F0009A5485 /* SkiingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkiingButtonStyle.swift; sourceTree = "<group>"; };
 		5545881D2A3E30F9009A5485 /* SkiingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkiingButton.swift; sourceTree = "<group>"; };
+		556B616A2A44B08C006B2C68 /* MapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		558815B12A3E361500667C1A /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		558815B22A3E361600667C1A /* TrackedPathModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackedPathModel.swift; sourceTree = "<group>"; };
 		558815B32A3E361600667C1A /* Friendlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friendlist.swift; sourceTree = "<group>"; };
@@ -167,6 +170,7 @@
 		558815FB2A3E388800667C1A /* UserfriendList+Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UserfriendList+Schema.swift"; path = "amplify/generated/models/UserfriendList+Schema.swift"; sourceTree = SOURCE_ROOT; };
 		558815FC2A3E388800667C1A /* TrackedPath+Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TrackedPath+Schema.swift"; path = "amplify/generated/models/TrackedPath+Schema.swift"; sourceTree = SOURCE_ROOT; };
 		558816112A3E3E7700667C1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		55A318542A4625DA00EB0C5E /* FriendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendService.swift; sourceTree = "<group>"; };
 		6C230E5414AAD2FFE38AB6C2 /* UserfriendList+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "UserfriendList+Schema.swift"; path = "amplify/generated/models/UserfriendList+Schema.swift"; sourceTree = "<group>"; };
 		705F020E722E17762F7F9CEC /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		9C663D785B3B203B1BDAEE41 /* Friend+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "Friend+Schema.swift"; path = "amplify/generated/models/Friend+Schema.swift"; sourceTree = "<group>"; };
@@ -238,6 +242,8 @@
 				554587C72A3E2EA0009A5485 /* Scenes */,
 				554587A82A3E2985009A5485 /* Models */,
 				554587C32A3E29A6009A5485 /* AccountService.swift */,
+				55A318542A4625DA00EB0C5E /* FriendService.swift */,
+				556B616A2A44B08C006B2C68 /* MapService.swift */,
 				554587C52A3E2A66009A5485 /* ServiceDI.swift */,
 				5545878C2A3DF8F1009A5485 /* PowderTrackrApp.swift */,
 				558816112A3E3E7700667C1A /* AppDelegate.swift */,
@@ -651,6 +657,7 @@
 				554588182A3E30EA009A5485 /* SecureTextField+Extensions.swift in Sources */,
 				554588072A3E30B9009A5485 /* LoginView.swift in Sources */,
 				558816032A3E388800667C1A /* AmplifyModels.swift in Sources */,
+				556B616B2A44B08C006B2C68 /* MapService.swift in Sources */,
 				554587EF2A3E2FEE009A5485 /* FriendRequestView.swift in Sources */,
 				558815C42A3E366F00667C1A /* AmplifyModels.swift in Sources */,
 				554587C62A3E2A66009A5485 /* ServiceDI.swift in Sources */,
@@ -688,6 +695,7 @@
 				554587E92A3E2FC4009A5485 /* FriendListItem.swift in Sources */,
 				558815CD2A3E366F00667C1A /* UserfriendList+Schema.swift in Sources */,
 				89E77F0BA3478441D85A6533 /* TrackedPath.swift in Sources */,
+				55A318552A4625DA00EB0C5E /* FriendService.swift in Sources */,
 				554587F92A3E3056009A5485 /* ProfileView.swift in Sources */,
 				554587E62A3E2FAC009A5485 /* SocialView.swift in Sources */,
 				9830C87CEB5F9D821AB74CE4 /* UserTrackedPaths+Schema.swift in Sources */,

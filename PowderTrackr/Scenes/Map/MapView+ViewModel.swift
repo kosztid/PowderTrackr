@@ -13,6 +13,8 @@ extension MapView {
 
         let dateFormatter = DateFormatter()
         let accountService: AccountServiceProtocol
+        let friendService: FriendServiceProtocol
+        let mapService: MapServiceProtocol
         var locationManager = CLLocationManager()
         var locationTimer: Timer?
         var trackTimer: Timer?
@@ -31,8 +33,14 @@ extension MapView {
 
         @Published var selectedPath: TrackedPath?
 
-        init(accountService: AccountServiceProtocol) {
+        init(
+            accountService: AccountServiceProtocol,
+            mapService: MapServiceProtocol,
+            friendService: FriendServiceProtocol
+        ) {
             self.accountService = accountService
+            self.mapService = mapService
+            self.friendService = friendService
             self.cameraPos = .init(
                 latitude: self.locationManager.location?.coordinate.latitude ?? 1,
                 longitude: self.locationManager.location?.coordinate.longitude ?? 1,
@@ -41,7 +49,7 @@ extension MapView {
             self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
             self.startTimer()
 
-            accountService.friendPositionsPublisher
+            friendService.friendPositionsPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] loc in
                     self?.friendLocations = loc
@@ -49,7 +57,7 @@ extension MapView {
                 }
                 .store(in: &cancellables)
 
-            accountService.trackedPathPublisher
+            mapService.trackedPathPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] track in
                     self?.track = track?.tracks ?? []
@@ -59,7 +67,7 @@ extension MapView {
                 .store(in: &cancellables)
 
             Task {
-                await accountService.queryTrackedPaths()
+                await mapService.queryTrackedPaths()
             }
         }
 
@@ -97,7 +105,7 @@ extension MapView {
                     xCoord: String(locationManager.location?.coordinate.latitude ?? 0),
                     yCoord: String(locationManager.location?.coordinate.longitude ?? 0)
                 )
-                await self.accountService.queryFriendLocations()
+                await self.friendService.queryFriendLocations()
             }
         }
 
@@ -151,7 +159,7 @@ extension MapView {
             current?.endDate = dateFormatter.string(from: Date())
             guard let path = current else { return }
             Task {
-                await accountService.updateTrackedPath(path)
+                await mapService.updateTrackedPath(path)
             }
         }
 
@@ -170,7 +178,7 @@ extension MapView {
             self.track = modified
             guard let modifiedLast = modified.last else { return }
             Task {
-                await accountService.sendCurrentlyTracked(modifiedLast)
+                await mapService.sendCurrentlyTracked(modifiedLast)
             }
         }
 
@@ -198,19 +206,19 @@ extension MapView {
                 withAnimation {
                     selectedPath = nil
                 }
-                await self.accountService.queryFriendLocations()
+                await self.friendService.queryFriendLocations()
             }
         }
 
         func removeTrack(_ trackedPath: TrackedPath) {
             Task {
-                await accountService.removeTrackedPath(trackedPath)
+                await mapService.removeTrackedPath(trackedPath)
             }
         }
 
         func updateTrack(_ trackedPath: TrackedPath) {
             Task {
-                await accountService.updateTrack(trackedPath)
+                await mapService.updateTrack(trackedPath)
             }
         }
 
@@ -218,7 +226,7 @@ extension MapView {
             Task {
                 var newTrack = trackedPath
                 newTrack.notes?.append(note)
-                await accountService.updateTrack(newTrack)
+                await mapService.updateTrack(newTrack)
             }
         }
     }

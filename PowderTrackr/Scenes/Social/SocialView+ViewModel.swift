@@ -7,26 +7,26 @@ extension SocialView {
         @Published var notification: Bool
 
         private let navigator: SocialListViewNavigatorProtocol
-        private let accountService: AccountServiceProtocol
+        private let friendService: FriendServiceProtocol
 
         private var cancellables: Set<AnyCancellable> = []
 
         init(
             navigator: SocialListViewNavigatorProtocol,
-            accountService: AccountServiceProtocol
+            friendService: FriendServiceProtocol
         ) {
             self.navigator = navigator
-            self.accountService = accountService
+            self.friendService = friendService
             self.notification = false
             initFriendList()
             Task {
-                await accountService.queryFriends()
-                await accountService.queryFriendRequests()
+                await friendService.queryFriends()
+                await friendService.queryFriendRequests()
             }
         }
 
         func initFriendList() {
-            accountService.friendListPublisher
+            friendService.friendListPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] friendList in
                     self?.friendList = friendList
@@ -38,13 +38,13 @@ extension SocialView {
             Task {
                 friendList?.friends?.remove(atOffsets: offsets)
                 guard let list = friendList else { return }
-                await accountService.deleteFriend(friendlist: list)
+                await friendService.deleteFriend(friendlist: list)
             }
         }
 
         func updateTracking(id: String) {
             Task {
-                await accountService.updateTracking(id: id)
+                await friendService.updateTracking(id: id)
             }
         }
 

@@ -7,7 +7,8 @@ struct GoogleMapsView: UIViewRepresentable {
     class Coordinator: NSObject, GMSMapViewDelegate {
         private var cancellables: Set<AnyCancellable> = []
 
-        let accountService: AccountServiceProtocol
+        let friendService: FriendServiceProtocol
+        let mapService: MapServiceProtocol
         var innerMapView: GMSMapView?
         var trackedPath: [TrackedPath] = []
         var currentlyTracked: TrackedPath?
@@ -22,15 +23,16 @@ struct GoogleMapsView: UIViewRepresentable {
             selectedPath: Binding<TrackedPath?>
         ) {
             self.innerMapView = innerMapView
-            self.accountService = Container.accountService()
+            self.friendService = Container.friendService()
+            self.mapService = Container.mapService()
             self._selectedPath = selectedPath
             super.init()
 
             Task {
-                await self.accountService.queryFriendLocations()
+                await self.friendService.queryFriendLocations()
             }
 
-            accountService.friendPositionsPublisher
+            friendService.friendPositionsPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] loc in
                     self?.friendLocations = loc
@@ -38,7 +40,7 @@ struct GoogleMapsView: UIViewRepresentable {
                 }
                 .store(in: &cancellables)
 
-            accountService.trackedPathPublisher
+            mapService.trackedPathPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] track in
                     self?.trackedPath = track?.tracks ?? []
@@ -46,7 +48,7 @@ struct GoogleMapsView: UIViewRepresentable {
                 }
                 .store(in: &cancellables)
 
-            accountService.trackingPublisher
+            mapService.trackingPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] currentTrack in
                     self?.currentlyTracked = currentTrack

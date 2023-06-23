@@ -5,10 +5,10 @@ extension FriendRequestView {
     final class ViewModel: ObservableObject {
         @Published var friendRequests: [FriendRequest] = []
 
-        private let service: AccountServiceProtocol
+        private let service: FriendServiceProtocol
         private var cancellables: Set<AnyCancellable> = []
 
-        init(service: AccountServiceProtocol) {
+        init(service: FriendServiceProtocol) {
             self.service = service
 
             initFriendRequests()

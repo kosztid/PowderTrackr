@@ -69,7 +69,8 @@ extension Container {
         static let viewModel = ParameterFactory { navigator in
             ProfileView.ViewModel(
                 navigator: navigator,
-                accountService: accountService()
+                accountService: accountService(),
+                mapService: mapService()
             )
         }
 
@@ -93,7 +94,11 @@ extension Container {
         }
 
         static let viewModel = Factory {
-            MapView.ViewModel(accountService: accountService())
+            MapView.ViewModel(
+                accountService: accountService(),
+                mapService: mapService(),
+                friendService: friendService()
+            )
         }
     }
 
@@ -105,7 +110,7 @@ extension Container {
         }
 
         static let viewModel = ParameterFactory { navigator in
-            SocialView.ViewModel(navigator: navigator, accountService: accountService())
+            SocialView.ViewModel(navigator: navigator, friendService: friendService())
         }
 
         static let navigator = Factory {
@@ -119,7 +124,7 @@ extension Container {
         }
 
         static let viewModel = Factory {
-            FriendRequestView.ViewModel(service: accountService())
+            FriendRequestView.ViewModel(service: friendService())
         }
     }
 
@@ -129,7 +134,7 @@ extension Container {
         }
 
         static let viewModel = ParameterFactory { navigator in
-            FriendAddView.ViewModel(navigator: navigator, service: accountService())
+            FriendAddView.ViewModel(navigator: navigator, service: friendService())
         }
     }
 
@@ -139,7 +144,7 @@ extension Container {
         }
 
         static let viewModel = Factory {
-            TrackListView.ViewModel(accountService: accountService())
+            TrackListView.ViewModel(mapService: mapService())
         }
     }
 }

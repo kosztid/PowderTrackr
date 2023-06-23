@@ -6,14 +6,14 @@ extension TrackListView {
     final class ViewModel: ObservableObject {
         private var cancellables: Set<AnyCancellable> = []
 
-        let accountService: AccountServiceProtocol
+        let mapService: MapServiceProtocol
 
         @Published var tracks: [TrackedPath] = []
 
-        init(accountService: AccountServiceProtocol) {
-            self.accountService = accountService
+        init(mapService: MapServiceProtocol) {
+            self.mapService = mapService
 
-            accountService.trackedPathPublisher
+            mapService.trackedPathPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] track in
                     self?.tracks = track?.tracks ?? []
@@ -21,7 +21,7 @@ extension TrackListView {
                 .store(in: &cancellables)
 
             Task {
-                await accountService.queryTrackedPaths()
+                await mapService.queryTrackedPaths()
             }
         }
 
@@ -39,19 +39,19 @@ extension TrackListView {
 
         func onAppear() {
             Task {
-                await accountService.queryTrackedPaths()
+                await mapService.queryTrackedPaths()
             }
         }
 
         func removeTrack(_ trackedPath: TrackedPath) {
             Task {
-                await accountService.removeTrackedPath(trackedPath)
+                await mapService.removeTrackedPath(trackedPath)
             }
         }
 
         func updateTrack(_ trackedPath: TrackedPath) {
             Task {
-                await accountService.updateTrack(trackedPath)
+                await mapService.updateTrack(trackedPath)
             }
         }
 
@@ -59,7 +59,7 @@ extension TrackListView {
             Task {
                 var newTrack = trackedPath
                 newTrack.notes?.append(note)
-                await accountService.updateTrack(newTrack)
+                await mapService.updateTrack(newTrack)
             }
         }
     }

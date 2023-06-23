@@ -3,12 +3,12 @@ import SwiftUI
 extension FriendAddView {
     final class ViewModel: ObservableObject {
         private let navigator: SocialAddViewNavigatorProtocol
-        private let service: AccountServiceProtocol
+        private let service: FriendServiceProtocol
         @Published var email: String = ""
 
         init(
             navigator: SocialAddViewNavigatorProtocol,
-            service: AccountServiceProtocol
+            service: FriendServiceProtocol
         ) {
             self.navigator = navigator
             self.service = service

@@ -17,11 +17,12 @@ extension ProfileView {
         private var cancellables: Set<AnyCancellable> = []
         private let navigator: ProfileViewNavigatorProtocol
         private let accountService: AccountServiceProtocol
+        private let mapService: MapServiceProtocol
 
         func logout() {
             Task {
                 await accountService.signOut()
-                await accountService.queryTrackedPaths()
+                await mapService.queryTrackedPaths()
             }
         }
 
@@ -36,7 +37,7 @@ extension ProfileView {
         func loadData() {
             Task {
                 await accountService.getUser()
-                await accountService.queryTrackedPaths()
+                await mapService.queryTrackedPaths()
             }
         }
 
@@ -62,7 +63,7 @@ extension ProfileView {
                 }
                 .store(in: &cancellables)
 
-            accountService.trackedPathPublisher
+            mapService.trackedPathPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] track in
                     self?.tracks = track?.tracks ?? []
@@ -73,10 +74,12 @@ extension ProfileView {
 
         init(
             navigator: ProfileViewNavigatorProtocol,
-            accountService: AccountServiceProtocol
+            accountService: AccountServiceProtocol,
+            mapService: MapServiceProtocol
         ) {
             self.navigator = navigator
             self.accountService = accountService
+            self.mapService = mapService
             bindPublishers()
 
             Task {

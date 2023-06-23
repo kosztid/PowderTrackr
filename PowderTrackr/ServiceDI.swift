@@ -4,4 +4,12 @@ public extension Container {
     static let accountService = Factory<AccountServiceProtocol>(scope: .shared) {
         AccountService()
     }
+
+    static let mapService = Factory<MapServiceProtocol>(scope: .shared) {
+        MapService()
+    }
+
+    static let friendService = Factory<FriendServiceProtocol>(scope: .shared) {
+        FriendService()
+    }
 }
