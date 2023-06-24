@@ -156,7 +156,7 @@ extension MapView {
             self.trackTimer = nil
             self.isTracking = .off
             var current = trackedPath?.tracks?.last
-            current?.endDate = dateFormatter.string(from: Date())
+            current?.endDate = "\(dateFormatter.string(from: Date()))"
             guard let path = current else { return }
             Task {
                 await mapService.updateTrackedPath(path)
