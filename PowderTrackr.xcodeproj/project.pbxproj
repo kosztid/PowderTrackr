@@ -10,6 +10,8 @@
 		38B2EF361C3DDEE6BC819CB4 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 705F020E722E17762F7F9CEC /* amplifyconfiguration.json */; };
 		4A3B233B69AC5E3B3974F105 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45461D676D3BC9635B07ECF5 /* FriendRequest.swift */; };
 		5482EE72282D2C5E7EACE262 /* UserfriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52601201CE3D9DDCD2B6A6F /* UserfriendList.swift */; };
+		5506F7B92A4723F40000761D /* SegmentedControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5506F7B82A4723F40000761D /* SegmentedControlButton.swift */; };
+		5506F7BB2A4724F50000761D /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5506F7BA2A4724F50000761D /* SegmentedControl.swift */; };
 		5545878D2A3DF8F1009A5485 /* PowderTrackrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545878C2A3DF8F1009A5485 /* PowderTrackrApp.swift */; };
 		5545878F2A3DF8F1009A5485 /* PowderTrackrView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545878E2A3DF8F1009A5485 /* PowderTrackrView.swift */; };
 		554587912A3DF8F2009A5485 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 554587902A3DF8F2009A5485 /* Assets.xcassets */; };
@@ -103,6 +105,8 @@
 		4EB3A7FA580E0B493DF88149 /* CurrentPosition+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "CurrentPosition+Schema.swift"; path = "amplify/generated/models/CurrentPosition+Schema.swift"; sourceTree = "<group>"; };
 		4EDA30DA28B27896216C829B /* TrackedPath+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "TrackedPath+Schema.swift"; path = "amplify/generated/models/TrackedPath+Schema.swift"; sourceTree = "<group>"; };
 		54D60D5E7FF5741E73110C72 /* TrackedPath.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = TrackedPath.swift; path = amplify/generated/models/TrackedPath.swift; sourceTree = "<group>"; };
+		5506F7B82A4723F40000761D /* SegmentedControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlButton.swift; sourceTree = "<group>"; };
+		5506F7BA2A4724F50000761D /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		554587892A3DF8F1009A5485 /* PowderTrackr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PowderTrackr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5545878C2A3DF8F1009A5485 /* PowderTrackrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrApp.swift; sourceTree = "<group>"; };
 		5545878E2A3DF8F1009A5485 /* PowderTrackrView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrView.swift; sourceTree = "<group>"; };
@@ -213,6 +217,15 @@
 				705F020E722E17762F7F9CEC /* amplifyconfiguration.json */,
 			);
 			name = AmplifyConfig;
+			sourceTree = "<group>";
+		};
+		5506F7B72A4723E20000761D /* SegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				5506F7B82A4723F40000761D /* SegmentedControlButton.swift */,
+				5506F7BA2A4724F50000761D /* SegmentedControl.swift */,
+			);
+			path = SegmentedControl;
 			sourceTree = "<group>";
 		};
 		554587802A3DF8F1009A5485 = {
@@ -414,6 +427,7 @@
 		5545880B2A3E30D8009A5485 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				5506F7B72A4723E20000761D /* SegmentedControl */,
 				5545881D2A3E30F9009A5485 /* SkiingButton.swift */,
 				5545880C2A3E30E3009A5485 /* TextField */,
 			);
@@ -649,6 +663,7 @@
 				558815FD2A3E388800667C1A /* Friend.swift in Sources */,
 				558816002A3E388800667C1A /* UserfriendList.swift in Sources */,
 				554587A02A3E2923009A5485 /* DI.swift in Sources */,
+				5506F7B92A4723F40000761D /* SegmentedControlButton.swift in Sources */,
 				5545879E2A3E291A009A5485 /* ViewFactory.swift in Sources */,
 				5545881A2A3E30EA009A5485 /* RegularTextFieldStyle.swift in Sources */,
 				C496041B3C72D2CE2BA7C1C9 /* AmplifyModels.swift in Sources */,
@@ -707,6 +722,7 @@
 				9B62154BB9397A45254C5E7A /* UserfriendList+Schema.swift in Sources */,
 				5482EE72282D2C5E7EACE262 /* UserfriendList.swift in Sources */,
 				558815FF2A3E388800667C1A /* UserTrackedPaths+Schema.swift in Sources */,
+				5506F7BB2A4724F50000761D /* SegmentedControl.swift in Sources */,
 				558816092A3E388800667C1A /* TrackedPath+Schema.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

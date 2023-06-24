@@ -4,18 +4,32 @@ struct SocialView: View {
     @StateObject var viewModel: ViewModel
 
     var body: some View {
-        ZStack {
-            List { /* 1 */
-                ForEach(viewModel.friendList?.friends ?? []) { friend in
-                    FriendListItem(friend: friend) {
-                        viewModel.updateTracking(id: friend.id)
+        SegmentedControl(
+            firstTab: .init(tabItem: .init(name: "Friends")) {
+                ZStack {
+                    List {
+                        ForEach(viewModel.friendList?.friends ?? []) { friend in
+                            FriendListItem(friend: friend) {
+                                viewModel.updateTracking(id: friend.id)
+                            }
+                            .listRowSeparator(.hidden)
+                        }
+                        .onDelete(perform: viewModel.delete)
                     }
-                    .listRowSeparator(.hidden)
+                    .listStyle(.plain)
                 }
-                .onDelete(perform: viewModel.delete)
+                .onAppear {
+                    print(viewModel.friendList?.friends)
+                }
+            },
+            secondTab: .init(tabItem: .init(name: "Groups")) {
+                VStack {
+                    Text("group1")
+                    Text("group2")
+                    Text("group3")
+                }
             }
-            .listStyle(.plain)
-        }
+        )
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -35,3 +49,4 @@ struct SocialView: View {
         }
     }
 }
+
