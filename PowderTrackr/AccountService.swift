@@ -32,25 +32,17 @@ final class AccountService {
     private let email: CurrentValueSubject<String?, Never> = .init(nil)
     private var cancellables: Set<AnyCancellable> = []
     private var username: String = ""
-
+    
     init() {
-        do {
-            try Amplify.add(plugin: AWSCognitoAuthPlugin())
-            try Amplify.add(plugin: AWSAPIPlugin(modelRegistration: AmplifyModels()))
-            try Amplify.configure()
-
-            Task {
-                do {
-                    let session = try await Amplify.Auth.fetchAuthSession()
-
-                    // let's update UserData and the UI
-                    self.isSignedIn.send(session.isSignedIn)
-                } catch {
-                    print("Fetch auth session failed with error - \(error)")
-                }
+        Task {
+            do {
+                let session = try await Amplify.Auth.fetchAuthSession()
+                
+                // let's update UserData and the UI
+                self.isSignedIn.send(session.isSignedIn)
+            } catch {
+                print("Fetch auth session failed with error - \(error)")
             }
-        } catch {
-            print("Could not initialize Amplify: \(error)")
         }
     }
     //

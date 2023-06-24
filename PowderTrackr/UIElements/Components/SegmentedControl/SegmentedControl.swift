@@ -25,8 +25,6 @@ public struct SegmentedControl<Content1: View, Content2: View>: View {
 
     @State private var selected = Int.zero
 
-    @Binding var isViewInFocus: Bool
-
     private let tabItems: [TabItem]
     private let firstTab: () -> Content1
     private let secondTab: () -> Content2
@@ -46,7 +44,7 @@ public struct SegmentedControl<Content1: View, Content2: View>: View {
             }
             .background(
                 RoundedRectangle(cornerRadius: .infinity, style: .continuous)
-                    .fill(Color.blue.opacity(0.1))
+                    .fill(Color.teal.opacity(0.1))
             )
         }
     }
@@ -54,37 +52,26 @@ public struct SegmentedControl<Content1: View, Content2: View>: View {
     public var body: some View {
         VStack {
             tabButtons
+                .padding(.horizontal, 16)
             TabView(selection: $selected) {
                 firstTab()
                     .tag(0)
-                    .onTapGesture {
-                        isViewInFocus = false
-                    }
                 secondTab()
                     .tag(1)
-                    .onTapGesture {
-                        isViewInFocus = false
-                    }
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
+            
             .navigationBarHidden(false)
         }
-        .onChange(of: selected) { _ in
-            isViewInFocus = false
-        }
-        .padding(.horizontal, 32)
         .padding(.top, 16)
     }
 
     public init(
         firstTab: Tab<Content1>,
-        secondTab: Tab<Content2>,
-        isViewInFocus: Binding<Bool> = .constant(false)
+        secondTab: Tab<Content2>
     ) {
         self.tabItems = [firstTab.tabItem, secondTab.tabItem]
         self.firstTab = firstTab.content
         self.secondTab = secondTab.content
-        self._isViewInFocus = isViewInFocus
     }
 }
 

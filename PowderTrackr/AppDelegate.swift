@@ -1,3 +1,6 @@
+import Amplify
+import AWSAPIPlugin
+import AWSCognitoAuthPlugin
 import GoogleMaps
 import UIKit
 
@@ -6,6 +9,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
+        do {
+            try Amplify.add(plugin: AWSCognitoAuthPlugin())
+            try Amplify.add(plugin: AWSAPIPlugin(modelRegistration: AmplifyModels()))
+            try Amplify.configure()
+        } catch {
+            print("Could not initialize Amplify: \(error)")
+        }
         GMSServices.provideAPIKey("AIzaSyCkUwcWyQT54awQLcyN32pHdw35XoGPkEs")
         return true
     }

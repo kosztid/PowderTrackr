@@ -18,9 +18,6 @@ struct SocialView: View {
                     }
                     .listStyle(.plain)
                 }
-                .onAppear {
-                    print(viewModel.friendList?.friends)
-                }
             },
             secondTab: .init(tabItem: .init(name: "Groups")) {
                 VStack {
