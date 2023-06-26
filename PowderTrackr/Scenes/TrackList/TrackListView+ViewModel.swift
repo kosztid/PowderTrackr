@@ -7,17 +7,32 @@ extension TrackListView {
         private var cancellables: Set<AnyCancellable> = []
 
         let mapService: MapServiceProtocol
+        let accountService: AccountServiceProtocol
 
         @Published var tracks: [TrackedPath] = []
+        @Published var signedIn = false
 
-        init(mapService: MapServiceProtocol) {
+        init(
+            mapService: MapServiceProtocol,
+            accountService: AccountServiceProtocol
+        ) {
             self.mapService = mapService
+            self.accountService = accountService
 
             mapService.trackedPathPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] track in
                     self?.tracks = track?.tracks ?? []
                 }
+                .store(in: &cancellables)
+
+            accountService.isSignedInPublisher
+                .sink(receiveValue: { [weak self] value in
+                    self?.signedIn = value
+                    if !value {
+                        self?.tracks = []
+                    }
+                })
                 .store(in: &cancellables)
 
             Task {

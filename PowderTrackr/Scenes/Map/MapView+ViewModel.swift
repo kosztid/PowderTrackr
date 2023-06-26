@@ -28,6 +28,7 @@ extension MapView {
         @Published var cameraPos: GMSCameraPosition
         @Published var markers: [GMSMarker] = []
         @Published var trackedPath: TrackedPathModel?
+        @Published var signedIn = false
 
         @Published var track: [TrackedPath] = []
 
@@ -49,22 +50,7 @@ extension MapView {
             self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
             self.startTimer()
 
-            friendService.friendPositionsPublisher
-                .sink { _ in
-                } receiveValue: { [weak self] loc in
-                    self?.friendLocations = loc
-                    self?.makeMarkers()
-                }
-                .store(in: &cancellables)
-
-            mapService.trackedPathPublisher
-                .sink { _ in
-                } receiveValue: { [weak self] track in
-                    self?.track = track?.tracks ?? []
-                    self?.trackedPath = track
-                    self?.refreshSelectedPath()
-                }
-                .store(in: &cancellables)
+            self.initBindings()
 
             Task {
                 await mapService.queryTrackedPaths()
@@ -96,6 +82,31 @@ extension MapView {
             Task {
                 await self.accountService.queryLocation()
             }
+        }
+
+        func initBindings() {
+            friendService.friendPositionsPublisher
+                .sink { _ in
+                } receiveValue: { [weak self] loc in
+                    self?.friendLocations = loc
+                    self?.makeMarkers()
+                }
+                .store(in: &cancellables)
+
+            mapService.trackedPathPublisher
+                .sink { _ in
+                } receiveValue: { [weak self] track in
+                    self?.track = track?.tracks ?? []
+                    self?.trackedPath = track
+                    self?.refreshSelectedPath()
+                }
+                .store(in: &cancellables)
+
+            accountService.isSignedInPublisher
+                .sink(receiveValue: { [weak self] value in
+                    self?.signedIn = value
+                })
+                .store(in: &cancellables)
         }
 
         @objc

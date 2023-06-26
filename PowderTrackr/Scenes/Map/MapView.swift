@@ -13,12 +13,6 @@ struct MapView: View {
             .ignoresSafeArea()
             VStack(spacing: .zero) {
                 Spacer()
-//                Button {
-//                    viewModel.confirm()
-//                } label: {
-//                    Text("Init tracks")
-//                }
-//                .buttonStyle(SkiingButtonStyle())
                 if viewModel.selectedPath != nil {
                     TrackListItem(
                         track: viewModel.selectedPath!, // swiftlint:disable:this force_unwrapping
@@ -30,7 +24,7 @@ struct MapView: View {
                         isOpened: true
                     )
                     .transition(.push(from: .top))
-                } else {
+                } else if viewModel.signedIn {
                     HStack {
                         if viewModel.isTracking == .off {
                             Spacer()

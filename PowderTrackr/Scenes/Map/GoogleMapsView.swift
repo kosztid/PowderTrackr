@@ -9,6 +9,7 @@ struct GoogleMapsView: UIViewRepresentable {
 
         let friendService: FriendServiceProtocol
         let mapService: MapServiceProtocol
+        let accountService: AccountServiceProtocol
         var innerMapView: GMSMapView?
         var trackedPath: [TrackedPath] = []
         var currentlyTracked: TrackedPath?
@@ -25,6 +26,7 @@ struct GoogleMapsView: UIViewRepresentable {
             self.innerMapView = innerMapView
             self.friendService = Container.friendService()
             self.mapService = Container.mapService()
+            self.accountService = Container.accountService()
             self._selectedPath = selectedPath
             super.init()
 
@@ -54,6 +56,17 @@ struct GoogleMapsView: UIViewRepresentable {
                     self?.currentlyTracked = currentTrack
                     self?.drawMapItems()
                 }
+                .store(in: &cancellables)
+
+            accountService.isSignedInPublisher
+                .sink(receiveValue: { [weak self] value in
+                    if value == false {
+                        self?.trackedPath = []
+                        self?.friendLocations = []
+                        self?.markers = []
+                        self?.drawMapItems()
+                    }
+                })
                 .store(in: &cancellables)
         }
 

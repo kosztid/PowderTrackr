@@ -26,7 +26,7 @@ struct LoginView: View {
                         .foregroundColor(.gray)
                         .padding(.vertical, 32)
                     TextField(text: $viewModel.userName)
-                        .regularTextFieldStyle(label: "UserName")
+                        .regularTextFieldStyle(label: "Username")
                         .padding(.bottom, 16)
                     ToggleableSecureField(text: $viewModel.password)
                         .regularTextFieldStyle(label: "Password")

@@ -37,31 +37,13 @@ final class AccountService {
         Task {
             do {
                 let session = try await Amplify.Auth.fetchAuthSession()
-                
-                // let's update UserData and the UI
+
                 self.isSignedIn.send(session.isSignedIn)
             } catch {
                 print("Fetch auth session failed with error - \(error)")
             }
         }
     }
-    //
-    //
-    //    func deleteLocation(location: Location) async {
-    //
-    //        do {
-    //            guard let data = location.data else { return }
-    //            let result = try await Amplify.API.mutate(request: .delete(data))
-    //            switch result {
-    //            case .success(let data):
-    //                print("Successfully deleted note: \(data)")
-    //            case .failure(let error):
-    //                print("Got failed result with \(error.errorDescription)")
-    //            }
-    //        } catch {
-    //            print("Got failed result with error \(error)")
-    //        }
-    //    }
 }
 
 extension AccountService: AccountServiceProtocol {

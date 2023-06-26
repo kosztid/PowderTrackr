@@ -162,7 +162,6 @@ struct TrackListItem: View {
                 }
                 HStack {
                     Button {
-                        showingDeleteAlert.toggle()
                     } label: {
                         Image(systemName: "square.and.arrow.up")
                     }

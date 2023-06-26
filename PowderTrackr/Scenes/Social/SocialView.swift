@@ -27,6 +27,11 @@ struct SocialView: View {
                 }
             }
         )
+        .overlay {
+            if !viewModel.signedIn {
+                LoggedOutModal()
+            }
+        }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {

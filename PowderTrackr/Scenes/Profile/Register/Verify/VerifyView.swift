@@ -29,7 +29,7 @@ struct VerifyView: View {
                         .regularTextFieldStyle(label: "Verification Code")
                         .padding(.bottom, 16)
                     TextField(text: $viewModel.username)
-                        .regularTextFieldStyle(label: "UserName")
+                        .regularTextFieldStyle(label: "Username")
                         .padding(.bottom, 16)
                     ToggleableSecureField(text: $viewModel.password)
                         .regularTextFieldStyle(label: "Password")

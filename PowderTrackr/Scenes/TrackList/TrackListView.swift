@@ -5,7 +5,7 @@ struct TrackListView: View {
 
     var body: some View {
         SegmentedControl(
-            firstTab: .init(tabItem: .init(name: "Friends")) {
+            firstTab: .init(tabItem: .init(name: "Mine")) {
                 ZStack {
                     ScrollView {
                         LazyVStack {
@@ -25,14 +25,18 @@ struct TrackListView: View {
                 .onAppear(perform: viewModel.onAppear)
                 .navigationBarTitleDisplayMode(.inline)
             },
-            secondTab: .init(tabItem: .init(name: "Groups")) {
+            secondTab: .init(tabItem: .init(name: "Shared")) {
                 VStack {
-                    Text("group1")
-                    Text("group2")
-                    Text("group3")
+                    Text("path1")
+                    Text("path2")
+                    Text("path3")
                 }
             }
         )
-
+        .overlay {
+            if !viewModel.signedIn {
+                LoggedOutModal()
+            }
+        }
     }
 }
