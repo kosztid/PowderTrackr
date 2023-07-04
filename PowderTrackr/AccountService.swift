@@ -13,6 +13,8 @@ public protocol AccountServiceProtocol: AnyObject {
     func signUp(_ username: String, _ email: String, _ password: String) async
     func signIn(_ username: String, _ password: String) async
     func confirmSignUp(with confirmationCode: String, _ username: String, _ password: String) async
+    func resetPassword(username: String) async
+    func confirmResetPassword(username: String, newPassword: String, confirmationCode: String) async
 
     func createFriendList() async
     func createUserTrackedPaths() async
@@ -100,6 +102,41 @@ extension AccountService: AccountServiceProtocol {
         }
     }
 
+    public func resetPassword(username: String) async {
+        do {
+            let resetResult = try await Amplify.Auth.resetPassword(for: username)
+            switch resetResult.nextStep {
+                case .confirmResetPasswordWithCode(let deliveryDetails, let info):
+                    print("Confirm reset password with code send to - \(deliveryDetails) \(String(describing: info))")
+                case .done:
+                    print("Reset completed")
+            }
+        } catch let error as AuthError {
+            print("Reset password failed with error \(error)")
+        } catch {
+            print("Unexpected error: \(error)")
+        }
+    }
+
+    func confirmResetPassword(
+        username: String,
+        newPassword: String,
+        confirmationCode: String
+    ) async {
+        do {
+            try await Amplify.Auth.confirmResetPassword(
+                for: username,
+                with: newPassword,
+                confirmationCode: confirmationCode
+            )
+            print("Password reset confirmed")
+        } catch let error as AuthError {
+            print("Reset password failed with error \(error)")
+        } catch {
+            print("Unexpected error: \(error)")
+        }
+    }
+    
     public func createLocation(xCoord: String, yCoord: String) async {
         do {
             let user = try await Amplify.Auth.getCurrentUser()

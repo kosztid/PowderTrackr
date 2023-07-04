@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct LoginView: View {
+struct ResetPasswordView: View {
     @StateObject var viewModel: ViewModel
 
     var body: some View {
@@ -13,7 +13,7 @@ struct LoginView: View {
                         .font(.largeTitle)
                         .bold()
                         .padding(.bottom, 16)
-                    Text("Login")
+                    Text("Password Reset")
                         .font(.title3)
                         .bold()
                 }
@@ -22,32 +22,18 @@ struct LoginView: View {
             .frame(height: 200)
             ScrollView(showsIndicators: false) {
                 VStack(spacing: .zero) {
-                    Text("Please enter your credentials")
+                    Text("Please type in your username to reset your password.")
                         .foregroundColor(.gray)
                         .padding(.vertical, 32)
-                    TextField(text: $viewModel.userName)
+                    TextField(text: $viewModel.username)
                         .regularTextFieldStyle(label: "Username")
                         .padding(.bottom, 16)
-                    ToggleableSecureField(text: $viewModel.password)
-                        .regularTextFieldStyle(label: "Password")
-                        .padding(.bottom, 8)
-                    HStack {
-                        Button {
-                            viewModel.resetPassword()
-                        } label: {
-                            Text("Forgotten Password")
-                                .font(.caption)
-                        }
-                        .padding(.leading, 12)
-                        Spacer()
-                    }
-                    .padding(.bottom, 16)
                     Button(
                         action: {
-                            viewModel.login()
+                            viewModel.reset()
                         },
                         label: {
-                            Text("Login")
+                            Text("Reset")
                                 .font(.title3)
                         }
                     )
@@ -55,7 +41,7 @@ struct LoginView: View {
                 }
                 .padding(.horizontal, 32)
             }
+            .navigationBarBackButtonHidden(true)
         }
-        .navigationBarBackButtonHidden(true)
     }
 }

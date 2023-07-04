@@ -13,6 +13,8 @@
 		5506F7B92A4723F40000761D /* SegmentedControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5506F7B82A4723F40000761D /* SegmentedControlButton.swift */; };
 		5506F7BB2A4724F50000761D /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5506F7BA2A4724F50000761D /* SegmentedControl.swift */; };
 		5506F7BF2A49E5F10000761D /* LoggedOutModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5506F7BE2A49E5F10000761D /* LoggedOutModal.swift */; };
+		550F65E32A532DDD00797B62 /* ConfirmResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550F65E22A532DDD00797B62 /* ConfirmResetPasswordView.swift */; };
+		550F65E52A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550F65E42A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift */; };
 		5545878D2A3DF8F1009A5485 /* PowderTrackrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545878C2A3DF8F1009A5485 /* PowderTrackrApp.swift */; };
 		5545878F2A3DF8F1009A5485 /* PowderTrackrView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545878E2A3DF8F1009A5485 /* PowderTrackrView.swift */; };
 		554587912A3DF8F2009A5485 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 554587902A3DF8F2009A5485 /* Assets.xcassets */; };
@@ -55,6 +57,8 @@
 		5545881C2A3E30F0009A5485 /* SkiingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545881B2A3E30F0009A5485 /* SkiingButtonStyle.swift */; };
 		5545881E2A3E30F9009A5485 /* SkiingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545881D2A3E30F9009A5485 /* SkiingButton.swift */; };
 		556B616B2A44B08C006B2C68 /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556B616A2A44B08C006B2C68 /* MapService.swift */; };
+		557B1ABE2A52F904007C403E /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557B1ABD2A52F904007C403E /* ResetPasswordView.swift */; };
+		557B1AC02A52F911007C403E /* ResetPasswordView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557B1ABF2A52F911007C403E /* ResetPasswordView+ViewModel.swift */; };
 		558815B42A3E361600667C1A /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558815B12A3E361500667C1A /* Location.swift */; };
 		558815B52A3E361600667C1A /* TrackedPathModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558815B22A3E361600667C1A /* TrackedPathModel.swift */; };
 		558815B62A3E361600667C1A /* Friendlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558815B32A3E361600667C1A /* Friendlist.swift */; };
@@ -109,6 +113,8 @@
 		5506F7B82A4723F40000761D /* SegmentedControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlButton.swift; sourceTree = "<group>"; };
 		5506F7BA2A4724F50000761D /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		5506F7BE2A49E5F10000761D /* LoggedOutModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedOutModal.swift; sourceTree = "<group>"; };
+		550F65E22A532DDD00797B62 /* ConfirmResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmResetPasswordView.swift; sourceTree = "<group>"; };
+		550F65E42A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConfirmResetPasswordView+ViewModel.swift"; sourceTree = "<group>"; };
 		554587892A3DF8F1009A5485 /* PowderTrackr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PowderTrackr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5545878C2A3DF8F1009A5485 /* PowderTrackrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrApp.swift; sourceTree = "<group>"; };
 		5545878E2A3DF8F1009A5485 /* PowderTrackrView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrView.swift; sourceTree = "<group>"; };
@@ -152,6 +158,8 @@
 		5545881B2A3E30F0009A5485 /* SkiingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkiingButtonStyle.swift; sourceTree = "<group>"; };
 		5545881D2A3E30F9009A5485 /* SkiingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkiingButton.swift; sourceTree = "<group>"; };
 		556B616A2A44B08C006B2C68 /* MapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
+		557B1ABD2A52F904007C403E /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
+		557B1ABF2A52F911007C403E /* ResetPasswordView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ResetPasswordView+ViewModel.swift"; sourceTree = "<group>"; };
 		558815B12A3E361500667C1A /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		558815B22A3E361600667C1A /* TrackedPathModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackedPathModel.swift; sourceTree = "<group>"; };
 		558815B32A3E361600667C1A /* Friendlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friendlist.swift; sourceTree = "<group>"; };
@@ -354,6 +362,7 @@
 		554587CA2A3E2F90009A5485 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				557B1ABC2A52F8F7007C403E /* ResetPassword */,
 				554587FB2A3E305D009A5485 /* Login */,
 				554587FA2A3E3058009A5485 /* Register */,
 				554587F52A3E3056009A5485 /* ProfileNavigator.swift */,
@@ -457,6 +466,17 @@
 				5545880E2A3E30EA009A5485 /* ToggleableSecureField.swift */,
 			);
 			path = TextField;
+			sourceTree = "<group>";
+		};
+		557B1ABC2A52F8F7007C403E /* ResetPassword */ = {
+			isa = PBXGroup;
+			children = (
+				557B1ABD2A52F904007C403E /* ResetPasswordView.swift */,
+				557B1ABF2A52F911007C403E /* ResetPasswordView+ViewModel.swift */,
+				550F65E22A532DDD00797B62 /* ConfirmResetPasswordView.swift */,
+				550F65E42A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift */,
+			);
+			path = ResetPassword;
 			sourceTree = "<group>";
 		};
 		558815B02A3E357E00667C1A /* GeneratedModels */ = {
@@ -671,6 +691,7 @@
 				5545878D2A3DF8F1009A5485 /* PowderTrackrApp.swift in Sources */,
 				558815C82A3E366F00667C1A /* FriendRequest.swift in Sources */,
 				5545879C2A3E28F8009A5485 /* TabBarNavigator.swift in Sources */,
+				550F65E32A532DDD00797B62 /* ConfirmResetPasswordView.swift in Sources */,
 				558815FD2A3E388800667C1A /* Friend.swift in Sources */,
 				558816002A3E388800667C1A /* UserfriendList.swift in Sources */,
 				554587A02A3E2923009A5485 /* DI.swift in Sources */,
@@ -683,6 +704,7 @@
 				554588182A3E30EA009A5485 /* SecureTextField+Extensions.swift in Sources */,
 				554588072A3E30B9009A5485 /* LoginView.swift in Sources */,
 				558816032A3E388800667C1A /* AmplifyModels.swift in Sources */,
+				550F65E52A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift in Sources */,
 				556B616B2A44B08C006B2C68 /* MapService.swift in Sources */,
 				554587EF2A3E2FEE009A5485 /* FriendRequestView.swift in Sources */,
 				558815C42A3E366F00667C1A /* AmplifyModels.swift in Sources */,
@@ -696,6 +718,7 @@
 				554588162A3E30EA009A5485 /* LabelViewModifier.swift in Sources */,
 				554587CE2A3E2FA1009A5485 /* TrackListView.swift in Sources */,
 				93721D97E1A81377C189A5E6 /* Friend+Schema.swift in Sources */,
+				557B1ABE2A52F904007C403E /* ResetPasswordView.swift in Sources */,
 				554588002A3E306B009A5485 /* VerifyView+ViewModel.swift in Sources */,
 				558816122A3E3E7700667C1A /* AppDelegate.swift in Sources */,
 				558815B42A3E361600667C1A /* Location.swift in Sources */,
@@ -704,6 +727,7 @@
 				554588032A3E3071009A5485 /* RegisterView+ViewModel.swift in Sources */,
 				DCE7BC632FFF04AB8DE4051A /* Friend.swift in Sources */,
 				72D311DB8DCEA24E0C4CB14B /* FriendRequest+Schema.swift in Sources */,
+				557B1AC02A52F911007C403E /* ResetPasswordView+ViewModel.swift in Sources */,
 				554587FF2A3E306B009A5485 /* VerifyView.swift in Sources */,
 				558815C72A3E366F00667C1A /* UserTrackedPaths+Schema.swift in Sources */,
 				554588192A3E30EA009A5485 /* TextFieldBorderViewModifier.swift in Sources */,

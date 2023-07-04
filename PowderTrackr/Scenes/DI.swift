@@ -44,6 +44,35 @@ extension Container {
         }
     }
 
+    enum PasswordReset {
+        static let view = ParameterFactory { navigator in
+            ResetPasswordView(
+                viewModel: viewModel(navigator)
+            )
+        }
+        static let viewModel = ParameterFactory { navigator in
+            ResetPasswordView.ViewModel(
+                navigator: navigator,
+                accountService: accountService()
+            )
+        }
+    }
+
+    enum PasswordResetConfirmation {
+        static let view = ParameterFactory { navigator, username in
+            ConfirmResetPasswordView(
+                viewModel: viewModel((navigator, username))
+            )
+        }
+        static let viewModel = ParameterFactory { navigator, username in
+            ConfirmResetPasswordView.ViewModel(
+                navigator: navigator,
+                accountService: accountService(),
+                username: username
+            )
+        }
+    }
+
     enum RegisterVerify {
         static let view = ParameterFactory { navigator in
             VerifyView(

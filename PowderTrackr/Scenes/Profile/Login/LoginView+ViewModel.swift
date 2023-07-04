@@ -19,6 +19,10 @@ extension LoginView {
             navigator.loggedIn()
         }
 
+        func resetPassword() {
+            navigator.navigateToResetPassword()
+        }
+
         func bindPublishers() {
             accountService.isSignedInPublisher
                 .sink { _ in

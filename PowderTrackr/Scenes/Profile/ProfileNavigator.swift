@@ -7,6 +7,8 @@ public enum ProfileScreen {
     case login
     case register
     case verify
+    case resetPassword
+    case resetPasswordConfirmation(username: String)
 }
 
 protocol ProfileViewNavigatorProtocol {
@@ -24,6 +26,17 @@ protocol RegisterVerificationViewNavigatorProtocol {
 
 protocol LoginViewNavigatorProtocol {
     func loggedIn()
+    func navigateToResetPassword()
+}
+
+protocol ResetPasswordViewNavigatorProtocol {
+    func resetButtonTapped(username: String)
+    func dismiss()
+}
+
+protocol ResetPasswordVerificationNavigatorProtocol {
+    func verifyButtonTapped()
+    func dismiss()
 }
 
 public struct ProfileNavigator: Navigator {
@@ -40,6 +53,10 @@ public struct ProfileNavigator: Navigator {
                 ViewFactory.registerView(navigator: self)
             case .verify:
                 ViewFactory.registerVerificationView(navigator: self)
+            case .resetPassword:
+                ViewFactory.resetPasswordView(navigator: self)
+            case .resetPasswordConfirmation(let username):
+                ViewFactory.confirmResetPasswordView(navigator: self, username: username)
             }
         }
     }
@@ -61,6 +78,10 @@ extension ProfileNavigator: ProfileViewNavigatorProtocol {
 }
 
 extension ProfileNavigator: LoginViewNavigatorProtocol {
+    func navigateToResetPassword() {
+        routes.push(.resetPassword)
+    }
+
     func loggedIn() {
         routes.popToRoot()
     }
@@ -74,6 +95,22 @@ extension ProfileNavigator: RegisterViewNavigatorProtocol {
 
 extension ProfileNavigator: RegisterVerificationViewNavigatorProtocol {
     func verified() {
+        routes.popToRoot()
+    }
+}
+
+extension ProfileNavigator: ResetPasswordViewNavigatorProtocol {
+    func resetButtonTapped(username: String) {
+        routes.push(.resetPasswordConfirmation(username: username))
+    }
+
+    func dismiss() {
+        routes.popToRoot()
+    }
+}
+
+extension ProfileNavigator: ResetPasswordVerificationNavigatorProtocol {
+    func verifyButtonTapped() {
         routes.popToRoot()
     }
 }

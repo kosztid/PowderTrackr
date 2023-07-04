@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct LoginView: View {
+struct ConfirmResetPasswordView: View {
     @StateObject var viewModel: ViewModel
 
     var body: some View {
@@ -13,7 +13,7 @@ struct LoginView: View {
                         .font(.largeTitle)
                         .bold()
                         .padding(.bottom, 16)
-                    Text("Login")
+                    Text("Verification")
                         .font(.title3)
                         .bold()
                 }
@@ -22,32 +22,25 @@ struct LoginView: View {
             .frame(height: 200)
             ScrollView(showsIndicators: false) {
                 VStack(spacing: .zero) {
-                    Text("Please enter your credentials")
+                    Text("Please enter the verification code from the password reset email to reset password for user: \(viewModel.username)")
                         .foregroundColor(.gray)
                         .padding(.vertical, 32)
-                    TextField(text: $viewModel.userName)
+                    TextField(text: $viewModel.verificationCode)
+                        .regularTextFieldStyle(label: "Verification Code")
+                        .padding(.bottom, 16)
+                    TextField(text: $viewModel.username)
                         .regularTextFieldStyle(label: "Username")
                         .padding(.bottom, 16)
+                        .disabled(true)
                     ToggleableSecureField(text: $viewModel.password)
                         .regularTextFieldStyle(label: "Password")
-                        .padding(.bottom, 8)
-                    HStack {
-                        Button {
-                            viewModel.resetPassword()
-                        } label: {
-                            Text("Forgotten Password")
-                                .font(.caption)
-                        }
-                        .padding(.leading, 12)
-                        Spacer()
-                    }
-                    .padding(.bottom, 16)
+                        .padding(.bottom, 16)
                     Button(
                         action: {
-                            viewModel.login()
+                            viewModel.verify()
                         },
                         label: {
-                            Text("Login")
+                            Text("Verify")
                                 .font(.title3)
                         }
                     )
@@ -55,7 +48,7 @@ struct LoginView: View {
                 }
                 .padding(.horizontal, 32)
             }
+            .navigationBarBackButtonHidden(true)
         }
-        .navigationBarBackButtonHidden(true)
     }
 }
