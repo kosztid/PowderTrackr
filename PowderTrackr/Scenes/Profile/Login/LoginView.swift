@@ -56,6 +56,16 @@ struct LoginView: View {
                 .padding(.horizontal, 32)
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    viewModel.dismiss()
+                } label: {
+                    Image(systemName: "arrowshape.turn.up.backward.fill")
+                        .foregroundColor(.white)
+                }
+            }
+        }
         .navigationBarBackButtonHidden(true)
     }
 }

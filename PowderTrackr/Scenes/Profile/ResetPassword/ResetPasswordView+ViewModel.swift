@@ -14,6 +14,10 @@ extension ResetPasswordView {
             navigator.resetButtonTapped(username: username)
         }
 
+        func navigateBack() {
+            navigator.navigateBack()
+        }
+
         init(
             navigator: ResetPasswordViewNavigatorProtocol,
             accountService: AccountServiceProtocol

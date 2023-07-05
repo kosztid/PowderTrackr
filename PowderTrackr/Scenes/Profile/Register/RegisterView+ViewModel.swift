@@ -16,6 +16,10 @@ extension RegisterView {
             navigator.registered()
         }
 
+        func dismiss() {
+            navigator.dismiss()
+        }
+
         init(
             navigator: RegisterViewNavigatorProtocol,
             accountService: AccountServiceProtocol

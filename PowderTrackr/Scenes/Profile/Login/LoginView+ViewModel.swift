@@ -13,7 +13,6 @@ extension LoginView {
 
         func login() {
             Task {
-//                await accountService.login()
                 await accountService.signIn(userName, password)
             }
             navigator.loggedIn()
@@ -21,6 +20,10 @@ extension LoginView {
 
         func resetPassword() {
             navigator.navigateToResetPassword()
+        }
+
+        func dismiss() {
+            navigator.dismiss()
         }
 
         func bindPublishers() {

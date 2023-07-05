@@ -18,6 +18,7 @@ protocol ProfileViewNavigatorProtocol {
 
 protocol RegisterViewNavigatorProtocol {
     func registered()
+    func dismiss()
 }
 
 protocol RegisterVerificationViewNavigatorProtocol {
@@ -27,16 +28,17 @@ protocol RegisterVerificationViewNavigatorProtocol {
 protocol LoginViewNavigatorProtocol {
     func loggedIn()
     func navigateToResetPassword()
+    func dismiss()
 }
 
 protocol ResetPasswordViewNavigatorProtocol {
     func resetButtonTapped(username: String)
-    func dismiss()
+    func navigateBack()
 }
 
 protocol ResetPasswordVerificationNavigatorProtocol {
     func verifyButtonTapped()
-    func dismiss()
+    func navigateBack()
 }
 
 public struct ProfileNavigator: Navigator {
@@ -85,6 +87,10 @@ extension ProfileNavigator: LoginViewNavigatorProtocol {
     func loggedIn() {
         routes.popToRoot()
     }
+
+    func dismiss() {
+        routes.popToRoot()
+    }
 }
 
 extension ProfileNavigator: RegisterViewNavigatorProtocol {
@@ -100,12 +106,12 @@ extension ProfileNavigator: RegisterVerificationViewNavigatorProtocol {
 }
 
 extension ProfileNavigator: ResetPasswordViewNavigatorProtocol {
-    func resetButtonTapped(username: String) {
-        routes.push(.resetPasswordConfirmation(username: username))
+    func navigateBack() {
+        routes.pop(1)
     }
 
-    func dismiss() {
-        routes.popToRoot()
+    func resetButtonTapped(username: String) {
+        routes.push(.resetPasswordConfirmation(username: username))
     }
 }
 
