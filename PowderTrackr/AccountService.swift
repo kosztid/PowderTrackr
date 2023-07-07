@@ -14,6 +14,7 @@ public protocol AccountServiceProtocol: AnyObject {
     func signIn(_ username: String, _ password: String) async
     func confirmSignUp(with confirmationCode: String, _ username: String, _ password: String) async
     func resetPassword(username: String) async
+    func changePassword(oldPassword: String, newPassword: String) async
     func confirmResetPassword(username: String, newPassword: String, confirmationCode: String) async
 
     func createFriendList() async
@@ -113,6 +114,17 @@ extension AccountService: AccountServiceProtocol {
             }
         } catch let error as AuthError {
             print("Reset password failed with error \(error)")
+        } catch {
+            print("Unexpected error: \(error)")
+        }
+    }
+
+    func changePassword(oldPassword: String, newPassword: String) async {
+        do {
+            try await Amplify.Auth.update(oldPassword: oldPassword, to: newPassword)
+            print("Change password succeeded")
+        } catch let error as AuthError {
+            print("Change password failed with error \(error)")
         } catch {
             print("Unexpected error: \(error)")
         }

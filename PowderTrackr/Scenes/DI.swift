@@ -73,6 +73,19 @@ extension Container {
         }
     }
 
+    enum PasswordUpdate {
+        static let view = ParameterFactory { navigator in
+            ChangePasswordView(viewModel: viewModel(navigator))
+        }
+
+        static let viewModel = ParameterFactory { navigator in
+            ChangePasswordView.ViewModel(
+                navigator: navigator,
+                accountService: accountService()
+            )
+        }
+    }
+
     enum RegisterVerify {
         static let view = ParameterFactory { navigator in
             VerifyView(

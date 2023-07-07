@@ -20,6 +20,10 @@ enum ViewFactory {
         Container.PasswordResetConfirmation.view((navigator, username))
     }
 
+    static func updatePasswordView(navigator: ChangePasswordViewNavigatorProtocol) -> ChangePasswordView {
+        Container.PasswordUpdate.view(navigator)
+    }
+
     static func registerView(navigator: RegisterViewNavigatorProtocol) -> RegisterView {
         Container.Register.view(navigator)
     }

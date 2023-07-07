@@ -9,11 +9,13 @@ public enum ProfileScreen {
     case verify
     case resetPassword
     case resetPasswordConfirmation(username: String)
+    case updatePassword
 }
 
 protocol ProfileViewNavigatorProtocol {
     func login()
     func register()
+    func updatePassword()
 }
 
 protocol RegisterViewNavigatorProtocol {
@@ -35,6 +37,13 @@ protocol ResetPasswordViewNavigatorProtocol {
     func resetButtonTapped(username: String)
     func navigateBack()
 }
+
+
+protocol ChangePasswordViewNavigatorProtocol {
+    func changeButtonTapped()
+    func navigateBack()
+}
+
 
 protocol ResetPasswordVerificationNavigatorProtocol {
     func verifyButtonTapped()
@@ -59,6 +68,8 @@ public struct ProfileNavigator: Navigator {
                 ViewFactory.resetPasswordView(navigator: self)
             case .resetPasswordConfirmation(let username):
                 ViewFactory.confirmResetPasswordView(navigator: self, username: username)
+            case .updatePassword:
+                ViewFactory.updatePasswordView(navigator: self)
             }
         }
     }
@@ -70,6 +81,9 @@ public struct ProfileNavigator: Navigator {
 }
 
 extension ProfileNavigator: ProfileViewNavigatorProtocol {
+    func updatePassword() {
+        routes.push(.updatePassword)
+    }
     func login() {
         routes.push(.login)
     }
@@ -112,6 +126,12 @@ extension ProfileNavigator: ResetPasswordViewNavigatorProtocol {
 
     func resetButtonTapped(username: String) {
         routes.push(.resetPasswordConfirmation(username: username))
+    }
+}
+
+extension ProfileNavigator: ChangePasswordViewNavigatorProtocol {
+    func changeButtonTapped() {
+        routes.goBackToRoot()
     }
 }
 

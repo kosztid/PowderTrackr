@@ -112,5 +112,9 @@ extension ProfileView {
             totalTime = formatter.string(from: totalDate) ?? ""
             totalDistance = total
         }
+
+        func updatePasswordTapped() {
+            navigator.updatePassword()
+        }
     }
 }

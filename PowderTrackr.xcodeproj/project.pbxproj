@@ -86,6 +86,8 @@
 		558816152A3E426200667C1A /* AWSAPIPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 558816142A3E426200667C1A /* AWSAPIPlugin */; };
 		558816172A3E426200667C1A /* AWSCognitoAuthPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 558816162A3E426200667C1A /* AWSCognitoAuthPlugin */; };
 		55A318552A4625DA00EB0C5E /* FriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A318542A4625DA00EB0C5E /* FriendService.swift */; };
+		55DE1DC02A56D1C300BAD8E4 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE1DBF2A56D1C300BAD8E4 /* ChangePasswordView.swift */; };
+		55DE1DC22A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE1DC12A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift */; };
 		72D311DB8DCEA24E0C4CB14B /* FriendRequest+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D681CDF9130A0F1615DA65 /* FriendRequest+Schema.swift */; };
 		89E77F0BA3478441D85A6533 /* TrackedPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D60D5E7FF5741E73110C72 /* TrackedPath.swift */; };
 		93721D97E1A81377C189A5E6 /* Friend+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C663D785B3B203B1BDAEE41 /* Friend+Schema.swift */; };
@@ -185,6 +187,8 @@
 		558815FC2A3E388800667C1A /* TrackedPath+Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TrackedPath+Schema.swift"; path = "amplify/generated/models/TrackedPath+Schema.swift"; sourceTree = SOURCE_ROOT; };
 		558816112A3E3E7700667C1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55A318542A4625DA00EB0C5E /* FriendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendService.swift; sourceTree = "<group>"; };
+		55DE1DBF2A56D1C300BAD8E4 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		55DE1DC12A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChangePasswordView+ViewModel.swift"; sourceTree = "<group>"; };
 		6C230E5414AAD2FFE38AB6C2 /* UserfriendList+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "UserfriendList+Schema.swift"; path = "amplify/generated/models/UserfriendList+Schema.swift"; sourceTree = "<group>"; };
 		705F020E722E17762F7F9CEC /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		9C663D785B3B203B1BDAEE41 /* Friend+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "Friend+Schema.swift"; path = "amplify/generated/models/Friend+Schema.swift"; sourceTree = "<group>"; };
@@ -362,6 +366,7 @@
 		554587CA2A3E2F90009A5485 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				55DE1DBE2A56D1B200BAD8E4 /* ChangePassword */,
 				557B1ABC2A52F8F7007C403E /* ResetPassword */,
 				554587FB2A3E305D009A5485 /* Login */,
 				554587FA2A3E3058009A5485 /* Register */,
@@ -497,6 +502,15 @@
 				558815F22A3E388800667C1A /* UserTrackedPaths+Schema.swift */,
 			);
 			path = GeneratedModels;
+			sourceTree = "<group>";
+		};
+		55DE1DBE2A56D1B200BAD8E4 /* ChangePassword */ = {
+			isa = PBXGroup;
+			children = (
+				55DE1DBF2A56D1C300BAD8E4 /* ChangePasswordView.swift */,
+				55DE1DC12A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift */,
+			);
+			path = ChangePassword;
 			sourceTree = "<group>";
 		};
 		5E6D29CCC1ADDD8AED7E08EB /* AmplifyModels */ = {
@@ -680,6 +694,7 @@
 				558816042A3E388800667C1A /* UserTrackedPaths.swift in Sources */,
 				558815CF2A3E366F00667C1A /* CurrentPosition.swift in Sources */,
 				558815C92A3E366F00667C1A /* UserTrackedPaths.swift in Sources */,
+				55DE1DC22A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift in Sources */,
 				554587A62A3E293F009A5485 /* GoogleMapsView.swift in Sources */,
 				554588082A3E30B9009A5485 /* LoginView+ViewModel.swift in Sources */,
 				554587F82A3E3056009A5485 /* ProfileNavigator.swift in Sources */,
@@ -736,6 +751,7 @@
 				554587CF2A3E2FA1009A5485 /* TrackListView+ViewModel.swift in Sources */,
 				4A3B233B69AC5E3B3974F105 /* FriendRequest.swift in Sources */,
 				558815FE2A3E388800667C1A /* FriendRequest.swift in Sources */,
+				55DE1DC02A56D1C300BAD8E4 /* ChangePasswordView.swift in Sources */,
 				554588152A3E30EA009A5485 /* ToggleableSecureField.swift in Sources */,
 				B789E914BFCB37F8743765B0 /* TrackedPath+Schema.swift in Sources */,
 				554588142A3E30EA009A5485 /* BaseTextFieldStyleViewModifier.swift in Sources */,

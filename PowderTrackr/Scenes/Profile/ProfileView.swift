@@ -81,12 +81,23 @@ struct ProfileView: View {
                     userData
                     Divider()
                         .padding(.vertical, 8)
-                    Button {
-                        viewModel.logout()
-                    } label: {
-                        Text("Logout")
+                    Divider()
+                        .padding(.vertical, 8)
+                    HStack {
+                        Button {
+                            viewModel.updatePasswordTapped()
+                        } label: {
+                            Text("Update password")
+                        }
+                        .buttonStyle(SkiingButtonStyle(style: .bordered))
+                        Spacer()
+                        Button {
+                            viewModel.logout()
+                        } label: {
+                            Text("Logout")
+                        }
+                        .buttonStyle(SkiingButtonStyle(style: .secondary))
                     }
-                    .buttonStyle(SkiingButtonStyle(style: .secondary))
                 }
                 .padding(.horizontal, 8)
             }
