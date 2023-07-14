@@ -5,17 +5,21 @@ import UIKit
 public protocol MapServiceProtocol: AnyObject {
     var trackingPublisher: AnyPublisher<TrackedPath?, Never> { get }
     var trackedPathPublisher: AnyPublisher<TrackedPathModel?, Never> { get }
+    var sharedPathPublisher: AnyPublisher<TrackedPathModel?, Never> { get }
 
     func updateTrackedPath(_ trackedPath: TrackedPath) async
     func updateTrack(_ trackedPath: TrackedPath) async
+    func shareTrack(_ trackedPath: TrackedPath, _ friend: String) async
     func removeTrackedPath(_ trackedPath: TrackedPath) async
     func queryTrackedPaths() async
+    func querySharedPaths() async
     func sendCurrentlyTracked(_ trackedPath: TrackedPath) async
 }
 
 final class MapService {
     private let tracking: CurrentValueSubject<TrackedPath?, Never> = .init(nil)
     private let trackedPathModel: CurrentValueSubject<TrackedPathModel?, Never> = .init(nil)
+    private let sharedPathModel: CurrentValueSubject<TrackedPathModel?, Never> = .init(nil)
     private var cancellables: Set<AnyCancellable> = []
 }
 
@@ -36,6 +40,15 @@ extension MapService: MapServiceProtocol {
             .eraseToAnyPublisher()
     }
 
+    var sharedPathPublisher: AnyPublisher<TrackedPathModel?, Never> {
+        sharedPathModel
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
+
+    func shareTrack(_ trackedPath: TrackedPath, _ friend: String) async {
+    }
+
     func queryTrackedPaths() async {
         do {
             let queryResult = try await Amplify.API.query(request: .list(UserTrackedPaths.self))
@@ -50,7 +63,24 @@ extension MapService: MapServiceProtocol {
 
             trackedPathModel.send(currentPaths)
         } catch {
-            print("Can not retrieve friendlocation : error \(error)")
+            print("Can not retrieve queryTrackedPaths : error \(error)")
+        }
+    }
+
+    func querySharedPaths() async {
+        do {
+            let queryResult = try await Amplify.API.query(request: .list(UserTrackedPaths.self))
+
+            let user = try await Amplify.Auth.getCurrentUser()
+
+            let result = try queryResult.get().elements.map { model in
+                TrackedPathModel(from: model)
+            }
+//            let sharedPaths = result.first { $0.shared.contains(user.username) }
+
+//            sharedPathModel.send(sharedPaths)
+        } catch {
+            print("Can not retrieve queryTrackedPaths : error \(error)")
         }
     }
 

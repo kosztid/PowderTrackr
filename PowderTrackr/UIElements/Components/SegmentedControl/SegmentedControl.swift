@@ -59,7 +59,7 @@ public struct SegmentedControl<Content1: View, Content2: View>: View {
                 secondTab()
                     .tag(1)
             }
-            
+            .tabViewStyle(.page(indexDisplayMode: .never))
             .navigationBarHidden(false)
         }
         .padding(.top, 16)
@@ -77,17 +77,17 @@ public struct SegmentedControl<Content1: View, Content2: View>: View {
 
 #if DEBUG
 
-struct AllwynSegmentedControl_Previews: PreviewProvider {
+struct SegmentedControl_Previews: PreviewProvider {
     static var previews: some View {
         SegmentedControl(
-            firstTab: .init(tabItem: .init(name: "DRAW GAMES")) {
+            firstTab: .init(tabItem: .init(name: "LISTA")) {
                 VStack {
                     Text("123")
                     Text("123")
                     Text("123")
                 }
             },
-            secondTab: .init(tabItem: .init(name: "INSTANT GAMES")) {
+            secondTab: .init(tabItem: .init(name: "LISTB")) {
                 VStack {
                     Text("asd")
                     Text("asd")

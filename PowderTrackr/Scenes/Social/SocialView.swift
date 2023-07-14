@@ -14,7 +14,6 @@ struct SocialView: View {
                             }
                             .listRowSeparator(.hidden)
                         }
-                        .onDelete(perform: viewModel.delete)
                     }
                     .listStyle(.plain)
                 }

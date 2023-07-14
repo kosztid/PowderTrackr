@@ -10,6 +10,7 @@ extension TrackListView {
         let accountService: AccountServiceProtocol
 
         @Published var tracks: [TrackedPath] = []
+        @Published var sharedTracks: [TrackedPath] = []
         @Published var signedIn = false
 
         init(
@@ -23,6 +24,13 @@ extension TrackListView {
                 .sink { _ in
                 } receiveValue: { [weak self] track in
                     self?.tracks = track?.tracks ?? []
+                }
+                .store(in: &cancellables)
+
+            mapService.sharedPathPublisher
+                .sink { _ in
+                } receiveValue: { [weak self] track in
+                    self?.sharedTracks = track?.tracks ?? []
                 }
                 .store(in: &cancellables)
 
@@ -55,6 +63,7 @@ extension TrackListView {
         func onAppear() {
             Task {
                 await mapService.queryTrackedPaths()
+                await mapService.querySharedPaths()
             }
         }
 
@@ -69,6 +78,13 @@ extension TrackListView {
                 await mapService.updateTrack(trackedPath)
             }
         }
+
+        func shareTrack(_ trackedPath: TrackedPath, friend: String) {
+            Task {
+                await mapService.shareTrack(trackedPath, friend)
+            }
+        }
+
 
         func addNote(_ note: String, _ trackedPath: TrackedPath) {
             Task {

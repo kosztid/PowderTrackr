@@ -1,6 +1,12 @@
 import SwiftUI
 
 struct TrackListItem: View {
+    enum Style {
+        case normal
+        case shared
+    }
+
+    let style: Style
     let dateFormatter: DateFormatter
     let formatter: DateComponentsFormatter
     var track: TrackedPath
@@ -8,6 +14,7 @@ struct TrackListItem: View {
         "Note1 description something",
         "Note2 description something"
     ]
+    let shareAction: (_ trackedPath: TrackedPath, _ userName: String) -> Void
     let closeAction: () -> Void
     let updateAction: (_ trackedPath: TrackedPath) -> Void
     let noteAction: (_ note: String, _ trackedPath: TrackedPath) -> Void
@@ -154,37 +161,8 @@ struct TrackListItem: View {
                 Toggle(isOn: $isShowingOnMap) {
                 }
             }
-            VStack(spacing: .zero) {
-                Divider()
-                    .padding(.vertical, 8)
-                if !openedInitially {
-                    notesSection
-                }
-                HStack {
-                    Button {
-                    } label: {
-                        Image(systemName: "square.and.arrow.up")
-                    }
-                    .buttonStyle(SkiingButtonStyle(style: .secondary))
-                    .padding(.top, 8)
-                    Button {
-                        name = track.name
-                        showingRenameAlert.toggle()
-                    } label: {
-                        Text("Rename run")
-                            .frame(width: 95)
-                    }
-                    .buttonStyle(SkiingButtonStyle(style: .secondary))
-                    .padding(.top, 8)
-                    Button {
-                        showingDeleteAlert.toggle()
-                    } label: {
-                        Text("Delete run")
-                            .frame(width: 95)
-                    }
-                    .buttonStyle(SkiingButtonStyle(style: .borderedRed))
-                    .padding(.top, 8)
-                }
+            if style == .normal {
+                normalSection
             }
         }
         .onChange(of: isShowingOnMap) { newValue in
@@ -198,6 +176,40 @@ struct TrackListItem: View {
         }
     }
 
+    var normalSection: some View {
+        VStack(spacing: .zero) {
+            Divider()
+                .padding(.vertical, 8)
+            if !openedInitially {
+                notesSection
+            }
+            HStack {
+                Button {
+                } label: {
+                    Image(systemName: "square.and.arrow.up")
+                }
+                .buttonStyle(SkiingButtonStyle(style: .secondary))
+                .padding(.top, 8)
+                Button {
+                    name = track.name
+                    showingRenameAlert.toggle()
+                } label: {
+                    Text("Rename run")
+                        .frame(width: 95)
+                }
+                .buttonStyle(SkiingButtonStyle(style: .secondary))
+                .padding(.top, 8)
+                Button {
+                    showingDeleteAlert.toggle()
+                } label: {
+                    Text("Delete run")
+                        .frame(width: 95)
+                }
+                .buttonStyle(SkiingButtonStyle(style: .borderedRed))
+                .padding(.top, 8)
+            }
+        }
+    }
     var notesSection: some View {
         Group {
             HStack {
@@ -227,10 +239,12 @@ struct TrackListItem: View {
 
     init(
         track: TrackedPath,
+        style: Style = .normal,
+        shareAction: @escaping (_ trackedPath: TrackedPath, _ userName: String) -> Void = { _, _ in },
         closeAction: @escaping () -> Void = {},
-        updateAction: @escaping (_ trackedPath: TrackedPath) -> Void,
-        noteAction: @escaping (_ note: String, _ trackedPath: TrackedPath) -> Void,
-        deleteAction: @escaping (_ trackedPath: TrackedPath) -> Void,
+        updateAction: @escaping (_ trackedPath: TrackedPath) -> Void = { _ in },
+        noteAction: @escaping (_ note: String, _ trackedPath: TrackedPath) -> Void = { _, _ in },
+        deleteAction: @escaping (_ trackedPath: TrackedPath) -> Void = { _ in },
         totalDistance: Double,
         isOpened: Bool = false,
         note: String = "",
@@ -239,6 +253,8 @@ struct TrackListItem: View {
         showingRenameAlert: Bool = false
     ) {
         self.track = track
+        self.style = style
+        self.shareAction = shareAction
         self.closeAction = closeAction
         self.updateAction = updateAction
         self.noteAction = noteAction
