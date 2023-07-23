@@ -80,6 +80,7 @@ extension TrackListView {
         }
 
         func shareTrack(_ trackedPath: TrackedPath, friend: String) {
+            print("sharing: \(trackedPath) with \(friend)")
             Task {
                 await mapService.shareTrack(trackedPath, friend)
             }

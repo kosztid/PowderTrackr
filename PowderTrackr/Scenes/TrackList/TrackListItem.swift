@@ -29,6 +29,7 @@ struct TrackListItem: View {
     @State var name = ""
     @State var isShowingOnMap = false
     @State private var showingAlert = false
+    @State private var showingShareAlert = false
     @State private var showingDeleteAlert = false
     @State private var showingRenameAlert = false
 
@@ -88,8 +89,24 @@ struct TrackListItem: View {
             }
         }
         .background()
+        .alert("Share run...", isPresented: $showingShareAlert) {
+            TextField("Enter recipient...", text: $name)
+                .autocorrectionDisabled(true)
+            Button("Share") {
+                shareAction(track, name)
+                name = ""
+                showingShareAlert.toggle()
+            }
+            Button(
+                "Cancel",
+                role: .cancel
+            ) {
+                name = ""
+                showingShareAlert.toggle()
+            }
+        }
         .alert("Rename run...", isPresented: $showingRenameAlert) {
-            TextField("Enter the new name", text: $name)
+            TextField("Enter the new name...", text: $name)
                 .autocorrectionDisabled(true)
             Button("Rename") {
                 var newTrack = track
@@ -185,6 +202,7 @@ struct TrackListItem: View {
             }
             HStack {
                 Button {
+                    showingShareAlert.toggle()
                 } label: {
                     Image(systemName: "square.and.arrow.up")
                 }
