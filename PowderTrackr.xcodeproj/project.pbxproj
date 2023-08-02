@@ -85,9 +85,14 @@
 		558816122A3E3E7700667C1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558816112A3E3E7700667C1A /* AppDelegate.swift */; };
 		558816152A3E426200667C1A /* AWSAPIPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 558816142A3E426200667C1A /* AWSAPIPlugin */; };
 		558816172A3E426200667C1A /* AWSCognitoAuthPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 558816162A3E426200667C1A /* AWSCognitoAuthPlugin */; };
+		558A21702A73DDE300819256 /* GroupListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A216F2A73DDE300819256 /* GroupListItem.swift */; };
+		558A21722A73E15800819256 /* GroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A21712A73E15800819256 /* GroupView.swift */; };
 		55A318552A4625DA00EB0C5E /* FriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A318542A4625DA00EB0C5E /* FriendService.swift */; };
 		55DE1DC02A56D1C300BAD8E4 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE1DBF2A56D1C300BAD8E4 /* ChangePasswordView.swift */; };
 		55DE1DC22A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE1DC12A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift */; };
+		55E98BAF2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E98BAE2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift */; };
+		55E98BB12A73F14A00634917 /* PowderTrackrChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E98BB02A73F14A00634917 /* PowderTrackrChatView.swift */; };
+		55E98BB42A73FB7800634917 /* Chat in Frameworks */ = {isa = PBXBuildFile; productRef = 55E98BB32A73FB7800634917 /* Chat */; };
 		72D311DB8DCEA24E0C4CB14B /* FriendRequest+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D681CDF9130A0F1615DA65 /* FriendRequest+Schema.swift */; };
 		89E77F0BA3478441D85A6533 /* TrackedPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D60D5E7FF5741E73110C72 /* TrackedPath.swift */; };
 		93721D97E1A81377C189A5E6 /* Friend+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C663D785B3B203B1BDAEE41 /* Friend+Schema.swift */; };
@@ -186,9 +191,13 @@
 		558815FB2A3E388800667C1A /* UserfriendList+Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UserfriendList+Schema.swift"; path = "amplify/generated/models/UserfriendList+Schema.swift"; sourceTree = SOURCE_ROOT; };
 		558815FC2A3E388800667C1A /* TrackedPath+Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TrackedPath+Schema.swift"; path = "amplify/generated/models/TrackedPath+Schema.swift"; sourceTree = SOURCE_ROOT; };
 		558816112A3E3E7700667C1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		558A216F2A73DDE300819256 /* GroupListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListItem.swift; sourceTree = "<group>"; };
+		558A21712A73E15800819256 /* GroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupView.swift; sourceTree = "<group>"; };
 		55A318542A4625DA00EB0C5E /* FriendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendService.swift; sourceTree = "<group>"; };
 		55DE1DBF2A56D1C300BAD8E4 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		55DE1DC12A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChangePasswordView+ViewModel.swift"; sourceTree = "<group>"; };
+		55E98BAE2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PowderTrackrChatView+ViewModel.swift"; sourceTree = "<group>"; };
+		55E98BB02A73F14A00634917 /* PowderTrackrChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrChatView.swift; sourceTree = "<group>"; };
 		6C230E5414AAD2FFE38AB6C2 /* UserfriendList+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "UserfriendList+Schema.swift"; path = "amplify/generated/models/UserfriendList+Schema.swift"; sourceTree = "<group>"; };
 		705F020E722E17762F7F9CEC /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		9C663D785B3B203B1BDAEE41 /* Friend+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "Friend+Schema.swift"; path = "amplify/generated/models/Friend+Schema.swift"; sourceTree = "<group>"; };
@@ -206,6 +215,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E98BB42A73FB7800634917 /* Chat in Frameworks */,
 				558816152A3E426200667C1A /* AWSAPIPlugin in Frameworks */,
 				D8A0D06AF22C12389ABF7C02 /* Pods_PowderTrackr.framework in Frameworks */,
 				558816172A3E426200667C1A /* AWSCognitoAuthPlugin in Frameworks */,
@@ -353,6 +363,7 @@
 		554587C92A3E2F8C009A5485 /* Social */ = {
 			isa = PBXGroup;
 			children = (
+				55E98BAD2A73F11F00634917 /* ChatView */,
 				554587EB2A3E2FDC009A5485 /* FriendRequest */,
 				554587EA2A3E2FCC009A5485 /* FriendAdd */,
 				554587E72A3E2FB4009A5485 /* Components */,
@@ -381,6 +392,8 @@
 			isa = PBXGroup;
 			children = (
 				554587E82A3E2FC4009A5485 /* FriendListItem.swift */,
+				558A216F2A73DDE300819256 /* GroupListItem.swift */,
+				558A21712A73E15800819256 /* GroupView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -513,6 +526,15 @@
 			path = ChangePassword;
 			sourceTree = "<group>";
 		};
+		55E98BAD2A73F11F00634917 /* ChatView */ = {
+			isa = PBXGroup;
+			children = (
+				55E98BAE2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift */,
+				55E98BB02A73F14A00634917 /* PowderTrackrChatView.swift */,
+			);
+			path = ChatView;
+			sourceTree = "<group>";
+		};
 		5E6D29CCC1ADDD8AED7E08EB /* AmplifyModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -570,6 +592,7 @@
 			packageProductDependencies = (
 				558816142A3E426200667C1A /* AWSAPIPlugin */,
 				558816162A3E426200667C1A /* AWSCognitoAuthPlugin */,
+				55E98BB32A73FB7800634917 /* Chat */,
 			);
 			productName = PowderTrackr;
 			productReference = 554587892A3DF8F1009A5485 /* PowderTrackr.app */;
@@ -601,6 +624,7 @@
 			mainGroup = 554587802A3DF8F1009A5485;
 			packageReferences = (
 				558816132A3E426200667C1A /* XCRemoteSwiftPackageReference "amplify-swift" */,
+				55E98BB22A73FB7800634917 /* XCRemoteSwiftPackageReference "Chat" */,
 			);
 			productRefGroup = 5545878A2A3DF8F1009A5485 /* Products */;
 			projectDirPath = "";
@@ -720,6 +744,7 @@
 				554588072A3E30B9009A5485 /* LoginView.swift in Sources */,
 				558816032A3E388800667C1A /* AmplifyModels.swift in Sources */,
 				550F65E52A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift in Sources */,
+				55E98BB12A73F14A00634917 /* PowderTrackrChatView.swift in Sources */,
 				556B616B2A44B08C006B2C68 /* MapService.swift in Sources */,
 				554587EF2A3E2FEE009A5485 /* FriendRequestView.swift in Sources */,
 				558815C42A3E366F00667C1A /* AmplifyModels.swift in Sources */,
@@ -758,6 +783,7 @@
 				558815B62A3E361600667C1A /* Friendlist.swift in Sources */,
 				558816052A3E388800667C1A /* TrackedPath.swift in Sources */,
 				558816082A3E388800667C1A /* UserfriendList+Schema.swift in Sources */,
+				558A21722A73E15800819256 /* GroupView.swift in Sources */,
 				554587E92A3E2FC4009A5485 /* FriendListItem.swift in Sources */,
 				558815CD2A3E366F00667C1A /* UserfriendList+Schema.swift in Sources */,
 				89E77F0BA3478441D85A6533 /* TrackedPath.swift in Sources */,
@@ -767,6 +793,7 @@
 				9830C87CEB5F9D821AB74CE4 /* UserTrackedPaths+Schema.swift in Sources */,
 				ADE2266934D0813E7554743A /* UserTrackedPaths.swift in Sources */,
 				558816012A3E388800667C1A /* FriendRequest+Schema.swift in Sources */,
+				558A21702A73DDE300819256 /* GroupListItem.swift in Sources */,
 				554587EE2A3E2FEE009A5485 /* FriendRequestView+ViewModel.swift in Sources */,
 				554587E12A3E2FAC009A5485 /* SocialNavigator.swift in Sources */,
 				554588042A3E3071009A5485 /* RegisterView.swift in Sources */,
@@ -775,6 +802,7 @@
 				558815FF2A3E388800667C1A /* UserTrackedPaths+Schema.swift in Sources */,
 				5506F7BF2A49E5F10000761D /* LoggedOutModal.swift in Sources */,
 				5506F7BB2A4724F50000761D /* SegmentedControl.swift in Sources */,
+				55E98BAF2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift in Sources */,
 				558816092A3E388800667C1A /* TrackedPath+Schema.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -992,6 +1020,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		55E98BB22A73FB7800634917 /* XCRemoteSwiftPackageReference "Chat" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/Chat.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1004,6 +1040,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 558816132A3E426200667C1A /* XCRemoteSwiftPackageReference "amplify-swift" */;
 			productName = AWSCognitoAuthPlugin;
+		};
+		55E98BB32A73FB7800634917 /* Chat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55E98BB22A73FB7800634917 /* XCRemoteSwiftPackageReference "Chat" */;
+			productName = Chat;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -4,6 +4,7 @@ import SwiftUI
 extension SocialView {
     final class ViewModel: ObservableObject {
         @Published var friendList: Friendlist?
+        @Published var groupList = ["asd", "asd"]
         @Published var notification: Bool
         @Published var signedIn: Bool = false
 
@@ -68,6 +69,10 @@ extension SocialView {
 
         func navigateToAddFriend() {
             navigator.navigateToAdd()
+        }
+
+        func navigateToChat() {
+            navigator.navigateToChat()
         }
     }
 }

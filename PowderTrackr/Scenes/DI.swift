@@ -101,6 +101,7 @@ extension Container {
         }
     }
 
+    // MARK: - PROFILE
     enum Profile {
         static let view = ParameterFactory { navigator in
             ProfileView(
@@ -121,6 +122,7 @@ extension Container {
         }
     }
 
+    // MARK: - SOCIAL
     enum GoogleMap {
         static let view = ParameterFactory { cameraPos, selectedPath in
             GoogleMapsView(
@@ -144,6 +146,7 @@ extension Container {
         }
     }
 
+    // MARK: - SOCIAL
     enum Social {
         static let view = ParameterFactory { navigator in
             SocialView(
@@ -157,6 +160,13 @@ extension Container {
 
         static let navigator = Factory {
             SocialNavigator()
+        }
+    }
+
+    // MARK: - CHAT
+    enum Chat {
+        static let view = Factory {
+            PowderTrackrChatView()
         }
     }
 

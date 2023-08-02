@@ -58,6 +58,10 @@ enum ViewFactory {
         Container.FriendAdd.view(navigator)
     }
 
+    static func powderTrackrChatView() -> PowderTrackrChatView {
+        Container.Chat.view()
+    }
+
     // MARK: - MAP
     static func googleMap(
         cameraPos: Binding<GMSCameraPosition>,

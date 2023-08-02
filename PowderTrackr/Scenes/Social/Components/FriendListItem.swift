@@ -24,3 +24,9 @@ public struct FriendListItem: View {
         self.action = action
     }
 }
+
+struct FriendListItem_Previews: PreviewProvider {
+    static var previews: some View {
+        FriendListItem(friend: .init(id: "123", name: "Dominik", isTracking: true), action: {})
+    }
+}

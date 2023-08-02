@@ -5,11 +5,13 @@ public enum SocialScreen {
     case list
     case add
     case requests
+    case chat
 }
 
 protocol SocialListViewNavigatorProtocol {
     func navigateToRequest()
     func navigateToAdd()
+    func navigateToChat()
 }
 
 protocol SocialAddViewNavigatorProtocol {
@@ -28,6 +30,7 @@ public struct SocialNavigator: Navigator {
             case .list: ViewFactory.socialView(navigator: self)
             case .add: ViewFactory.friendAddView(navigator: self)
             case .requests: ViewFactory.friendRequestView()
+            case .chat: ViewFactory.powderTrackrChatView()
             }
         }
     }
@@ -38,6 +41,9 @@ public struct SocialNavigator: Navigator {
 }
 
 extension SocialNavigator: SocialListViewNavigatorProtocol {
+    func navigateToChat() {
+        routes.push(.chat)
+    }
     func navigateToRequest() {
         routes.push(.requests)
     }

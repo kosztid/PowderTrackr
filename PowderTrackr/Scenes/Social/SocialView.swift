@@ -12,6 +12,9 @@ struct SocialView: View {
                             FriendListItem(friend: friend) {
                                 viewModel.updateTracking(id: friend.id)
                             }
+                            .onTapGesture(perform: {
+                                viewModel.navigateToChat()
+                            })
                             .listRowSeparator(.hidden)
                         }
                     }
@@ -19,10 +22,14 @@ struct SocialView: View {
                 }
             },
             secondTab: .init(tabItem: .init(name: "Groups")) {
-                VStack {
-                    Text("group1")
-                    Text("group2")
-                    Text("group3")
+                ZStack {
+                    List {
+                        ForEach(viewModel.groupList, id: \.self) { group in
+                            GroupListItem()
+                            .listRowSeparator(.hidden)
+                        }
+                    }
+                    .listStyle(.plain)
                 }
             }
         )
