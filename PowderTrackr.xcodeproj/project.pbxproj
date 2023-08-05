@@ -15,6 +15,7 @@
 		5506F7BF2A49E5F10000761D /* LoggedOutModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5506F7BE2A49E5F10000761D /* LoggedOutModal.swift */; };
 		550F65E32A532DDD00797B62 /* ConfirmResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550F65E22A532DDD00797B62 /* ConfirmResetPasswordView.swift */; };
 		550F65E52A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550F65E42A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift */; };
+		55102ACD2A7ECAE30033E5E6 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55102ACC2A7ECAE30033E5E6 /* ChatService.swift */; };
 		5545878D2A3DF8F1009A5485 /* PowderTrackrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545878C2A3DF8F1009A5485 /* PowderTrackrApp.swift */; };
 		5545878F2A3DF8F1009A5485 /* PowderTrackrView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545878E2A3DF8F1009A5485 /* PowderTrackrView.swift */; };
 		554587912A3DF8F2009A5485 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 554587902A3DF8F2009A5485 /* Assets.xcassets */; };
@@ -122,6 +123,7 @@
 		5506F7BE2A49E5F10000761D /* LoggedOutModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedOutModal.swift; sourceTree = "<group>"; };
 		550F65E22A532DDD00797B62 /* ConfirmResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmResetPasswordView.swift; sourceTree = "<group>"; };
 		550F65E42A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConfirmResetPasswordView+ViewModel.swift"; sourceTree = "<group>"; };
+		55102ACC2A7ECAE30033E5E6 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		554587892A3DF8F1009A5485 /* PowderTrackr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PowderTrackr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5545878C2A3DF8F1009A5485 /* PowderTrackrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrApp.swift; sourceTree = "<group>"; };
 		5545878E2A3DF8F1009A5485 /* PowderTrackrView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrView.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				554587C72A3E2EA0009A5485 /* Scenes */,
 				554587A82A3E2985009A5485 /* Models */,
 				554587C32A3E29A6009A5485 /* AccountService.swift */,
+				55102ACC2A7ECAE30033E5E6 /* ChatService.swift */,
 				55A318542A4625DA00EB0C5E /* FriendService.swift */,
 				556B616A2A44B08C006B2C68 /* MapService.swift */,
 				554587C52A3E2A66009A5485 /* ServiceDI.swift */,
@@ -798,6 +801,7 @@
 				554587E12A3E2FAC009A5485 /* SocialNavigator.swift in Sources */,
 				554588042A3E3071009A5485 /* RegisterView.swift in Sources */,
 				9B62154BB9397A45254C5E7A /* UserfriendList+Schema.swift in Sources */,
+				55102ACD2A7ECAE30033E5E6 /* ChatService.swift in Sources */,
 				5482EE72282D2C5E7EACE262 /* UserfriendList.swift in Sources */,
 				558815FF2A3E388800667C1A /* UserTrackedPaths+Schema.swift in Sources */,
 				5506F7BF2A49E5F10000761D /* LoggedOutModal.swift in Sources */,
@@ -936,7 +940,10 @@
 				DEVELOPMENT_TEAM = VJLFSCCR2C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Grant access to camera to be able to take photos and videos";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow the usage of your location.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Grant access to microphone to be able to take videos";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grant access to photo library to be able to select photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -948,6 +955,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = koszti.PowderTrackr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -968,7 +976,10 @@
 				DEVELOPMENT_TEAM = VJLFSCCR2C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Grant access to camera to be able to take photos and videos";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow the usage of your location.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Grant access to microphone to be able to take videos";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grant access to photo library to be able to select photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -980,6 +991,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = koszti.PowderTrackr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
