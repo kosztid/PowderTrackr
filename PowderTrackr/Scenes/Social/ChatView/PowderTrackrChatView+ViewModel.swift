@@ -34,10 +34,14 @@ extension PowderTrackrChatView {
         }
 
         func sendMessage(draftMessage: Chat.DraftMessage) {
+            var text = draftMessage.text
+            if !draftMessage.attachments.isEmpty {
+                text = "photo"
+            }
             let message = Chat.Message(
                 id: UUID().uuidString,
                 user: .init(id: "123", name: "Me", avatarURL: nil, isCurrentUser: true),
-                text: draftMessage.text
+                text: text
             )
             print(message)
             Task {

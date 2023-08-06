@@ -40,21 +40,35 @@ struct PowderTrackrChatView: View {
                         y: -4
                     )
                 case .signature:
-                    VStack {
+                    HStack {
+                        TextField("Write your message", text: textBinding)
                         HStack {
-                            Button("Send") { actionClosure(.send) }
+                            Button {
+                                actionClosure(.send)
+                            } label: {
+                                Image(systemName: "paperplane")
+                                    .frame(width: 48, height: 48)
+                                    .foregroundColor(.gray)
+                            }
                         }
-                        TextField("Compose a signature for photo", text: textBinding)
-                            .background(Color.green)
                     }
+                    .padding(.leading, 16)
+                    .background(.white)
+                    .cornerRadius(16, corners: [.topLeft, .topRight])
+                    .shadow(
+                        color: .gray.opacity(0.2),
+                        radius: 4,
+                        x: 0,
+                        y: -4
+                    )
                 }
             }
         }
         .mediaPickerTheme(
             main: .init(
-                text: .white,
-                albumSelectionBackground: .black,
-                fullscreenPhotoBackground: .black
+                text: .black,
+                albumSelectionBackground: .white,
+                fullscreenPhotoBackground: .white
             ),
             selection: .init(
                 emptyTint: .white,
