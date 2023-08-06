@@ -8,6 +8,11 @@ extension MapView {
         case on
         case off
     }
+
+    enum MapMenuState {
+        case opened
+        case closed
+    }
     final class ViewModel: ObservableObject {
         private var cancellables: Set<AnyCancellable> = []
 
@@ -29,6 +34,7 @@ extension MapView {
         @Published var markers: [GMSMarker] = []
         @Published var trackedPath: TrackedPathModel?
         @Published var signedIn = false
+        @Published var menuState: MapMenuState = .closed
 
         @Published var track: [TrackedPath] = []
 
@@ -213,10 +219,10 @@ extension MapView {
         }
 
         func closeAction() {
+            withAnimation {
+                selectedPath = nil
+            }
             Task {
-                withAnimation {
-                    selectedPath = nil
-                }
                 await self.friendService.queryFriendLocations()
             }
         }
