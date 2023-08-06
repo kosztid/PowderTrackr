@@ -13,7 +13,7 @@ struct SocialView: View {
                                 viewModel.updateTracking(id: friend.id)
                             }
                             .onTapGesture(perform: {
-                                viewModel.navigateToChat()
+                                viewModel.navigateToChatWithFriend(friendId: friend.id)
                             })
                             .listRowSeparator(.hidden)
                         }
@@ -26,6 +26,9 @@ struct SocialView: View {
                     List {
                         ForEach(viewModel.groupList, id: \.self) { group in
                             GroupListItem()
+                                .onTapGesture(perform: {
+                                    viewModel.navigateToChatGroup(groupId: "group")
+                                })
                             .listRowSeparator(.hidden)
                         }
                     }
