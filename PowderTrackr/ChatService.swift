@@ -6,13 +6,18 @@ import UIKit
 public protocol ChatServiceProtocol: AnyObject {
     var messagesPublisher: AnyPublisher<[Chat.Message]?, Never> { get }
 
-    func sendMessage(message: Chat.Message) async
-    func queryMessages() async
+    func sendMessage(message: Chat.Message, recipient: String) async
+    func queryChat(recipient: String) async
 }
 
 final class ChatService {
     private let messages: CurrentValueSubject<[Chat.Message]?, Never> = .init(nil)
     private var cancellables: Set<AnyCancellable> = []
+    let dateFormatter = DateFormatter()
+
+    init() {
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    }
 }
 
 extension ChatService: ChatServiceProtocol {
@@ -22,19 +27,82 @@ extension ChatService: ChatServiceProtocol {
             .eraseToAnyPublisher()
     }
 
-    func sendMessage(message: Chat.Message) async {
+    func sendMessage(message: Chat.Message, recipient: String) async {
+        do {
+            let user = try await Amplify.Auth.getCurrentUser()
+            let queryResult = try await Amplify.API.query(request: .list(PersonalChat.self))
+
+            var result = try queryResult.get().elements
+
+            var currentChatIndex = result.firstIndex { chat in
+                if let participants = chat.participants {
+                    if participants.contains(recipient) && participants.contains(user.userId) {
+                        return true
+                    }
+                }
+                return false
+            }
+            guard let index = currentChatIndex else { return }
+
+            result[index].messages?.append(
+                Message(
+                    id: message.id,
+                    sender: user.userId,
+                    date: dateFormatter.string(from: Date()),
+                    text: message.text,
+                    isPhoto: false,
+                    isSeen: false
+                )
+            )
+
+            _ = try await Amplify.API.mutate(request: .update(result[index]))
+        } catch let error as APIError {
+            print("Failed to create note: \(error)")
+        } catch {
+            print("Unexpected error while calling create API : \(error)")
+        }
         var currentMessages = messages.value
         currentMessages?.append(message)
         messages.send(currentMessages)
     }
 
-    func queryMessages() async {
-        print("query")
-        var currentMessages: [Chat.Message] = []
-        currentMessages.append(Chat.Message(id: "123", user: User(id: "123", name: "Dominik", avatarURL: nil, isCurrentUser: true), text: "Szia"))
-        currentMessages.append(Chat.Message(id: "124", user: User(id: "124", name: "Koszti", avatarURL: nil, isCurrentUser: false), text: "Hali"))
-        print("queryMessages", currentMessages)
-        messages.send(currentMessages)
+    func queryChat(recipient: String) async {
+        do {
+            let queryResult = try await Amplify.API.query(request: .list(PersonalChat.self))
+            let user = try await Amplify.Auth.getCurrentUser()
+
+            let result = try queryResult.get().elements
+
+            let currentChat: PersonalChat? = result.first { chat in
+                if let participants = chat.participants {
+                    if participants.contains(recipient) && participants.contains(user.userId) {
+                        return true
+                    }
+                }
+                return false
+            }
+            var currentMessages: [Chat.Message] = []
+            if let chat = currentChat {
+                chat.messages?.forEach { message in
+                    currentMessages.append(
+                        Chat.Message(
+                            id: UUID().uuidString,
+                            user: User(
+                                id: UUID().uuidString,
+                                name: "",
+                                avatarURL: nil,
+                                isCurrentUser: user.userId == message.sender),
+                            status: message.isSeen ? Chat.Message.Status.read : Chat.Message.Status.sent,
+                            createdAt: dateFormatter.date(from: message.date) ?? Date(),
+                            text: message.text
+                        )
+                    )
+                }
+            }
+            messages.send(currentMessages)
+        } catch {
+            print("Can not retrieve messages: error: \(error)")
+        }
     }
 
 }

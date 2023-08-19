@@ -20,7 +20,7 @@ extension PowderTrackrChatView {
             self.chatID = chatID
             initBindings()
             Task {
-                await chatService.queryMessages()
+                await chatService.queryChat(recipient: "asd")
             }
         }
 
@@ -45,7 +45,7 @@ extension PowderTrackrChatView {
             )
             print(message)
             Task {
-               await chatService.sendMessage(message: message)
+                await chatService.sendMessage(message: message, recipient: "asd")
             }
         }
      }
