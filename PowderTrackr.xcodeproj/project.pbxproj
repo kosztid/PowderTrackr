@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14A3E17BC6CF05AD1FAA011E /* GroupChat+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3188BDCF4AF2B51310D668E8 /* GroupChat+Schema.swift */; };
+		15CF1A876379363AF3ADD488 /* PersonalChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FE92077A1BC265311034DC /* PersonalChat.swift */; };
 		38B2EF361C3DDEE6BC819CB4 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 705F020E722E17762F7F9CEC /* amplifyconfiguration.json */; };
+		3B754F3C044B6EF1B1AEFAA2 /* PersonalChat+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AE3ABF7FD7EBC847BED5EF /* PersonalChat+Schema.swift */; };
+		3D894B8F5714DDDB5C00B6DF /* GroupChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AB484BB4AE178A2F655487 /* GroupChat.swift */; };
+		427463B77DBD167C128FC6B2 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217FA3E57EC01B0B1388E8A /* Message.swift */; };
 		4A3B233B69AC5E3B3974F105 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45461D676D3BC9635B07ECF5 /* FriendRequest.swift */; };
 		5482EE72282D2C5E7EACE262 /* UserfriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52601201CE3D9DDCD2B6A6F /* UserfriendList.swift */; };
 		5506F7B92A4723F40000761D /* SegmentedControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5506F7B82A4723F40000761D /* SegmentedControlButton.swift */; };
@@ -97,6 +102,7 @@
 		55FF48782A9136D200527F18 /* LayerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF48772A9136D200527F18 /* LayerWidget.swift */; };
 		55FF487C2A9136F800527F18 /* LayerWidgetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */; };
 		72D311DB8DCEA24E0C4CB14B /* FriendRequest+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D681CDF9130A0F1615DA65 /* FriendRequest+Schema.swift */; };
+		875EFD72158722FD19B9AA93 /* Message+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327BD541BEE53E00DCFF269C /* Message+Schema.swift */; };
 		89E77F0BA3478441D85A6533 /* TrackedPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D60D5E7FF5741E73110C72 /* TrackedPath.swift */; };
 		93721D97E1A81377C189A5E6 /* Friend+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C663D785B3B203B1BDAEE41 /* Friend+Schema.swift */; };
 		93A8CE3A1AC81ED774A4F5CA /* CurrentPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F411BD3830B319DF37E1D7 /* CurrentPosition.swift */; };
@@ -113,9 +119,13 @@
 
 /* Begin PBXFileReference section */
 		1E251DFC276D77AEF0A316FA /* Pods_PowderTrackr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PowderTrackr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2077A0462FC07339F7BD8FC7 /* Chat.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = Chat.swift; path = amplify/generated/models/Chat.swift; sourceTree = "<group>"; };
 		27DB150C4DAEA75D75A1489D /* Pods-PowderTrackr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PowderTrackr.debug.xcconfig"; path = "Target Support Files/Pods-PowderTrackr/Pods-PowderTrackr.debug.xcconfig"; sourceTree = "<group>"; };
 		2AA4DDB0E24CB3E4D3078BB1 /* UserTrackedPaths.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = UserTrackedPaths.swift; path = amplify/generated/models/UserTrackedPaths.swift; sourceTree = "<group>"; };
+		3188BDCF4AF2B51310D668E8 /* GroupChat+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = "GroupChat+Schema.swift"; path = "amplify/generated/models/GroupChat+Schema.swift"; sourceTree = "<group>"; };
+		327BD541BEE53E00DCFF269C /* Message+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = "Message+Schema.swift"; path = "amplify/generated/models/Message+Schema.swift"; sourceTree = "<group>"; };
 		33D681CDF9130A0F1615DA65 /* FriendRequest+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "FriendRequest+Schema.swift"; path = "amplify/generated/models/FriendRequest+Schema.swift"; sourceTree = "<group>"; };
+		4217FA3E57EC01B0B1388E8A /* Message.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = Message.swift; path = amplify/generated/models/Message.swift; sourceTree = "<group>"; };
 		45461D676D3BC9635B07ECF5 /* FriendRequest.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = FriendRequest.swift; path = amplify/generated/models/FriendRequest.swift; sourceTree = "<group>"; };
 		4EB3A7FA580E0B493DF88149 /* CurrentPosition+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "CurrentPosition+Schema.swift"; path = "amplify/generated/models/CurrentPosition+Schema.swift"; sourceTree = "<group>"; };
 		4EDA30DA28B27896216C829B /* TrackedPath+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "TrackedPath+Schema.swift"; path = "amplify/generated/models/TrackedPath+Schema.swift"; sourceTree = "<group>"; };
@@ -204,8 +214,11 @@
 		55E98BB02A73F14A00634917 /* PowderTrackrChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrChatView.swift; sourceTree = "<group>"; };
 		55FF48772A9136D200527F18 /* LayerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerWidget.swift; sourceTree = "<group>"; };
 		55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerWidgetButton.swift; sourceTree = "<group>"; };
+		63AB484BB4AE178A2F655487 /* GroupChat.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = GroupChat.swift; path = amplify/generated/models/GroupChat.swift; sourceTree = "<group>"; };
 		6C230E5414AAD2FFE38AB6C2 /* UserfriendList+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "UserfriendList+Schema.swift"; path = "amplify/generated/models/UserfriendList+Schema.swift"; sourceTree = "<group>"; };
 		705F020E722E17762F7F9CEC /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
+		73AE3ABF7FD7EBC847BED5EF /* PersonalChat+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = "PersonalChat+Schema.swift"; path = "amplify/generated/models/PersonalChat+Schema.swift"; sourceTree = "<group>"; };
+		75320C4E403F1DF4CD8EBFC2 /* Chat+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = "Chat+Schema.swift"; path = "amplify/generated/models/Chat+Schema.swift"; sourceTree = "<group>"; };
 		9C663D785B3B203B1BDAEE41 /* Friend+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "Friend+Schema.swift"; path = "amplify/generated/models/Friend+Schema.swift"; sourceTree = "<group>"; };
 		B9D9C6952CB3E0998B0F47FB /* UserTrackedPaths+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "UserTrackedPaths+Schema.swift"; path = "amplify/generated/models/UserTrackedPaths+Schema.swift"; sourceTree = "<group>"; };
 		CAFBDA2D03070658D228A377 /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
@@ -214,6 +227,7 @@
 		D65FDA246EE122F3E9CE99AC /* Friend.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Friend.swift; path = amplify/generated/models/Friend.swift; sourceTree = "<group>"; };
 		E1F411BD3830B319DF37E1D7 /* CurrentPosition.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = CurrentPosition.swift; path = amplify/generated/models/CurrentPosition.swift; sourceTree = "<group>"; };
 		F290CD367949A2DD0030157C /* Pods-PowderTrackr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PowderTrackr.release.xcconfig"; path = "Target Support Files/Pods-PowderTrackr/Pods-PowderTrackr.release.xcconfig"; sourceTree = "<group>"; };
+		F2FE92077A1BC265311034DC /* PersonalChat.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = PersonalChat.swift; path = amplify/generated/models/PersonalChat.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -583,6 +597,26 @@
 				558815BA2A3E366F00667C1A /* UserTrackedPaths+Schema.swift */,
 				558815BC2A3E366F00667C1A /* UserTrackedPaths.swift */,
 				558815C02A3E366F00667C1A /* UserfriendList+Schema.swift */,
+				75320C4E403F1DF4CD8EBFC2 /* Chat+Schema.swift */,
+				2077A0462FC07339F7BD8FC7 /* Chat.swift */,
+				558815F52A3E388800667C1A /* Friend+Schema.swift */,
+				558815F42A3E388800667C1A /* FriendRequest+Schema.swift */,
+				3188BDCF4AF2B51310D668E8 /* GroupChat+Schema.swift */,
+				63AB484BB4AE178A2F655487 /* GroupChat.swift */,
+				327BD541BEE53E00DCFF269C /* Message+Schema.swift */,
+				4217FA3E57EC01B0B1388E8A /* Message.swift */,
+				558815FC2A3E388800667C1A /* TrackedPath+Schema.swift */,
+				558815F82A3E388800667C1A /* TrackedPath.swift */,
+				558815F22A3E388800667C1A /* UserTrackedPaths+Schema.swift */,
+				558815F72A3E388800667C1A /* UserTrackedPaths.swift */,
+				558815F32A3E388800667C1A /* UserfriendList.swift */,
+				558815F02A3E388800667C1A /* Friend.swift */,
+				73AE3ABF7FD7EBC847BED5EF /* PersonalChat+Schema.swift */,
+				F2FE92077A1BC265311034DC /* PersonalChat.swift */,
+				558815FB2A3E388800667C1A /* UserfriendList+Schema.swift */,
+				558815FA2A3E388800667C1A /* CurrentPosition+Schema.swift */,
+				558815F92A3E388800667C1A /* CurrentPosition.swift */,
+				558815F12A3E388800667C1A /* FriendRequest.swift */,
 			);
 			name = AmplifyModels;
 			sourceTree = "<group>";
@@ -705,9 +739,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-PowderTrackr/Pods-PowderTrackr-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-PowderTrackr/Pods-PowderTrackr-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -722,9 +760,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-PowderTrackr/Pods-PowderTrackr-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-PowderTrackr/Pods-PowderTrackr-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -832,6 +874,14 @@
 				5506F7BB2A4724F50000761D /* SegmentedControl.swift in Sources */,
 				55E98BAF2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift in Sources */,
 				558816092A3E388800667C1A /* TrackedPath+Schema.swift in Sources */,
+				37EAC2BFDBC7DAD6696CE2C9 /* Chat+Schema.swift in Sources */,
+				15134EA6D02719084BDAA356 /* Chat.swift in Sources */,
+				14A3E17BC6CF05AD1FAA011E /* GroupChat+Schema.swift in Sources */,
+				3D894B8F5714DDDB5C00B6DF /* GroupChat.swift in Sources */,
+				875EFD72158722FD19B9AA93 /* Message+Schema.swift in Sources */,
+				427463B77DBD167C128FC6B2 /* Message.swift in Sources */,
+				3B754F3C044B6EF1B1AEFAA2 /* PersonalChat+Schema.swift in Sources */,
+				15CF1A876379363AF3ADD488 /* PersonalChat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
