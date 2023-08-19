@@ -94,6 +94,8 @@
 		55E98BAF2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E98BAE2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift */; };
 		55E98BB12A73F14A00634917 /* PowderTrackrChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E98BB02A73F14A00634917 /* PowderTrackrChatView.swift */; };
 		55E98BB42A73FB7800634917 /* Chat in Frameworks */ = {isa = PBXBuildFile; productRef = 55E98BB32A73FB7800634917 /* Chat */; };
+		55FF48782A9136D200527F18 /* LayerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF48772A9136D200527F18 /* LayerWidget.swift */; };
+		55FF487C2A9136F800527F18 /* LayerWidgetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */; };
 		72D311DB8DCEA24E0C4CB14B /* FriendRequest+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D681CDF9130A0F1615DA65 /* FriendRequest+Schema.swift */; };
 		89E77F0BA3478441D85A6533 /* TrackedPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D60D5E7FF5741E73110C72 /* TrackedPath.swift */; };
 		93721D97E1A81377C189A5E6 /* Friend+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C663D785B3B203B1BDAEE41 /* Friend+Schema.swift */; };
@@ -200,6 +202,8 @@
 		55DE1DC12A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChangePasswordView+ViewModel.swift"; sourceTree = "<group>"; };
 		55E98BAE2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PowderTrackrChatView+ViewModel.swift"; sourceTree = "<group>"; };
 		55E98BB02A73F14A00634917 /* PowderTrackrChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrChatView.swift; sourceTree = "<group>"; };
+		55FF48772A9136D200527F18 /* LayerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerWidget.swift; sourceTree = "<group>"; };
+		55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerWidgetButton.swift; sourceTree = "<group>"; };
 		6C230E5414AAD2FFE38AB6C2 /* UserfriendList+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "UserfriendList+Schema.swift"; path = "amplify/generated/models/UserfriendList+Schema.swift"; sourceTree = "<group>"; };
 		705F020E722E17762F7F9CEC /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		9C663D785B3B203B1BDAEE41 /* Friend+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "Friend+Schema.swift"; path = "amplify/generated/models/Friend+Schema.swift"; sourceTree = "<group>"; };
@@ -467,6 +471,8 @@
 		5545880B2A3E30D8009A5485 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				55FF48792A9136E600527F18 /* LayerWidgetButton */,
+				55FF48762A9136C100527F18 /* LayerWidget */,
 				5506F7BC2A49E57F0000761D /* LoggedOut */,
 				5506F7B72A4723E20000761D /* SegmentedControl */,
 				5545881D2A3E30F9009A5485 /* SkiingButton.swift */,
@@ -536,6 +542,22 @@
 				55E98BB02A73F14A00634917 /* PowderTrackrChatView.swift */,
 			);
 			path = ChatView;
+			sourceTree = "<group>";
+		};
+		55FF48762A9136C100527F18 /* LayerWidget */ = {
+			isa = PBXGroup;
+			children = (
+				55FF48772A9136D200527F18 /* LayerWidget.swift */,
+			);
+			path = LayerWidget;
+			sourceTree = "<group>";
+		};
+		55FF48792A9136E600527F18 /* LayerWidgetButton */ = {
+			isa = PBXGroup;
+			children = (
+				55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */,
+			);
+			path = LayerWidgetButton;
 			sourceTree = "<group>";
 		};
 		5E6D29CCC1ADDD8AED7E08EB /* AmplifyModels */ = {
@@ -741,6 +763,7 @@
 				5545879E2A3E291A009A5485 /* ViewFactory.swift in Sources */,
 				5545881A2A3E30EA009A5485 /* RegularTextFieldStyle.swift in Sources */,
 				C496041B3C72D2CE2BA7C1C9 /* AmplifyModels.swift in Sources */,
+				55FF487C2A9136F800527F18 /* LayerWidgetButton.swift in Sources */,
 				5545881C2A3E30F0009A5485 /* SkiingButtonStyle.swift in Sources */,
 				554588172A3E30EA009A5485 /* TextField+Extensions.swift in Sources */,
 				554588182A3E30EA009A5485 /* SecureTextField+Extensions.swift in Sources */,
@@ -757,6 +780,7 @@
 				93A8CE3A1AC81ED774A4F5CA /* CurrentPosition.swift in Sources */,
 				558816062A3E388800667C1A /* CurrentPosition.swift in Sources */,
 				554587DD2A3E2FAC009A5485 /* SocialView+ViewModel.swift in Sources */,
+				55FF48782A9136D200527F18 /* LayerWidget.swift in Sources */,
 				554587F72A3E3056009A5485 /* ProfileView+ViewModel.swift in Sources */,
 				554588162A3E30EA009A5485 /* LabelViewModifier.swift in Sources */,
 				554587CE2A3E2FA1009A5485 /* TrackListView.swift in Sources */,

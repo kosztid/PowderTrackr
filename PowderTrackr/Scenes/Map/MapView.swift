@@ -5,73 +5,35 @@ struct MapView: View {
     @StateObject var viewModel: ViewModel
 
     var body: some View {
-        ZStack {
+        ZStack(alignment: .bottom) {
             ViewFactory.googleMap(
                 cameraPos: $viewModel.cameraPos,
                 selectedPath: $viewModel.selectedPath
             )
             .ignoresSafeArea()
-            menu
-                .padding(16)
-            //            VStack(spacing: .zero) {
-            //                Spacer()
-            //                if viewModel.selectedPath != nil {
-            //                    TrackListItem(
-            //                        track: viewModel.selectedPath!, // swiftlint:disable:this force_unwrapping
-            //                        closeAction: viewModel.closeAction,
-            //                        updateAction: viewModel.updateTrack,
-            //                        noteAction: viewModel.addNote,
-            //                        deleteAction: viewModel.removeTrack,
-            //                        totalDistance: viewModel.calculateDistance(),
-            //                        isOpened: true
-            //                    )
-            //                    .transition(.push(from: .top))
-            //                } else if viewModel.signedIn {
-            //                    HStack {
-            //                        if viewModel.isTracking == .off {
-            //                            Spacer()
-            //                            Button {
-            //                                viewModel.startTracking()
-            //                            } label: {
-            //                                Text("Start Tracking")
-            //                            }
-            //                            .buttonStyle(SkiingButtonStyle())
-            //                        } else {
-            //                            if viewModel.isTracking == .on {
-            //                                Button {
-            //                                    viewModel.pauseTracking()
-            //                                } label: {
-            //                                    Text("Pause")
-            //                                }
-            //                                .buttonStyle(SkiingButtonStyle())
-            //
-            //                                Button {
-            //                                    viewModel.stopTracking()
-            //                                } label: {
-            //                                    Text("Stop")
-            //                                }
-            //                                .buttonStyle(SkiingButtonStyle())
-            //                            } else {
-            //                                Button {
-            //                                    viewModel.resumeTracking()
-            //                                } label: {
-            //                                    Text("Resume")
-            //                                }
-            //                                .buttonStyle(SkiingButtonStyle())
-            //
-            //                                Button {
-            //                                    viewModel.stopTracking()
-            //                                } label: {
-            //                                    Text("Stop")
-            //                                }
-            //                                .buttonStyle(SkiingButtonStyle())
-            //                            }
-            //                        }
-            //                    }
-            //                    .transition(.push(from: .top))
-            //                    .padding()
-            //                }
-            //            }
+            VStack(alignment: .trailing) {
+                Spacer()
+                if viewModel.selectedPath != nil {
+                    TrackListItem(
+                        track: viewModel.selectedPath!, // swiftlint:disable:this force_unwrapping
+                        closeAction: viewModel.closeAction,
+                        updateAction: viewModel.updateTrack,
+                        noteAction: viewModel.addNote,
+                        deleteAction: viewModel.removeTrack,
+                        totalDistance: viewModel.calculateDistance(),
+                        isOpened: true
+                    )
+                    .transition(.push(from: .top))
+                } else if viewModel.signedIn {
+                    LayerWidget(
+                        isTracking: $viewModel.isTracking,
+                        startAction: viewModel.startTracking,
+                        pauseAction: viewModel.pauseTracking,
+                        stopAction: viewModel.stopTracking,
+                        resumeAction: viewModel.resumeTracking
+                    )
+                }
+            }
         }
         .onChange(of: viewModel.cameraPos) { newValue in
             print(newValue)
@@ -79,27 +41,28 @@ struct MapView: View {
     }
 
     @ViewBuilder var menu: some View {
-        switch viewModel.menuState {
-        case .opened:
-            VStack {
-                Spacer()
-                HStack {
-                    Button {
-                        withAnimation {
-                            viewModel.menuState = .closed
+        VStack {
+            Spacer()
+            switch viewModel.menuState {
+            case .opened:
+                GeometryReader { proxy in
+                    HStack {
+                        Spacer()
+                        Button {
+                            withAnimation {
+                                viewModel.menuState = .closed
+                            }
+                        } label: {
+                            Text("Close")
                         }
-                    } label: {
-                        Text("Close")
+                        Spacer()
                     }
+                    .frame(width: proxy.size.width * 0.8, height: proxy.size.height * 0.4)
+                    .background(Color.white)
+                    .cornerRadius(16)
                 }
-                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 0.6)
-                .background(Color.white)
-                .cornerRadius(16)
-                .padding(.horizontal, 16)
-            }
-        case .closed:
-            VStack {
-                Spacer()
+
+            case .closed:
                 HStack {
                     Spacer()
                     Button {
@@ -118,6 +81,7 @@ struct MapView: View {
                 }
             }
         }
+        .padding(16)
     }
 }
 
