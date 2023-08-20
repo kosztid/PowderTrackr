@@ -38,7 +38,9 @@ struct MapView: View {
         .onChange(of: viewModel.cameraPos) { newValue in
             print(newValue)
         }
-    }
+        .onDisappear(perform: viewModel.stopTimer)
+        .onAppear(perform: viewModel.startTimer)
+}
 
     @ViewBuilder var menu: some View {
         VStack {

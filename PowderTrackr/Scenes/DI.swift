@@ -165,12 +165,12 @@ extension Container {
 
     // MARK: - CHAT
     enum Chat {
-        static let view = Factory {
-            PowderTrackrChatView(viewModel: viewModel())
+        static let view = ParameterFactory { chatId in
+            PowderTrackrChatView(viewModel: viewModel(chatId))
         }
 
-        static let viewModel = Factory {
-            PowderTrackrChatView.ViewModel(chatService: chatService(), chatID: "")
+        static let viewModel = ParameterFactory { chatId in
+            PowderTrackrChatView.ViewModel(chatService: chatService(), chatID: chatId)
         }
     }
 

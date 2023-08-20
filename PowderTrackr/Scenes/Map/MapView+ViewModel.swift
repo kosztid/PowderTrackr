@@ -54,7 +54,6 @@ extension MapView {
                 zoom: 13
             )
             self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            self.startTimer()
 
             self.initBindings()
 

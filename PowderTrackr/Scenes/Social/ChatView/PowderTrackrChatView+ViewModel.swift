@@ -6,6 +6,7 @@ extension PowderTrackrChatView {
     final class ViewModel: ObservableObject {
         @Published var messages: [Chat.Message] = []
         @Published var chat: String = ""
+        var timer: Timer?
 
         private let chatService: ChatServiceProtocol
         private let chatID: String
@@ -20,7 +21,7 @@ extension PowderTrackrChatView {
             self.chatID = chatID
             initBindings()
             Task {
-                await chatService.queryChat(recipient: "asd")
+                await chatService.queryChat(recipient: chatID)
             }
         }
 
@@ -43,9 +44,29 @@ extension PowderTrackrChatView {
                 user: .init(id: "123", name: "Me", avatarURL: nil, isCurrentUser: true),
                 text: text
             )
-            print(message)
+            
             Task {
-                await chatService.sendMessage(message: message, recipient: "asd")
+                await chatService.sendMessage(message: message, recipient: chatID)
+            }
+        }
+
+        func startTimer() {
+            self.timer = Timer.scheduledTimer(
+                timeInterval: 2,
+                target: self,
+                selector: #selector(updateChats),
+                userInfo: nil,
+                repeats: true
+            )
+        }
+
+        func stopTimer() {
+            self.timer?.invalidate()
+        }
+
+        @objc func updateChats() {
+            Task {
+                await chatService.queryChat(recipient: chatID)
             }
         }
      }

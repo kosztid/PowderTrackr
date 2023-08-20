@@ -58,8 +58,8 @@ enum ViewFactory {
         Container.FriendAdd.view(navigator)
     }
 
-    static func powderTrackrChatView() -> PowderTrackrChatView {
-        Container.Chat.view()
+    static func powderTrackrChatView(chatId: String) -> PowderTrackrChatView {
+        Container.Chat.view(chatId)
     }
 
     // MARK: - MAP

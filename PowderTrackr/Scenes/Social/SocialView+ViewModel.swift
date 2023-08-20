@@ -75,14 +75,14 @@ extension SocialView {
 //            Task {
 //                await chatService.chatId(for: friendId)
 //            }
-            navigator.navigateToChat()
+            navigator.navigateToChat(recipient: friendId)
         }
 
         func navigateToChatGroup(groupId: String) {
 //            Task {
 //                await chatService.chatIdForGroup(for: groupId)
 //            }
-            navigator.navigateToChat()
+//            navigator.navigateToChat()
         }
     }
 }

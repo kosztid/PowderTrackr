@@ -34,7 +34,7 @@ extension ChatService: ChatServiceProtocol {
 
             var result = try queryResult.get().elements
 
-            var currentChatIndex = result.firstIndex { chat in
+            let currentChatIndex = result.firstIndex { chat in
                 if let participants = chat.participants {
                     if participants.contains(recipient) && participants.contains(user.userId) {
                         return true
@@ -56,14 +56,12 @@ extension ChatService: ChatServiceProtocol {
             )
 
             _ = try await Amplify.API.mutate(request: .update(result[index]))
+            await queryChat(recipient: recipient)
         } catch let error as APIError {
             print("Failed to create note: \(error)")
         } catch {
             print("Unexpected error while calling create API : \(error)")
         }
-        var currentMessages = messages.value
-        currentMessages?.append(message)
-        messages.send(currentMessages)
     }
 
     func queryChat(recipient: String) async {
@@ -81,22 +79,26 @@ extension ChatService: ChatServiceProtocol {
                 }
                 return false
             }
-            var currentMessages: [Chat.Message] = []
+            var currentMessages: [Chat.Message] = messages.value ?? []
             if let chat = currentChat {
                 chat.messages?.forEach { message in
-                    currentMessages.append(
-                        Chat.Message(
-                            id: UUID().uuidString,
-                            user: User(
-                                id: UUID().uuidString,
-                                name: "",
-                                avatarURL: nil,
-                                isCurrentUser: user.userId == message.sender),
-                            status: message.isSeen ? Chat.Message.Status.read : Chat.Message.Status.sent,
-                            createdAt: dateFormatter.date(from: message.date) ?? Date(),
-                            text: message.text
+                    if !currentMessages.contains(where: { currentMessage in
+                        currentMessage.id == message.id
+                    }) {
+                        currentMessages.append(
+                            Chat.Message(
+                                id: message.id,
+                                user: User(
+                                    id: UUID().uuidString,
+                                    name: "",
+                                    avatarURL: nil,
+                                    isCurrentUser: user.userId == message.sender),
+                                status: message.isSeen ? Chat.Message.Status.read : Chat.Message.Status.sent,
+                                createdAt: dateFormatter.date(from: message.date) ?? Date(),
+                                text: message.text
+                            )
                         )
-                    )
+                    }
                 }
             }
             messages.send(currentMessages)

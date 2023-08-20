@@ -77,6 +77,8 @@ struct PowderTrackrChatView: View {
                 fullscreenTint: .white
             )
         )
+        .onDisappear(perform: viewModel.stopTimer)
+        .onAppear(perform: viewModel.startTimer)
     }
 }
 

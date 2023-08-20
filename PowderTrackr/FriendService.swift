@@ -161,6 +161,10 @@ extension FriendService: FriendServiceProtocol {
             guard let senderData = senderFriendlist.data else { return }
             _ = try await Amplify.API.mutate(request: .update(senderData))
 
+            let personalChat = PersonalChat(id: UUID().uuidString, participants: [user.userId, request.sender.id], messages: [])
+
+            _ = try await Amplify.API.mutate(request: .create(personalChat))
+
             await queryFriends()
             await queryFriendRequests()
         } catch let error as APIError {
