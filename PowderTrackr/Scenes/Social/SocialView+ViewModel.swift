@@ -78,6 +78,11 @@ extension SocialView {
             navigator.navigateToChat(recipient: friendId)
         }
 
+        func chatNotification(for friendId: String) {
+            Task {
+//                await
+            }
+        }
         func navigateToChatGroup(groupId: String) {
 //            Task {
 //                await chatService.chatIdForGroup(for: groupId)

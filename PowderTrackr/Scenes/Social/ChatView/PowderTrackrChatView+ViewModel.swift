@@ -52,7 +52,7 @@ extension PowderTrackrChatView {
 
         func startTimer() {
             self.timer = Timer.scheduledTimer(
-                timeInterval: 2,
+                timeInterval: 4,
                 target: self,
                 selector: #selector(updateChats),
                 userInfo: nil,
@@ -66,7 +66,7 @@ extension PowderTrackrChatView {
 
         @objc func updateChats() {
             Task {
-                await chatService.queryChat(recipient: chatID)
+                await chatService.updateMessageStatus(recipient: chatID)
             }
         }
      }

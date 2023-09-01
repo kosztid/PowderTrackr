@@ -8,10 +8,12 @@ public protocol ChatServiceProtocol: AnyObject {
 
     func sendMessage(message: Chat.Message, recipient: String) async
     func queryChat(recipient: String) async
+    func updateMessageStatus(recipient: String) async
 }
 
 final class ChatService {
     private let messages: CurrentValueSubject<[Chat.Message]?, Never> = .init(nil)
+    private var chatId: String = ""
     private var cancellables: Set<AnyCancellable> = []
     let dateFormatter = DateFormatter()
 
@@ -66,6 +68,13 @@ extension ChatService: ChatServiceProtocol {
 
     func queryChat(recipient: String) async {
         do {
+            if chatId == "" {
+                chatId = recipient
+            }
+            if chatId != recipient {
+                messages.send([])
+                chatId = recipient
+            }
             let queryResult = try await Amplify.API.query(request: .list(PersonalChat.self))
             let user = try await Amplify.Auth.getCurrentUser()
 
@@ -104,6 +113,52 @@ extension ChatService: ChatServiceProtocol {
             messages.send(currentMessages)
         } catch {
             print("Can not retrieve messages: error: \(error)")
+        }
+    }
+
+    func updateMessageStatus(recipient: String) async {
+        do {
+            let user = try await Amplify.Auth.getCurrentUser()
+            let queryResult = try await Amplify.API.query(request: .list(PersonalChat.self))
+
+            var result = try queryResult.get().elements
+
+            let currentChatIndex = result.firstIndex { chat in
+                if let participants = chat.participants {
+                    if participants.contains(recipient) && participants.contains(user.userId) {
+                        return true
+                    }
+                }
+                return false
+            }
+            guard let index = currentChatIndex else { return }
+
+            for messageDx in 0..<(result[index].messages?.count ?? 0) {
+                if result[index].messages?[messageDx].sender == recipient {
+                    result[index].messages?[messageDx].isSeen = true
+                }
+            }
+            let msg = result[index].messages?.map { message in
+                Chat.Message(
+                    id: message.id,
+                    user: User(
+                        id: UUID().uuidString,
+                        name: "",
+                        avatarURL: nil,
+                        isCurrentUser: user.userId == message.sender),
+                    status: message.isSeen ? Chat.Message.Status.read : Chat.Message.Status.sent,
+                    createdAt: dateFormatter.date(from: message.date) ?? Date(),
+                    text: message.text
+                )
+            }
+            messages.send(msg)
+
+            _ = try await Amplify.API.mutate(request: .update(result[index]))
+            await queryChat(recipient: recipient)
+        } catch let error as APIError {
+            print("Failed to create note: \(error)")
+        } catch {
+            print("Unexpected error while calling create API : \(error)")
         }
     }
 
