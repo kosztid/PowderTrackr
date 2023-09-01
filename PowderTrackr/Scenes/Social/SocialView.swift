@@ -9,7 +9,10 @@ struct SocialView: View {
                 ZStack {
                     List {
                         ForEach(viewModel.friendList?.friends ?? []) { friend in
-                            FriendListItem(friend: friend) {
+                            FriendListItem(
+                                friend: friend,
+                                notification: viewModel.notification(for: friend.id)
+                            ) {
                                 viewModel.updateTracking(id: friend.id)
                             }
                             .onTapGesture(perform: {
@@ -58,6 +61,7 @@ struct SocialView: View {
                 }
             }
         }
+        .onAppear { viewModel.onAppear() }
     }
 }
 

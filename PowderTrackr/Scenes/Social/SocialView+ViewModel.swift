@@ -7,21 +7,25 @@ extension SocialView {
         @Published var groupList = ["asd", "asd"]
         @Published var notification: Bool
         @Published var signedIn: Bool = false
+        @Published var chatNotifications: [String] = []
 
         private let navigator: SocialListViewNavigatorProtocol
         private let friendService: FriendServiceProtocol
         private let accountService: AccountServiceProtocol
+        private let chatService: ChatServiceProtocol
 
         private var cancellables: Set<AnyCancellable> = []
 
         init(
             navigator: SocialListViewNavigatorProtocol,
             friendService: FriendServiceProtocol,
-            accountService: AccountServiceProtocol
+            accountService: AccountServiceProtocol,
+            chatService: ChatServiceProtocol
         ) {
             self.navigator = navigator
             self.friendService = friendService
             self.accountService = accountService
+            self.chatService = chatService
             self.notification = false
             initBindings()
             Task {
@@ -45,6 +49,13 @@ extension SocialView {
                     if !signedIn {
                         self?.friendList = nil
                     }
+                }
+                .store(in: &cancellables)
+
+            chatService.chatNotificationPublisher
+                .sink { _ in
+                } receiveValue: { [weak self] notifications in
+                    self?.chatNotifications = notifications ?? []
                 }
                 .store(in: &cancellables)
         }
@@ -72,15 +83,12 @@ extension SocialView {
         }
 
         func navigateToChatWithFriend(friendId: String) {
-//            Task {
-//                await chatService.chatId(for: friendId)
-//            }
             navigator.navigateToChat(recipient: friendId)
         }
 
-        func chatNotification(for friendId: String) {
+        func queryChatNotifications() {
             Task {
-//                await
+                await chatService.chatNotifications()
             }
         }
         func navigateToChatGroup(groupId: String) {
@@ -88,6 +96,14 @@ extension SocialView {
 //                await chatService.chatIdForGroup(for: groupId)
 //            }
 //            navigator.navigateToChat()
+        }
+
+        func onAppear() {
+            queryChatNotifications()
+        }
+
+        func notification(for friendId: String) -> Bool {
+            chatNotifications.contains(friendId)
         }
     }
 }

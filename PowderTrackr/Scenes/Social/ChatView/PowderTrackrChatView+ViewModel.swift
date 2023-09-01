@@ -52,7 +52,7 @@ extension PowderTrackrChatView {
 
         func startTimer() {
             self.timer = Timer.scheduledTimer(
-                timeInterval: 4,
+                timeInterval: 2,
                 target: self,
                 selector: #selector(updateChats),
                 userInfo: nil,

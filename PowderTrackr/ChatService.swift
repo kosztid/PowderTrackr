@@ -5,14 +5,17 @@ import UIKit
 
 public protocol ChatServiceProtocol: AnyObject {
     var messagesPublisher: AnyPublisher<[Chat.Message]?, Never> { get }
+    var chatNotificationPublisher: AnyPublisher<[String]?, Never> { get }
 
     func sendMessage(message: Chat.Message, recipient: String) async
     func queryChat(recipient: String) async
     func updateMessageStatus(recipient: String) async
+    func chatNotifications() async
 }
 
 final class ChatService {
     private let messages: CurrentValueSubject<[Chat.Message]?, Never> = .init(nil)
+    private let chatNotifications: CurrentValueSubject<[String]?, Never> = .init(nil)
     private var chatId: String = ""
     private var cancellables: Set<AnyCancellable> = []
     let dateFormatter = DateFormatter()
@@ -25,6 +28,12 @@ final class ChatService {
 extension ChatService: ChatServiceProtocol {
     var messagesPublisher: AnyPublisher<[Chat.Message]?, Never> {
         messages
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
+
+    var chatNotificationPublisher: AnyPublisher<[String]?, Never> {
+        chatNotifications
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
@@ -162,4 +171,28 @@ extension ChatService: ChatServiceProtocol {
         }
     }
 
+    func chatNotifications() async {
+        var notifications: Set<String> = []
+        do {
+            let queryResult = try await Amplify.API.query(request: .list(PersonalChat.self))
+            let user = try await Amplify.Auth.getCurrentUser()
+
+            let result = try queryResult.get().elements
+
+            result.forEach { chat in
+                if let participants = chat.participants {
+                    if participants.contains(user.userId) {
+                        chat.messages?.forEach { message in
+                            if !message.isSeen && message.sender != user.userId {
+                                notifications.insert(message.sender)
+                            }
+                        }
+                    }
+                }
+            }
+            chatNotifications.send(Array(notifications))
+        } catch {
+            print("Error in chatNotification")
+        }
+    }
 }
