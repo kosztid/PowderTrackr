@@ -11,6 +11,11 @@ struct MapView: View {
                 selectedPath: $viewModel.selectedPath
             )
             .ignoresSafeArea()
+            VStack {
+                topBar
+                    .background(.white)
+                Spacer()
+            }
             VStack(alignment: .trailing) {
                 Spacer()
                 if viewModel.selectedPath != nil {
@@ -84,6 +89,50 @@ struct MapView: View {
             }
         }
         .padding(16)
+    }
+
+    var topBar: some View {
+        HStack {
+            Spacer()
+            VStack(spacing: 4) {
+                Text("1234 m")
+                    .bold()
+                HStack {
+                    Image(systemName: "arrow.forward")
+                        .frame(minHeight: 20)
+                    Text("distance")
+                        .font(.caption)
+                }
+                .foregroundColor(.gray)
+            }
+            Divider()
+                .padding(.horizontal, 12)
+            VStack(spacing: 4) {
+                Text("8m 12s")
+                    .bold()
+                HStack {
+                    Image(systemName: "timer")
+                    Text("total time")
+                        .font(.caption)
+                }
+                .foregroundColor(.gray)
+            }
+            Divider()
+                .padding(.horizontal, 12)
+            VStack(spacing: 4) {
+                Text("35 km/h")
+                    .bold()
+                HStack {
+                    Image(systemName: "speedometer")
+                    Text("avg speed")
+                        .font(.caption)
+                }
+                .foregroundColor(.gray)
+            }
+            Spacer()
+        }
+        .padding(.bottom, 8)
+        .frame(maxHeight: 48)
     }
 }
 
