@@ -6,19 +6,24 @@ extension TrackListView {
     final class ViewModel: ObservableObject {
         private var cancellables: Set<AnyCancellable> = []
 
-        let mapService: MapServiceProtocol
-        let accountService: AccountServiceProtocol
+        private let friendService: FriendServiceProtocol
+        private let mapService: MapServiceProtocol
+        private let accountService: AccountServiceProtocol
 
+        @Published var friendList: Friendlist?
         @Published var tracks: [TrackedPath] = []
         @Published var sharedTracks: [TrackedPath] = []
         @Published var signedIn = false
+        @Published var trackToShare: TrackedPath?
 
         init(
             mapService: MapServiceProtocol,
-            accountService: AccountServiceProtocol
+            accountService: AccountServiceProtocol,
+            friendService: FriendServiceProtocol
         ) {
             self.mapService = mapService
             self.accountService = accountService
+            self.friendService = friendService
 
             mapService.trackedPathPublisher
                 .sink { _ in
@@ -43,8 +48,16 @@ extension TrackListView {
                 })
                 .store(in: &cancellables)
 
+            friendService.friendListPublisher
+                .sink { _ in
+                } receiveValue: { [weak self] friendList in
+                    self?.friendList = friendList
+                }
+                .store(in: &cancellables)
+
             Task {
                 await mapService.queryTrackedPaths()
+                await friendService.queryFriends()
             }
         }
 
@@ -79,11 +92,8 @@ extension TrackListView {
             }
         }
 
-        func shareTrack(_ trackedPath: TrackedPath, friend: String) {
-            print("sharing: \(trackedPath) with \(friend)")
-            Task {
-                await mapService.shareTrack(trackedPath, friend)
-            }
+        func shareTrack(_ trackedPath: TrackedPath) {
+            trackToShare = trackedPath
         }
 
 
@@ -92,6 +102,13 @@ extension TrackListView {
                 var newTrack = trackedPath
                 newTrack.notes?.append(note)
                 await mapService.updateTrack(newTrack)
+            }
+        }
+
+        func share(with friend: Friend) {
+            guard let trackToShare else { return }
+            Task {
+                await mapService.shareTrack(trackToShare, friend.id)
             }
         }
     }

@@ -35,11 +35,17 @@ extension MapView {
         @Published var trackedPath: TrackedPathModel?
         @Published var signedIn = false
         @Published var menuState: MapMenuState = .closed
+        @Published var startTime: Date? = nil
+        @Published var currentDistance: Double? = nil
 
         @Published var track: [TrackedPath] = []
 
         @Published var selectedPath: TrackedPath?
 
+        var elapsedTime: Double { startTime?.distance(to: Date()) ?? 0 }
+        var avgSpeed: Double {
+            ((currentDistance ?? 0) / elapsedTime) * 3.6
+        }
         init(
             accountService: AccountServiceProtocol,
             mapService: MapServiceProtocol,
@@ -51,7 +57,7 @@ extension MapView {
             self.cameraPos = .init(
                 latitude: self.locationManager.location?.coordinate.latitude ?? 1,
                 longitude: self.locationManager.location?.coordinate.longitude ?? 1,
-                zoom: 13
+                zoom: 15
             )
             self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
@@ -127,6 +133,7 @@ extension MapView {
 
         func startTracking() {
             self.trackTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
+            startTime = Date()
             //            self.trackedPath.append(TrackedPathModel(id: UUID().uuidString, name: "Path \(self.trackedPath.count)"))
             let id = UUID().uuidString
             self.trackedPath?.tracks?.append(
@@ -140,8 +147,8 @@ extension MapView {
                 )
             )
             self.isTracking = .on
-            addX = Double.random(in: 0..<0.001)
-            addY = Double.random(in: 0..<0.001)
+            addX = Double.random(in: -0.00001..<0.00001)
+            addY = Double.random(in: -0.00001..<0.00001)
         }
 
         func calculateDistance() -> Double {
@@ -171,6 +178,8 @@ extension MapView {
             self.trackTimer?.invalidate()
             self.trackTimer = nil
             self.isTracking = .off
+            self.startTime = nil
+            self.currentDistance = nil
             var current = trackedPath?.tracks?.last
             current?.endDate = "\(dateFormatter.string(from: Date()))"
             guard let path = current else { return }
@@ -189,9 +198,24 @@ extension MapView {
 
             modified[modified.count - 1].xCoords = xCoords ?? []
             modified[modified.count - 1].yCoords = yCoords ?? []
-
+            modified[modified.count - 1].endDate = "\(dateFormatter.string(from: Date()))"
             self.trackedPath?.tracks = modified
             self.track = modified
+
+
+            let track = modified[modified.count - 1]
+            var list: [CLLocation] = []
+            var distance = 0.0
+            for index in 0..<(track.xCoords?.count ?? 0) {
+                list.append(CLLocation(latitude: track.xCoords?[index] ?? 0, longitude: track.yCoords?[index] ?? 0))
+            }
+            if list.count > 1 {
+                for itemDx in 1..<list.count {
+                    distance += list[itemDx].distance(from: list[itemDx - 1])
+                }
+            }
+            self.currentDistance = distance
+
             guard let modifiedLast = modified.last else { return }
             Task {
                 await mapService.sendCurrentlyTracked(modifiedLast)

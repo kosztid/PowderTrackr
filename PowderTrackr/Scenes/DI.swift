@@ -205,7 +205,7 @@ extension Container {
         }
 
         static let viewModel = Factory {
-            TrackListView.ViewModel(mapService: mapService(), accountService: accountService())
+            TrackListView.ViewModel(mapService: mapService(), accountService: accountService(), friendService: friendService())
         }
     }
 }

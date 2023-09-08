@@ -63,6 +63,8 @@
 		5545881C2A3E30F0009A5485 /* SkiingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545881B2A3E30F0009A5485 /* SkiingButtonStyle.swift */; };
 		5545881E2A3E30F9009A5485 /* SkiingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545881D2A3E30F9009A5485 /* SkiingButton.swift */; };
 		556B616B2A44B08C006B2C68 /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556B616A2A44B08C006B2C68 /* MapService.swift */; };
+		557343B22AAB21FB0002BD40 /* ShareListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557343B12AAB21FB0002BD40 /* ShareListView.swift */; };
+		557343B52AAB222C0002BD40 /* ShareListView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557343B42AAB222C0002BD40 /* ShareListView+ViewModel.swift */; };
 		557B1ABE2A52F904007C403E /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557B1ABD2A52F904007C403E /* ResetPasswordView.swift */; };
 		557B1AC02A52F911007C403E /* ResetPasswordView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557B1ABF2A52F911007C403E /* ResetPasswordView+ViewModel.swift */; };
 		558815B42A3E361600667C1A /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558815B12A3E361500667C1A /* Location.swift */; };
@@ -194,6 +196,8 @@
 		5545881B2A3E30F0009A5485 /* SkiingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkiingButtonStyle.swift; sourceTree = "<group>"; };
 		5545881D2A3E30F9009A5485 /* SkiingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkiingButton.swift; sourceTree = "<group>"; };
 		556B616A2A44B08C006B2C68 /* MapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
+		557343B12AAB21FB0002BD40 /* ShareListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareListView.swift; sourceTree = "<group>"; };
+		557343B42AAB222C0002BD40 /* ShareListView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShareListView+ViewModel.swift"; sourceTree = "<group>"; };
 		557B1ABD2A52F904007C403E /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		557B1ABF2A52F911007C403E /* ResetPasswordView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ResetPasswordView+ViewModel.swift"; sourceTree = "<group>"; };
 		558815B12A3E361500667C1A /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -389,6 +393,7 @@
 		554587C82A3E2EAD009A5485 /* TrackList */ = {
 			isa = PBXGroup;
 			children = (
+				557343B32AAB221A0002BD40 /* ShareList */,
 				554587CD2A3E2FA1009A5485 /* TrackListItem.swift */,
 				554587CB2A3E2FA1009A5485 /* TrackListView.swift */,
 				554587CC2A3E2FA1009A5485 /* TrackListView+ViewModel.swift */,
@@ -522,6 +527,15 @@
 				5545880E2A3E30EA009A5485 /* ToggleableSecureField.swift */,
 			);
 			path = TextField;
+			sourceTree = "<group>";
+		};
+		557343B32AAB221A0002BD40 /* ShareList */ = {
+			isa = PBXGroup;
+			children = (
+				557343B12AAB21FB0002BD40 /* ShareListView.swift */,
+				557343B42AAB222C0002BD40 /* ShareListView+ViewModel.swift */,
+			);
+			path = ShareList;
 			sourceTree = "<group>";
 		};
 		557B1ABC2A52F8F7007C403E /* ResetPassword */ = {
@@ -829,6 +843,7 @@
 				55FF48782A9136D200527F18 /* LayerWidget.swift in Sources */,
 				554587F72A3E3056009A5485 /* ProfileView+ViewModel.swift in Sources */,
 				554588162A3E30EA009A5485 /* LabelViewModifier.swift in Sources */,
+				557343B52AAB222C0002BD40 /* ShareListView+ViewModel.swift in Sources */,
 				554587CE2A3E2FA1009A5485 /* TrackListView.swift in Sources */,
 				93721D97E1A81377C189A5E6 /* Friend+Schema.swift in Sources */,
 				557B1ABE2A52F904007C403E /* ResetPasswordView.swift in Sources */,
@@ -857,6 +872,7 @@
 				558816052A3E388800667C1A /* TrackedPath.swift in Sources */,
 				558816082A3E388800667C1A /* UserfriendList+Schema.swift in Sources */,
 				558A21722A73E15800819256 /* GroupView.swift in Sources */,
+				557343B22AAB21FB0002BD40 /* ShareListView.swift in Sources */,
 				554587E92A3E2FC4009A5485 /* FriendListItem.swift in Sources */,
 				558815CD2A3E366F00667C1A /* UserfriendList+Schema.swift in Sources */,
 				89E77F0BA3478441D85A6533 /* TrackedPath.swift in Sources */,

@@ -49,6 +49,13 @@ struct TrackListView: View {
             if !viewModel.signedIn {
                 LoggedOutModal()
             }
+            if viewModel.trackToShare != nil {
+                ShareListView(friends: viewModel.friendList) { friend in
+                    viewModel.share(with: friend)
+                } dismissAction: {
+                    viewModel.trackToShare = nil
+                }
+            }
         }
     }
 }

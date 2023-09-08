@@ -14,10 +14,9 @@ struct SocialView: View {
                                 notification: viewModel.notification(for: friend.id)
                             ) {
                                 viewModel.updateTracking(id: friend.id)
-                            }
-                            .onTapGesture(perform: {
+                            } navigationAction: {
                                 viewModel.navigateToChatWithFriend(friendId: friend.id)
-                            })
+                            }
                             .listRowSeparator(.hidden)
                         }
                     }
