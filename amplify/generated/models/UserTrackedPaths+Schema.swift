@@ -7,6 +7,7 @@ extension UserTrackedPaths {
    public enum CodingKeys: String, ModelKey {
     case id
     case tracks
+    case sharedTracks
     case createdAt
     case updatedAt
   }
@@ -30,6 +31,7 @@ extension UserTrackedPaths {
     model.fields(
       .field(userTrackedPaths.id, is: .required, ofType: .string),
       .field(userTrackedPaths.tracks, is: .optional, ofType: .embeddedCollection(of: TrackedPath.self)),
+      .field(userTrackedPaths.sharedTracks, is: .optional, ofType: .embeddedCollection(of: TrackedPath.self)),
       .field(userTrackedPaths.createdAt, is: .optional, isReadOnly: true, ofType: .dateTime),
       .field(userTrackedPaths.updatedAt, is: .optional, isReadOnly: true, ofType: .dateTime)
     )
