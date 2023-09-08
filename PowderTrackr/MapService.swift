@@ -47,6 +47,28 @@ extension MapService: MapServiceProtocol {
     }
 
     func shareTrack(_ trackedPath: TrackedPath, _ friend: String) async {
+        do {
+            let tracksQueryResults = try await Amplify.API.query(request: .list(UserTrackedPaths.self))
+            let tracksQueryResultsMapped = try tracksQueryResults.get().elements.map { item in
+                TrackedPathModel(from: item)
+            }
+
+            var tracks = tracksQueryResultsMapped.first { item in
+                item.id == friend
+            }?.tracks
+
+            tracks?.append(trackedPath)
+
+            let trackModel = TrackedPathModel(id: friend, tracks: tracks)
+            guard let data = trackModel.data else { return }
+            _ = try await Amplify.API.mutate(request: .update(data))
+
+            await queryTrackedPaths()
+        } catch let error as APIError {
+            print("Failed to create note: \(error)")
+        } catch {
+            print("Unexpected error while calling create API : \(error)")
+        }
     }
 
     func queryTrackedPaths() async {

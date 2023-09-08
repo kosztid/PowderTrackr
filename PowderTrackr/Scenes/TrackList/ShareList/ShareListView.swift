@@ -16,6 +16,8 @@ struct ShareListView: View {
                             dismissAction()
                         } label: {
                             Image(systemName: "x.circle")
+                                .resizable()
+                                .frame(width: 32, height: 32)
                         }
                         Spacer()
                     }

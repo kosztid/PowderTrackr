@@ -184,22 +184,26 @@ struct TrackListItem: View {
                 notesSection
             }
             HStack {
-                Button {
-                    shareAction(track)
-                } label: {
-                    Image(systemName: "square.and.arrow.up")
+                if !openedInitially && style == .normal {
+                    Button {
+                        shareAction(track)
+                    } label: {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                    .buttonStyle(SkiingButtonStyle(style: .secondary))
+                    .padding(.top, 8)
                 }
-                .buttonStyle(SkiingButtonStyle(style: .secondary))
-                .padding(.top, 8)
-                Button {
-                    name = track.name
-                    showingRenameAlert.toggle()
-                } label: {
-                    Text("Rename run")
-                        .frame(width: 95)
+                if style == .normal {
+                    Button {
+                        name = track.name
+                        showingRenameAlert.toggle()
+                    } label: {
+                        Text("Rename run")
+                            .frame(width: 95)
+                    }
+                    .buttonStyle(SkiingButtonStyle(style: .secondary))
+                    .padding(.top, 8)
                 }
-                .buttonStyle(SkiingButtonStyle(style: .secondary))
-                .padding(.top, 8)
                 Button {
                     showingDeleteAlert.toggle()
                 } label: {
@@ -217,13 +221,15 @@ struct TrackListItem: View {
                 Text("Notes")
                     .padding(.bottom, 8)
                 Spacer()
-                Button {
-                    showingAlert.toggle()
-                } label: {
-                    Text("Add note")
-                        .foregroundColor(.black)
+                if style == .normal {
+                    Button {
+                        showingAlert.toggle()
+                    } label: {
+                        Text("Add note")
+                            .foregroundColor(.black)
+                    }
+                    .buttonStyle(SkiingButtonStyle(style: .bordered))
                 }
-                .buttonStyle(SkiingButtonStyle(style: .bordered))
             }
             LazyVStack {
                 ForEach(track.notes ?? [], id: \.self) { note in
