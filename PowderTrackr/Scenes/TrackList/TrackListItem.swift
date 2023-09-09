@@ -161,9 +161,7 @@ struct TrackListItem: View {
                 Toggle(isOn: $isShowingOnMap) {
                 }
             }
-            if style == .normal {
-                normalSection
-            }
+            normalSection
         }
         .onChange(of: isShowingOnMap) { newValue in
             var newTrack = track

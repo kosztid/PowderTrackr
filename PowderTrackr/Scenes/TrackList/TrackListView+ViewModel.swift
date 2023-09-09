@@ -111,5 +111,11 @@ extension TrackListView {
                 await mapService.shareTrack(trackToShare, friend.id)
             }
         }
+
+        func removeSharedTrack(_ trackedPath: TrackedPath) {
+            Task {
+                await mapService.removeSharedTrackedPath(trackedPath)
+            }
+        }
     }
 }

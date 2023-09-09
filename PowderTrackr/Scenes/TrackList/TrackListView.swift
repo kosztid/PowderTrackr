@@ -34,6 +34,7 @@ struct TrackListView: View {
                                 TrackListItem(
                                     track: track,
                                     style: .shared,
+                                    deleteAction: viewModel.removeSharedTrack,
                                     totalDistance: viewModel.calculateDistance(track: track)
                                 )
                                 .listRowSeparator(.hidden)

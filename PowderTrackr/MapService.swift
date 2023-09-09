@@ -11,6 +11,7 @@ public protocol MapServiceProtocol: AnyObject {
     func updateTrack(_ trackedPath: TrackedPath) async
     func shareTrack(_ trackedPath: TrackedPath, _ friend: String) async
     func removeTrackedPath(_ trackedPath: TrackedPath) async
+    func removeSharedTrackedPath(_ trackedPath: TrackedPath) async
     func queryTrackedPaths() async
     func querySharedPaths() async
     func sendCurrentlyTracked(_ trackedPath: TrackedPath) async
@@ -49,21 +50,27 @@ extension MapService: MapServiceProtocol {
     func shareTrack(_ trackedPath: TrackedPath, _ friend: String) async {
         do {
             let tracksQueryResults = try await Amplify.API.query(request: .list(UserTrackedPaths.self))
-            let tracksQueryResultsMapped = try tracksQueryResults.get().elements.map { item in
-                TrackedPathModel(from: item)
+            let result = try tracksQueryResults.get().elements.map { model in
+                TrackedPathModel(id: model.id, tracks: model.sharedTracks)
             }
 
-            var tracks = tracksQueryResultsMapped.first { item in
+            let resultTracks = try tracksQueryResults.get().elements.map { model in
+                TrackedPathModel(id: model.id, tracks: model.tracks)
+            }
+
+            var model = result.first { item in
                 item.id == friend
-            }?.tracks
+            }
 
-            tracks?.append(trackedPath)
+            var resultModel = resultTracks.first { item in
+                item.id == friend
+            }
 
-            let trackModel = TrackedPathModel(id: friend, tracks: tracks)
-            guard let data = trackModel.data else { return }
-            _ = try await Amplify.API.mutate(request: .update(data))
+            model?.tracks?.append(trackedPath)
 
-            await queryTrackedPaths()
+            let newData = UserTrackedPaths(id: model?.id ?? "", tracks: resultModel?.tracks, sharedTracks: model?.tracks)
+
+            _ = try await Amplify.API.mutate(request: .update(newData))
         } catch let error as APIError {
             print("Failed to create note: \(error)")
         } catch {
@@ -96,11 +103,11 @@ extension MapService: MapServiceProtocol {
             let user = try await Amplify.Auth.getCurrentUser()
 
             let result = try queryResult.get().elements.map { model in
-                TrackedPathModel(from: model)
+                TrackedPathModel(id: model.id, tracks: model.sharedTracks)
             }
-//            let sharedPaths = result.first { $0.shared.contains(user.username) }
+            let sharedPaths = result.first { $0.id == user.userId }
 
-//            sharedPathModel.send(sharedPaths)
+            sharedPathModel.send(sharedPaths)
         } catch {
             print("Can not retrieve queryTrackedPaths : error \(error)")
         }
@@ -177,6 +184,41 @@ extension MapService: MapServiceProtocol {
             _ = try await Amplify.API.mutate(request: .update(data))
 
             await queryTrackedPaths()
+        } catch let error as APIError {
+            print("Failed to create note: \(error)")
+        } catch {
+            print("Unexpected error while calling create API : \(error)")
+        }
+    }
+
+    func removeSharedTrackedPath(_ trackedPath: TrackedPath) async {
+        do {
+            let user = try await Amplify.Auth.getCurrentUser()
+
+            let tracksQueryResults = try await Amplify.API.query(request: .list(UserTrackedPaths.self))
+            let tracksQueryResultsMapped = try tracksQueryResults.get().elements.map { item in
+                TrackedPathModel(from: item)
+            }
+
+            let sharedTracksQueryResultsMapped = try tracksQueryResults.get().elements.map { item in
+                TrackedPathModel(id: item.id, tracks: item.sharedTracks)
+            }
+
+            var tracks = tracksQueryResultsMapped.first { item in
+                item.id == user.userId
+            }?.tracks
+
+            var sharedTracks = sharedTracksQueryResultsMapped.first { item in
+                item.id == user.userId
+            }?.tracks
+
+            sharedTracks?.removeAll { $0.id == trackedPath.id }
+
+            let newData = UserTrackedPaths(id: user.userId, tracks: tracks, sharedTracks: sharedTracks)
+
+            _ = try await Amplify.API.mutate(request: .update(newData))
+
+            await querySharedPaths()
         } catch let error as APIError {
             print("Failed to create note: \(error)")
         } catch {
