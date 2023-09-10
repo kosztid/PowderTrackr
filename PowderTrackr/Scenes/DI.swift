@@ -124,10 +124,11 @@ extension Container {
 
     // MARK: - SOCIAL
     enum GoogleMap {
-        static let view = ParameterFactory { cameraPos, selectedPath in
+        static let view = ParameterFactory { cameraPos, selectedPath, shared in
             GoogleMapsView(
                 cameraPos: cameraPos,
-                selectedPath: selectedPath
+                selectedPath: selectedPath,
+                shared: shared
             )
         }
     }

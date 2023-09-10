@@ -12,22 +12,26 @@ struct GoogleMapsView: UIViewRepresentable {
         let accountService: AccountServiceProtocol
         var innerMapView: GMSMapView?
         var trackedPath: [TrackedPath] = []
+        var sharedPath: [TrackedPath] = []
         var currentlyTracked: TrackedPath?
         var friendLocations: [Location] = []
         var markers: [GMSMarker] = []
         var lines: [GMSPolyline] = []
 
         @Binding var selectedPath: TrackedPath?
+        @Binding var shared: Bool
 
         init(
             innerMapView: GMSMapView? = nil,
-            selectedPath: Binding<TrackedPath?>
+            selectedPath: Binding<TrackedPath?>,
+            shared: Binding<Bool>
         ) {
             self.innerMapView = innerMapView
             self.friendService = Container.friendService()
             self.mapService = Container.mapService()
             self.accountService = Container.accountService()
             self._selectedPath = selectedPath
+            self._shared = shared
             super.init()
 
             Task {
@@ -46,6 +50,14 @@ struct GoogleMapsView: UIViewRepresentable {
                 .sink { _ in
                 } receiveValue: { [weak self] track in
                     self?.trackedPath = track?.tracks ?? []
+                    self?.drawMapItems()
+                }
+                .store(in: &cancellables)
+
+            mapService.sharedPathPublisher
+                .sink { _ in
+                } receiveValue: { [weak self] track in
+                    self?.sharedPath = track?.tracks ?? []
                     self?.drawMapItems()
                 }
                 .store(in: &cancellables)
@@ -72,6 +84,11 @@ struct GoogleMapsView: UIViewRepresentable {
 
         func mapView(_ mapView: GMSMapView, didTap overlay: GMSOverlay) {
             guard let model = lines.first(where: { $0 == overlay })?.userData as? TrackedPath else { return }
+            if sharedPath.contains(model) {
+                shared = true
+            } else {
+                shared = false
+            }
             self.selectedPath = model
             drawMapItems()
         }
@@ -98,6 +115,9 @@ struct GoogleMapsView: UIViewRepresentable {
             if let current = currentlyTracked {
                 list.append(current)
             }
+
+            list.append(contentsOf: sharedPath)
+            
             for track in list where track.tracking {
                 let path = GMSMutablePath()
                 for index in 0..<(track.xCoords?.count ?? 0) {
@@ -136,13 +156,16 @@ struct GoogleMapsView: UIViewRepresentable {
 
     @Binding var cameraPos: GMSCameraPosition
     @Binding var selectedPath: TrackedPath?
+    @Binding var shared: Bool
 
     init(
         cameraPos: Binding<GMSCameraPosition>,
-        selectedPath: Binding<TrackedPath?>
+        selectedPath: Binding<TrackedPath?>,
+        shared: Binding<Bool>
     ) {
         self._cameraPos = cameraPos
         self._selectedPath = selectedPath
+        self._shared = shared
     }
 
     func makeUIView(context: Context) -> GMSMapView {
@@ -168,6 +191,6 @@ struct GoogleMapsView: UIViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(selectedPath: $selectedPath)
+        Coordinator(selectedPath: $selectedPath, shared: $shared)
     }
 }

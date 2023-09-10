@@ -8,7 +8,7 @@ public protocol MapServiceProtocol: AnyObject {
     var sharedPathPublisher: AnyPublisher<TrackedPathModel?, Never> { get }
 
     func updateTrackedPath(_ trackedPath: TrackedPath) async
-    func updateTrack(_ trackedPath: TrackedPath) async
+    func updateTrack(_ trackedPath: TrackedPath, _ shared: Bool) async
     func shareTrack(_ trackedPath: TrackedPath, _ friend: String) async
     func removeTrackedPath(_ trackedPath: TrackedPath) async
     func removeSharedTrackedPath(_ trackedPath: TrackedPath) async
@@ -58,11 +58,11 @@ extension MapService: MapServiceProtocol {
                 TrackedPathModel(id: model.id, tracks: model.tracks)
             }
 
-            var model = result.first { item in
+            let model = result.first { item in
                 item.id == friend
             }
 
-            var resultModel = resultTracks.first { item in
+            let resultModel = resultTracks.first { item in
                 item.id == friend
             }
 
@@ -72,7 +72,7 @@ extension MapService: MapServiceProtocol {
 
             _ = try await Amplify.API.mutate(request: .update(newData))
         } catch let error as APIError {
-            print("Failed to create note: \(error)")
+            print("Failed to shareTrack: \(error)")
         } catch {
             print("Unexpected error while calling create API : \(error)")
         }
@@ -109,7 +109,7 @@ extension MapService: MapServiceProtocol {
 
             sharedPathModel.send(sharedPaths)
         } catch {
-            print("Can not retrieve queryTrackedPaths : error \(error)")
+            print("Can not retrieve querySharedPaths : error \(error)")
         }
     }
 
@@ -133,16 +133,21 @@ extension MapService: MapServiceProtocol {
 
             await queryTrackedPaths()
         } catch let error as APIError {
-            print("Failed to create note: \(error)")
+            print("Failed to updateTrackedPath: \(error)")
         } catch {
             print("Unexpected error while calling create API : \(error)")
         }
     }
 
-    func updateTrack(_ trackedPath: TrackedPath) async {
+    func updateTrack(_ trackedPath: TrackedPath, _ shared: Bool) async {
         do {
             let user = try await Amplify.Auth.getCurrentUser()
             let tracksQueryResults = try await Amplify.API.query(request: .list(UserTrackedPaths.self))
+
+            let sharedTracksQueryResultsMapped = try tracksQueryResults.get().elements.map { item in
+                return TrackedPathModel(id: item.id, tracks: item.sharedTracks)
+            }
+
             let tracksQueryResultsMapped = try tracksQueryResults.get().elements.map { item in
                 TrackedPathModel(from: item)
             }
@@ -150,16 +155,29 @@ extension MapService: MapServiceProtocol {
             var tracks = tracksQueryResultsMapped.first { item in
                 item.id == user.userId
             }?.tracks
-            let id = tracks?.firstIndex { $0.id == trackedPath.id } ?? 0
-            tracks?[id] = trackedPath
 
-            let trackModel = TrackedPathModel(id: user.userId, tracks: tracks)
-            guard let data = trackModel.data else { return }
+            var sharedTracks = sharedTracksQueryResultsMapped.first { item in
+                item.id == user.userId
+            }?.tracks
+
+            if shared {
+                let id = sharedTracks?.firstIndex { $0.id == trackedPath.id } ?? 0
+                sharedTracks?[id] = trackedPath
+            } else {
+                let id = tracks?.firstIndex { $0.id == trackedPath.id } ?? 0
+                tracks?[id] = trackedPath
+            }
+
+            let data = UserTrackedPaths(id: user.userId, tracks: tracks, sharedTracks: sharedTracks)
             _ = try await Amplify.API.mutate(request: .update(data))
 
-            await queryTrackedPaths()
+            if shared {
+                await querySharedPaths()
+            } else {
+                await queryTrackedPaths()
+            }
         } catch let error as APIError {
-            print("Failed to create note: \(error)")
+            print("Failed to updateTrack: \(error)")
         } catch {
             print("Unexpected error while calling create API : \(error)")
         }
@@ -185,7 +203,7 @@ extension MapService: MapServiceProtocol {
 
             await queryTrackedPaths()
         } catch let error as APIError {
-            print("Failed to create note: \(error)")
+            print("Failed to removeTrackedPath: \(error)")
         } catch {
             print("Unexpected error while calling create API : \(error)")
         }
@@ -220,7 +238,7 @@ extension MapService: MapServiceProtocol {
 
             await querySharedPaths()
         } catch let error as APIError {
-            print("Failed to create note: \(error)")
+            print("Failed to removeSharedTrackedPath: \(error)")
         } catch {
             print("Unexpected error while calling create API : \(error)")
         }

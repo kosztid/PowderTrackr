@@ -41,6 +41,7 @@ extension MapView {
         @Published var track: [TrackedPath] = []
 
         @Published var selectedPath: TrackedPath?
+        @Published var shared: Bool = false
 
         var elapsedTime: Double { startTime?.distance(to: Date()) ?? 0 }
         var avgSpeed: Double {
@@ -65,6 +66,7 @@ extension MapView {
 
             Task {
                 await mapService.queryTrackedPaths()
+                await mapService.querySharedPaths()
             }
         }
 
@@ -256,9 +258,9 @@ extension MapView {
             }
         }
 
-        func updateTrack(_ trackedPath: TrackedPath) {
+        func updateTrack(_ trackedPath: TrackedPath, shared: Bool) {
             Task {
-                await mapService.updateTrack(trackedPath)
+                await mapService.updateTrack(trackedPath, shared)
             }
         }
 
@@ -266,7 +268,7 @@ extension MapView {
             Task {
                 var newTrack = trackedPath
                 newTrack.notes?.append(note)
-                await mapService.updateTrack(newTrack)
+                await mapService.updateTrack(newTrack, false)
             }
         }
     }

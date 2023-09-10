@@ -16,7 +16,7 @@ struct TrackListItem: View {
     ]
     let shareAction: (_ trackedPath: TrackedPath) -> Void
     let closeAction: () -> Void
-    let updateAction: (_ trackedPath: TrackedPath) -> Void
+    let updateAction: (_ trackedPath: TrackedPath, _ shared: Bool) -> Void
     let noteAction: (_ note: String, _ trackedPath: TrackedPath) -> Void
     let deleteAction: (_ trackedPath: TrackedPath) -> Void
     let totalDistance: Double
@@ -27,7 +27,7 @@ struct TrackListItem: View {
     @State var isOpened = false
     @State var note = ""
     @State var name = ""
-    @State var isShowingOnMap = false
+    @State var isShowingOnMap = true
     @State private var showingAlert = false
     @State private var showingDeleteAlert = false
     @State private var showingRenameAlert = false
@@ -94,7 +94,7 @@ struct TrackListItem: View {
             Button("Rename") {
                 var newTrack = track
                 newTrack.name = name
-                updateAction(newTrack)
+                updateAction(newTrack, false)
                 name = ""
                 showingRenameAlert.toggle()
             }
@@ -166,10 +166,9 @@ struct TrackListItem: View {
         .onChange(of: isShowingOnMap) { newValue in
             var newTrack = track
             newTrack.tracking = newValue
-            updateAction(newTrack)
+            updateAction(newTrack, style == .shared)
         }
         .onAppear {
-            print(track)
             self.isShowingOnMap = track.tracking
         }
     }
@@ -247,7 +246,7 @@ struct TrackListItem: View {
         style: Style = .normal,
         shareAction: @escaping (_ trackedPath: TrackedPath) -> Void = { _ in },
         closeAction: @escaping () -> Void = {},
-        updateAction: @escaping (_ trackedPath: TrackedPath) -> Void = { _ in },
+        updateAction: @escaping (_ trackedPath: TrackedPath, _ shared: Bool) -> Void = { _, _ in },
         noteAction: @escaping (_ note: String, _ trackedPath: TrackedPath) -> Void = { _, _ in },
         deleteAction: @escaping (_ trackedPath: TrackedPath) -> Void = { _ in },
         totalDistance: Double,
@@ -296,7 +295,7 @@ struct TrackListItem_Previews: PreviewProvider {
                 notes: ["Note1 description something", "Note2 description something"],
                 tracking: true
             ),
-            updateAction: { _ in
+            updateAction: { _, _ in
             }, noteAction: { _, _  in
             }, deleteAction: { _ in
             },

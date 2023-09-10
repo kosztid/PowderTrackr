@@ -86,9 +86,9 @@ extension TrackListView {
             }
         }
 
-        func updateTrack(_ trackedPath: TrackedPath) {
+        func updateTrack(_ trackedPath: TrackedPath, shared: Bool) {
             Task {
-                await mapService.updateTrack(trackedPath)
+                await mapService.updateTrack(trackedPath, shared)
             }
         }
 
@@ -101,7 +101,7 @@ extension TrackListView {
             Task {
                 var newTrack = trackedPath
                 newTrack.notes?.append(note)
-                await mapService.updateTrack(newTrack)
+                await mapService.updateTrack(newTrack, false)
             }
         }
 

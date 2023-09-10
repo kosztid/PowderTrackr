@@ -8,7 +8,8 @@ struct MapView: View {
         ZStack(alignment: .bottom) {
             ViewFactory.googleMap(
                 cameraPos: $viewModel.cameraPos,
-                selectedPath: $viewModel.selectedPath
+                selectedPath: $viewModel.selectedPath,
+                shared: $viewModel.shared
             )
             .ignoresSafeArea()
             VStack {
@@ -21,6 +22,7 @@ struct MapView: View {
                 if viewModel.selectedPath != nil {
                     TrackListItem(
                         track: viewModel.selectedPath!, // swiftlint:disable:this force_unwrapping
+                        style: viewModel.shared ? .shared : .normal,
                         closeAction: viewModel.closeAction,
                         updateAction: viewModel.updateTrack,
                         noteAction: viewModel.addNote,

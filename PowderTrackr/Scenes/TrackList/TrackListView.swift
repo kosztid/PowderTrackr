@@ -34,6 +34,7 @@ struct TrackListView: View {
                                 TrackListItem(
                                     track: track,
                                     style: .shared,
+                                    updateAction: viewModel.updateTrack,
                                     deleteAction: viewModel.removeSharedTrack,
                                     totalDistance: viewModel.calculateDistance(track: track)
                                 )
