@@ -110,7 +110,7 @@ struct MapView: View {
             Divider()
                 .padding(.horizontal, 12)
             VStack(spacing: 4) {
-                Text(String(viewModel.elapsedTime))
+                Text("\(String(format: "%.2f", viewModel.elapsedTime)) s")
                     .bold()
                 HStack {
                     Image(systemName: "timer")
@@ -122,7 +122,7 @@ struct MapView: View {
             Divider()
                 .padding(.horizontal, 12)
             VStack(spacing: 4) {
-                Text("\(String(viewModel.avgSpeed)) km/h")
+                Text("\(String(format: "%.2f", viewModel.avgSpeed)) km/h")
                     .bold()
                 HStack {
                     Image(systemName: "speedometer")

@@ -80,4 +80,16 @@ enum ViewFactory {
     static func trackListView() -> TrackListView {
         Container.TrackList.view()
     }
+
+    // MARK: - LeaderBoard
+
+    static func leaderBoardView() -> LeaderBoardView {
+        Container.LeaderBoard.view()
+    }
+
+    // MARK: - Races
+
+    static func racesView() -> RacesView {
+        Container.Races.view()
+    }
 }

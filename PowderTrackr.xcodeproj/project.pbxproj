@@ -63,6 +63,10 @@
 		5545881C2A3E30F0009A5485 /* SkiingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545881B2A3E30F0009A5485 /* SkiingButtonStyle.swift */; };
 		5545881E2A3E30F9009A5485 /* SkiingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545881D2A3E30F9009A5485 /* SkiingButton.swift */; };
 		556B616B2A44B08C006B2C68 /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556B616A2A44B08C006B2C68 /* MapService.swift */; };
+		556EAE5D2AB63B0F00132166 /* RacesView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556EAE5C2AB63B0F00132166 /* RacesView+ViewModel.swift */; };
+		556EAE5F2AB63B3300132166 /* RacesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556EAE5E2AB63B3300132166 /* RacesView.swift */; };
+		556EDE622AB5BF4900B7EA5D /* LeaderBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556EDE612AB5BF4900B7EA5D /* LeaderBoardView.swift */; };
+		556EDE642AB5C1C400B7EA5D /* LeaderBoardView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556EDE632AB5C1C400B7EA5D /* LeaderBoardView+ViewModel.swift */; };
 		557343B22AAB21FB0002BD40 /* ShareListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557343B12AAB21FB0002BD40 /* ShareListView.swift */; };
 		557343B52AAB222C0002BD40 /* ShareListView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557343B42AAB222C0002BD40 /* ShareListView+ViewModel.swift */; };
 		557B1ABE2A52F904007C403E /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557B1ABD2A52F904007C403E /* ResetPasswordView.swift */; };
@@ -196,6 +200,10 @@
 		5545881B2A3E30F0009A5485 /* SkiingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkiingButtonStyle.swift; sourceTree = "<group>"; };
 		5545881D2A3E30F9009A5485 /* SkiingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkiingButton.swift; sourceTree = "<group>"; };
 		556B616A2A44B08C006B2C68 /* MapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
+		556EAE5C2AB63B0F00132166 /* RacesView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RacesView+ViewModel.swift"; sourceTree = "<group>"; };
+		556EAE5E2AB63B3300132166 /* RacesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RacesView.swift; sourceTree = "<group>"; };
+		556EDE612AB5BF4900B7EA5D /* LeaderBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardView.swift; sourceTree = "<group>"; };
+		556EDE632AB5C1C400B7EA5D /* LeaderBoardView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LeaderBoardView+ViewModel.swift"; sourceTree = "<group>"; };
 		557343B12AAB21FB0002BD40 /* ShareListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareListView.swift; sourceTree = "<group>"; };
 		557343B42AAB222C0002BD40 /* ShareListView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShareListView+ViewModel.swift"; sourceTree = "<group>"; };
 		557B1ABD2A52F904007C403E /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
@@ -379,6 +387,8 @@
 		554587C72A3E2EA0009A5485 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				556EAE5B2AB63B0000132166 /* Races */,
+				556EDE602AB5BF3C00B7EA5D /* LeaderBoard */,
 				554587CA2A3E2F90009A5485 /* Profile */,
 				554587C92A3E2F8C009A5485 /* Social */,
 				554587C82A3E2EAD009A5485 /* TrackList */,
@@ -527,6 +537,24 @@
 				5545880E2A3E30EA009A5485 /* ToggleableSecureField.swift */,
 			);
 			path = TextField;
+			sourceTree = "<group>";
+		};
+		556EAE5B2AB63B0000132166 /* Races */ = {
+			isa = PBXGroup;
+			children = (
+				556EAE5C2AB63B0F00132166 /* RacesView+ViewModel.swift */,
+				556EAE5E2AB63B3300132166 /* RacesView.swift */,
+			);
+			path = Races;
+			sourceTree = "<group>";
+		};
+		556EDE602AB5BF3C00B7EA5D /* LeaderBoard */ = {
+			isa = PBXGroup;
+			children = (
+				556EDE612AB5BF4900B7EA5D /* LeaderBoardView.swift */,
+				556EDE632AB5C1C400B7EA5D /* LeaderBoardView+ViewModel.swift */,
+			);
+			path = LeaderBoard;
 			sourceTree = "<group>";
 		};
 		557343B32AAB221A0002BD40 /* ShareList */ = {
@@ -837,7 +865,9 @@
 				554587C62A3E2A66009A5485 /* ServiceDI.swift in Sources */,
 				558816072A3E388800667C1A /* CurrentPosition+Schema.swift in Sources */,
 				A4935D1604CABCCE0281C255 /* CurrentPosition+Schema.swift in Sources */,
+				556EAE5F2AB63B3300132166 /* RacesView.swift in Sources */,
 				93A8CE3A1AC81ED774A4F5CA /* CurrentPosition.swift in Sources */,
+				556EAE5D2AB63B0F00132166 /* RacesView+ViewModel.swift in Sources */,
 				558816062A3E388800667C1A /* CurrentPosition.swift in Sources */,
 				554587DD2A3E2FAC009A5485 /* SocialView+ViewModel.swift in Sources */,
 				55FF48782A9136D200527F18 /* LayerWidget.swift in Sources */,
@@ -879,12 +909,14 @@
 				55A318552A4625DA00EB0C5E /* FriendService.swift in Sources */,
 				554587F92A3E3056009A5485 /* ProfileView.swift in Sources */,
 				554587E62A3E2FAC009A5485 /* SocialView.swift in Sources */,
+				556EDE642AB5C1C400B7EA5D /* LeaderBoardView+ViewModel.swift in Sources */,
 				9830C87CEB5F9D821AB74CE4 /* UserTrackedPaths+Schema.swift in Sources */,
 				ADE2266934D0813E7554743A /* UserTrackedPaths.swift in Sources */,
 				558816012A3E388800667C1A /* FriendRequest+Schema.swift in Sources */,
 				558A21702A73DDE300819256 /* GroupListItem.swift in Sources */,
 				554587EE2A3E2FEE009A5485 /* FriendRequestView+ViewModel.swift in Sources */,
 				554587E12A3E2FAC009A5485 /* SocialNavigator.swift in Sources */,
+				556EDE622AB5BF4900B7EA5D /* LeaderBoardView.swift in Sources */,
 				554588042A3E3071009A5485 /* RegisterView.swift in Sources */,
 				9B62154BB9397A45254C5E7A /* UserfriendList+Schema.swift in Sources */,
 				55102ACD2A7ECAE30033E5E6 /* ChatService.swift in Sources */,

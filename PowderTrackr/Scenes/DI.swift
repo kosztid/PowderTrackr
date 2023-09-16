@@ -209,4 +209,24 @@ extension Container {
             TrackListView.ViewModel(mapService: mapService(), accountService: accountService(), friendService: friendService())
         }
     }
+
+    enum LeaderBoard {
+        static let view = Factory {
+            LeaderBoardView(viewModel: viewModel())
+        }
+
+        static let viewModel = Factory {
+            LeaderBoardView.ViewModel()
+        }
+    }
+
+    enum Races {
+        static let view = Factory {
+            RacesView(viewModel: viewModel())
+        }
+
+        static let viewModel = Factory {
+            RacesView.ViewModel()
+        }
+    }
 }
