@@ -25,6 +25,7 @@ public struct TabBarNavigator: View {
                     .tabItem { Label("Races", systemImage: "flag.2.crossed") }
                     .tag(5)
             }
+            .toolbarColorScheme(.light, for: .tabBar)
         }
     }
 
