@@ -16,4 +16,8 @@ public extension Container {
     static let chatService = Factory<ChatServiceProtocol>(scope: .shared) {
         ChatService()
     }
+
+    static let statisticsService = Factory<StatisticsServiceProtocol>(scope: .shared) {
+        StatisticsService()
+    }
 }

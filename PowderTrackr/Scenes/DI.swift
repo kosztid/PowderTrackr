@@ -216,7 +216,7 @@ extension Container {
         }
 
         static let viewModel = Factory {
-            LeaderBoardView.ViewModel()
+            LeaderBoardView.ViewModel(statservice: statisticsService())
         }
     }
 

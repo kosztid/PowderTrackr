@@ -120,15 +120,21 @@ extension MapService: MapServiceProtocol {
             let tracksQueryResultsMapped = try tracksQueryResults.get().elements.map { item in
                 TrackedPathModel(from: item)
             }
+            let sharedTracksQueryResultsMapped = try tracksQueryResults.get().elements.map { item in
+                return TrackedPathModel(id: item.id, tracks: item.sharedTracks)
+            }
 
             var tracks = tracksQueryResultsMapped.first { item in
                 item.id == user.userId
             }?.tracks
 
+            var sharedTracks = sharedTracksQueryResultsMapped.first { item in
+                item.id == user.userId
+            }?.tracks
+
             tracks?.append(trackedPath)
 
-            let trackModel = TrackedPathModel(id: user.userId, tracks: tracks)
-            guard let data = trackModel.data else { return }
+            let data = UserTrackedPaths(id: user.userId, tracks: tracks, sharedTracks: sharedTracks)
             _ = try await Amplify.API.mutate(request: .update(data))
 
             await queryTrackedPaths()

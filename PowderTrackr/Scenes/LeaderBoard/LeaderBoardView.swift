@@ -9,53 +9,64 @@ struct LeaderBoardView: View {
                 .font(.largeTitle)
                 .bold()
                 .padding(.vertical, 32)
-            HStack(spacing: .zero) {
-                Button {
-                    viewModel.tabState = .distance
-                } label: {
-                    Text("Distance")
-                        .bold()
-                        .foregroundColor(.black)
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        .padding(.vertical, 8)
-                        .background(viewModel.tabState == .distance ? .cyan.opacity(0.2) : .white)
-                        .cornerRadius(8, corners: [.bottomRight, .topRight])
-                }
-                Button {
-                    viewModel.tabState = .time
-                } label: {
-                    Text("Time")
-                        .bold()
-                        .foregroundColor(.black)
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        .padding(.vertical, 8)
-                        .background(viewModel.tabState == .time ? .cyan.opacity(0.2) : .white)
-                        .cornerRadius(8, corners: [.bottomLeft, .topLeft])
-                }
-            }
-            .padding(.bottom, 8)
+            segmentedButtons
             Divider()
                 .frame(height: 2)
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: .zero) {
-                    ForEach(viewModel.leaderBoardList.indices) { index in
-                        HStack {
-                            leaderboardLeadingView(place: index + 1)
-                                .font(leaderboardLeadingViewFontSize(place: index + 1))
-                                .bold()
-                                .foregroundColor(leaderBoardForegroundColor(place: index + 1))
-                                .frame(width: 32)
-                            Text(viewModel.leaderBoardList[index].name)
-                                .font(.body)
-                                .bold()
-                            Spacer()
-                            Text(leaderBoardRowData(index:index))
-                                .foregroundColor(.gray)
-                        }
-                        .padding(.vertical, 8)
-                        .padding(.horizontal)
-                        .background(leaderBoardBackgroundColor(place: index + 1))
+            scrollView
+        }
+        .onAppear {
+            viewModel.onAppear()
+        }
+    }
+
+    var segmentedButtons: some View {
+        HStack(spacing: .zero) {
+            Button {
+                viewModel.tabState = .distance
+            } label: {
+                Text("Distance")
+                    .bold()
+                    .foregroundColor(.black)
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                    .padding(.vertical, 8)
+                    .background(viewModel.tabState == .distance ? .cyan.opacity(0.2) : .white)
+                    .cornerRadius(8, corners: [.bottomRight, .topRight])
+            }
+            Button {
+                viewModel.tabState = .time
+            } label: {
+                Text("Time")
+                    .bold()
+                    .foregroundColor(.black)
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                    .padding(.vertical, 8)
+                    .background(viewModel.tabState == .time ? .cyan.opacity(0.2) : .white)
+                    .cornerRadius(8, corners: [.bottomLeft, .topLeft])
+            }
+        }
+        .padding(.bottom, 8)
+    }
+
+    var scrollView: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: .zero) {
+                ForEach(Array(viewModel.leaderBoardList.enumerated()), id: \.offset) { index, _ in
+                    HStack {
+                        leaderboardLeadingView(place: index + 1)
+                            .font(leaderboardLeadingViewFontSize(place: index + 1))
+                            .bold()
+                            .foregroundColor(leaderBoardForegroundColor(place: index + 1))
+                            .frame(width: 32)
+                        Text(viewModel.leaderBoardList[index].name)
+                            .font(.body)
+                            .bold()
+                        Spacer()
+                        Text(leaderBoardRowData(index:index))
+                            .foregroundColor(.gray)
                     }
+                    .padding(.vertical, 8)
+                    .padding(.horizontal)
+                    .background(leaderBoardBackgroundColor(place: index + 1))
                 }
             }
         }
@@ -115,6 +126,6 @@ struct LeaderBoardView: View {
 
 struct LeaderBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        LeaderBoardView(viewModel: .init())
+        LeaderBoardView(viewModel: .init(statservice: StatisticsService()))
     }
 }

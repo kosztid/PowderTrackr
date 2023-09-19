@@ -111,6 +111,11 @@ extension ProfileView {
             }
             totalTime = formatter.string(from: totalDate) ?? ""
             totalDistance = total
+            let totalTime = totalDate
+
+            Task {
+                await accountService.updateLeaderboard(time: totalTime, distance: totalDistance)
+            }
         }
 
         func updatePasswordTapped() {

@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 
 extension LeaderBoardView {
@@ -14,22 +15,34 @@ extension LeaderBoardView {
     }
     
     final class ViewModel: ObservableObject {
-        @Published var leaderBoardItems: [LeaderBoardEntity]
+        @Published var leaderBoardItems: [LeaderBoard] = []
         @Published var tabState: TabState = .distance
 
-        var leaderBoardForDistance: [LeaderBoardEntity] { leaderBoardItems.sorted { $0.distance > $1.distance } }
-        var leaderBoardForTime: [LeaderBoardEntity] { leaderBoardItems.sorted { $0.totalTimeInSeconds > $1.totalTimeInSeconds } }
+        var leaderBoardForDistance: [LeaderBoard] { leaderBoardItems.sorted { $0.distance > $1.distance } }
+        var leaderBoardForTime: [LeaderBoard] { leaderBoardItems.sorted { $0.totalTimeInSeconds > $1.totalTimeInSeconds } }
 
-        var leaderBoardList: [LeaderBoardEntity] { tabState == .distance ? leaderBoardForDistance : leaderBoardForTime}
+        var leaderBoardList: [LeaderBoard] { tabState == .distance ? leaderBoardForDistance : leaderBoardForTime}
 
-        init() {
-            self.leaderBoardItems = [
-                .init(name: "Dominik", distance: 1012, totalTimeInSeconds: 360),
-                .init(name: "Panka", distance: 1101.123, totalTimeInSeconds: 370),
-                .init(name: "Pank", distance: 1601.123, totalTimeInSeconds: 420),
-                .init(name: "Domi", distance: 1201.123, totalTimeInSeconds: 300)
-            ]
+        private var cancellables: Set<AnyCancellable> = []
+        private let statService: StatisticsServiceProtocol
+
+        init(statservice: StatisticsServiceProtocol) {
+            self.statService = statservice
+
+            statservice.leaderboardPublisher
+                .sink { _ in
+                } receiveValue: { [weak self] list in
+                    self?.leaderBoardItems = list
+                    print("lbitem", self?.leaderBoardItems)
+                }
+                .store(in: &cancellables)
         }
 
+        func onAppear() {
+            Task {
+                await statService.loadLeaderboard()
+                print("onappear")
+            }
+        }
     }
 }

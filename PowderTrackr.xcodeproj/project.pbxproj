@@ -15,6 +15,7 @@
 		427463B77DBD167C128FC6B2 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217FA3E57EC01B0B1388E8A /* Message.swift */; };
 		4A3B233B69AC5E3B3974F105 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45461D676D3BC9635B07ECF5 /* FriendRequest.swift */; };
 		5482EE72282D2C5E7EACE262 /* UserfriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52601201CE3D9DDCD2B6A6F /* UserfriendList.swift */; };
+		550254E22ABA1CA0002D05F8 /* StatisticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550254E12ABA1CA0002D05F8 /* StatisticsService.swift */; };
 		5506F7B92A4723F40000761D /* SegmentedControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5506F7B82A4723F40000761D /* SegmentedControlButton.swift */; };
 		5506F7BB2A4724F50000761D /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5506F7BA2A4724F50000761D /* SegmentedControl.swift */; };
 		5506F7BF2A49E5F10000761D /* LoggedOutModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5506F7BE2A49E5F10000761D /* LoggedOutModal.swift */; };
@@ -109,6 +110,7 @@
 		55E9EEA22A9240430099D3B0 /* Pods_PowderTrackr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E251DFC276D77AEF0A316FA /* Pods_PowderTrackr.framework */; };
 		55FF48782A9136D200527F18 /* LayerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF48772A9136D200527F18 /* LayerWidget.swift */; };
 		55FF487C2A9136F800527F18 /* LayerWidgetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */; };
+		573B0B6FC0F90E990C929AE1 /* LeaderBoard+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4221889F183A65F39EF46DA /* LeaderBoard+Schema.swift */; };
 		72D311DB8DCEA24E0C4CB14B /* FriendRequest+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D681CDF9130A0F1615DA65 /* FriendRequest+Schema.swift */; };
 		875EFD72158722FD19B9AA93 /* Message+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327BD541BEE53E00DCFF269C /* Message+Schema.swift */; };
 		89E77F0BA3478441D85A6533 /* TrackedPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D60D5E7FF5741E73110C72 /* TrackedPath.swift */; };
@@ -117,6 +119,7 @@
 		9830C87CEB5F9D821AB74CE4 /* UserTrackedPaths+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D9C6952CB3E0998B0F47FB /* UserTrackedPaths+Schema.swift */; };
 		9B62154BB9397A45254C5E7A /* UserfriendList+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C230E5414AAD2FFE38AB6C2 /* UserfriendList+Schema.swift */; };
 		A4935D1604CABCCE0281C255 /* CurrentPosition+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3A7FA580E0B493DF88149 /* CurrentPosition+Schema.swift */; };
+		A5C763AB756F6AB77072E299 /* LeaderBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6695954296122C3A61B7B23 /* LeaderBoard.swift */; };
 		ADE2266934D0813E7554743A /* UserTrackedPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4DDB0E24CB3E4D3078BB1 /* UserTrackedPaths.swift */; };
 		B789E914BFCB37F8743765B0 /* TrackedPath+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDA30DA28B27896216C829B /* TrackedPath+Schema.swift */; };
 		C496041B3C72D2CE2BA7C1C9 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F26B325B8B19B7AAB29B55 /* AmplifyModels.swift */; };
@@ -151,6 +154,7 @@
 		4EB3A7FA580E0B493DF88149 /* CurrentPosition+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "CurrentPosition+Schema.swift"; path = "amplify/generated/models/CurrentPosition+Schema.swift"; sourceTree = "<group>"; };
 		4EDA30DA28B27896216C829B /* TrackedPath+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "TrackedPath+Schema.swift"; path = "amplify/generated/models/TrackedPath+Schema.swift"; sourceTree = "<group>"; };
 		54D60D5E7FF5741E73110C72 /* TrackedPath.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = TrackedPath.swift; path = amplify/generated/models/TrackedPath.swift; sourceTree = "<group>"; };
+		550254E12ABA1CA0002D05F8 /* StatisticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsService.swift; sourceTree = "<group>"; };
 		5506F7B82A4723F40000761D /* SegmentedControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlButton.swift; sourceTree = "<group>"; };
 		5506F7BA2A4724F50000761D /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		5506F7BE2A49E5F10000761D /* LoggedOutModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedOutModal.swift; sourceTree = "<group>"; };
@@ -253,8 +257,10 @@
 		D52601201CE3D9DDCD2B6A6F /* UserfriendList.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = UserfriendList.swift; path = amplify/generated/models/UserfriendList.swift; sourceTree = "<group>"; };
 		D65FDA246EE122F3E9CE99AC /* Friend.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Friend.swift; path = amplify/generated/models/Friend.swift; sourceTree = "<group>"; };
 		E1F411BD3830B319DF37E1D7 /* CurrentPosition.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = CurrentPosition.swift; path = amplify/generated/models/CurrentPosition.swift; sourceTree = "<group>"; };
+		E6695954296122C3A61B7B23 /* LeaderBoard.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = LeaderBoard.swift; path = amplify/generated/models/LeaderBoard.swift; sourceTree = "<group>"; };
 		F290CD367949A2DD0030157C /* Pods-PowderTrackr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PowderTrackr.release.xcconfig"; path = "Target Support Files/Pods-PowderTrackr/Pods-PowderTrackr.release.xcconfig"; sourceTree = "<group>"; };
 		F2FE92077A1BC265311034DC /* PersonalChat.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = PersonalChat.swift; path = amplify/generated/models/PersonalChat.swift; sourceTree = "<group>"; };
+		F4221889F183A65F39EF46DA /* LeaderBoard+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "LeaderBoard+Schema.swift"; path = "amplify/generated/models/LeaderBoard+Schema.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -337,6 +343,7 @@
 				55102ACC2A7ECAE30033E5E6 /* ChatService.swift */,
 				55A318542A4625DA00EB0C5E /* FriendService.swift */,
 				556B616A2A44B08C006B2C68 /* MapService.swift */,
+				550254E12ABA1CA0002D05F8 /* StatisticsService.swift */,
 				554587C52A3E2A66009A5485 /* ServiceDI.swift */,
 				5545878C2A3DF8F1009A5485 /* PowderTrackrApp.swift */,
 				558816112A3E3E7700667C1A /* AppDelegate.swift */,
@@ -580,7 +587,6 @@
 		558815B02A3E357E00667C1A /* GeneratedModels */ = {
 			isa = PBXGroup;
 			children = (
-				558815F62A3E388800667C1A /* AmplifyModels.swift */,
 			);
 			path = GeneratedModels;
 			sourceTree = "<group>";
@@ -662,6 +668,9 @@
 				558815FA2A3E388800667C1A /* CurrentPosition+Schema.swift */,
 				558815F92A3E388800667C1A /* CurrentPosition.swift */,
 				558815F12A3E388800667C1A /* FriendRequest.swift */,
+				558815F62A3E388800667C1A /* AmplifyModels.swift */,
+				F4221889F183A65F39EF46DA /* LeaderBoard+Schema.swift */,
+				E6695954296122C3A61B7B23 /* LeaderBoard.swift */,
 			);
 			name = AmplifyModels;
 			sourceTree = "<group>";
@@ -886,6 +895,7 @@
 				DCE7BC632FFF04AB8DE4051A /* Friend.swift in Sources */,
 				72D311DB8DCEA24E0C4CB14B /* FriendRequest+Schema.swift in Sources */,
 				557B1AC02A52F911007C403E /* ResetPasswordView+ViewModel.swift in Sources */,
+				550254E22ABA1CA0002D05F8 /* StatisticsService.swift in Sources */,
 				554587FF2A3E306B009A5485 /* VerifyView.swift in Sources */,
 				558815C72A3E366F00667C1A /* UserTrackedPaths+Schema.swift in Sources */,
 				554588192A3E30EA009A5485 /* TextFieldBorderViewModifier.swift in Sources */,
@@ -932,6 +942,8 @@
 				427463B77DBD167C128FC6B2 /* Message.swift in Sources */,
 				3B754F3C044B6EF1B1AEFAA2 /* PersonalChat+Schema.swift in Sources */,
 				15CF1A876379363AF3ADD488 /* PersonalChat.swift in Sources */,
+				573B0B6FC0F90E990C929AE1 /* LeaderBoard+Schema.swift in Sources */,
+				A5C763AB756F6AB77072E299 /* LeaderBoard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

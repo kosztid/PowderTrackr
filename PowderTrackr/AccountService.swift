@@ -16,6 +16,7 @@ public protocol AccountServiceProtocol: AnyObject {
     func resetPassword(username: String) async
     func changePassword(oldPassword: String, newPassword: String) async
     func confirmResetPassword(username: String, newPassword: String, confirmationCode: String) async
+    func updateLeaderboard(time: Double, distance: Double) async
 
     func createFriendList() async
     func createUserTrackedPaths() async
@@ -204,6 +205,30 @@ extension AccountService: AccountServiceProtocol {
         }
     }
 
+    func createLeaderBoardEntity() async {
+        do {
+            let user = try await Amplify.Auth.getCurrentUser()
+            let leaderBoard = LeaderBoard(id: user.userId, name: user.username, distance: 0.0, totalTimeInSeconds: 0.0)
+            _ = try await Amplify.API.mutate(request: .create(leaderBoard))
+        } catch let error as APIError {
+            print("Failed to create note: \(error)")
+        } catch {
+            print("Unexpected error while calling create API : \(error)")
+        }
+    }
+
+    func updateLeaderboard(time: Double, distance: Double) async {
+        do {
+            let user = try await Amplify.Auth.getCurrentUser()
+            let leaderBoard = LeaderBoard(id: user.userId, name: user.username, distance: distance, totalTimeInSeconds: time)
+            _ = try await Amplify.API.mutate(request: .update(leaderBoard))
+        } catch let error as APIError {
+            print("Failed to create note: \(error)")
+        } catch {
+            print("Unexpected error while calling create API : \(error)")
+        }
+    }
+
     public func login() async {
         do {
             let signInResult = try await Amplify.Auth.signInWithWebUI(presentationAnchor: UIApplication.shared.windows.first)
@@ -240,6 +265,7 @@ extension AccountService: AccountServiceProtocol {
                 await self.createLocation(xCoord: "0", yCoord: "0")
                 await self.createFriendList()
                 await self.createUserTrackedPaths()
+                await self.createLeaderBoardEntity()
             }
         } catch let error as AuthError {
             print("Sign in failed \(error)")
