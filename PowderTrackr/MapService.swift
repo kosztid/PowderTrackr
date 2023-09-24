@@ -6,6 +6,7 @@ public protocol MapServiceProtocol: AnyObject {
     var trackingPublisher: AnyPublisher<TrackedPath?, Never> { get }
     var trackedPathPublisher: AnyPublisher<TrackedPathModel?, Never> { get }
     var sharedPathPublisher: AnyPublisher<TrackedPathModel?, Never> { get }
+    var raceCreationStatePublisher: AnyPublisher<RaceCreationState, Never> { get }
 
     func updateTrackedPath(_ trackedPath: TrackedPath) async
     func updateTrack(_ trackedPath: TrackedPath, _ shared: Bool) async
@@ -15,16 +16,24 @@ public protocol MapServiceProtocol: AnyObject {
     func queryTrackedPaths() async
     func querySharedPaths() async
     func sendCurrentlyTracked(_ trackedPath: TrackedPath) async
+    func changeRaceCreationState(_ raceCreationState: RaceCreationState)
 }
 
 final class MapService {
     private let tracking: CurrentValueSubject<TrackedPath?, Never> = .init(nil)
     private let trackedPathModel: CurrentValueSubject<TrackedPathModel?, Never> = .init(nil)
     private let sharedPathModel: CurrentValueSubject<TrackedPathModel?, Never> = .init(nil)
+    private let raceCreationState: CurrentValueSubject<RaceCreationState, Never> = .init(.firstMarker)
     private var cancellables: Set<AnyCancellable> = []
 }
 
 extension MapService: MapServiceProtocol {
+    var raceCreationStatePublisher: AnyPublisher<RaceCreationState, Never> {
+        raceCreationState
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
+
     func sendCurrentlyTracked(_ trackedPath: TrackedPath) async {
         tracking.send(trackedPath)
     }
@@ -248,5 +257,9 @@ extension MapService: MapServiceProtocol {
         } catch {
             print("Unexpected error while calling create API : \(error)")
         }
+    }
+
+    func changeRaceCreationState(_ raceCreationState: RaceCreationState) {
+        self.raceCreationState.send(raceCreationState)
     }
 }

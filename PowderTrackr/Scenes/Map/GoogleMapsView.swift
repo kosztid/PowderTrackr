@@ -17,9 +17,11 @@ struct GoogleMapsView: UIViewRepresentable {
         var friendLocations: [Location] = []
         var markers: [GMSMarker] = []
         var lines: [GMSPolyline] = []
+        var raceMarkers: [GMSMarker] = []
 
         @Binding var selectedPath: TrackedPath?
         @Binding var shared: Bool
+        @Published var raceCreationState: RaceCreationState = .not
 
         init(
             innerMapView: GMSMapView? = nil,
@@ -37,6 +39,12 @@ struct GoogleMapsView: UIViewRepresentable {
             Task {
                 await self.friendService.queryFriendLocations()
             }
+
+            mapService.raceCreationStatePublisher
+                .sink { [weak self] state in
+                    self?.raceCreationState = state
+                }
+                .store(in: &cancellables)
 
             friendService.friendPositionsPublisher
                 .sink { _ in
@@ -93,6 +101,26 @@ struct GoogleMapsView: UIViewRepresentable {
             drawMapItems()
         }
 
+        func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+            switch raceCreationState {
+            case .firstMarker:
+                if raceMarkers.count == 0 {
+                    raceMarkers.append(GMSMarker(position: coordinate))
+                } else {
+                    raceMarkers[0] = GMSMarker(position: coordinate)
+                }
+            case .secondMarker:
+                if raceMarkers.count == 1 {
+                    raceMarkers.append(GMSMarker(position: coordinate))
+                } else {
+                    raceMarkers[1] = GMSMarker(position: coordinate)
+                }
+            case .not:
+                return
+            }
+            drawMapItems()
+        }
+
 //        func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
 //            guard let model = markers.first(where: { $0 == marker })?.userData as? String else { return false }
 //            print(model)
@@ -104,6 +132,10 @@ struct GoogleMapsView: UIViewRepresentable {
 
             for marker in markers {
                 marker.map = innerMapView
+            }
+
+            for raceMarker in raceMarkers {
+                raceMarker.map = innerMapView
             }
 
             makePolylines()
@@ -191,6 +223,9 @@ struct GoogleMapsView: UIViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(selectedPath: $selectedPath, shared: $shared)
+        Coordinator(
+            selectedPath: $selectedPath,
+            shared: $shared
+        )
     }
 }

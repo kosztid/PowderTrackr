@@ -63,6 +63,7 @@
 		5545881A2A3E30EA009A5485 /* RegularTextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554588132A3E30EA009A5485 /* RegularTextFieldStyle.swift */; };
 		5545881C2A3E30F0009A5485 /* SkiingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545881B2A3E30F0009A5485 /* SkiingButtonStyle.swift */; };
 		5545881E2A3E30F9009A5485 /* SkiingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5545881D2A3E30F9009A5485 /* SkiingButton.swift */; };
+		5553EB332AC0760B00DFC556 /* RaceCreationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5553EB322AC0760B00DFC556 /* RaceCreationState.swift */; };
 		556B616B2A44B08C006B2C68 /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556B616A2A44B08C006B2C68 /* MapService.swift */; };
 		556EAE5D2AB63B0F00132166 /* RacesView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556EAE5C2AB63B0F00132166 /* RacesView+ViewModel.swift */; };
 		556EAE5F2AB63B3300132166 /* RacesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556EAE5E2AB63B3300132166 /* RacesView.swift */; };
@@ -203,6 +204,7 @@
 		554588132A3E30EA009A5485 /* RegularTextFieldStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularTextFieldStyle.swift; sourceTree = "<group>"; };
 		5545881B2A3E30F0009A5485 /* SkiingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkiingButtonStyle.swift; sourceTree = "<group>"; };
 		5545881D2A3E30F9009A5485 /* SkiingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkiingButton.swift; sourceTree = "<group>"; };
+		5553EB322AC0760B00DFC556 /* RaceCreationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceCreationState.swift; sourceTree = "<group>"; };
 		556B616A2A44B08C006B2C68 /* MapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		556EAE5C2AB63B0F00132166 /* RacesView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RacesView+ViewModel.swift"; sourceTree = "<group>"; };
 		556EAE5E2AB63B3300132166 /* RacesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RacesView.swift; sourceTree = "<group>"; };
@@ -387,6 +389,7 @@
 				558815B12A3E361500667C1A /* Location.swift */,
 				558815B22A3E361600667C1A /* TrackedPathModel.swift */,
 				558815B02A3E357E00667C1A /* GeneratedModels */,
+				5553EB322AC0760B00DFC556 /* RaceCreationState.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -868,6 +871,7 @@
 				558816032A3E388800667C1A /* AmplifyModels.swift in Sources */,
 				550F65E52A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift in Sources */,
 				55E98BB12A73F14A00634917 /* PowderTrackrChatView.swift in Sources */,
+				5553EB332AC0760B00DFC556 /* RaceCreationState.swift in Sources */,
 				556B616B2A44B08C006B2C68 /* MapService.swift in Sources */,
 				554587EF2A3E2FEE009A5485 /* FriendRequestView.swift in Sources */,
 				558815C42A3E366F00667C1A /* AmplifyModels.swift in Sources */,
