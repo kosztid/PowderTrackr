@@ -8,6 +8,7 @@ public protocol MapServiceProtocol: AnyObject {
     var trackedPathPublisher: AnyPublisher<TrackedPathModel?, Never> { get }
     var sharedPathPublisher: AnyPublisher<TrackedPathModel?, Never> { get }
     var raceCreationStatePublisher: AnyPublisher<RaceCreationState, Never> { get }
+    var racesPublisher: AnyPublisher<Bool, Never> { get }
 
     func updateTrackedPath(_ trackedPath: TrackedPath) async
     func updateTrack(_ trackedPath: TrackedPath, _ shared: Bool) async
@@ -19,6 +20,8 @@ public protocol MapServiceProtocol: AnyObject {
     func sendCurrentlyTracked(_ trackedPath: TrackedPath) async
     func changeRaceCreationState(_ raceCreationState: RaceCreationState)
     func createRace(_ markers: [GMSMarker], _ name: String) async
+    func queryRaces()
+    func sendRaceRun()
 }
 
 final class MapService {
@@ -26,6 +29,7 @@ final class MapService {
     private let trackedPathModel: CurrentValueSubject<TrackedPathModel?, Never> = .init(nil)
     private let sharedPathModel: CurrentValueSubject<TrackedPathModel?, Never> = .init(nil)
     private let raceCreationState: CurrentValueSubject<RaceCreationState, Never> = .init(.not)
+    private let races: CurrentValueSubject<Bool, Never> = .init(false)
     private var cancellables: Set<AnyCancellable> = []
 }
 
@@ -54,6 +58,12 @@ extension MapService: MapServiceProtocol {
 
     var sharedPathPublisher: AnyPublisher<TrackedPathModel?, Never> {
         sharedPathModel
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
+
+    var racesPublisher: AnyPublisher<Bool, Never> {
+        races
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
@@ -268,5 +278,12 @@ extension MapService: MapServiceProtocol {
     func createRace(_ markers: [GMSMarker], _ name: String) async {
         print(markers, name)
         raceCreationState.send(.not)
+    }
+
+    func queryRaces() {
+        print("queriedRaces")
+    }
+
+    func sendRaceRun() {
     }
 }

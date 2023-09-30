@@ -107,6 +107,7 @@
 		55E98BAF2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E98BAE2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift */; };
 		55E98BB12A73F14A00634917 /* PowderTrackrChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E98BB02A73F14A00634917 /* PowderTrackrChatView.swift */; };
 		55E98BB42A73FB7800634917 /* Chat in Frameworks */ = {isa = PBXBuildFile; productRef = 55E98BB32A73FB7800634917 /* Chat */; };
+		55E9E6632AC897E50090FC6B /* RaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E9E6622AC897E50090FC6B /* RaceView.swift */; };
 		55E9EEA02A92401E0099D3B0 /* Chat in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 55E98BB32A73FB7800634917 /* Chat */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55E9EEA22A9240430099D3B0 /* Pods_PowderTrackr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E251DFC276D77AEF0A316FA /* Pods_PowderTrackr.framework */; };
 		55FF48782A9136D200527F18 /* LayerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF48772A9136D200527F18 /* LayerWidget.swift */; };
@@ -245,6 +246,7 @@
 		55DE1DC12A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChangePasswordView+ViewModel.swift"; sourceTree = "<group>"; };
 		55E98BAE2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PowderTrackrChatView+ViewModel.swift"; sourceTree = "<group>"; };
 		55E98BB02A73F14A00634917 /* PowderTrackrChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrChatView.swift; sourceTree = "<group>"; };
+		55E9E6622AC897E50090FC6B /* RaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceView.swift; sourceTree = "<group>"; };
 		55FF48772A9136D200527F18 /* LayerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerWidget.swift; sourceTree = "<group>"; };
 		55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerWidgetButton.swift; sourceTree = "<group>"; };
 		63AB484BB4AE178A2F655487 /* GroupChat.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = GroupChat.swift; path = amplify/generated/models/GroupChat.swift; sourceTree = "<group>"; };
@@ -552,6 +554,7 @@
 		556EAE5B2AB63B0000132166 /* Races */ = {
 			isa = PBXGroup;
 			children = (
+				55E9E6612AC895DA0090FC6B /* Components */,
 				556EAE5C2AB63B0F00132166 /* RacesView+ViewModel.swift */,
 				556EAE5E2AB63B3300132166 /* RacesView.swift */,
 			);
@@ -610,6 +613,14 @@
 				55E98BB02A73F14A00634917 /* PowderTrackrChatView.swift */,
 			);
 			path = ChatView;
+			sourceTree = "<group>";
+		};
+		55E9E6612AC895DA0090FC6B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				55E9E6622AC897E50090FC6B /* RaceView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		55FF48762A9136C100527F18 /* LayerWidget */ = {
@@ -938,6 +949,7 @@
 				558815FF2A3E388800667C1A /* UserTrackedPaths+Schema.swift in Sources */,
 				5506F7BF2A49E5F10000761D /* LoggedOutModal.swift in Sources */,
 				5506F7BB2A4724F50000761D /* SegmentedControl.swift in Sources */,
+				55E9E6632AC897E50090FC6B /* RaceView.swift in Sources */,
 				55E98BAF2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift in Sources */,
 				558816092A3E388800667C1A /* TrackedPath+Schema.swift in Sources */,
 				14A3E17BC6CF05AD1FAA011E /* GroupChat+Schema.swift in Sources */,

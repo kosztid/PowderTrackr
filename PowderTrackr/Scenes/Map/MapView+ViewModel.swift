@@ -136,7 +136,7 @@ extension MapView {
                 )
             )
             self.mapMenuState = .on
-            addX = Double.random(in: -0.00001..<0.00001)
+            addX = Double.random(in: -0.00002..<0.00002)
             addY = Double.random(in: -0.00001..<0.00001)
         }
 
@@ -182,6 +182,7 @@ extension MapView {
             guard var modified = self.trackedPath?.tracks else { return }
             var xCoords = modified.last?.xCoords
             var yCoords = modified.last?.yCoords
+            addX = Double.random(in: -0.00002..<0.00002)
             xCoords?.append((47.1986 + (addX * Double(trackedPath?.tracks?.last?.xCoords?.count ?? 0))))
             yCoords?.append(17.60286 + Double(trackedPath?.tracks?.last?.yCoords?.count ?? 0) * addY)
 
