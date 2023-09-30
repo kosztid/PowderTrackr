@@ -1,5 +1,6 @@
 import Amplify
 import Combine
+import GoogleMaps
 import UIKit
 
 public protocol MapServiceProtocol: AnyObject {
@@ -17,13 +18,14 @@ public protocol MapServiceProtocol: AnyObject {
     func querySharedPaths() async
     func sendCurrentlyTracked(_ trackedPath: TrackedPath) async
     func changeRaceCreationState(_ raceCreationState: RaceCreationState)
+    func createRace(_ markers: [GMSMarker], _ name: String) async
 }
 
 final class MapService {
     private let tracking: CurrentValueSubject<TrackedPath?, Never> = .init(nil)
     private let trackedPathModel: CurrentValueSubject<TrackedPathModel?, Never> = .init(nil)
     private let sharedPathModel: CurrentValueSubject<TrackedPathModel?, Never> = .init(nil)
-    private let raceCreationState: CurrentValueSubject<RaceCreationState, Never> = .init(.firstMarker)
+    private let raceCreationState: CurrentValueSubject<RaceCreationState, Never> = .init(.not)
     private var cancellables: Set<AnyCancellable> = []
 }
 
@@ -261,5 +263,10 @@ extension MapService: MapServiceProtocol {
 
     func changeRaceCreationState(_ raceCreationState: RaceCreationState) {
         self.raceCreationState.send(raceCreationState)
+    }
+
+    func createRace(_ markers: [GMSMarker], _ name: String) async {
+        print(markers, name)
+        raceCreationState.send(.not)
     }
 }

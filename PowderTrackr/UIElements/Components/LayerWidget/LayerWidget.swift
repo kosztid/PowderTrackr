@@ -9,11 +9,12 @@ struct LayerWidget: View {
     @Namespace var animation
     @State var isOpen = false
 
-    @Binding var isTracking: MapView.TrackingState
+    @Binding var mapMenuState: MapView.MapMenuState
     let startAction: () -> Void
     let pauseAction: () -> Void
     let stopAction: () -> Void
     let resumeAction: () -> Void
+    let raceAction: (Bool) -> Void
 
     var body: some View {
         if isOpen {
@@ -27,8 +28,52 @@ struct LayerWidget: View {
         HStack {
             Spacer()
             HStack {
-                if isTracking == .off {
+                switch mapMenuState {
+                case .paused:
+                    Button {
+                        resumeAction()
+                        isOpen.toggle()
+                    } label: {
+                        Text("Resume")
+                            .frame(height: 64)
+                    }
+                    .buttonStyle(SkiingButtonStyle(style: .secondary))
+
+                    Button {
+                        stopAction()
+                        isOpen.toggle()
+                    } label: {
+                        Text("Stop")
+                            .frame(height: 64)
+                    }
+                    .buttonStyle(SkiingButtonStyle(style: .secondary))
+                case .on:
+                    Button {
+                        pauseAction()
+                        isOpen.toggle()
+                    } label: {
+                        Text("Pause")
+                            .frame(height: 64)
+                    }
+                    .buttonStyle(SkiingButtonStyle(style: .secondary))
+
+                    Button {
+                        stopAction()
+                        isOpen.toggle()
+                    } label: {
+                        Text("Stop")
+                            .frame(height: 64)
+                    }
+                    .buttonStyle(SkiingButtonStyle(style: .secondary))
+                case .off:
                     Spacer()
+                    Button {
+                        raceAction(false)
+                    } label: {
+                        Text("Add Race")
+                            .frame(height: 64)
+                    }
+                    .buttonStyle(SkiingButtonStyle(style: .secondary))
                     Button {
                         startAction()
                         isOpen.toggle()
@@ -37,44 +82,26 @@ struct LayerWidget: View {
                             .frame(height: 64)
                     }
                     .buttonStyle(SkiingButtonStyle(style: .secondary))
-                } else {
-                    if isTracking == .on {
-                        Button {
-                            pauseAction()
-                            isOpen.toggle()
-                        } label: {
-                            Text("Pause")
-                                .frame(height: 64)
-                        }
-                        .buttonStyle(SkiingButtonStyle(style: .secondary))
-
-                        Button {
-                            stopAction()
-                            isOpen.toggle()
-                        } label: {
-                            Text("Stop")
-                                .frame(height: 64)
-                        }
-                        .buttonStyle(SkiingButtonStyle(style: .secondary))
-                    } else {
-                        Button {
-                            resumeAction()
-                            isOpen.toggle()
-                        } label: {
-                            Text("Resume")
-                                .frame(height: 64)
-                        }
-                        .buttonStyle(SkiingButtonStyle(style: .secondary))
-
-                        Button {
-                            stopAction()
-                            isOpen.toggle()
-                        } label: {
-                            Text("Stop")
-                                .frame(height: 64)
-                        }
-                        .buttonStyle(SkiingButtonStyle(style: .secondary))
+                case .raceCreation, .markersPlaced:
+                    Button {
+                        raceAction(false)
+                        isOpen.toggle()
+                    } label: {
+                        Image(systemName: "checkmark")
+                            .frame(height: 64)
                     }
+                    .buttonStyle(SkiingButtonStyle(style: .secondary))
+                    .disabled(mapMenuState != .markersPlaced)
+                    Button {
+                        withAnimation {
+                            raceAction(true)
+                            isOpen.toggle()
+                        }
+                    } label: {
+                        Image(systemName: "xmark")
+                            .frame(height: 64)
+                    }
+                    .buttonStyle(SkiingButtonStyle(style: .secondary))
                 }
             }
             LayerWidgetButton(isOpen: $isOpen)

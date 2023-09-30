@@ -3,15 +3,12 @@ import GoogleMaps
 import SwiftUI
 
 extension MapView {
-    enum TrackingState {
+    enum MapMenuState {
         case paused
         case on
         case off
-    }
-
-    enum MapMenuState {
-        case opened
-        case closed
+        case raceCreation
+        case markersPlaced
     }
     final class ViewModel: ObservableObject {
         private var cancellables: Set<AnyCancellable> = []
@@ -27,18 +24,22 @@ extension MapView {
         var addX = 0.0
         var addY = 0.0
 
-        @Published var isTracking = TrackingState.off
+        @Published var mapMenuState = MapMenuState.off
+        @Published var track: [TrackedPath] = []
+        @Published var cameraPos: GMSCameraPosition
+        @Published var trackedPath: TrackedPathModel?
+
         @Published var friendLocations: [Location] = []
         @Published var friendLocation: Location?
-        @Published var cameraPos: GMSCameraPosition
-        @Published var markers: [GMSMarker] = []
-        @Published var trackedPath: TrackedPathModel?
+
         @Published var signedIn = false
-        @Published var menuState: MapMenuState = .closed
         @Published var startTime: Date? = nil
         @Published var currentDistance: Double? = nil
 
-        @Published var track: [TrackedPath] = []
+        @Published var raceName: String = ""
+        @Published var showingRaceNameAlert = false
+        @Published var raceMarkers: [GMSMarker] = []
+        @Published var raceCreationState: RaceCreationState = .not
 
         @Published var selectedPath: TrackedPath?
         @Published var shared: Bool = false
@@ -70,21 +71,6 @@ extension MapView {
             }
         }
 
-        func makeMarkers() {
-            var tempMarkers: [GMSMarker] = []
-            friendLocations.forEach { loc in
-                tempMarkers.append(
-                    GMSMarker(
-                        position: CLLocationCoordinate2D(
-                            latitude: Double(loc.xCoord ?? "") ?? 0,
-                            longitude: Double(loc.yCoord ?? "") ?? 0
-                        )
-                    )
-                )
-            }
-            self.markers = tempMarkers
-        }
-
         func confirm() {
             Task {
                 await self.accountService.createUserTrackedPaths()
@@ -98,14 +84,6 @@ extension MapView {
         }
 
         func initBindings() {
-            friendService.friendPositionsPublisher
-                .sink { _ in
-                } receiveValue: { [weak self] loc in
-                    self?.friendLocations = loc
-                    self?.makeMarkers()
-                }
-                .store(in: &cancellables)
-
             mapService.trackedPathPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] track in
@@ -118,6 +96,15 @@ extension MapView {
             accountService.isSignedInPublisher
                 .sink(receiveValue: { [weak self] value in
                     self?.signedIn = value
+                })
+                .store(in: &cancellables)
+
+            mapService.raceCreationStatePublisher
+                .sink(receiveValue: { [weak self] value in
+                    if value == .finished {
+                        self?.mapMenuState = .markersPlaced
+                    }
+                    self?.raceCreationState = value
                 })
                 .store(in: &cancellables)
         }
@@ -148,7 +135,7 @@ extension MapView {
                     tracking: true
                 )
             )
-            self.isTracking = .on
+            self.mapMenuState = .on
             addX = Double.random(in: -0.00001..<0.00001)
             addY = Double.random(in: -0.00001..<0.00001)
         }
@@ -168,18 +155,18 @@ extension MapView {
 
         func resumeTracking() {
             self.trackTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
-            self.isTracking = .on
+            self.mapMenuState = .on
         }
 
         func pauseTracking() {
             self.trackTimer?.invalidate()
             self.trackTimer = nil
-            self.isTracking = .paused
+            self.mapMenuState = .paused
         }
         func stopTracking() {
             self.trackTimer?.invalidate()
             self.trackTimer = nil
-            self.isTracking = .off
+            self.mapMenuState = .off
             self.startTime = nil
             self.currentDistance = nil
             var current = trackedPath?.tracks?.last
@@ -270,6 +257,36 @@ extension MapView {
                 newTrack.notes?.append(note)
                 await mapService.updateTrack(newTrack, false)
             }
+        }
+
+        func raceAction(cancel: Bool) {
+            if cancel {
+                mapMenuState = .off
+                mapService.changeRaceCreationState(.not)
+                return
+            }
+            switch raceCreationState {
+            case .firstMarker, .secondMarker:
+                print("first or second marker")
+            case .finished:
+                showingRaceNameAlert.toggle()
+            case .not:
+                startRaceCreation()
+                mapMenuState = .raceCreation
+            }
+            startRaceCreation()
+        }
+
+        func addRace() {
+            Task {
+                await mapService.createRace(raceMarkers, raceName)
+            }
+            mapMenuState = .off
+            raceName = ""
+        }
+
+        func startRaceCreation() {
+            mapService.changeRaceCreationState(.firstMarker)
         }
     }
 }

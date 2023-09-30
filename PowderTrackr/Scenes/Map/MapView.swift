@@ -9,7 +9,8 @@ struct MapView: View {
             ViewFactory.googleMap(
                 cameraPos: $viewModel.cameraPos,
                 selectedPath: $viewModel.selectedPath,
-                shared: $viewModel.shared
+                shared: $viewModel.shared,
+                raceMarkers: $viewModel.raceMarkers
             )
             .ignoresSafeArea()
             VStack {
@@ -33,13 +34,29 @@ struct MapView: View {
                     .transition(.push(from: .top))
                 } else if viewModel.signedIn {
                     LayerWidget(
-                        isTracking: $viewModel.isTracking,
+                        mapMenuState: $viewModel.mapMenuState,
                         startAction: viewModel.startTracking,
                         pauseAction: viewModel.pauseTracking,
                         stopAction: viewModel.stopTracking,
-                        resumeAction: viewModel.resumeTracking
+                        resumeAction: viewModel.resumeTracking,
+                        raceAction: viewModel.raceAction
                     )
                 }
+            }
+        }
+        .alert("Name and create race", isPresented: $viewModel.showingRaceNameAlert) {
+            TextField("Enter the name...", text: $viewModel.raceName)
+                .autocorrectionDisabled(true)
+            Button("Create") {
+                viewModel.addRace()
+                viewModel.showingRaceNameAlert.toggle()
+            }
+            Button(
+                "Cancel",
+                role: .cancel
+            ) {
+                viewModel.raceName = ""
+                viewModel.showingRaceNameAlert.toggle()
             }
         }
         .onChange(of: viewModel.cameraPos) { newValue in
@@ -48,50 +65,6 @@ struct MapView: View {
         .onDisappear(perform: viewModel.stopTimer)
         .onAppear(perform: viewModel.startTimer)
 }
-
-    @ViewBuilder var menu: some View {
-        VStack {
-            Spacer()
-            switch viewModel.menuState {
-            case .opened:
-                GeometryReader { proxy in
-                    HStack {
-                        Spacer()
-                        Button {
-                            withAnimation {
-                                viewModel.menuState = .closed
-                            }
-                        } label: {
-                            Text("Close")
-                        }
-                        Spacer()
-                    }
-                    .frame(width: proxy.size.width * 0.8, height: proxy.size.height * 0.4)
-                    .background(Color.white)
-                    .cornerRadius(16)
-                }
-
-            case .closed:
-                HStack {
-                    Spacer()
-                    Button {
-                        withAnimation {
-                            viewModel.menuState = .opened
-                        }
-                    } label: {
-                        Image(systemName: "text.justify")
-                            .bold()
-                            .frame(width: 48, height: 48)
-                            .foregroundColor(.white)
-                            .padding(8)
-                            .background(Color.teal)
-                            .cornerRadius(16)
-                    }
-                }
-            }
-        }
-        .padding(16)
-    }
 
     var topBar: some View {
         HStack {
