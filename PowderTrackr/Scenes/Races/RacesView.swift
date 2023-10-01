@@ -3,7 +3,14 @@ import SwiftUI
 struct RacesView: View {
     @StateObject var viewModel: ViewModel
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView(showsIndicators: false) {
+            VStack {
+                RaceRunView(viewModel: .init(race: "Race 123"))
+                RaceRunView(viewModel: .init(race: "Race XYZ"))
+                RaceRunView(viewModel: .init(race: "Race ABC"))
+            }
+        }
+
     }
 }
 

@@ -163,6 +163,7 @@ extension MapView {
             self.trackTimer = nil
             self.mapMenuState = .paused
         }
+
         func stopTracking() {
             self.trackTimer?.invalidate()
             self.trackTimer = nil
