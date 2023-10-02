@@ -12,8 +12,14 @@ extension RaceRunView {
         @Published var playerState = PlayerState.stopped
         @Published var race: String
 
-        init(race: String) {
+//        private let navigator: RaceRunViewNavigatorProtocol
+
+        init(
+//            navigator: RaceRunViewNavigatorProtocol,
+            race: String
+        ) {
             self.race = race
+//            self.navigator = navigator
         }
         func startPlay() {
             withAnimation {

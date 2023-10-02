@@ -103,8 +103,14 @@
 		558A21722A73E15800819256 /* GroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A21712A73E15800819256 /* GroupView.swift */; };
 		55A318552A4625DA00EB0C5E /* FriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A318542A4625DA00EB0C5E /* FriendService.swift */; };
 		55B4593F2AC9764C007B3775 /* RaceRunView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B4593E2AC9764C007B3775 /* RaceRunView+ViewModel.swift */; };
+		55B459422AC9B281007B3775 /* RaceManageItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B459412AC9B281007B3775 /* RaceManageItemView.swift */; };
+		55B459442AC9B28E007B3775 /* RaceManageItemView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B459432AC9B28E007B3775 /* RaceManageItemView+ViewModel.swift */; };
+		55B459472AC9B7FB007B3775 /* ShadowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B459462AC9B7FB007B3775 /* ShadowModifier.swift */; };
+		55B4594A2AC9B923007B3775 /* RaceNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B459492AC9B923007B3775 /* RaceNavigator.swift */; };
 		55DE1DC02A56D1C300BAD8E4 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE1DBF2A56D1C300BAD8E4 /* ChangePasswordView.swift */; };
 		55DE1DC22A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE1DC12A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift */; };
+		55E402FC2ACB2FF500AE8043 /* MyRunsView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E402FB2ACB2FF500AE8043 /* MyRunsView+ViewModel.swift */; };
+		55E402FE2ACB300400AE8043 /* MyRunsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E402FD2ACB300400AE8043 /* MyRunsView.swift */; };
 		55E98BAF2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E98BAE2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift */; };
 		55E98BB12A73F14A00634917 /* PowderTrackrChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E98BB02A73F14A00634917 /* PowderTrackrChatView.swift */; };
 		55E98BB42A73FB7800634917 /* Chat in Frameworks */ = {isa = PBXBuildFile; productRef = 55E98BB32A73FB7800634917 /* Chat */; };
@@ -244,8 +250,14 @@
 		558A21712A73E15800819256 /* GroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupView.swift; sourceTree = "<group>"; };
 		55A318542A4625DA00EB0C5E /* FriendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendService.swift; sourceTree = "<group>"; };
 		55B4593E2AC9764C007B3775 /* RaceRunView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RaceRunView+ViewModel.swift"; sourceTree = "<group>"; };
+		55B459412AC9B281007B3775 /* RaceManageItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceManageItemView.swift; sourceTree = "<group>"; };
+		55B459432AC9B28E007B3775 /* RaceManageItemView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RaceManageItemView+ViewModel.swift"; sourceTree = "<group>"; };
+		55B459462AC9B7FB007B3775 /* ShadowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowModifier.swift; sourceTree = "<group>"; };
+		55B459492AC9B923007B3775 /* RaceNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceNavigator.swift; sourceTree = "<group>"; };
 		55DE1DBF2A56D1C300BAD8E4 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		55DE1DC12A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChangePasswordView+ViewModel.swift"; sourceTree = "<group>"; };
+		55E402FB2ACB2FF500AE8043 /* MyRunsView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyRunsView+ViewModel.swift"; sourceTree = "<group>"; };
+		55E402FD2ACB300400AE8043 /* MyRunsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunsView.swift; sourceTree = "<group>"; };
 		55E98BAE2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PowderTrackrChatView+ViewModel.swift"; sourceTree = "<group>"; };
 		55E98BB02A73F14A00634917 /* PowderTrackrChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrChatView.swift; sourceTree = "<group>"; };
 		55E9E6622AC897E50090FC6B /* RaceRunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceRunView.swift; sourceTree = "<group>"; };
@@ -512,6 +524,7 @@
 		554588092A3E30C2009A5485 /* UIElements */ = {
 			isa = PBXGroup;
 			children = (
+				55B459452AC9B7F3007B3775 /* Modifiers */,
 				5545880B2A3E30D8009A5485 /* Components */,
 				5545880A2A3E30D1009A5485 /* ButtonStyles */,
 			);
@@ -556,10 +569,13 @@
 		556EAE5B2AB63B0000132166 /* Races */ = {
 			isa = PBXGroup;
 			children = (
+				55E402FA2ACB2FE700AE8043 /* MyRunsView */,
+				55B459402AC9B218007B3775 /* RaceManageItemView */,
 				55B4593C2AC975E4007B3775 /* RaceRunView */,
 				55E9E6612AC895DA0090FC6B /* Components */,
 				556EAE5C2AB63B0F00132166 /* RacesView+ViewModel.swift */,
 				556EAE5E2AB63B3300132166 /* RacesView.swift */,
+				55B459492AC9B923007B3775 /* RaceNavigator.swift */,
 			);
 			path = Races;
 			sourceTree = "<group>";
@@ -609,6 +625,23 @@
 			path = RaceRunView;
 			sourceTree = "<group>";
 		};
+		55B459402AC9B218007B3775 /* RaceManageItemView */ = {
+			isa = PBXGroup;
+			children = (
+				55B459412AC9B281007B3775 /* RaceManageItemView.swift */,
+				55B459432AC9B28E007B3775 /* RaceManageItemView+ViewModel.swift */,
+			);
+			path = RaceManageItemView;
+			sourceTree = "<group>";
+		};
+		55B459452AC9B7F3007B3775 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				55B459462AC9B7FB007B3775 /* ShadowModifier.swift */,
+			);
+			path = Modifiers;
+			sourceTree = "<group>";
+		};
 		55DE1DBE2A56D1B200BAD8E4 /* ChangePassword */ = {
 			isa = PBXGroup;
 			children = (
@@ -616,6 +649,15 @@
 				55DE1DC12A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift */,
 			);
 			path = ChangePassword;
+			sourceTree = "<group>";
+		};
+		55E402FA2ACB2FE700AE8043 /* MyRunsView */ = {
+			isa = PBXGroup;
+			children = (
+				55E402FB2ACB2FF500AE8043 /* MyRunsView+ViewModel.swift */,
+				55E402FD2ACB300400AE8043 /* MyRunsView.swift */,
+			);
+			path = MyRunsView;
 			sourceTree = "<group>";
 		};
 		55E98BAD2A73F11F00634917 /* ChatView */ = {
@@ -880,6 +922,7 @@
 				550F65E32A532DDD00797B62 /* ConfirmResetPasswordView.swift in Sources */,
 				558815FD2A3E388800667C1A /* Friend.swift in Sources */,
 				558816002A3E388800667C1A /* UserfriendList.swift in Sources */,
+				55B4594A2AC9B923007B3775 /* RaceNavigator.swift in Sources */,
 				554587A02A3E2923009A5485 /* DI.swift in Sources */,
 				5506F7B92A4723F40000761D /* SegmentedControlButton.swift in Sources */,
 				5545879E2A3E291A009A5485 /* ViewFactory.swift in Sources */,
@@ -925,6 +968,7 @@
 				554587FF2A3E306B009A5485 /* VerifyView.swift in Sources */,
 				558815C72A3E366F00667C1A /* UserTrackedPaths+Schema.swift in Sources */,
 				554588192A3E30EA009A5485 /* TextFieldBorderViewModifier.swift in Sources */,
+				55B459472AC9B7FB007B3775 /* ShadowModifier.swift in Sources */,
 				5545881E2A3E30F9009A5485 /* SkiingButton.swift in Sources */,
 				558816022A3E388800667C1A /* Friend+Schema.swift in Sources */,
 				554587CF2A3E2FA1009A5485 /* TrackListView+ViewModel.swift in Sources */,
@@ -932,6 +976,7 @@
 				558815FE2A3E388800667C1A /* FriendRequest.swift in Sources */,
 				55DE1DC02A56D1C300BAD8E4 /* ChangePasswordView.swift in Sources */,
 				554588152A3E30EA009A5485 /* ToggleableSecureField.swift in Sources */,
+				55E402FE2ACB300400AE8043 /* MyRunsView.swift in Sources */,
 				55B4593F2AC9764C007B3775 /* RaceRunView+ViewModel.swift in Sources */,
 				B789E914BFCB37F8743765B0 /* TrackedPath+Schema.swift in Sources */,
 				554588142A3E30EA009A5485 /* BaseTextFieldStyleViewModifier.swift in Sources */,
@@ -945,6 +990,7 @@
 				89E77F0BA3478441D85A6533 /* TrackedPath.swift in Sources */,
 				55A318552A4625DA00EB0C5E /* FriendService.swift in Sources */,
 				554587F92A3E3056009A5485 /* ProfileView.swift in Sources */,
+				55B459442AC9B28E007B3775 /* RaceManageItemView+ViewModel.swift in Sources */,
 				554587E62A3E2FAC009A5485 /* SocialView.swift in Sources */,
 				556EDE642AB5C1C400B7EA5D /* LeaderBoardView+ViewModel.swift in Sources */,
 				9830C87CEB5F9D821AB74CE4 /* UserTrackedPaths+Schema.swift in Sources */,
@@ -955,12 +1001,14 @@
 				554587E12A3E2FAC009A5485 /* SocialNavigator.swift in Sources */,
 				556EDE622AB5BF4900B7EA5D /* LeaderBoardView.swift in Sources */,
 				554588042A3E3071009A5485 /* RegisterView.swift in Sources */,
+				55E402FC2ACB2FF500AE8043 /* MyRunsView+ViewModel.swift in Sources */,
 				9B62154BB9397A45254C5E7A /* UserfriendList+Schema.swift in Sources */,
 				55102ACD2A7ECAE30033E5E6 /* ChatService.swift in Sources */,
 				5482EE72282D2C5E7EACE262 /* UserfriendList.swift in Sources */,
 				558815FF2A3E388800667C1A /* UserTrackedPaths+Schema.swift in Sources */,
 				5506F7BF2A49E5F10000761D /* LoggedOutModal.swift in Sources */,
 				5506F7BB2A4724F50000761D /* SegmentedControl.swift in Sources */,
+				55B459422AC9B281007B3775 /* RaceManageItemView.swift in Sources */,
 				55E9E6632AC897E50090FC6B /* RaceRunView.swift in Sources */,
 				55E98BAF2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift in Sources */,
 				558816092A3E388800667C1A /* TrackedPath+Schema.swift in Sources */,

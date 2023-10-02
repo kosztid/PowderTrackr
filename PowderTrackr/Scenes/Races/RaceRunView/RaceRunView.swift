@@ -6,7 +6,7 @@ struct RaceRunView: View {
     var body: some View {
         VStack(spacing: .zero) {
             HStack {
-                Text("Race")
+                Text("Race name")
                     .font(.callout)
                     .bold()
                 Spacer()
@@ -17,6 +17,9 @@ struct RaceRunView: View {
                 Spacer()
                 Text("2023-09-30")
             }
+            Divider()
+                .padding(.vertical, 4)
+            dataSection
             Grid(horizontalSpacing: .zero) {
                 GridRow {
                     ForEach(0..<7) { index in
@@ -58,6 +61,23 @@ struct RaceRunView: View {
             x: .zero,
             y: 4
         )
+    }
+
+    var dataSection: some View {
+        Group {
+            HStack {
+                Text("Distance:")
+                Text("11324 meters")
+                    .italic()
+                Spacer()
+            }
+            HStack {
+                Text("Time:")
+                Text("12:32 min")
+                    .italic()
+                Spacer()
+            }
+        }
     }
 }
 

@@ -1,7 +1,7 @@
 import SwiftUI
 
 public struct TabBarNavigator: View {
-    @State var selectedItem: Int = 5
+    @State var selectedItem: Int = 2
 
     public var body: some View {
         ZStack(alignment: .bottom) {
@@ -12,8 +12,8 @@ public struct TabBarNavigator: View {
                 ViewFactory.trackListView()
                     .tabItem { Label("History", systemImage: "figure.skiing.downhill") }
                     .tag(1)
-                ViewFactory.socialNavigator()
-                    .tabItem { Label("Social", systemImage: "person.3.fill") }
+                ViewFactory.raceNavigator()
+                    .tabItem { Label("Races", systemImage: "flag.2.crossed") }
                     .tag(2)
                 ViewFactory.profileNavigator()
                     .tabItem { Label("Account", systemImage: "person") }
@@ -21,8 +21,8 @@ public struct TabBarNavigator: View {
                 ViewFactory.leaderBoardView()
                     .tabItem { Label("Leaderboard", systemImage: "trophy") }
                     .tag(4)
-                ViewFactory.racesView()
-                    .tabItem { Label("Races", systemImage: "flag.2.crossed") }
+                ViewFactory.socialNavigator()
+                    .tabItem { Label("Social", systemImage: "person.3.fill") }
                     .tag(5)
             }
             .toolbarColorScheme(.light, for: .tabBar)

@@ -50,6 +50,10 @@ enum ViewFactory {
         Container.Social.navigator()
     }
 
+    static func raceNavigator() -> RaceNavigator {
+        Container.Races.navigator()
+    }
+
     static func friendRequestView() -> FriendRequestView {
         Container.FriendRequest.view()
     }
@@ -90,7 +94,15 @@ enum ViewFactory {
 
     // MARK: - Races
 
-    static func racesView() -> RacesView {
-        Container.Races.view()
+    static func racesView(navigator: RacesViewNavigatorProtocol) -> RacesView {
+        Container.Races.view(navigator)
+    }
+
+    static func raceRunView() -> RaceRunView {
+        Container.RaceRun.view()
+    }
+
+    static func myRunsView(race: String) -> MyRunsView {
+        Container.MyRuns.view(race)
     }
 }

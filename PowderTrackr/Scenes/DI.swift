@@ -222,12 +222,45 @@ extension Container {
     }
 
     enum Races {
+        static let view = ParameterFactory { navigator in
+            RacesView(viewModel: viewModel(navigator))
+        }
+
+        static let viewModel = ParameterFactory { navigator in
+            RacesView.ViewModel(navigator: navigator)
+        }
+
+        static let navigator = Factory {
+            RaceNavigator()
+        }
+    }
+
+//    enum RaceRun {
+//        static let view = ParameterFactory { navigator in
+//            RaceRunView(viewModel: viewModel(navigator))
+//        }
+//
+//        static let viewModel = ParameterFactory { navigator in
+//            RaceRunView.ViewModel(navigator: navigator, race: "Race 123")
+//        }
+//    }
+    enum RaceRun {
         static let view = Factory {
-            RacesView(viewModel: viewModel())
+            RaceRunView(viewModel: viewModel())
         }
 
         static let viewModel = Factory {
-            RacesView.ViewModel()
+            RaceRunView.ViewModel(race: "Race 123")
+        }
+    }
+
+    enum MyRuns {
+        static let view = ParameterFactory { race in
+            MyRunsView(viewModel: viewModel(race))
+        }
+
+        static let viewModel = ParameterFactory { race in
+            MyRunsView.ViewModel(race: race)
         }
     }
 }

@@ -5,17 +5,17 @@ struct RacesView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {
-                RaceRunView(viewModel: .init(race: "Race 123"))
-                RaceRunView(viewModel: .init(race: "Race XYZ"))
-                RaceRunView(viewModel: .init(race: "Race ABC"))
+                RaceManageItemView(race: "Race 123", viewMyRunsAction: viewModel.navigateToMyRuns)
+                RaceManageItemView(race: "Race XYZ", viewMyRunsAction: viewModel.navigateToMyRuns)
+                RaceManageItemView(race: "Race ABC", viewMyRunsAction: viewModel.navigateToMyRuns)
             }
         }
 
     }
 }
-
-struct RacesView_Previews: PreviewProvider {
-    static var previews: some View {
-        RacesView(viewModel: .init())
-    }
-}
+//
+//struct RacesView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RacesView(viewModel: .init())
+//    }
+//}

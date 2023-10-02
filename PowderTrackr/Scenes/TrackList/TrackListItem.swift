@@ -48,6 +48,7 @@ struct TrackListItem: View {
                 .stroke(.black, lineWidth: 1)
         )
         .padding(8)
+        .customShadow()
     }
 
     var header: some View {
