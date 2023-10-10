@@ -2,6 +2,7 @@ import SwiftUI
 
 struct RaceManageItemView: View {
     let race: String
+    let openShare: (String) -> Void
     let viewMyRunsAction: (String) -> Void
 
     var body: some View {
@@ -63,6 +64,7 @@ struct RaceManageItemView: View {
                 .buttonStyle(SkiingButtonStyle(style: .secondary))
                 Spacer()
                 Button {
+                    openShare(race)
                 } label: {
                     Text("Add participants")
                 }
@@ -75,6 +77,6 @@ struct RaceManageItemView: View {
 
 struct RaceManageItemView_Previews: PreviewProvider {
     static var previews: some View {
-        RaceManageItemView(race: "Race 123", viewMyRunsAction: { _ in })
+        RaceManageItemView(race: "Race 123", openShare: { _ in}, viewMyRunsAction: { _ in })
     }
 }

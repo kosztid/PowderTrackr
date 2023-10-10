@@ -103,7 +103,10 @@ struct GoogleMapsView: UIViewRepresentable {
             } else {
                 shared = false
             }
-            self.selectedPath = model
+            withAnimation {
+                self.selectedPath = model
+            }
+
             drawMapItems()
         }
 

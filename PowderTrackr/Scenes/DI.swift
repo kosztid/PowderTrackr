@@ -227,7 +227,7 @@ extension Container {
         }
 
         static let viewModel = ParameterFactory { navigator in
-            RacesView.ViewModel(navigator: navigator)
+            RacesView.ViewModel(mapService: mapService(), friendService: friendService(), navigator: navigator)
         }
 
         static let navigator = Factory {
