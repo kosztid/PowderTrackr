@@ -98,11 +98,11 @@ enum ViewFactory {
         Container.Races.view(navigator)
     }
 
-    static func raceRunView() -> RaceRunView {
-        Container.RaceRun.view()
+    static func raceRunView(closestRun: TrackedPath, race: TrackedPath) -> RaceRunView {
+        Container.RaceRun.view((race, closestRun))
     }
 
-    static func myRunsView(race: String) -> MyRunsView {
-        Container.MyRuns.view(race)
+    static func myRunsView(runs: [TrackedPath], title: String) -> MyRunsView {
+        Container.MyRuns.view((runs, title))
     }
 }

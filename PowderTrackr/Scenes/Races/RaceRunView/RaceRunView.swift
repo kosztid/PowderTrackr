@@ -12,7 +12,7 @@ struct RaceRunView: View {
                 Spacer()
             }
             HStack {
-                Text(viewModel.race)
+                Text(viewModel.race.name)
                     .font(.title)
                 Spacer()
                 Text("2023-09-30")
@@ -81,11 +81,11 @@ struct RaceRunView: View {
     }
 }
 
-struct RaceRunView_Previews: PreviewProvider {
-    static var previews: some View {
-        RaceRunView(viewModel: .init(race: "Race"))
-    }
-}
+//struct RaceRunView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RaceRunView(viewModel: .init(closestRun: <#TrackedPath#>, race: "Race"))
+//    }
+//}
 
 func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int) {
     return ((seconds % 3600) / 60, (seconds % 3600) % 60)

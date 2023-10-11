@@ -120,6 +120,7 @@
 		55FF48782A9136D200527F18 /* LayerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF48772A9136D200527F18 /* LayerWidget.swift */; };
 		55FF487C2A9136F800527F18 /* LayerWidgetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */; };
 		573B0B6FC0F90E990C929AE1 /* LeaderBoard+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4221889F183A65F39EF46DA /* LeaderBoard+Schema.swift */; };
+		5998F3CBEA9A4BA503F04DDC /* Race+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AACF7F278FF6B43CD228C8 /* Race+Schema.swift */; };
 		72D311DB8DCEA24E0C4CB14B /* FriendRequest+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D681CDF9130A0F1615DA65 /* FriendRequest+Schema.swift */; };
 		875EFD72158722FD19B9AA93 /* Message+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327BD541BEE53E00DCFF269C /* Message+Schema.swift */; };
 		89E77F0BA3478441D85A6533 /* TrackedPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D60D5E7FF5741E73110C72 /* TrackedPath.swift */; };
@@ -134,6 +135,7 @@
 		C496041B3C72D2CE2BA7C1C9 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F26B325B8B19B7AAB29B55 /* AmplifyModels.swift */; };
 		DB5F670D7C78E51B71D728C8 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = CAFBDA2D03070658D228A377 /* awsconfiguration.json */; };
 		DCE7BC632FFF04AB8DE4051A /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65FDA246EE122F3E9CE99AC /* Friend.swift */; };
+		DF0DF21FA0775E570E38E5F9 /* Race.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5875D5B9377BE74C3D0F09B1 /* Race.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -263,6 +265,7 @@
 		55E9E6622AC897E50090FC6B /* RaceRunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceRunView.swift; sourceTree = "<group>"; };
 		55FF48772A9136D200527F18 /* LayerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerWidget.swift; sourceTree = "<group>"; };
 		55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerWidgetButton.swift; sourceTree = "<group>"; };
+		5875D5B9377BE74C3D0F09B1 /* Race.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = Race.swift; path = amplify/generated/models/Race.swift; sourceTree = "<group>"; };
 		63AB484BB4AE178A2F655487 /* GroupChat.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = GroupChat.swift; path = amplify/generated/models/GroupChat.swift; sourceTree = "<group>"; };
 		6C230E5414AAD2FFE38AB6C2 /* UserfriendList+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "UserfriendList+Schema.swift"; path = "amplify/generated/models/UserfriendList+Schema.swift"; sourceTree = "<group>"; };
 		705F020E722E17762F7F9CEC /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
@@ -271,6 +274,7 @@
 		9C663D785B3B203B1BDAEE41 /* Friend+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "Friend+Schema.swift"; path = "amplify/generated/models/Friend+Schema.swift"; sourceTree = "<group>"; };
 		B9D9C6952CB3E0998B0F47FB /* UserTrackedPaths+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "UserTrackedPaths+Schema.swift"; path = "amplify/generated/models/UserTrackedPaths+Schema.swift"; sourceTree = "<group>"; };
 		CAFBDA2D03070658D228A377 /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
+		D0AACF7F278FF6B43CD228C8 /* Race+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = "Race+Schema.swift"; path = "amplify/generated/models/Race+Schema.swift"; sourceTree = "<group>"; };
 		D2F26B325B8B19B7AAB29B55 /* AmplifyModels.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = AmplifyModels.swift; path = amplify/generated/models/AmplifyModels.swift; sourceTree = "<group>"; };
 		D52601201CE3D9DDCD2B6A6F /* UserfriendList.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = UserfriendList.swift; path = amplify/generated/models/UserfriendList.swift; sourceTree = "<group>"; };
 		D65FDA246EE122F3E9CE99AC /* Friend.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Friend.swift; path = amplify/generated/models/Friend.swift; sourceTree = "<group>"; };
@@ -738,6 +742,8 @@
 				558815F62A3E388800667C1A /* AmplifyModels.swift */,
 				F4221889F183A65F39EF46DA /* LeaderBoard+Schema.swift */,
 				E6695954296122C3A61B7B23 /* LeaderBoard.swift */,
+				D0AACF7F278FF6B43CD228C8 /* Race+Schema.swift */,
+				5875D5B9377BE74C3D0F09B1 /* Race.swift */,
 			);
 			name = AmplifyModels;
 			sourceTree = "<group>";
@@ -1020,6 +1026,8 @@
 				15CF1A876379363AF3ADD488 /* PersonalChat.swift in Sources */,
 				573B0B6FC0F90E990C929AE1 /* LeaderBoard+Schema.swift in Sources */,
 				A5C763AB756F6AB77072E299 /* LeaderBoard.swift in Sources */,
+				5998F3CBEA9A4BA503F04DDC /* Race+Schema.swift in Sources */,
+				DF0DF21FA0775E570E38E5F9 /* Race.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -147,7 +147,7 @@ struct TrackListItem: View {
             HStack {
                 Text("Total distance moved:")
                 Spacer()
-                Text("\(totalDistance, specifier: "%.2f") meters")
+                Text("\(totalDistance, specifier: "%.f") meters")
             }
             .padding(.bottom, 4)
             HStack {

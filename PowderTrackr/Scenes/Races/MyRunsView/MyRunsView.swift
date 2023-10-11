@@ -5,17 +5,16 @@ struct MyRunsView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: .zero) {
-                RaceRunView(viewModel: .init(race: "Run 123"))
-                RaceRunView(viewModel: .init(race: "Run ABC"))
-                RaceRunView(viewModel: .init(race: "Run XYZ"))
+                ForEach(viewModel.raceRuns.indices) { ind in
+                    RaceRunView(
+                        viewModel: .init(
+                            closestRun: viewModel.raceClosestRuns[ind],
+                            race: viewModel.raceRuns[ind]
+                        )
+                    )
+                }
             }
         }
-        .navigationTitle(viewModel.race)
-    }
-}
-
-struct MyRunsView_Previews: PreviewProvider {
-    static var previews: some View {
-        MyRunsView(viewModel: .init(race: "Race 123"))
+        .navigationTitle(viewModel.title)
     }
 }

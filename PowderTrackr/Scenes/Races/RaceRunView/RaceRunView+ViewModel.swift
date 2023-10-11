@@ -10,15 +10,18 @@ extension RaceRunView {
         var timer: Timer?
         @Published var player = -1
         @Published var playerState = PlayerState.stopped
-        @Published var race: String
+        @Published var race: TrackedPath
+        @Published var closestRun: TrackedPath
 
 //        private let navigator: RaceRunViewNavigatorProtocol
 
         init(
 //            navigator: RaceRunViewNavigatorProtocol,
-            race: String
+            closestRun: TrackedPath,
+            race: TrackedPath
         ) {
             self.race = race
+            self.closestRun = closestRun
 //            self.navigator = navigator
         }
         func startPlay() {

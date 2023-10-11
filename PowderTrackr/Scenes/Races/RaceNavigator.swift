@@ -4,11 +4,11 @@ import SwiftUI
 public enum RacesScreen {
     case races
     case raceRuns
-    case myRuns(String)
+    case myRuns([TrackedPath], String)
 }
 
 protocol RacesViewNavigatorProtocol {
-    func navigateToRaceRuns(race: String)
+    func navigateToRaceRuns(runs: [TrackedPath], title: String)
 }
 
 protocol RaceRunViewNavigatorProtocol {
@@ -22,8 +22,8 @@ public struct RaceNavigator: Navigator {
         Router($routes) { screen, _ in
             switch screen {
             case .races: ViewFactory.racesView(navigator: self)
-            case .raceRuns: ViewFactory.raceRunView()
-            case .myRuns(let race): ViewFactory.myRunsView(race: race)
+            case .raceRuns: EmptyView()
+            case .myRuns(let runs, let title): ViewFactory.myRunsView(runs: runs, title: title)
             }
         }
     }
@@ -34,8 +34,8 @@ public struct RaceNavigator: Navigator {
 }
 
 extension RaceNavigator: RacesViewNavigatorProtocol {
-    func navigateToRaceRuns(race: String) {
-        routes.push(.myRuns(race))
+    func navigateToRaceRuns(runs race: [TrackedPath], title: String) {
+        routes.push(.myRuns(race, title))
     }
 }
 

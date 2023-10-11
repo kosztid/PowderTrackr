@@ -1,9 +1,12 @@
 import SwiftUI
 
 struct RaceManageItemView: View {
-    let race: String
+    let race: Race
+    let shortestTime: String
     let openShare: (String) -> Void
     let viewMyRunsAction: (String) -> Void
+    let dateFormatter = DateFormatter()
+    let formatter = DateComponentsFormatter()
 
     var body: some View {
         VStack(spacing: .zero) {
@@ -14,10 +17,10 @@ struct RaceManageItemView: View {
                 Spacer()
             }
             HStack {
-                Text(race)
+                Text(race.name)
                     .font(.title)
                 Spacer()
-                Text("2023-09-30")
+                Text(race.date)
             }
             Divider().padding(.vertical, 4)
             dataSection
@@ -36,7 +39,7 @@ struct RaceManageItemView: View {
         Group {
             HStack {
                 Text("Shortest run:")
-                Text("11324 meters")
+                Text("\(race.shortestDistance, specifier: "%.2f") meters")
                     .italic()
                 Spacer()
                 Text("Pank")
@@ -44,7 +47,7 @@ struct RaceManageItemView: View {
             }
             HStack {
                 Text("Best time:")
-                Text("12:32 min")
+                Text("\(shortestTime)")
                     .italic()
                 Spacer()
                 Text("Dominik")
@@ -57,14 +60,14 @@ struct RaceManageItemView: View {
         Group {
             HStack {
                 Button {
-                    viewMyRunsAction(race)
+                    viewMyRunsAction(race.id)
                 } label: {
                     Text("View my runs")
                 }
                 .buttonStyle(SkiingButtonStyle(style: .secondary))
                 Spacer()
                 Button {
-                    openShare(race)
+                    openShare(race.id)
                 } label: {
                     Text("Add participants")
                 }
@@ -73,10 +76,25 @@ struct RaceManageItemView: View {
             .padding(.top, 8)
         }
     }
+
+    init(
+        race: Race,
+        openShare: @escaping (String) -> Void,
+        viewMyRunsAction: @escaping (String) -> Void
+    ) {
+        self.race = race
+        self.openShare = openShare
+        self.viewMyRunsAction = viewMyRunsAction
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.unitsStyle = .abbreviated
+        
+        self.shortestTime = formatter.string(from: race.shortestTime) ?? ""
+    }
 }
 
 struct RaceManageItemView_Previews: PreviewProvider {
     static var previews: some View {
-        RaceManageItemView(race: "Race 123", openShare: { _ in}, viewMyRunsAction: { _ in })
+        RaceManageItemView(race: Race(name: "Race 123", date: "2023-05-21 11:15:55", shortestTime: 123, shortestDistance: 123), openShare: { _ in}, viewMyRunsAction: { _ in })
     }
 }

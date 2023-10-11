@@ -245,22 +245,22 @@ extension Container {
 //        }
 //    }
     enum RaceRun {
-        static let view = Factory {
-            RaceRunView(viewModel: viewModel())
+        static let view = ParameterFactory { race, closestRun in
+            RaceRunView(viewModel: viewModel((race, closestRun)))
         }
 
-        static let viewModel = Factory {
-            RaceRunView.ViewModel(race: "Race 123")
+        static let viewModel = ParameterFactory { race, closestRun in
+            RaceRunView.ViewModel(closestRun: closestRun, race: race)
         }
     }
 
     enum MyRuns {
-        static let view = ParameterFactory { race in
-            MyRunsView(viewModel: viewModel(race))
+        static let view = ParameterFactory { runs, title in
+            MyRunsView(viewModel: viewModel((runs, title)))
         }
 
-        static let viewModel = ParameterFactory { race in
-            MyRunsView.ViewModel(race: race)
+        static let viewModel = ParameterFactory { runs, title in
+            MyRunsView.ViewModel(raceRuns: runs, title: title, accountService: accountService())
         }
     }
 }

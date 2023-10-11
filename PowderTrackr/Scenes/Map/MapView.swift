@@ -43,6 +43,9 @@ struct MapView: View {
                     )
                 }
             }
+            Button("Init race") {
+                viewModel.initRace()
+            }
         }
         .alert("Name and create race", isPresented: $viewModel.showingRaceNameAlert) {
             TextField("Enter the name...", text: $viewModel.raceName)

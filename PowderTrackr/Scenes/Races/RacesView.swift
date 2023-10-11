@@ -6,7 +6,7 @@ struct RacesView: View {
     var body: some View {
         ZStack {
             List {
-                ForEach(viewModel.races, id: \.self) { race in
+                ForEach(viewModel.races) { race in
                     RaceManageItemView(
                         race: race,
                         openShare: viewModel.openShare,
@@ -14,7 +14,7 @@ struct RacesView: View {
                     )
                     .swipeActions {
                         Button(role: .cancel) {
-                            viewModel.raceToDelete = race
+                            viewModel.raceToDelete = race.id
                             viewModel.showingDeleteRaceAlert = true
                         } label: {
                             Text("Delete")
@@ -34,6 +34,9 @@ struct RacesView: View {
                     }
                 }
             }
+        }
+        .onAppear {
+            viewModel.updateShortestRun()
         }
         .alert("Are you sure want to delete this race?", isPresented: $viewModel.showingDeleteRaceAlert) {
             Button(role: .destructive) {

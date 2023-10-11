@@ -71,6 +71,11 @@ extension MapView {
             }
         }
 
+        func initRace() {
+            Task {
+                await self.mapService.initRacesStartingData()
+            }
+        }
         func confirm() {
             Task {
                 await self.accountService.createUserTrackedPaths()

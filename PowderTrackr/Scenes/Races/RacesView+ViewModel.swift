@@ -5,12 +5,13 @@ extension RacesView {
     final class ViewModel: ObservableObject {
         private var cancellables: Set<AnyCancellable> = []
 
+        let dateFormatter = DateFormatter()
         private let navigator: RacesViewNavigatorProtocol
         private let mapService: MapServiceProtocol
         private let friendService: FriendServiceProtocol
 
         @Published var showingDeleteRaceAlert = false
-        @Published var races: [String] = ["Race 123", "Race XYZ", "Race ABC"]
+        @Published var races: [Race] = []
         @Published var friendList: Friendlist?
         @Published var raceToShare: String?
         @Published var raceToDelete: String?
@@ -23,11 +24,13 @@ extension RacesView {
             self.mapService = mapService
             self.friendService = friendService
             self.navigator = navigator
+            self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
             initBindings()
 
             Task {
                 await friendService.queryFriends()
+                await mapService.queryRaces()
             }
         }
 
@@ -38,10 +41,17 @@ extension RacesView {
                     self?.friendList = friendList
                 }
                 .store(in: &cancellables)
+
+            mapService.racesPublisher
+                .sink { _ in
+                } receiveValue: { [weak self] races in
+                    self?.races = races
+                }
+                .store(in: &cancellables)
         }
 
         func navigateToMyRuns(race: String) {
-            navigator.navigateToRaceRuns(race: race)
+            navigator.navigateToRaceRuns(runs: [], title: race)
         }
 
         func share(with friend: Friend) {
@@ -59,15 +69,43 @@ extension RacesView {
 
         func refreshRaces() {
             raceToDelete = nil
-            races = ["Race 123", "Race XYZ", "Race ABC"]
+            Task {
+                await mapService.queryRaces()
+            }
         }
 
         func deleteRace() {
             withAnimation {
-                races.removeAll { $0 == raceToDelete}
+                races.removeAll { $0.id == raceToDelete}
                 raceToDelete = nil
             }
             print("race Deleted")
+        }
+
+        func updateShortestRun() {
+            races.forEach { race in
+                var time = 0
+                for run in race.tracks ?? [] {
+                    let startDate = dateFormatter.date(from: run.startDate)
+                    let endDate = dateFormatter.date(from: run.endDate)
+                    guard let endDate else { return }
+                    var current = Int(startDate?.distance(to: endDate) ?? 0)
+                    if current > time {
+                        time = current
+                    }
+                }
+                if Int(race.shortestTime) > time {
+                    var newRace = race
+                    newRace.shortestTime = Double(time)
+                    updateRace(race: race, newRace: newRace)
+                }
+            }
+        }
+
+        func updateRace(race: Race, newRace: Race) {
+            Task {
+                await mapService.updateRace(race, newRace)
+            }
         }
     }
 }
