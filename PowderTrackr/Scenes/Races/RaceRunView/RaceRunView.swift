@@ -22,18 +22,18 @@ struct RaceRunView: View {
             dataSection
             Grid(horizontalSpacing: .zero) {
                 GridRow {
-                    ForEach(0..<7) { index in
+                    ForEach(.zero..<100) { index in
                         ZStack {
-                            if index == viewModel.player {
+                            // player
+                            if index == Int(viewModel.playerPosition) {
                                 Rectangle().fill().frame(width: 2, height: 32)
+                                    .foregroundColor(.blue)
                             }
-                            Rectangle().fill().frame(height: 2).foregroundColor(.blue)
+                            if index == Int(viewModel.opponentPosition) {
+                                Rectangle().fill().frame(width: 1, height: 32).foregroundColor(.red)
+                            }
+                            Rectangle().fill().frame(height: 2).foregroundColor(.black)
                         }
-                    }
-                }
-                GridRow {
-                    ForEach(0..<7) { count in
-                        Text(printSecondsToHoursMinutesSeconds(count * 30))
                     }
                 }
             }
@@ -41,8 +41,14 @@ struct RaceRunView: View {
             HStack {
                 Spacer()
                 Button {
+                    viewModel.setSpeed()
+                } label: {
+                    Text("\(Int(viewModel.playSpeed))x")
+                }
+                .padding(.horizontal, 8)
+                Button {
                     viewModel.playButtonTap()
-                } label : {
+                } label: {
                     Image(systemName: viewModel.playerState == .playing ? "pause" : "play")
                         .resizable()
                         .frame(width: 24, height: 24)
@@ -61,6 +67,9 @@ struct RaceRunView: View {
             x: .zero,
             y: 4
         )
+        .onChange(of: viewModel.currentArrayIndex) { index in
+            viewModel.calculateDistanceFromStartingPoint(index: index)
+        }
     }
 
     var dataSection: some View {
@@ -73,9 +82,10 @@ struct RaceRunView: View {
             }
             HStack {
                 Text("Time:")
-                Text("12:32 min")
+                Text("\(viewModel.elapsedTimeInString)")
                     .italic()
                 Spacer()
+                Text("ElapsedTime \(viewModel.player)")
             }
         }
     }

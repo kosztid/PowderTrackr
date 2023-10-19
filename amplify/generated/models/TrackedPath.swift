@@ -2,7 +2,7 @@
 import Amplify
 import Foundation
 
-public struct TrackedPath: Embeddable, Identifiable, Equatable {
+public struct TrackedPath: Embeddable, Identifiable, Equatable, Hashable {
   public var id: String
   var name: String
   var startDate: String

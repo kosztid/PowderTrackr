@@ -4,7 +4,7 @@ struct RaceManageItemView: View {
     let race: Race
     let shortestTime: String
     let openShare: (String) -> Void
-    let viewMyRunsAction: (String) -> Void
+    let viewMyRunsAction: (Race) -> Void
     let dateFormatter = DateFormatter()
     let formatter = DateComponentsFormatter()
 
@@ -60,7 +60,7 @@ struct RaceManageItemView: View {
         Group {
             HStack {
                 Button {
-                    viewMyRunsAction(race.id)
+                    viewMyRunsAction(race)
                 } label: {
                     Text("View my runs")
                 }
@@ -80,7 +80,7 @@ struct RaceManageItemView: View {
     init(
         race: Race,
         openShare: @escaping (String) -> Void,
-        viewMyRunsAction: @escaping (String) -> Void
+        viewMyRunsAction: @escaping (Race) -> Void
     ) {
         self.race = race
         self.openShare = openShare
@@ -88,7 +88,7 @@ struct RaceManageItemView: View {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         formatter.allowedUnits = [.hour, .minute, .second]
         formatter.unitsStyle = .abbreviated
-        
+
         self.shortestTime = formatter.string(from: race.shortestTime) ?? ""
     }
 }

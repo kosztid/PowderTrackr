@@ -285,6 +285,7 @@ extension MapView {
         }
 
         func addRace() {
+            print(raceName)
             Task {
                 await mapService.createRace(raceMarkers, raceName)
             }

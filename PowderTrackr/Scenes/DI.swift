@@ -255,12 +255,12 @@ extension Container {
     }
 
     enum MyRuns {
-        static let view = ParameterFactory { runs, title in
-            MyRunsView(viewModel: viewModel((runs, title)))
+        static let view = ParameterFactory { runs in
+            MyRunsView(viewModel: viewModel((runs)))
         }
 
-        static let viewModel = ParameterFactory { runs, title in
-            MyRunsView.ViewModel(raceRuns: runs, title: title, accountService: accountService())
+        static let viewModel = ParameterFactory { runs in
+            MyRunsView.ViewModel(race: runs, accountService: accountService())
         }
     }
 }

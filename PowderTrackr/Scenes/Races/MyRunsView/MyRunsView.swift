@@ -5,11 +5,11 @@ struct MyRunsView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: .zero) {
-                ForEach(viewModel.raceRuns.indices) { ind in
+                ForEach(Array(viewModel.raceRuns.enumerated()), id: \.element) { index, race in
                     RaceRunView(
                         viewModel: .init(
-                            closestRun: viewModel.raceClosestRuns[ind],
-                            race: viewModel.raceRuns[ind]
+                            closestRun: viewModel.raceClosestRuns[index],
+                            race: race
                         )
                     )
                 }

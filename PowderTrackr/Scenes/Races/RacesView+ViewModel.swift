@@ -1,4 +1,5 @@
 import Combine
+import GoogleMaps
 import SwiftUI
 
 extension RacesView {
@@ -46,12 +47,13 @@ extension RacesView {
                 .sink { _ in
                 } receiveValue: { [weak self] races in
                     self?.races = races
+                    self?.updateShortestRun()
                 }
                 .store(in: &cancellables)
         }
 
-        func navigateToMyRuns(race: String) {
-            navigator.navigateToRaceRuns(runs: [], title: race)
+        func navigateToMyRuns(race: Race) {
+            navigator.navigateToRaceRuns(race: race)
         }
 
         func share(with friend: Friend) {
@@ -75,28 +77,40 @@ extension RacesView {
         }
 
         func deleteRace() {
+            guard let race = races.first(where: { $0.id == raceToDelete }) else { return }
             withAnimation {
                 races.removeAll { $0.id == raceToDelete}
                 raceToDelete = nil
             }
-            print("race Deleted")
+            Task {
+                await mapService.deleteRace(race)
+            }
         }
 
         func updateShortestRun() {
             races.forEach { race in
-                var time = 0
+                var time = race.shortestTime
+                var distance = race.shortestDistance
+                var newRace = race
                 for run in race.tracks ?? [] {
                     let startDate = dateFormatter.date(from: run.startDate)
                     let endDate = dateFormatter.date(from: run.endDate)
                     guard let endDate else { return }
-                    var current = Int(startDate?.distance(to: endDate) ?? 0)
-                    if current > time {
+                    let current = startDate?.distance(to: endDate) ?? 0.0
+                    let currentDistance = calculateDistance(track: run)
+                    if current < time {
                         time = current
                     }
+                    if currentDistance < distance {
+                        distance = currentDistance
+                    }
                 }
-                if Int(race.shortestTime) > time {
-                    var newRace = race
-                    newRace.shortestTime = Double(time)
+
+                newRace.shortestTime = time
+                newRace.shortestDistance = distance
+
+                if race.shortestTime > time || race.shortestDistance > distance {
+                    newRace.shortestTime = time
                     updateRace(race: race, newRace: newRace)
                 }
             }
@@ -106,6 +120,18 @@ extension RacesView {
             Task {
                 await mapService.updateRace(race, newRace)
             }
+        }
+
+        func calculateDistance(track: TrackedPath) -> Double {
+            var list: [CLLocation] = []
+            var distance = 0.0
+            for index in 0..<(track.xCoords?.count ?? 0) {
+                list.append(CLLocation(latitude: track.xCoords?[index] ?? 0, longitude: track.yCoords?[index] ?? 0))
+            }
+            for itemDx in 1..<list.count {
+                distance += list[itemDx].distance(from: list[itemDx - 1])
+            }
+            return distance
         }
     }
 }

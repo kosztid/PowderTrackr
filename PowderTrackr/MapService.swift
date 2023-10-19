@@ -24,6 +24,7 @@ public protocol MapServiceProtocol: AnyObject {
     func sendRaceRun()
     func initRacesStartingData() async
     func updateRace(_ race: Race, _ newRace: Race) async
+    func deleteRace(_ race: Race) async
 }
 
 final class MapService {
@@ -112,7 +113,7 @@ extension MapService: MapServiceProtocol {
             }
 
             let currentPaths = result.first { $0.id == user.userId }
-            print(currentPaths?.tracks)
+          //  print(currentPaths?.tracks)
             trackedPathModel.send(currentPaths)
         } catch {
             print("Can not retrieve queryTrackedPaths : error \(error)")
@@ -280,6 +281,30 @@ extension MapService: MapServiceProtocol {
     func createRace(_ markers: [GMSMarker], _ name: String) async {
         print(markers, name)
         raceCreationState.send(.not)
+        do {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let xCoords: [Double]? = markers.map { $0.position.latitude }
+            let yCoords: [Double]? = markers.map { $0.position.longitude }
+            let Race = Race(name: name, date: dateFormatter.string(from: Date()), shortestTime: 0.0, shortestDistance: 0.0, xCoords: xCoords ?? [], yCoords: yCoords ?? [], participants: [])
+
+
+            _ = try await Amplify.API.mutate(request: .create(Race))
+            await queryRaces()
+        } catch let error as APIError {
+            print("Failed to updateTrackedPath: \(error)")
+        } catch {
+            print("Unexpected error while calling create API : \(error)")
+        }
+    }
+
+    func deleteRace(_ race: Race) async {
+        do {
+            _ = try await Amplify.API.mutate(request: .delete(race))
+            await queryRaces()
+        } catch {
+            print("Can not retrieve queryTrackedPaths : error \(error)")
+        }
     }
 
     func queryRaces() async {
