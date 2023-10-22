@@ -9,6 +9,7 @@ extension MapView {
         case off
         case raceCreation
         case markersPlaced
+        case raceMarkerOpened
     }
     final class ViewModel: ObservableObject {
         private var cancellables: Set<AnyCancellable> = []
@@ -24,10 +25,12 @@ extension MapView {
         var addX = 0.0
         var addY = 0.0
 
+        @Published var isMenuOpen = false
         @Published var mapMenuState = MapMenuState.off
         @Published var track: [TrackedPath] = []
         @Published var cameraPos: GMSCameraPosition
         @Published var trackedPath: TrackedPathModel?
+        @Published var selectedRace: Race?
 
         @Published var friendLocations: [Location] = []
         @Published var friendLocation: Location?
@@ -68,6 +71,7 @@ extension MapView {
             Task {
                 await mapService.queryTrackedPaths()
                 await mapService.querySharedPaths()
+                await mapService.queryRaces()
             }
         }
 
@@ -86,6 +90,10 @@ extension MapView {
             Task {
                 await self.accountService.queryLocation()
             }
+        }
+
+        func raceTrackAction() {
+            print(selectedRace)
         }
 
         func initBindings() {

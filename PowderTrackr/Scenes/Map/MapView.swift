@@ -9,6 +9,7 @@ struct MapView: View {
             ViewFactory.googleMap(
                 cameraPos: $viewModel.cameraPos,
                 selectedPath: $viewModel.selectedPath,
+                selectedRace: $viewModel.selectedRace,
                 shared: $viewModel.shared,
                 raceMarkers: $viewModel.raceMarkers
             )
@@ -34,17 +35,18 @@ struct MapView: View {
                     .transition(.push(from: .top))
                 } else if viewModel.signedIn {
                     LayerWidget(
+                        isOpen: $viewModel.isMenuOpen,
                         mapMenuState: $viewModel.mapMenuState,
+                        selectedRace: $viewModel.selectedRace,
                         startAction: viewModel.startTracking,
                         pauseAction: viewModel.pauseTracking,
                         stopAction: viewModel.stopTracking,
                         resumeAction: viewModel.resumeTracking,
-                        raceAction: viewModel.raceAction
+                        raceAction: viewModel.raceAction,
+                        raceTrackAction: viewModel.raceTrackAction
                     )
+                    .customShadow()
                 }
-            }
-            Button("Init race") {
-                viewModel.initRace()
             }
         }
         .alert("Name and create race", isPresented: $viewModel.showingRaceNameAlert) {
@@ -62,8 +64,22 @@ struct MapView: View {
                 viewModel.showingRaceNameAlert.toggle()
             }
         }
+        .onChange(of: viewModel.selectedRace) { newValue in
+            if newValue != nil {
+                withAnimation {
+                    viewModel.mapMenuState = .raceMarkerOpened
+                    viewModel.isMenuOpen = true
+                }
+            }
+        }
         .onChange(of: viewModel.cameraPos) { newValue in
             print(newValue)
+        }
+        .onChange(of: viewModel.isMenuOpen) { newValue in
+            if viewModel.mapMenuState == .raceMarkerOpened && !newValue {
+                viewModel.selectedRace = nil
+                viewModel.mapMenuState = .off
+            }
         }
         .onDisappear(perform: viewModel.stopTimer)
         .onAppear(perform: viewModel.startTimer)

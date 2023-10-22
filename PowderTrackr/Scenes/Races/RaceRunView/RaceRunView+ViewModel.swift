@@ -15,35 +15,39 @@ extension RaceRunView {
     final class ViewModel: ObservableObject {
         var timer: Timer?
         var totalDistance = 0.0
-        @Published var playSpeed = 1
         var playBackSpeed = PlayBackSpeed.simple
+        var race: TrackedPath
+        var closestRun: TrackedPath?
+        var currentArrayIndex = 0
+        var arrayBreakPoint = 0
+        var currentDistanceToFinish = 0.0
+
+        @Published var playSpeed = 1
         @Published var player = -1
         @Published var playerPosition = 0 // %
         @Published var opponentPosition = 0 // %
         @Published var playerState = PlayerState.stopped
-        @Published var race: TrackedPath
-        @Published var closestRun: TrackedPath?
-        @Published var elapsedTime = 0.0
         @Published var elapsedTimeInString: String = ""
-        @Published var arrayBreakPoint = 0
-        @Published var currentArrayIndex = 0
-        @Published var currentDistanceToFinish = 0.0
+        @Published var cameraPos: GMSCameraPosition
+        @Published var raceMarkers: [GMSMarker] = []
         let dateFormatter = DateFormatter()
         let formatter = DateComponentsFormatter()
 
-//        private let navigator: RaceRunViewNavigatorProtocol
-
         init(
-//            navigator: RaceRunViewNavigatorProtocol,
             closestRun: TrackedPath?,
             race: TrackedPath
         ) {
             self.race = race
             self.closestRun = closestRun
+            self.cameraPos = .init(
+                latitude: race.xCoords?.first ?? .zero,
+                longitude: race.yCoords?.first ?? .zero,
+                zoom: 17
+            )
+            totalDistance = calculateDistance()
             initFormatters()
             initTimes()
             setTotalDistanceBetweenStartAndEnd()
-//            self.navigator = navigator
             print(closestRun?.id)
             print(race.id)
         }
@@ -57,7 +61,7 @@ extension RaceRunView {
         func initTimes() {
             let startDate = dateFormatter.date(from: race.startDate) ?? Date()
             let endDate = dateFormatter.date(from: race.endDate) ?? Date()
-            elapsedTime = startDate.distance(to: endDate)
+            let elapsedTime = startDate.distance(to: endDate)
             elapsedTimeInString = formatter.string(from: elapsedTime) ?? ""
             initRacePlayer()
         }
@@ -70,11 +74,23 @@ extension RaceRunView {
         func calculateDistanceFromStartingPoint(index: Int) {
             var distance = 0.0
             var list: [CLLocation] = []
+            var markers: [GMSMarker] = []
             list.append(CLLocation(latitude: race.xCoords?.first ?? 0.0, longitude: race.yCoords?.first ?? 0.0))
             list.append(CLLocation(latitude: race.xCoords?[index] ?? 0.0, longitude: race.yCoords?[index] ?? 0.0))
+            var racerMarker = GMSMarker(position: .init(latitude: race.xCoords?[index] ?? 0.0, longitude: race.yCoords?[index] ?? 0.0))
+            racerMarker.title = "Me"
+            let icon = UIImage(systemName: "mappin")
+            racerMarker.icon = icon
+            markers.append(racerMarker)
+            cameraPos = .init(
+                latitude: race.xCoords?[index] ?? .zero,
+                longitude: race.yCoords?[index] ?? .zero,
+                zoom: 17
+            )
             for itemDx in 1..<list.count {
                 distance += list[itemDx].distance(from: list[itemDx - 1])
             }
+
 
             if let opponentRun = closestRun {
                 var opponentDistance = 0.0
@@ -85,10 +101,27 @@ extension RaceRunView {
                     opponentDistance += opponentList[itemDx].distance(from: opponentList[itemDx - 1])
                 }
                 opponentPosition = Int((opponentDistance / totalDistance * 100).rounded())
+                var opponentMarker = GMSMarker(position: .init(latitude: opponentRun.xCoords?[index] ?? 0.0, longitude: opponentRun.yCoords?[index] ?? 0.0))
+                opponentMarker.title = "Opponent"
+                markers.append(opponentMarker)
             }
+
+
             currentDistanceToFinish = totalDistance - distance
             playerPosition = Int((distance / totalDistance * 100).rounded())
+            raceMarkers = markers
+        }
 
+        func calculateDistance() -> Double {
+            var list: [CLLocation] = []
+            var distance = 0.0
+            for index in 0..<(race.xCoords?.count ?? 0) {
+                list.append(CLLocation(latitude: race.xCoords?[index] ?? 0, longitude: race.yCoords?[index] ?? 0))
+            }
+            for itemDx in 1..<list.count {
+                distance += list[itemDx].distance(from: list[itemDx - 1])
+            }
+            return distance
         }
 
         func setTotalDistanceBetweenStartAndEnd() {
@@ -122,9 +155,11 @@ extension RaceRunView {
                 playBackSpeed = .simple
                 playSpeed = 1
             }
-            self.timer?.invalidate()
-            self.timer = nil
-            self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(stepPlayer), userInfo: nil, repeats: true)
+            if playerState == .playing {
+                self.timer?.invalidate()
+                self.timer = nil
+                self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(stepPlayer), userInfo: nil, repeats: true)
+            }
         }
 
         @objc func stepPlayer() {

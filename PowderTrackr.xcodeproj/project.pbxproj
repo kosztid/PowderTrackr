@@ -107,6 +107,7 @@
 		55B459442AC9B28E007B3775 /* RaceManageItemView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B459432AC9B28E007B3775 /* RaceManageItemView+ViewModel.swift */; };
 		55B459472AC9B7FB007B3775 /* ShadowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B459462AC9B7FB007B3775 /* ShadowModifier.swift */; };
 		55B4594A2AC9B923007B3775 /* RaceNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B459492AC9B923007B3775 /* RaceNavigator.swift */; };
+		55B58DA32AE525B900B4AB4F /* RaceRunGoogleMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B58DA22AE525B900B4AB4F /* RaceRunGoogleMapsView.swift */; };
 		55DE1DC02A56D1C300BAD8E4 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE1DBF2A56D1C300BAD8E4 /* ChangePasswordView.swift */; };
 		55DE1DC22A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE1DC12A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift */; };
 		55E402FC2ACB2FF500AE8043 /* MyRunsView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E402FB2ACB2FF500AE8043 /* MyRunsView+ViewModel.swift */; };
@@ -256,6 +257,7 @@
 		55B459432AC9B28E007B3775 /* RaceManageItemView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RaceManageItemView+ViewModel.swift"; sourceTree = "<group>"; };
 		55B459462AC9B7FB007B3775 /* ShadowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowModifier.swift; sourceTree = "<group>"; };
 		55B459492AC9B923007B3775 /* RaceNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceNavigator.swift; sourceTree = "<group>"; };
+		55B58DA22AE525B900B4AB4F /* RaceRunGoogleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceRunGoogleMapsView.swift; sourceTree = "<group>"; };
 		55DE1DBF2A56D1C300BAD8E4 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		55DE1DC12A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChangePasswordView+ViewModel.swift"; sourceTree = "<group>"; };
 		55E402FB2ACB2FF500AE8043 /* MyRunsView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyRunsView+ViewModel.swift"; sourceTree = "<group>"; };
@@ -265,7 +267,7 @@
 		55E9E6622AC897E50090FC6B /* RaceRunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceRunView.swift; sourceTree = "<group>"; };
 		55FF48772A9136D200527F18 /* LayerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerWidget.swift; sourceTree = "<group>"; };
 		55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerWidgetButton.swift; sourceTree = "<group>"; };
-		5875D5B9377BE74C3D0F09B1 /* Race.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = Race.swift; path = amplify/generated/models/Race.swift; sourceTree = "<group>"; };
+		5875D5B9377BE74C3D0F09B1 /* Race.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Race.swift; path = amplify/generated/models/Race.swift; sourceTree = "<group>"; };
 		63AB484BB4AE178A2F655487 /* GroupChat.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = GroupChat.swift; path = amplify/generated/models/GroupChat.swift; sourceTree = "<group>"; };
 		6C230E5414AAD2FFE38AB6C2 /* UserfriendList+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "UserfriendList+Schema.swift"; path = "amplify/generated/models/UserfriendList+Schema.swift"; sourceTree = "<group>"; };
 		705F020E722E17762F7F9CEC /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
@@ -274,7 +276,7 @@
 		9C663D785B3B203B1BDAEE41 /* Friend+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "Friend+Schema.swift"; path = "amplify/generated/models/Friend+Schema.swift"; sourceTree = "<group>"; };
 		B9D9C6952CB3E0998B0F47FB /* UserTrackedPaths+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "UserTrackedPaths+Schema.swift"; path = "amplify/generated/models/UserTrackedPaths+Schema.swift"; sourceTree = "<group>"; };
 		CAFBDA2D03070658D228A377 /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
-		D0AACF7F278FF6B43CD228C8 /* Race+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = "Race+Schema.swift"; path = "amplify/generated/models/Race+Schema.swift"; sourceTree = "<group>"; };
+		D0AACF7F278FF6B43CD228C8 /* Race+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "Race+Schema.swift"; path = "amplify/generated/models/Race+Schema.swift"; sourceTree = "<group>"; };
 		D2F26B325B8B19B7AAB29B55 /* AmplifyModels.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = AmplifyModels.swift; path = amplify/generated/models/AmplifyModels.swift; sourceTree = "<group>"; };
 		D52601201CE3D9DDCD2B6A6F /* UserfriendList.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = UserfriendList.swift; path = amplify/generated/models/UserfriendList.swift; sourceTree = "<group>"; };
 		D65FDA246EE122F3E9CE99AC /* Friend.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Friend.swift; path = amplify/generated/models/Friend.swift; sourceTree = "<group>"; };
@@ -625,6 +627,7 @@
 			children = (
 				55E9E6622AC897E50090FC6B /* RaceRunView.swift */,
 				55B4593E2AC9764C007B3775 /* RaceRunView+ViewModel.swift */,
+				55B58DA22AE525B900B4AB4F /* RaceRunGoogleMapsView.swift */,
 			);
 			path = RaceRunView;
 			sourceTree = "<group>";
@@ -992,6 +995,7 @@
 				558A21722A73E15800819256 /* GroupView.swift in Sources */,
 				557343B22AAB21FB0002BD40 /* ShareListView.swift in Sources */,
 				554587E92A3E2FC4009A5485 /* FriendListItem.swift in Sources */,
+				55B58DA32AE525B900B4AB4F /* RaceRunGoogleMapsView.swift in Sources */,
 				558815CD2A3E366F00667C1A /* UserfriendList+Schema.swift in Sources */,
 				89E77F0BA3478441D85A6533 /* TrackedPath.swift in Sources */,
 				55A318552A4625DA00EB0C5E /* FriendService.swift in Sources */,

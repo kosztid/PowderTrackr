@@ -65,6 +65,7 @@ struct RaceManageItemView: View {
                     Text("View my runs")
                 }
                 .buttonStyle(SkiingButtonStyle(style: .secondary))
+                .disabled(race.tracks?.isEmpty ?? true)
                 Spacer()
                 Button {
                     openShare(race.id)

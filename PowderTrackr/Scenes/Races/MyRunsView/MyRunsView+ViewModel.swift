@@ -37,6 +37,7 @@ extension MyRunsView {
         }
 
         func getClosestRuns() {
+            raceRuns = []
             allRuns.tracks?.forEach { race in
                 if let racerId = race.notes?.first {
                     if racerId == user?.userId {
@@ -45,6 +46,7 @@ extension MyRunsView {
                 }
             }
 
+            raceClosestRuns = []
             raceRuns.forEach { race in
                 guard let tracks = allRuns.tracks else { return }
                 raceClosestRuns.append(

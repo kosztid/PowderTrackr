@@ -42,7 +42,7 @@ public struct SkiingButtonStyle: ButtonStyle {
         }
 
         var disabledForeground: Color {
-            Color.gray
+            Color.white
         }
     }
 

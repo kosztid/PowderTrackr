@@ -122,12 +122,13 @@ extension Container {
         }
     }
 
-    // MARK: - SOCIAL
+    // MARK: - MAP
     enum GoogleMap {
-        static let view = ParameterFactory { cameraPos, selectedPath, shared, raceMarkers in
+        static let view = ParameterFactory { cameraPos, selectedPath, selectedRace, shared, raceMarkers in
             GoogleMapsView(
                 cameraPos: cameraPos,
                 selectedPath: selectedPath,
+                selectedRace: selectedRace,
                 shared: shared,
                 raceMarkers: raceMarkers
             )
@@ -251,6 +252,15 @@ extension Container {
 
         static let viewModel = ParameterFactory { race, closestRun in
             RaceRunView.ViewModel(closestRun: closestRun, race: race)
+        }
+    }
+
+    enum RaceRunGoogleMap {
+        static let view = ParameterFactory { cameraPos, raceMarkers in
+            RaceRunGoogleMapsView(
+                cameraPos: cameraPos,
+                raceMarkers: raceMarkers
+            )
         }
     }
 

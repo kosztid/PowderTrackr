@@ -17,15 +17,18 @@ struct GoogleMapsView: UIViewRepresentable {
         var friendLocations: [Location] = []
         var markers: [GMSMarker] = []
         var lines: [GMSPolyline] = []
+        var races: [Race] = []
         @Binding var raceMarkers: [GMSMarker]
 
         @Binding var selectedPath: TrackedPath?
+        @Binding var selectedRace: Race?
         @Binding var shared: Bool
         @Published var raceCreationState: RaceCreationState = .not
 
         init(
             innerMapView: GMSMapView? = nil,
             selectedPath: Binding<TrackedPath?>,
+            selectedRace: Binding<Race?>,
             shared: Binding<Bool>,
             raceMarkers: Binding<[GMSMarker]>
         ) {
@@ -34,6 +37,7 @@ struct GoogleMapsView: UIViewRepresentable {
             self.mapService = Container.mapService()
             self.accountService = Container.accountService()
             self._selectedPath = selectedPath
+            self._selectedRace = selectedRace
             self._shared = shared
             self._raceMarkers = raceMarkers
             super.init()
@@ -94,8 +98,20 @@ struct GoogleMapsView: UIViewRepresentable {
                     }
                 })
                 .store(in: &cancellables)
+
+            mapService.racesPublisher
+                .sink(receiveValue: { [weak self] value in
+                    self?.races = value
+                    self?.makeMarkers()
+                })
+                .store(in: &cancellables)
         }
 
+        func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+            guard let race = marker.userData as? Race else { return false }
+            selectedRace = race
+            return true
+        }
         func mapView(_ mapView: GMSMapView, didTap overlay: GMSOverlay) {
             guard let model = lines.first(where: { $0 == overlay })?.userData as? TrackedPath else { return }
             if sharedPath.contains(model) {
@@ -184,8 +200,24 @@ struct GoogleMapsView: UIViewRepresentable {
                 marker.icon = icon
 
                 marker.userData = loc.id
-                tempMarkers.append( marker )
+                tempMarkers.append(marker)
             }
+
+            races.forEach { race in
+                let marker = GMSMarker(
+                    position: CLLocationCoordinate2D(
+                        latitude: race.xCoords?[0] ?? 0,
+                        longitude: race.yCoords?[0] ?? 0
+                    )
+                )
+                marker.title = race.name
+                let icon = UIImage(systemName: "flag")
+                marker.icon = icon
+
+                marker.userData = race
+                tempMarkers.append(marker)
+            }
+
             self.markers = tempMarkers
             drawMapItems()
         }
@@ -193,17 +225,20 @@ struct GoogleMapsView: UIViewRepresentable {
 
     @Binding var cameraPos: GMSCameraPosition
     @Binding var selectedPath: TrackedPath?
+    @Binding var selectedRace: Race?
     @Binding var shared: Bool
     @Binding var raceMarkers: [GMSMarker]
 
     init(
         cameraPos: Binding<GMSCameraPosition>,
         selectedPath: Binding<TrackedPath?>,
+        selectedRace: Binding<Race?>,
         shared: Binding<Bool>,
         raceMarkers: Binding<[GMSMarker]>
     ) {
         self._cameraPos = cameraPos
         self._selectedPath = selectedPath
+        self._selectedRace = selectedRace
         self._shared = shared
         self._raceMarkers = raceMarkers
     }
@@ -233,6 +268,7 @@ struct GoogleMapsView: UIViewRepresentable {
     func makeCoordinator() -> Coordinator {
         Coordinator(
             selectedPath: $selectedPath,
+            selectedRace: $selectedRace,
             shared: $shared,
             raceMarkers: $raceMarkers
         )
