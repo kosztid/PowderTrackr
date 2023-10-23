@@ -18,6 +18,7 @@ struct GoogleMapsView: UIViewRepresentable {
         var markers: [GMSMarker] = []
         var lines: [GMSPolyline] = []
         var races: [Race] = []
+        var endPointMarker: GMSMarker?
         @Binding var raceMarkers: [GMSMarker]
 
         @Binding var selectedPath: TrackedPath?
@@ -110,6 +111,18 @@ struct GoogleMapsView: UIViewRepresentable {
         func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
             guard let race = marker.userData as? Race else { return false }
             selectedRace = race
+
+            endPointMarker = GMSMarker(
+                position: CLLocationCoordinate2D(
+                    latitude: race.xCoords?[1] ?? 0,
+                    longitude: race.yCoords?[1] ?? 0
+                )
+            )
+            let icon = UIImage(systemName: "flag.checkered")
+            endPointMarker?.icon = icon
+
+            endPointMarker?.map = innerMapView
+
             return true
         }
         func mapView(_ mapView: GMSMapView, didTap overlay: GMSOverlay) {

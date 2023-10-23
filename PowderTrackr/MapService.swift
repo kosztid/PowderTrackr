@@ -21,7 +21,7 @@ public protocol MapServiceProtocol: AnyObject {
     func changeRaceCreationState(_ raceCreationState: RaceCreationState)
     func createRace(_ markers: [GMSMarker], _ name: String) async
     func queryRaces() async
-    func sendRaceRun()
+    func sendRaceRun(_ run: TrackedPath, _ raceId: String) async
     func initRacesStartingData() async
     func updateRace(_ race: Race, _ newRace: Race) async
     func deleteRace(_ race: Race) async
@@ -360,6 +360,23 @@ extension MapService: MapServiceProtocol {
         }
     }
 
-    func sendRaceRun() {
+    func sendRaceRun(_ run: TrackedPath, _ raceId: String) async {
+        do {
+            let user = try await Amplify.Auth.getCurrentUser()
+            var currentRun = run
+            currentRun.notes?.append(user.userId)
+
+            var race = races.value.first { $0.id == raceId }
+
+            race?.tracks?.append(currentRun)
+            guard let race else { return }
+            _ = try await Amplify.API.mutate(request: .update(race))
+
+            await queryRaces()
+        } catch let error as APIError {
+            print("Failed to sendRaceRun: \(error)")
+        } catch {
+            print("Unexpected error while calling create API : \(error)")
+        }
     }
 }

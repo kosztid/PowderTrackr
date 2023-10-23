@@ -21,6 +21,7 @@ extension MapView {
         var locationManager = CLLocationManager()
         var locationTimer: Timer?
         var trackTimer: Timer?
+        var raceTracking = false
 
         var addX = 0.0
         var addY = 0.0
@@ -93,7 +94,8 @@ extension MapView {
         }
 
         func raceTrackAction() {
-            print(selectedRace)
+            raceTracking = true
+            startTracking()
         }
 
         func initBindings() {
@@ -141,7 +143,7 @@ extension MapView {
             self.trackedPath?.tracks?.append(
                 .init(
                     id: id,
-                    name: "Path \(id.prefix(4))",
+                    name: "Run \(id.prefix(4))",
                     startDate: "\(dateFormatter.string(from: Date()))",
                     endDate: "",
                     notes: [],
@@ -189,6 +191,11 @@ extension MapView {
             Task {
                 await mapService.updateTrackedPath(path)
             }
+            if raceTracking {
+                Task {
+                    await mapService.sendRaceRun(path, selectedRace?.id ?? "")
+                }
+            }
         }
 
         @objc
@@ -223,6 +230,7 @@ extension MapView {
             guard let modifiedLast = modified.last else { return }
             Task {
                 await mapService.sendCurrentlyTracked(modifiedLast)
+                raceTracking = false
             }
         }
 
