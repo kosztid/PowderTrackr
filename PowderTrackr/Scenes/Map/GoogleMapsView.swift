@@ -108,6 +108,7 @@ struct GoogleMapsView: UIViewRepresentable {
                 .store(in: &cancellables)
         }
 
+
         func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
             guard let race = marker.userData as? Race else { return false }
             selectedRace = race
@@ -241,19 +242,25 @@ struct GoogleMapsView: UIViewRepresentable {
     @Binding var selectedRace: Race?
     @Binding var shared: Bool
     @Binding var raceMarkers: [GMSMarker]
+    @Binding var cameraPosChanged: Bool
+
+    @State var currentCameraPos: GMSCameraPosition?
 
     init(
         cameraPos: Binding<GMSCameraPosition>,
         selectedPath: Binding<TrackedPath?>,
         selectedRace: Binding<Race?>,
         shared: Binding<Bool>,
+        cameraPosChanged: Binding<Bool>,
         raceMarkers: Binding<[GMSMarker]>
     ) {
         self._cameraPos = cameraPos
         self._selectedPath = selectedPath
         self._selectedRace = selectedRace
         self._shared = shared
+        self._cameraPosChanged = cameraPosChanged
         self._raceMarkers = raceMarkers
+        self.currentCameraPos = .init(latitude: cameraPos.wrappedValue.target.latitude, longitude: cameraPos.wrappedValue.target.longitude, zoom: cameraPos.wrappedValue.zoom)
     }
 
     func makeUIView(context: Context) -> GMSMapView {
@@ -265,15 +272,21 @@ struct GoogleMapsView: UIViewRepresentable {
         view.isMyLocationEnabled = true
         view.delegate = context.coordinator
         view.mapType = .terrain
+        view.settings.myLocationButton = true
+        view.padding = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 8)
         context.coordinator.innerMapView = view
 
         return view
     }
 
     func updateUIView(_ view: GMSMapView, context: Context) {
-        if cameraPos != view.camera {
+        print("called1")
+        if cameraPosChanged {
+            print("called2")
             if context.transaction.animation != nil {
                 view.animate(with: GMSCameraUpdate.setCamera(cameraPos))
+                cameraPosChanged = false
+                print("called3")
             }
         }
     }

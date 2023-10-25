@@ -19,6 +19,7 @@
 		5506F7B92A4723F40000761D /* SegmentedControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5506F7B82A4723F40000761D /* SegmentedControlButton.swift */; };
 		5506F7BB2A4724F50000761D /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5506F7BA2A4724F50000761D /* SegmentedControl.swift */; };
 		5506F7BF2A49E5F10000761D /* LoggedOutModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5506F7BE2A49E5F10000761D /* LoggedOutModal.swift */; };
+		55075E972AE9CA26003D213F /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55075E962AE9CA26003D213F /* DoubleExtension.swift */; };
 		550F65E32A532DDD00797B62 /* ConfirmResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550F65E22A532DDD00797B62 /* ConfirmResetPasswordView.swift */; };
 		550F65E52A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550F65E42A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift */; };
 		55102ACD2A7ECAE30033E5E6 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55102ACC2A7ECAE30033E5E6 /* ChatService.swift */; };
@@ -170,6 +171,8 @@
 		5506F7B82A4723F40000761D /* SegmentedControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlButton.swift; sourceTree = "<group>"; };
 		5506F7BA2A4724F50000761D /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		5506F7BE2A49E5F10000761D /* LoggedOutModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedOutModal.swift; sourceTree = "<group>"; };
+		55075E942AE9A5FF003D213F /* GPSTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = GPSTestPlan.xctestplan; sourceTree = "<group>"; };
+		55075E962AE9CA26003D213F /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		550F65E22A532DDD00797B62 /* ConfirmResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmResetPasswordView.swift; sourceTree = "<group>"; };
 		550F65E42A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConfirmResetPasswordView+ViewModel.swift"; sourceTree = "<group>"; };
 		55102ACC2A7ECAE30033E5E6 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
@@ -216,6 +219,7 @@
 		5545881B2A3E30F0009A5485 /* SkiingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkiingButtonStyle.swift; sourceTree = "<group>"; };
 		5545881D2A3E30F9009A5485 /* SkiingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkiingButton.swift; sourceTree = "<group>"; };
 		5553EB322AC0760B00DFC556 /* RaceCreationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceCreationState.swift; sourceTree = "<group>"; };
+		555AA0542AE6A69F006ED60F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		556B616A2A44B08C006B2C68 /* MapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		556EAE5C2AB63B0F00132166 /* RacesView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RacesView+ViewModel.swift"; sourceTree = "<group>"; };
 		556EAE5E2AB63B3300132166 /* RacesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RacesView.swift; sourceTree = "<group>"; };
@@ -337,6 +341,14 @@
 			path = LoggedOut;
 			sourceTree = "<group>";
 		};
+		55075E952AE9CA1D003D213F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				55075E962AE9CA26003D213F /* DoubleExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		554587802A3DF8F1009A5485 = {
 			isa = PBXGroup;
 			children = (
@@ -360,12 +372,15 @@
 		5545878B2A3DF8F1009A5485 /* PowderTrackr */ = {
 			isa = PBXGroup;
 			children = (
+				55075E952AE9CA1D003D213F /* Extensions */,
+				555AA0542AE6A69F006ED60F /* Info.plist */,
 				554588092A3E30C2009A5485 /* UIElements */,
 				554587C72A3E2EA0009A5485 /* Scenes */,
 				554587A82A3E2985009A5485 /* Models */,
 				554587C32A3E29A6009A5485 /* AccountService.swift */,
 				55102ACC2A7ECAE30033E5E6 /* ChatService.swift */,
 				55A318542A4625DA00EB0C5E /* FriendService.swift */,
+				55075E942AE9A5FF003D213F /* GPSTestPlan.xctestplan */,
 				556B616A2A44B08C006B2C68 /* MapService.swift */,
 				550254E12ABA1CA0002D05F8 /* StatisticsService.swift */,
 				554587C52A3E2A66009A5485 /* ServiceDI.swift */,
@@ -1031,6 +1046,7 @@
 				573B0B6FC0F90E990C929AE1 /* LeaderBoard+Schema.swift in Sources */,
 				A5C763AB756F6AB77072E299 /* LeaderBoard.swift in Sources */,
 				5998F3CBEA9A4BA503F04DDC /* Race+Schema.swift in Sources */,
+				55075E972AE9CA26003D213F /* DoubleExtension.swift in Sources */,
 				DF0DF21FA0775E570E38E5F9 /* Race.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1164,6 +1180,7 @@
 				DEVELOPMENT_TEAM = VJLFSCCR2C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PowderTrackr/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Grant access to camera to be able to take photos and videos";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow the usage of your location.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Grant access to microphone to be able to take videos";
@@ -1201,6 +1218,7 @@
 				DEVELOPMENT_TEAM = VJLFSCCR2C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PowderTrackr/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Grant access to camera to be able to take photos and videos";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow the usage of your location.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Grant access to microphone to be able to take videos";

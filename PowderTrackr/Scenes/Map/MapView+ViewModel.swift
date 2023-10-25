@@ -1,4 +1,5 @@
 import Combine
+import CoreLocation
 import GoogleMaps
 import SwiftUI
 
@@ -11,20 +12,29 @@ extension MapView {
         case markersPlaced
         case raceMarkerOpened
     }
-    final class ViewModel: ObservableObject {
+    final class ViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
+        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+                if let newLocation = locations.last {
+                    withAnimation {
+                        self.cameraPos = GMSCameraPosition(
+                            latitude: newLocation.coordinate.latitude,
+                            longitude: newLocation.coordinate.longitude,
+                            zoom: 17
+                        )
+                    }
+                }
+            }
+
         private var cancellables: Set<AnyCancellable> = []
 
         let dateFormatter = DateFormatter()
-        let accountService: AccountServiceProtocol
-        let friendService: FriendServiceProtocol
-        let mapService: MapServiceProtocol
+        var accountService: AccountServiceProtocol
+        var friendService: FriendServiceProtocol
+        var mapService: MapServiceProtocol
         var locationManager = CLLocationManager()
         var locationTimer: Timer?
         var trackTimer: Timer?
         var raceTracking = false
-
-        var addX = 0.0
-        var addY = 0.0
 
         @Published var isMenuOpen = false
         @Published var mapMenuState = MapMenuState.off
@@ -47,6 +57,7 @@ extension MapView {
 
         @Published var selectedPath: TrackedPath?
         @Published var shared: Bool = false
+        @Published var cameraPosChanged: Bool = true
 
         var elapsedTime: Double { startTime?.distance(to: Date()) ?? 0 }
         var avgSpeed: Double {
@@ -63,8 +74,12 @@ extension MapView {
             self.cameraPos = .init(
                 latitude: self.locationManager.location?.coordinate.latitude ?? 1,
                 longitude: self.locationManager.location?.coordinate.longitude ?? 1,
-                zoom: 15
+                zoom: 17
             )
+            super.init()
+            self.locationManager.delegate = self
+            self.locationManager.startUpdatingLocation()
+
             self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
             self.initBindings()
@@ -136,6 +151,7 @@ extension MapView {
         }
 
         func startTracking() {
+            print("raceTracking", raceTracking)
             self.trackTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
             startTime = Date()
             //            self.trackedPath.append(TrackedPathModel(id: UUID().uuidString, name: "Path \(self.trackedPath.count)"))
@@ -151,8 +167,6 @@ extension MapView {
                 )
             )
             self.mapMenuState = .on
-            addX = Double.random(in: -0.00002..<0.00002)
-            addY = Double.random(in: -0.00001..<0.00001)
         }
 
         func calculateDistance() -> Double {
@@ -189,12 +203,11 @@ extension MapView {
             current?.endDate = "\(dateFormatter.string(from: Date()))"
             guard let path = current else { return }
             Task {
-                await mapService.updateTrackedPath(path)
-            }
-            if raceTracking {
-                Task {
+                if raceTracking {
                     await mapService.sendRaceRun(path, selectedRace?.id ?? "")
+                    raceTracking = false
                 }
+                await mapService.updateTrackedPath(path)
             }
         }
 
@@ -203,9 +216,9 @@ extension MapView {
             guard var modified = self.trackedPath?.tracks else { return }
             var xCoords = modified.last?.xCoords
             var yCoords = modified.last?.yCoords
-            addX = Double.random(in: -0.00002..<0.00002)
-            xCoords?.append((47.1986 + (addX * Double(trackedPath?.tracks?.last?.xCoords?.count ?? 0))))
-            yCoords?.append(17.60286 + Double(trackedPath?.tracks?.last?.yCoords?.count ?? 0) * addY)
+
+            xCoords?.append(locationManager.location?.coordinate.latitude ?? 0)
+            yCoords?.append(locationManager.location?.coordinate.longitude ?? 0)
 
             modified[modified.count - 1].xCoords = xCoords ?? []
             modified[modified.count - 1].yCoords = yCoords ?? []
@@ -230,7 +243,6 @@ extension MapView {
             guard let modifiedLast = modified.last else { return }
             Task {
                 await mapService.sendCurrentlyTracked(modifiedLast)
-                raceTracking = false
             }
         }
 
@@ -300,10 +312,10 @@ extension MapView {
             startRaceCreation()
         }
 
-        func addRace() {
+        func addRace(_ name: String) {
             print(raceName)
             Task {
-                await mapService.createRace(raceMarkers, raceName)
+                await mapService.createRace(raceMarkers, name)
             }
             mapMenuState = .off
             raceName = ""
@@ -311,6 +323,15 @@ extension MapView {
 
         func startRaceCreation() {
             mapService.changeRaceCreationState(.firstMarker)
+        }
+
+        func checkForRaceFinish() {
+            var distanceToFinish = 100.0
+            let finishCoord = CLLocation(latitude: selectedRace?.xCoords?[1] ?? 0, longitude: selectedRace?.yCoords?[1] ?? 0)
+            distanceToFinish = finishCoord.distance(from: CLLocation(latitude: cameraPos.target.latitude, longitude: cameraPos.target.longitude))
+            if distanceToFinish < 10 {
+                stopTracking()
+            }
         }
     }
 }

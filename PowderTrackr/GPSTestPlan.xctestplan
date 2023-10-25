@@ -1,0 +1,20 @@
+{
+  "configurations" : [
+    {
+      "id" : "7DC420B4-C686-4AD4-88E2-A72ED8307FB0",
+      "name" : "Configuration 1",
+      "options" : {
+        "locationScenario" : {
+          "identifier" : "..\/..\/..\/..\/Downloads\/gpxgenerator_path_racer1.gpx"
+        }
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+
+  ],
+  "version" : 1
+}

@@ -124,12 +124,13 @@ extension Container {
 
     // MARK: - MAP
     enum GoogleMap {
-        static let view = ParameterFactory { cameraPos, selectedPath, selectedRace, shared, raceMarkers in
+        static let view = ParameterFactory { cameraPos, selectedPath, selectedRace, shared, cameraPosChanged, raceMarkers in
             GoogleMapsView(
                 cameraPos: cameraPos,
                 selectedPath: selectedPath,
                 selectedRace: selectedRace,
                 shared: shared,
+                cameraPosChanged: cameraPosChanged,
                 raceMarkers: raceMarkers
             )
         }

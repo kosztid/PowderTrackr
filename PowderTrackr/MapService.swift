@@ -282,11 +282,12 @@ extension MapService: MapServiceProtocol {
         print(markers, name)
         raceCreationState.send(.not)
         do {
+            let user = try await Amplify.Auth.getCurrentUser()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
             let xCoords: [Double]? = markers.map { $0.position.latitude }
             let yCoords: [Double]? = markers.map { $0.position.longitude }
-            let Race = Race(name: name, date: dateFormatter.string(from: Date()), shortestTime: 0.0, shortestDistance: 0.0, xCoords: xCoords ?? [], yCoords: yCoords ?? [], participants: [])
+            let Race = Race(name: name, date: dateFormatter.string(from: Date()), shortestTime: 0.0, shortestDistance: 0.0, xCoords: xCoords ?? [], yCoords: yCoords ?? [], tracks: [], participants: [user.userId])
 
 
             _ = try await Amplify.API.mutate(request: .create(Race))

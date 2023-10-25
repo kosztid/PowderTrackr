@@ -2,6 +2,15 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../../../Downloads/gpxgenerator_path_racer1.gpx">
+   </FileRef>
+   <FileRef
+      location = "group:gpxgenerator_path_racer2.gpx">
+   </FileRef>
+   <FileRef
+      location = "group:gpxgenerator_path_racer1.gpx">
+   </FileRef>
+   <FileRef
       location = "group:PowderTrackr.xcodeproj">
    </FileRef>
    <FileRef

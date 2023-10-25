@@ -16,7 +16,7 @@ struct RaceRunView: View {
                 Text(viewModel.race.name)
                     .font(.title)
                 Spacer()
-                Text("2023-09-30")
+                Text(viewModel.race.endDate)
             }
             Divider()
                 .padding(.vertical, 4)

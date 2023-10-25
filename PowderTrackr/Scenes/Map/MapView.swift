@@ -11,6 +11,7 @@ struct MapView: View {
                 selectedPath: $viewModel.selectedPath,
                 selectedRace: $viewModel.selectedRace,
                 shared: $viewModel.shared,
+                cameraPosChanged: $viewModel.cameraPosChanged,
                 raceMarkers: $viewModel.raceMarkers
             )
             .ignoresSafeArea()
@@ -53,7 +54,7 @@ struct MapView: View {
             TextField("Enter the name...", text: $viewModel.raceName)
                 .autocorrectionDisabled(true)
             Button("Create") {
-                viewModel.addRace()
+                viewModel.addRace(viewModel.raceName)
                 viewModel.showingRaceNameAlert.toggle()
             }
             Button(
@@ -74,6 +75,8 @@ struct MapView: View {
         }
         .onChange(of: viewModel.cameraPos) { newValue in
             print(newValue)
+            viewModel.cameraPosChanged = true
+            viewModel.checkForRaceFinish()
         }
         .onChange(of: viewModel.isMenuOpen) { newValue in
             if viewModel.mapMenuState == .raceMarkerOpened && !newValue {

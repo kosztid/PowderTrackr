@@ -45,6 +45,8 @@ struct LayerWidget: View {
                             .cornerRadius(20)
                             .customShadow()
                         Button {
+                            raceTrackAction()
+                            isOpen.toggle()
                         } label: {
                             Text("Start race")
                                 .frame(height: 64)
