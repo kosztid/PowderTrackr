@@ -172,7 +172,15 @@ struct GoogleMapsView: UIViewRepresentable {
             for raceMarker in raceMarkers {
                 raceMarker.map = innerMapView
             }
-
+            
+            if selectedRace == nil {
+                endPointMarker = nil
+            }
+            
+            if endPointMarker != nil {
+                endPointMarker?.map = innerMapView
+            }
+            
             makePolylines()
         }
 
@@ -280,13 +288,10 @@ struct GoogleMapsView: UIViewRepresentable {
     }
 
     func updateUIView(_ view: GMSMapView, context: Context) {
-        print("called1")
         if cameraPosChanged {
-            print("called2")
             if context.transaction.animation != nil {
                 view.animate(with: GMSCameraUpdate.setCamera(cameraPos))
                 cameraPosChanged = false
-                print("called3")
             }
         }
     }

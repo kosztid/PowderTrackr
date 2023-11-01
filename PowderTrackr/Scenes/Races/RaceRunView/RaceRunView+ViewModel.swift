@@ -48,8 +48,6 @@ extension RaceRunView {
             initFormatters()
             initTimes()
             setTotalDistanceBetweenStartAndEnd()
-            print(closestRun?.id)
-            print(race.id)
         }
 
         func initFormatters() {

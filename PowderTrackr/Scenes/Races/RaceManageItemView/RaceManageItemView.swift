@@ -3,7 +3,7 @@ import SwiftUI
 struct RaceManageItemView: View {
     let race: Race
     let shortestTime: String
-    let openShare: (String) -> Void
+    let openShare: (Race) -> Void
     let viewMyRunsAction: (Race) -> Void
     let dateFormatter = DateFormatter()
     let formatter = DateComponentsFormatter()
@@ -41,17 +41,11 @@ struct RaceManageItemView: View {
                 Text("Shortest run:")
                 Text("\(race.shortestDistance, specifier: "%.2f") meters")
                     .italic()
-                Spacer()
-                Text("Pank")
-                    .bold()
             }
             HStack {
                 Text("Best time:")
                 Text("\(shortestTime)")
                     .italic()
-                Spacer()
-                Text("Dominik")
-                    .bold()
             }
         }
     }
@@ -68,7 +62,7 @@ struct RaceManageItemView: View {
                 .disabled(race.tracks?.isEmpty ?? true)
                 Spacer()
                 Button {
-                    openShare(race.id)
+                    openShare(race)
                 } label: {
                     Text("Add participants")
                 }
@@ -80,7 +74,7 @@ struct RaceManageItemView: View {
 
     init(
         race: Race,
-        openShare: @escaping (String) -> Void,
+        openShare: @escaping (Race) -> Void,
         viewMyRunsAction: @escaping (Race) -> Void
     ) {
         self.race = race

@@ -33,7 +33,6 @@ extension LeaderBoardView {
                 .sink { _ in
                 } receiveValue: { [weak self] list in
                     self?.leaderBoardItems = list
-                    print("lbitem", self?.leaderBoardItems)
                 }
                 .store(in: &cancellables)
         }

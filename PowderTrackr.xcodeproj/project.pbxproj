@@ -425,7 +425,6 @@
 				558815B32A3E361600667C1A /* Friendlist.swift */,
 				558815B12A3E361500667C1A /* Location.swift */,
 				558815B22A3E361600667C1A /* TrackedPathModel.swift */,
-				558815B02A3E357E00667C1A /* GeneratedModels */,
 				5553EB322AC0760B00DFC556 /* RaceCreationState.swift */,
 			);
 			path = Models;
@@ -593,7 +592,6 @@
 				55E402FA2ACB2FE700AE8043 /* MyRunsView */,
 				55B459402AC9B218007B3775 /* RaceManageItemView */,
 				55B4593C2AC975E4007B3775 /* RaceRunView */,
-				55E9E6612AC895DA0090FC6B /* Components */,
 				556EAE5C2AB63B0F00132166 /* RacesView+ViewModel.swift */,
 				556EAE5E2AB63B3300132166 /* RacesView.swift */,
 				55B459492AC9B923007B3775 /* RaceNavigator.swift */,
@@ -628,13 +626,6 @@
 				550F65E42A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift */,
 			);
 			path = ResetPassword;
-			sourceTree = "<group>";
-		};
-		558815B02A3E357E00667C1A /* GeneratedModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = GeneratedModels;
 			sourceTree = "<group>";
 		};
 		55B4593C2AC975E4007B3775 /* RaceRunView */ = {
@@ -689,13 +680,6 @@
 				55E98BB02A73F14A00634917 /* PowderTrackrChatView.swift */,
 			);
 			path = ChatView;
-			sourceTree = "<group>";
-		};
-		55E9E6612AC895DA0090FC6B /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 		55FF48762A9136C100527F18 /* LayerWidget */ = {
@@ -885,13 +869,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-PowderTrackr/Pods-PowderTrackr-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-PowderTrackr/Pods-PowderTrackr-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -906,13 +886,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-PowderTrackr/Pods-PowderTrackr-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-PowderTrackr/Pods-PowderTrackr-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

@@ -78,7 +78,7 @@ extension MapView {
             )
             super.init()
             self.locationManager.delegate = self
-            self.locationManager.startUpdatingLocation()
+            // self.locationManager.startUpdatingLocation()
 
             self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
@@ -90,12 +90,7 @@ extension MapView {
                 await mapService.queryRaces()
             }
         }
-
-        func initRace() {
-            Task {
-                await self.mapService.initRacesStartingData()
-            }
-        }
+        
         func confirm() {
             Task {
                 await self.accountService.createUserTrackedPaths()
@@ -151,7 +146,6 @@ extension MapView {
         }
 
         func startTracking() {
-            print("raceTracking", raceTracking)
             self.trackTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
             startTime = Date()
             //            self.trackedPath.append(TrackedPathModel(id: UUID().uuidString, name: "Path \(self.trackedPath.count)"))
@@ -313,7 +307,6 @@ extension MapView {
         }
 
         func addRace(_ name: String) {
-            print(raceName)
             Task {
                 await mapService.createRace(raceMarkers, name)
             }

@@ -74,7 +74,6 @@ struct MapView: View {
             }
         }
         .onChange(of: viewModel.cameraPos) { newValue in
-            print(newValue)
             viewModel.cameraPosChanged = true
             viewModel.checkForRaceFinish()
         }

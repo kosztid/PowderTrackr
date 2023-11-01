@@ -14,7 +14,7 @@ extension RacesView {
         @Published var showingDeleteRaceAlert = false
         @Published var races: [Race] = []
         @Published var friendList: Friendlist?
-        @Published var raceToShare: String?
+        @Published var raceToShare: Race?
         @Published var raceToDelete: String?
 
         init(
@@ -59,11 +59,11 @@ extension RacesView {
         func share(with friend: Friend) {
             guard let raceToShare else { return }
             Task {
-                //                await mapService.shareRace(raceToShare, friend.id)
+                await mapService.shareRace(friend.id, raceToShare)
             }
         }
 
-        func openShare(for race: String) {
+        func openShare(for race: Race) {
             withAnimation {
                 raceToShare = race
             }
