@@ -229,7 +229,12 @@ extension Container {
         }
 
         static let viewModel = ParameterFactory { navigator in
-            RacesView.ViewModel(mapService: mapService(), friendService: friendService(), navigator: navigator)
+            RacesView.ViewModel(
+                mapService: mapService(),
+                friendService: friendService(),
+                accountService: accountService(),
+                navigator: navigator
+            )
         }
 
         static let navigator = Factory {
@@ -237,15 +242,6 @@ extension Container {
         }
     }
 
-//    enum RaceRun {
-//        static let view = ParameterFactory { navigator in
-//            RaceRunView(viewModel: viewModel(navigator))
-//        }
-//
-//        static let viewModel = ParameterFactory { navigator in
-//            RaceRunView.ViewModel(navigator: navigator, race: "Race 123")
-//        }
-//    }
     enum RaceRun {
         static let view = ParameterFactory { race, closestRun in
             RaceRunView(viewModel: viewModel((race, closestRun)))

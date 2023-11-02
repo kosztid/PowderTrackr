@@ -10,7 +10,8 @@ struct RacesView: View {
                     RaceManageItemView(
                         race: race,
                         openShare: viewModel.openShare,
-                        viewMyRunsAction: viewModel.navigateToMyRuns
+                        viewMyRunsAction: viewModel.navigateToMyRuns,
+                        ownRace: race.participants?[0] == viewModel.user?.userId
                     )
                     .swipeActions {
                         Button(role: .cancel) {

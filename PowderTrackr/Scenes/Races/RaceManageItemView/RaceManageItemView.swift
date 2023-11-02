@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct RaceManageItemView: View {
+    let ownRace: Bool
     let race: Race
     let shortestTime: String
     let openShare: (Race) -> Void
@@ -61,12 +62,14 @@ struct RaceManageItemView: View {
                 .buttonStyle(SkiingButtonStyle(style: .secondary))
                 .disabled(race.tracks?.isEmpty ?? true)
                 Spacer()
-                Button {
-                    openShare(race)
-                } label: {
-                    Text("Add participants")
+                if ownRace {
+                    Button {
+                        openShare(race)
+                    } label: {
+                        Text("Add participants")
+                    }
+                    .buttonStyle(SkiingButtonStyle(style: .secondary))
                 }
-                .buttonStyle(SkiingButtonStyle(style: .secondary))
             }
             .padding(.top, 8)
         }
@@ -75,11 +78,13 @@ struct RaceManageItemView: View {
     init(
         race: Race,
         openShare: @escaping (Race) -> Void,
-        viewMyRunsAction: @escaping (Race) -> Void
+        viewMyRunsAction: @escaping (Race) -> Void,
+        ownRace: Bool
     ) {
         self.race = race
         self.openShare = openShare
         self.viewMyRunsAction = viewMyRunsAction
+        self.ownRace = ownRace
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         formatter.allowedUnits = [.hour, .minute, .second]
         formatter.unitsStyle = .abbreviated
@@ -90,6 +95,6 @@ struct RaceManageItemView: View {
 
 struct RaceManageItemView_Previews: PreviewProvider {
     static var previews: some View {
-        RaceManageItemView(race: Race(name: "Race 123", date: "2023-05-21 11:15:55", shortestTime: 123, shortestDistance: 123), openShare: { _ in}, viewMyRunsAction: { _ in })
+        RaceManageItemView(race: Race(name: "Race 123", date: "2023-05-21 11:15:55", shortestTime: 123, shortestDistance: 123), openShare: { _ in}, viewMyRunsAction: { _ in }, ownRace: true)
     }
 }

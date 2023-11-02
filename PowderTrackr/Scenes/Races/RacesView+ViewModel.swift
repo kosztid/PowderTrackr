@@ -1,3 +1,4 @@
+import Amplify
 import Combine
 import GoogleMaps
 import SwiftUI
@@ -10,7 +11,9 @@ extension RacesView {
         private let navigator: RacesViewNavigatorProtocol
         private let mapService: MapServiceProtocol
         private let friendService: FriendServiceProtocol
+        private let accountService: AccountServiceProtocol
 
+        @Published var user: AuthUser?
         @Published var showingDeleteRaceAlert = false
         @Published var races: [Race] = []
         @Published var friendList: Friendlist?
@@ -20,18 +23,29 @@ extension RacesView {
         init(
             mapService: MapServiceProtocol,
             friendService: FriendServiceProtocol,
+            accountService: AccountServiceProtocol,
             navigator: RacesViewNavigatorProtocol
         ) {
             self.mapService = mapService
             self.friendService = friendService
+            self.accountService = accountService
             self.navigator = navigator
             self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
+            accountService.userPublisher
+                .sink { _ in
+                } receiveValue: { [weak self] user in
+                    guard let user = user else { return }
+                    self?.user = user
+                }
+                .store(in: &cancellables)
+            
             initBindings()
 
             Task {
                 await friendService.queryFriends()
                 await mapService.queryRaces()
+                await accountService.getUser()
             }
         }
 
