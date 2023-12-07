@@ -133,6 +133,21 @@
 		A4935D1604CABCCE0281C255 /* CurrentPosition+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3A7FA580E0B493DF88149 /* CurrentPosition+Schema.swift */; };
 		A5C763AB756F6AB77072E299 /* LeaderBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6695954296122C3A61B7B23 /* LeaderBoard.swift */; };
 		ADE2266934D0813E7554743A /* UserTrackedPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA4DDB0E24CB3E4D3078BB1 /* UserTrackedPaths.swift */; };
+		B4F2C0092B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2BFFB2B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift */; };
+		B4F2C00A2B2124DF00FA8DE1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2BFFC2B2124DF00FA8DE1 /* Extensions.swift */; };
+		B4F2C00B2B2124DF00FA8DE1 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2BFFD2B2124DF00FA8DE1 /* Models.swift */; };
+		B4F2C00D2B2124DF00FA8DE1 /* URLSessionImplementations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2BFFF2B2124DF00FA8DE1 /* URLSessionImplementations.swift */; };
+		B4F2C00E2B2124DF00FA8DE1 /* JSONEncodingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2C0002B2124DF00FA8DE1 /* JSONEncodingHelper.swift */; };
+		B4F2C00F2B2124DF00FA8DE1 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2C0012B2124DF00FA8DE1 /* Validation.swift */; };
+		B4F2C0112B2124DF00FA8DE1 /* SynchronizedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2C0032B2124DF00FA8DE1 /* SynchronizedDictionary.swift */; };
+		B4F2C0122B2124DF00FA8DE1 /* JSONDataEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2C0042B2124DF00FA8DE1 /* JSONDataEncoding.swift */; };
+		B4F2C0142B2124DF00FA8DE1 /* DefaultAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2C0072B2124DF00FA8DE1 /* DefaultAPI.swift */; };
+		B4F2C0162B21252400FA8DE1 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2C0152B21252400FA8DE1 /* Configuration.swift */; };
+		B4F2C01A2B21256900FA8DE1 /* APIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2C0172B21256900FA8DE1 /* APIs.swift */; };
+		B4F2C01B2B21256900FA8DE1 /* CodableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2C0182B21256900FA8DE1 /* CodableHelper.swift */; };
+		B4F2C01C2B21256900FA8DE1 /* APIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2C0192B21256900FA8DE1 /* APIHelper.swift */; };
+		B4F2C01F2B21258500FA8DE1 /* UserFriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2C01D2B21258500FA8DE1 /* UserFriendList.swift */; };
+		B4F2C0202B21258500FA8DE1 /* UserTrackedPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2C01E2B21258500FA8DE1 /* UserTrackedPath.swift */; };
 		B789E914BFCB37F8743765B0 /* TrackedPath+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDA30DA28B27896216C829B /* TrackedPath+Schema.swift */; };
 		C496041B3C72D2CE2BA7C1C9 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F26B325B8B19B7AAB29B55 /* AmplifyModels.swift */; };
 		DB5F670D7C78E51B71D728C8 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = CAFBDA2D03070658D228A377 /* awsconfiguration.json */; };
@@ -278,6 +293,21 @@
 		73AE3ABF7FD7EBC847BED5EF /* PersonalChat+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "PersonalChat+Schema.swift"; path = "amplify/generated/models/PersonalChat+Schema.swift"; sourceTree = "<group>"; };
 		75320C4E403F1DF4CD8EBFC2 /* Chat+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "Chat+Schema.swift"; path = "amplify/generated/models/Chat+Schema.swift"; sourceTree = "<group>"; };
 		9C663D785B3B203B1BDAEE41 /* Friend+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "Friend+Schema.swift"; path = "amplify/generated/models/Friend+Schema.swift"; sourceTree = "<group>"; };
+		B4F2BFFB2B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenISO8601DateFormatter.swift; sourceTree = "<group>"; };
+		B4F2BFFC2B2124DF00FA8DE1 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B4F2BFFD2B2124DF00FA8DE1 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		B4F2BFFF2B2124DF00FA8DE1 /* URLSessionImplementations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionImplementations.swift; sourceTree = "<group>"; };
+		B4F2C0002B2124DF00FA8DE1 /* JSONEncodingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONEncodingHelper.swift; sourceTree = "<group>"; };
+		B4F2C0012B2124DF00FA8DE1 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		B4F2C0032B2124DF00FA8DE1 /* SynchronizedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizedDictionary.swift; sourceTree = "<group>"; };
+		B4F2C0042B2124DF00FA8DE1 /* JSONDataEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDataEncoding.swift; sourceTree = "<group>"; };
+		B4F2C0072B2124DF00FA8DE1 /* DefaultAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultAPI.swift; sourceTree = "<group>"; };
+		B4F2C0152B21252400FA8DE1 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		B4F2C0172B21256900FA8DE1 /* APIs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIs.swift; sourceTree = "<group>"; };
+		B4F2C0182B21256900FA8DE1 /* CodableHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableHelper.swift; sourceTree = "<group>"; };
+		B4F2C0192B21256900FA8DE1 /* APIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIHelper.swift; sourceTree = "<group>"; };
+		B4F2C01D2B21258500FA8DE1 /* UserFriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFriendList.swift; sourceTree = "<group>"; };
+		B4F2C01E2B21258500FA8DE1 /* UserTrackedPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTrackedPath.swift; sourceTree = "<group>"; };
 		B9D9C6952CB3E0998B0F47FB /* UserTrackedPaths+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "UserTrackedPaths+Schema.swift"; path = "amplify/generated/models/UserTrackedPaths+Schema.swift"; sourceTree = "<group>"; };
 		CAFBDA2D03070658D228A377 /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		D0AACF7F278FF6B43CD228C8 /* Race+Schema.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "Race+Schema.swift"; path = "amplify/generated/models/Race+Schema.swift"; sourceTree = "<group>"; };
@@ -372,6 +402,7 @@
 		5545878B2A3DF8F1009A5485 /* PowderTrackr */ = {
 			isa = PBXGroup;
 			children = (
+				B4F2BFF92B2124B500FA8DE1 /* API */,
 				55075E952AE9CA1D003D213F /* Extensions */,
 				555AA0542AE6A69F006ED60F /* Info.plist */,
 				554588092A3E30C2009A5485 /* UIElements */,
@@ -758,6 +789,36 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B4F2BFF92B2124B500FA8DE1 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				B4F2C0062B2124DF00FA8DE1 /* APIs */,
+				B4F2C0152B21252400FA8DE1 /* Configuration.swift */,
+				B4F2C0192B21256900FA8DE1 /* APIHelper.swift */,
+				B4F2C0172B21256900FA8DE1 /* APIs.swift */,
+				B4F2C0182B21256900FA8DE1 /* CodableHelper.swift */,
+				B4F2BFFC2B2124DF00FA8DE1 /* Extensions.swift */,
+				B4F2C0042B2124DF00FA8DE1 /* JSONDataEncoding.swift */,
+				B4F2C0002B2124DF00FA8DE1 /* JSONEncodingHelper.swift */,
+				B4F2BFFD2B2124DF00FA8DE1 /* Models.swift */,
+				B4F2C01D2B21258500FA8DE1 /* UserFriendList.swift */,
+				B4F2C01E2B21258500FA8DE1 /* UserTrackedPath.swift */,
+				B4F2BFFB2B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift */,
+				B4F2C0032B2124DF00FA8DE1 /* SynchronizedDictionary.swift */,
+				B4F2BFFF2B2124DF00FA8DE1 /* URLSessionImplementations.swift */,
+				B4F2C0012B2124DF00FA8DE1 /* Validation.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		B4F2C0062B2124DF00FA8DE1 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				B4F2C0072B2124DF00FA8DE1 /* DefaultAPI.swift */,
+			);
+			path = APIs;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -911,6 +972,7 @@
 				554587A62A3E293F009A5485 /* GoogleMapsView.swift in Sources */,
 				554588082A3E30B9009A5485 /* LoginView+ViewModel.swift in Sources */,
 				554587F82A3E3056009A5485 /* ProfileNavigator.swift in Sources */,
+				B4F2C00D2B2124DF00FA8DE1 /* URLSessionImplementations.swift in Sources */,
 				554587A72A3E293F009A5485 /* MapView+ViewModel.swift in Sources */,
 				554587D02A3E2FA1009A5485 /* TrackListItem.swift in Sources */,
 				554587F22A3E2FF3009A5485 /* FriendAddView.swift in Sources */,
@@ -937,6 +999,7 @@
 				550F65E52A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift in Sources */,
 				55E98BB12A73F14A00634917 /* PowderTrackrChatView.swift in Sources */,
 				5553EB332AC0760B00DFC556 /* RaceCreationState.swift in Sources */,
+				B4F2C01B2B21256900FA8DE1 /* CodableHelper.swift in Sources */,
 				556B616B2A44B08C006B2C68 /* MapService.swift in Sources */,
 				554587EF2A3E2FEE009A5485 /* FriendRequestView.swift in Sources */,
 				558815C42A3E366F00667C1A /* AmplifyModels.swift in Sources */,
@@ -944,6 +1007,7 @@
 				558816072A3E388800667C1A /* CurrentPosition+Schema.swift in Sources */,
 				A4935D1604CABCCE0281C255 /* CurrentPosition+Schema.swift in Sources */,
 				556EAE5F2AB63B3300132166 /* RacesView.swift in Sources */,
+				B4F2C01A2B21256900FA8DE1 /* APIs.swift in Sources */,
 				93A8CE3A1AC81ED774A4F5CA /* CurrentPosition.swift in Sources */,
 				556EAE5D2AB63B0F00132166 /* RacesView+ViewModel.swift in Sources */,
 				558816062A3E388800667C1A /* CurrentPosition.swift in Sources */,
@@ -955,6 +1019,7 @@
 				554587CE2A3E2FA1009A5485 /* TrackListView.swift in Sources */,
 				93721D97E1A81377C189A5E6 /* Friend+Schema.swift in Sources */,
 				557B1ABE2A52F904007C403E /* ResetPasswordView.swift in Sources */,
+				B4F2C0162B21252400FA8DE1 /* Configuration.swift in Sources */,
 				554588002A3E306B009A5485 /* VerifyView+ViewModel.swift in Sources */,
 				558816122A3E3E7700667C1A /* AppDelegate.swift in Sources */,
 				558815B42A3E361600667C1A /* Location.swift in Sources */,
@@ -971,6 +1036,7 @@
 				55B459472AC9B7FB007B3775 /* ShadowModifier.swift in Sources */,
 				5545881E2A3E30F9009A5485 /* SkiingButton.swift in Sources */,
 				558816022A3E388800667C1A /* Friend+Schema.swift in Sources */,
+				B4F2C00B2B2124DF00FA8DE1 /* Models.swift in Sources */,
 				554587CF2A3E2FA1009A5485 /* TrackListView+ViewModel.swift in Sources */,
 				4A3B233B69AC5E3B3974F105 /* FriendRequest.swift in Sources */,
 				558815FE2A3E388800667C1A /* FriendRequest.swift in Sources */,
@@ -986,23 +1052,30 @@
 				558A21722A73E15800819256 /* GroupView.swift in Sources */,
 				557343B22AAB21FB0002BD40 /* ShareListView.swift in Sources */,
 				554587E92A3E2FC4009A5485 /* FriendListItem.swift in Sources */,
+				B4F2C0112B2124DF00FA8DE1 /* SynchronizedDictionary.swift in Sources */,
 				55B58DA32AE525B900B4AB4F /* RaceRunGoogleMapsView.swift in Sources */,
 				558815CD2A3E366F00667C1A /* UserfriendList+Schema.swift in Sources */,
 				89E77F0BA3478441D85A6533 /* TrackedPath.swift in Sources */,
 				55A318552A4625DA00EB0C5E /* FriendService.swift in Sources */,
+				B4F2C00E2B2124DF00FA8DE1 /* JSONEncodingHelper.swift in Sources */,
 				554587F92A3E3056009A5485 /* ProfileView.swift in Sources */,
+				B4F2C0142B2124DF00FA8DE1 /* DefaultAPI.swift in Sources */,
 				55B459442AC9B28E007B3775 /* RaceManageItemView+ViewModel.swift in Sources */,
 				554587E62A3E2FAC009A5485 /* SocialView.swift in Sources */,
 				556EDE642AB5C1C400B7EA5D /* LeaderBoardView+ViewModel.swift in Sources */,
 				9830C87CEB5F9D821AB74CE4 /* UserTrackedPaths+Schema.swift in Sources */,
 				ADE2266934D0813E7554743A /* UserTrackedPaths.swift in Sources */,
+				B4F2C00A2B2124DF00FA8DE1 /* Extensions.swift in Sources */,
+				B4F2C0092B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift in Sources */,
 				558816012A3E388800667C1A /* FriendRequest+Schema.swift in Sources */,
 				558A21702A73DDE300819256 /* GroupListItem.swift in Sources */,
 				554587EE2A3E2FEE009A5485 /* FriendRequestView+ViewModel.swift in Sources */,
 				554587E12A3E2FAC009A5485 /* SocialNavigator.swift in Sources */,
+				B4F2C01C2B21256900FA8DE1 /* APIHelper.swift in Sources */,
 				556EDE622AB5BF4900B7EA5D /* LeaderBoardView.swift in Sources */,
 				554588042A3E3071009A5485 /* RegisterView.swift in Sources */,
 				55E402FC2ACB2FF500AE8043 /* MyRunsView+ViewModel.swift in Sources */,
+				B4F2C00F2B2124DF00FA8DE1 /* Validation.swift in Sources */,
 				9B62154BB9397A45254C5E7A /* UserfriendList+Schema.swift in Sources */,
 				55102ACD2A7ECAE30033E5E6 /* ChatService.swift in Sources */,
 				5482EE72282D2C5E7EACE262 /* UserfriendList.swift in Sources */,
@@ -1012,6 +1085,7 @@
 				55B459422AC9B281007B3775 /* RaceManageItemView.swift in Sources */,
 				55E9E6632AC897E50090FC6B /* RaceRunView.swift in Sources */,
 				55E98BAF2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift in Sources */,
+				B4F2C01F2B21258500FA8DE1 /* UserFriendList.swift in Sources */,
 				558816092A3E388800667C1A /* TrackedPath+Schema.swift in Sources */,
 				14A3E17BC6CF05AD1FAA011E /* GroupChat+Schema.swift in Sources */,
 				3D894B8F5714DDDB5C00B6DF /* GroupChat.swift in Sources */,
@@ -1023,6 +1097,8 @@
 				A5C763AB756F6AB77072E299 /* LeaderBoard.swift in Sources */,
 				5998F3CBEA9A4BA503F04DDC /* Race+Schema.swift in Sources */,
 				55075E972AE9CA26003D213F /* DoubleExtension.swift in Sources */,
+				B4F2C0122B2124DF00FA8DE1 /* JSONDataEncoding.swift in Sources */,
+				B4F2C0202B21258500FA8DE1 /* UserTrackedPath.swift in Sources */,
 				DF0DF21FA0775E570E38E5F9 /* Race.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

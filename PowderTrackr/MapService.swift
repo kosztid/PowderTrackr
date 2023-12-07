@@ -105,6 +105,7 @@ extension MapService: MapServiceProtocol {
     func queryTrackedPaths() async {
         do {
             let queryResult = try await Amplify.API.query(request: .list(UserTrackedPaths.self))
+            
 
             let user = try await Amplify.Auth.getCurrentUser()
 

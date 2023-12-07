@@ -111,6 +111,7 @@ public struct SkiingButtonStyle: ButtonStyle {
         }
     }
 
+    @ViewBuilder
     private func borderedStyle(_ configuration: Configuration) -> some View {
         configuration.label
             .font(.subheadline)
@@ -123,6 +124,7 @@ public struct SkiingButtonStyle: ButtonStyle {
             )
     }
 
+    @ViewBuilder
     private func imageBorderedStyle(_ configuration: Configuration, image: Image) -> some View {
         HStack {
             image

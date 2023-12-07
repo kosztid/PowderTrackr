@@ -32,8 +32,14 @@ extension StatisticsService: StatisticsServiceProtocol {
                     totalTimeInSeconds: item.totalTimeInSeconds
                 )
             }
-
-            leaderboard.send(result)
+            DefaultAPI.leaderBoardsGet { data, error in
+                if let error = error {
+                        print("Error: \(error)")
+                    } else {
+                        print("Success! Data: \(data)")
+                        self.leaderboard.send(data ?? [])
+                    }
+            }
         } catch {
             print("Can not retrieve leaderboard : error \(error)")
         }

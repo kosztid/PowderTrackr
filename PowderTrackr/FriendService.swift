@@ -56,6 +56,7 @@ extension FriendService: FriendServiceProtocol {
         do {
             let user = try await Amplify.Auth.getCurrentUser()
             let friendQueryResults = try await Amplify.API.query(request: .list(UserfriendList.self))
+            
             let friendQueryResultsMapped = try friendQueryResults.get().elements.map { list in
                 Friendlist(from: list)
             }
@@ -93,19 +94,16 @@ extension FriendService: FriendServiceProtocol {
                 let attributes = try await Amplify.Auth.fetchUserAttributes()
                 for attribute in attributes where attribute.key.rawValue == "email" {
                     email = attribute.value
-                    print(email)
                 }
             } catch let error as APIError {
                 print(error)
             }
 
-            print("Result", result)
             let currentFriendRequests = result.compactMap { item in
                 if item.recipient == email { return item } else { return nil }
             }
 
             friendRequests.send(currentFriendRequests)
-            print(currentFriendRequests)
         } catch {
             print("Can not retrieve friendrequests : error \(error)")
         }

@@ -256,6 +256,7 @@ extension AccountService: AccountServiceProtocol {
         }
     }
 
+    // TODO: ENDPOINT CREATE USER ENTRIES
     private func signInFirstTime(_ username: String, _ password: String) async {
         do {
             let signInResult = try await Amplify.Auth.signIn(username: username, password: password)

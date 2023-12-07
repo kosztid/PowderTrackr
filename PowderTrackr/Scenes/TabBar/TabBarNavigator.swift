@@ -15,15 +15,16 @@ public struct TabBarNavigator: View {
                 ViewFactory.raceNavigator()
                     .tabItem { Label("Races", systemImage: "flag.2.crossed") }
                     .tag(2)
-                ViewFactory.profileNavigator()
-                    .tabItem { Label("Account", systemImage: "person") }
+                ViewFactory.socialNavigator()
+                    .tabItem { Label("Social", systemImage: "person.3.fill") }
                     .tag(3)
                 ViewFactory.leaderBoardView()
                     .tabItem { Label("Leaderboard", systemImage: "trophy") }
                     .tag(4)
-                ViewFactory.socialNavigator()
-                    .tabItem { Label("Social", systemImage: "person.3.fill") }
+                ViewFactory.profileNavigator()
+                    .tabItem { Label("Account", systemImage: "person") }
                     .tag(5)
+                
             }
             .toolbarColorScheme(.light, for: .tabBar)
         }
