@@ -28,10 +28,8 @@ extension SocialView {
             self.chatService = chatService
             self.notification = false
             initBindings()
-            Task {
-                await friendService.queryFriends()
-                await friendService.queryFriendRequests()
-            }
+            friendService.queryFriends()
+            friendService.queryFriendRequests()
         }
 
         func initBindings() {
@@ -60,18 +58,13 @@ extension SocialView {
                 .store(in: &cancellables)
         }
 
-        func delete(at offsets: IndexSet) {
-            Task {
-                friendList?.friends?.remove(atOffsets: offsets)
-                guard let list = friendList else { return }
-                await friendService.deleteFriend(friendlist: list)
-            }
+        func removeFriend(friend: Friend) {
+            friendList?.friends?.removeAll { $0.id == friend.id}
+            friendService.deleteFriend(friend: friend)
         }
 
         func updateTracking(id: String) {
-            Task {
-                await friendService.updateTracking(id: id)
-            }
+            friendService.updateTracking(id: id)
         }
 
         func navigateToRequests() {
@@ -85,11 +78,9 @@ extension SocialView {
         func navigateToChatWithFriend(friendId: String) {
             navigator.navigateToChat(recipient: friendId)
         }
-
+        
         func queryChatNotifications() {
-            Task {
-                await chatService.chatNotifications()
-            }
+            chatService.getChatNotifications()
         }
         func navigateToChatGroup(groupId: String) {
 //            Task {

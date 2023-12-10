@@ -17,6 +17,13 @@ struct SocialView: View {
                             } navigationAction: {
                                 viewModel.navigateToChatWithFriend(friendId: friend.id)
                             }
+                            .swipeActions {
+                                Button(role: .destructive) {
+                                    viewModel.removeFriend(friend: friend)
+                                } label: {
+                                    Text("Delete")
+                                }
+                            }
                             .listRowSeparator(.hidden)
                         }
                     }

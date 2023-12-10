@@ -51,5 +51,8 @@ struct RacesView: View {
                 viewModel.showingDeleteRaceAlert.toggle()
             }
         }
+        .onAppear {
+            viewModel.refreshRaces()
+        }
     }
 }

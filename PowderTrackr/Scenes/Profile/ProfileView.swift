@@ -120,7 +120,7 @@ struct ProfileView: View {
                 Text("Name")
                     .foregroundColor(.gray)
                     .font(.caption)
-                Text(viewModel.currentUser?.username ?? "")
+                Text(viewModel.userName)
             }
         }
     }

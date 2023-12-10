@@ -42,10 +42,8 @@ struct GoogleMapsView: UIViewRepresentable {
             self._shared = shared
             self._raceMarkers = raceMarkers
             super.init()
-
-            Task {
-                await self.friendService.queryFriendLocations()
-            }
+            
+            friendService.queryFriendLocations()
 
             mapService.raceCreationStatePublisher
                 .sink { [weak self] state in

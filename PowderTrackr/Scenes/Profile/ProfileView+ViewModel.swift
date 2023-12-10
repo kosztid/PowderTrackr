@@ -6,8 +6,8 @@ import SwiftUI
 extension ProfileView {
     final class ViewModel: ObservableObject {
         @Published var isSignedIn = false
-        @Published var currentUser: AuthUser?
-        @Published var currentEmail: String?
+        @Published var currentEmail: String
+        @Published var userName: String
         @Published var tracks: [TrackedPath] = []
         @Published var totalDistance: Double = 0.0
         @Published var totalTime: String = ""
@@ -22,7 +22,7 @@ extension ProfileView {
         func logout() {
             Task {
                 await accountService.signOut()
-                await mapService.queryTrackedPaths()
+                mapService.queryTrackedPaths()
             }
         }
 
@@ -35,10 +35,7 @@ extension ProfileView {
         }
 
         func loadData() {
-            Task {
-                await accountService.getUser()
-                await mapService.queryTrackedPaths()
-            }
+                mapService.queryTrackedPaths()
         }
 
         func bindPublishers() {
@@ -46,20 +43,6 @@ extension ProfileView {
                 .sink { _ in
                 } receiveValue: { [weak self] isSignedIn in
                     self?.isSignedIn = isSignedIn
-                }
-                .store(in: &cancellables)
-
-            accountService.userPublisher
-                .sink { _ in
-                } receiveValue: { [weak self] user in
-                    self?.currentUser = user
-                }
-                .store(in: &cancellables)
-
-            accountService.emailPublisher
-                .sink { _ in
-                } receiveValue: { [weak self] email in
-                    self?.currentEmail = email
                 }
                 .store(in: &cancellables)
 
@@ -80,11 +63,10 @@ extension ProfileView {
             self.navigator = navigator
             self.accountService = accountService
             self.mapService = mapService
+            currentEmail = UserDefaults.standard.string(forKey: "email") ?? ""
+            userName = UserDefaults.standard.string(forKey: "name") ?? ""
+            
             bindPublishers()
-
-            Task {
-                await accountService.getUser()
-            }
 
             formatter.allowedUnits = [.hour, .minute, .second]
             formatter.unitsStyle = .abbreviated
@@ -113,9 +95,7 @@ extension ProfileView {
             totalDistance = total
             let totalTime = totalDate
 
-            Task {
-                await accountService.updateLeaderboard(time: totalTime, distance: totalDistance)
-            }
+            accountService.updateLeaderboard(time: totalTime, distance: totalDistance)
         }
 
         func updatePasswordTapped() {

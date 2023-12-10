@@ -31,7 +31,7 @@ open class DefaultAPI {
 
     /**
      - GET /currentPositions
-     - returns: RequestBuilder<[CurrentPosition]> 
+     - returns: RequestBuilder<[CurrentPosition]>
      */
     open class func currentPositionsGetWithRequestBuilder() -> RequestBuilder<[CurrentPosition]> {
         let localVariablePath = "/currentPositions"
@@ -53,7 +53,7 @@ open class DefaultAPI {
 
     /**
 
-     - parameter id: (path)  
+     - parameter id: (path)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -71,8 +71,8 @@ open class DefaultAPI {
 
     /**
      - DELETE /currentPositions/{id}
-     - parameter id: (path)  
-     - returns: RequestBuilder<Void> 
+     - parameter id: (path)
+     - returns: RequestBuilder<Void>
      */
     open class func currentPositionsIdDeleteWithRequestBuilder(id: String) -> RequestBuilder<Void> {
         var localVariablePath = "/currentPositions/{id}"
@@ -97,7 +97,7 @@ open class DefaultAPI {
 
     /**
 
-     - parameter id: (path)  
+     - parameter id: (path)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -115,8 +115,8 @@ open class DefaultAPI {
 
     /**
      - GET /currentPositions/{id}
-     - parameter id: (path)  
-     - returns: RequestBuilder<CurrentPosition> 
+     - parameter id: (path)
+     - returns: RequestBuilder<CurrentPosition>
      */
     open class func currentPositionsIdGetWithRequestBuilder(id: String) -> RequestBuilder<CurrentPosition> {
         var localVariablePath = "/currentPositions/{id}"
@@ -141,12 +141,13 @@ open class DefaultAPI {
 
     /**
 
+     - parameter currentPosition: (body)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func currentPositionsPut(apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
-        return currentPositionsPutWithRequestBuilder().execute(apiResponseQueue) { result in
+    open class func currentPositionsPut(currentPosition: CurrentPosition, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
+        return currentPositionsPutWithRequestBuilder(currentPosition: currentPosition).execute(apiResponseQueue) { result in
             switch result {
             case .success:
                 completion((), nil)
@@ -158,12 +159,13 @@ open class DefaultAPI {
 
     /**
      - PUT /currentPositions
-     - returns: RequestBuilder<Void> 
+     - parameter currentPosition: (body)
+     - returns: RequestBuilder<Void>
      */
-    open class func currentPositionsPutWithRequestBuilder() -> RequestBuilder<Void> {
+    open class func currentPositionsPutWithRequestBuilder(currentPosition: CurrentPosition) -> RequestBuilder<Void> {
         let localVariablePath = "/currentPositions"
         let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
-        let localVariableParameters: [String: Any]? = nil
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: currentPosition)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
@@ -197,7 +199,7 @@ open class DefaultAPI {
 
     /**
      - GET /friendRequests
-     - returns: RequestBuilder<[FriendRequest]> 
+     - returns: RequestBuilder<[FriendRequest]>
      */
     open class func friendRequestsGetWithRequestBuilder() -> RequestBuilder<[FriendRequest]> {
         let localVariablePath = "/friendRequests"
@@ -219,7 +221,7 @@ open class DefaultAPI {
 
     /**
 
-     - parameter id: (path)  
+     - parameter id: (path)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -237,8 +239,8 @@ open class DefaultAPI {
 
     /**
      - DELETE /friendRequests/{id}
-     - parameter id: (path)  
-     - returns: RequestBuilder<Void> 
+     - parameter id: (path)
+     - returns: RequestBuilder<Void>
      */
     open class func friendRequestsIdDeleteWithRequestBuilder(id: String) -> RequestBuilder<Void> {
         var localVariablePath = "/friendRequests/{id}"
@@ -263,7 +265,7 @@ open class DefaultAPI {
 
     /**
 
-     - parameter id: (path)  
+     - parameter id: (path)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -281,8 +283,8 @@ open class DefaultAPI {
 
     /**
      - GET /friendRequests/{id}
-     - parameter id: (path)  
-     - returns: RequestBuilder<FriendRequest> 
+     - parameter id: (path)
+     - returns: RequestBuilder<FriendRequest>
      */
     open class func friendRequestsIdGetWithRequestBuilder(id: String) -> RequestBuilder<FriendRequest> {
         var localVariablePath = "/friendRequests/{id}"
@@ -307,12 +309,13 @@ open class DefaultAPI {
 
     /**
 
+     - parameter friendRequest: (body)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func friendRequestsPut(apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
-        return friendRequestsPutWithRequestBuilder().execute(apiResponseQueue) { result in
+    open class func friendRequestsPut(friendRequest: FriendRequest, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
+        return friendRequestsPutWithRequestBuilder(friendRequest: friendRequest).execute(apiResponseQueue) { result in
             switch result {
             case .success:
                 completion((), nil)
@@ -324,12 +327,13 @@ open class DefaultAPI {
 
     /**
      - PUT /friendRequests
-     - returns: RequestBuilder<Void> 
+     - parameter friendRequest: (body)
+     - returns: RequestBuilder<Void>
      */
-    open class func friendRequestsPutWithRequestBuilder() -> RequestBuilder<Void> {
+    open class func friendRequestsPutWithRequestBuilder(friendRequest: FriendRequest) -> RequestBuilder<Void> {
         let localVariablePath = "/friendRequests"
         let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
-        let localVariableParameters: [String: Any]? = nil
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: friendRequest)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
@@ -363,7 +367,7 @@ open class DefaultAPI {
 
     /**
      - GET /groupChats
-     - returns: RequestBuilder<[GroupChat]> 
+     - returns: RequestBuilder<[GroupChat]>
      */
     open class func groupChatsGetWithRequestBuilder() -> RequestBuilder<[GroupChat]> {
         let localVariablePath = "/groupChats"
@@ -385,7 +389,7 @@ open class DefaultAPI {
 
     /**
 
-     - parameter id: (path)  
+     - parameter id: (path)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -403,8 +407,8 @@ open class DefaultAPI {
 
     /**
      - DELETE /groupChats/{id}
-     - parameter id: (path)  
-     - returns: RequestBuilder<Void> 
+     - parameter id: (path)
+     - returns: RequestBuilder<Void>
      */
     open class func groupChatsIdDeleteWithRequestBuilder(id: String) -> RequestBuilder<Void> {
         var localVariablePath = "/groupChats/{id}"
@@ -429,7 +433,7 @@ open class DefaultAPI {
 
     /**
 
-     - parameter id: (path)  
+     - parameter id: (path)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -447,8 +451,8 @@ open class DefaultAPI {
 
     /**
      - GET /groupChats/{id}
-     - parameter id: (path)  
-     - returns: RequestBuilder<GroupChat> 
+     - parameter id: (path)
+     - returns: RequestBuilder<GroupChat>
      */
     open class func groupChatsIdGetWithRequestBuilder(id: String) -> RequestBuilder<GroupChat> {
         var localVariablePath = "/groupChats/{id}"
@@ -473,12 +477,13 @@ open class DefaultAPI {
 
     /**
 
+     - parameter groupChat: (body)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func groupChatsPut(apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
-        return groupChatsPutWithRequestBuilder().execute(apiResponseQueue) { result in
+    open class func groupChatsPut(groupChat: GroupChat, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
+        return groupChatsPutWithRequestBuilder(groupChat: groupChat).execute(apiResponseQueue) { result in
             switch result {
             case .success:
                 completion((), nil)
@@ -490,12 +495,13 @@ open class DefaultAPI {
 
     /**
      - PUT /groupChats
-     - returns: RequestBuilder<Void> 
+     - parameter groupChat: (body)
+     - returns: RequestBuilder<Void>
      */
-    open class func groupChatsPutWithRequestBuilder() -> RequestBuilder<Void> {
+    open class func groupChatsPutWithRequestBuilder(groupChat: GroupChat) -> RequestBuilder<Void> {
         let localVariablePath = "/groupChats"
         let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
-        let localVariableParameters: [String: Any]? = nil
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: groupChat)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
@@ -529,7 +535,7 @@ open class DefaultAPI {
 
     /**
      - GET /leaderBoards
-     - returns: RequestBuilder<[LeaderBoard]> 
+     - returns: RequestBuilder<[LeaderBoard]>
      */
     open class func leaderBoardsGetWithRequestBuilder() -> RequestBuilder<[LeaderBoard]> {
         let localVariablePath = "/leaderBoards"
@@ -551,7 +557,7 @@ open class DefaultAPI {
 
     /**
 
-     - parameter id: (path)  
+     - parameter id: (path)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -569,8 +575,8 @@ open class DefaultAPI {
 
     /**
      - DELETE /leaderBoards/{id}
-     - parameter id: (path)  
-     - returns: RequestBuilder<Void> 
+     - parameter id: (path)
+     - returns: RequestBuilder<Void>
      */
     open class func leaderBoardsIdDeleteWithRequestBuilder(id: String) -> RequestBuilder<Void> {
         var localVariablePath = "/leaderBoards/{id}"
@@ -595,7 +601,7 @@ open class DefaultAPI {
 
     /**
 
-     - parameter id: (path)  
+     - parameter id: (path)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -613,8 +619,8 @@ open class DefaultAPI {
 
     /**
      - GET /leaderBoards/{id}
-     - parameter id: (path)  
-     - returns: RequestBuilder<Void> 
+     - parameter id: (path)
+     - returns: RequestBuilder<Void>
      */
     open class func leaderBoardsIdGetWithRequestBuilder(id: String) -> RequestBuilder<Void> {
         var localVariablePath = "/leaderBoards/{id}"
@@ -639,12 +645,13 @@ open class DefaultAPI {
 
     /**
 
+     - parameter leaderBoard: (body)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func leaderBoardsPut(apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
-        return leaderBoardsPutWithRequestBuilder().execute(apiResponseQueue) { result in
+    open class func leaderBoardsPut(leaderBoard: LeaderBoard, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
+        return leaderBoardsPutWithRequestBuilder(leaderBoard: leaderBoard).execute(apiResponseQueue) { result in
             switch result {
             case .success:
                 completion((), nil)
@@ -656,12 +663,13 @@ open class DefaultAPI {
 
     /**
      - PUT /leaderBoards
-     - returns: RequestBuilder<Void> 
+     - parameter leaderBoard: (body)
+     - returns: RequestBuilder<Void>
      */
-    open class func leaderBoardsPutWithRequestBuilder() -> RequestBuilder<Void> {
+    open class func leaderBoardsPutWithRequestBuilder(leaderBoard: LeaderBoard) -> RequestBuilder<Void> {
         let localVariablePath = "/leaderBoards"
         let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
-        let localVariableParameters: [String: Any]? = nil
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: leaderBoard)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
@@ -695,7 +703,7 @@ open class DefaultAPI {
 
     /**
      - GET /personalChats
-     - returns: RequestBuilder<[PersonalChat]> 
+     - returns: RequestBuilder<[PersonalChat]>
      */
     open class func personalChatsGetWithRequestBuilder() -> RequestBuilder<[PersonalChat]> {
         let localVariablePath = "/personalChats"
@@ -717,7 +725,7 @@ open class DefaultAPI {
 
     /**
 
-     - parameter id: (path)  
+     - parameter id: (path)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -735,8 +743,8 @@ open class DefaultAPI {
 
     /**
      - DELETE /personalChats/{id}
-     - parameter id: (path)  
-     - returns: RequestBuilder<Void> 
+     - parameter id: (path)
+     - returns: RequestBuilder<Void>
      */
     open class func personalChatsIdDeleteWithRequestBuilder(id: String) -> RequestBuilder<Void> {
         var localVariablePath = "/personalChats/{id}"
@@ -761,7 +769,7 @@ open class DefaultAPI {
 
     /**
 
-     - parameter id: (path)  
+     - parameter id: (path)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -779,8 +787,8 @@ open class DefaultAPI {
 
     /**
      - GET /personalChats/{id}
-     - parameter id: (path)  
-     - returns: RequestBuilder<PersonalChat> 
+     - parameter id: (path)
+     - returns: RequestBuilder<PersonalChat>
      */
     open class func personalChatsIdGetWithRequestBuilder(id: String) -> RequestBuilder<PersonalChat> {
         var localVariablePath = "/personalChats/{id}"
@@ -805,12 +813,13 @@ open class DefaultAPI {
 
     /**
 
+     - parameter personalChat: (body)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func personalChatsPut(apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
-        return personalChatsPutWithRequestBuilder().execute(apiResponseQueue) { result in
+    open class func personalChatsPut(personalChat: PersonalChat, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
+        return personalChatsPutWithRequestBuilder(personalChat: personalChat).execute(apiResponseQueue) { result in
             switch result {
             case .success:
                 completion((), nil)
@@ -822,12 +831,13 @@ open class DefaultAPI {
 
     /**
      - PUT /personalChats
-     - returns: RequestBuilder<Void> 
+     - parameter personalChat: (body)
+     - returns: RequestBuilder<Void>
      */
-    open class func personalChatsPutWithRequestBuilder() -> RequestBuilder<Void> {
+    open class func personalChatsPutWithRequestBuilder(personalChat: PersonalChat) -> RequestBuilder<Void> {
         let localVariablePath = "/personalChats"
         let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
-        let localVariableParameters: [String: Any]? = nil
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: personalChat)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
@@ -861,7 +871,7 @@ open class DefaultAPI {
 
     /**
      - GET /races
-     - returns: RequestBuilder<[Race]> 
+     - returns: RequestBuilder<[Race]>
      */
     open class func racesGetWithRequestBuilder() -> RequestBuilder<[Race]> {
         let localVariablePath = "/races"
@@ -883,7 +893,7 @@ open class DefaultAPI {
 
     /**
 
-     - parameter id: (path)  
+     - parameter id: (path)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -901,8 +911,8 @@ open class DefaultAPI {
 
     /**
      - DELETE /races/{id}
-     - parameter id: (path)  
-     - returns: RequestBuilder<Void> 
+     - parameter id: (path)
+     - returns: RequestBuilder<Void>
      */
     open class func racesIdDeleteWithRequestBuilder(id: String) -> RequestBuilder<Void> {
         var localVariablePath = "/races/{id}"
@@ -927,7 +937,7 @@ open class DefaultAPI {
 
     /**
 
-     - parameter id: (path)  
+     - parameter id: (path)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -945,8 +955,8 @@ open class DefaultAPI {
 
     /**
      - GET /races/{id}
-     - parameter id: (path)  
-     - returns: RequestBuilder<Race> 
+     - parameter id: (path)
+     - returns: RequestBuilder<Race>
      */
     open class func racesIdGetWithRequestBuilder(id: String) -> RequestBuilder<Race> {
         var localVariablePath = "/races/{id}"
@@ -971,12 +981,13 @@ open class DefaultAPI {
 
     /**
 
+     - parameter race: (body)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func racesPut(apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
-        return racesPutWithRequestBuilder().execute(apiResponseQueue) { result in
+    open class func racesPut(race: Race, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
+        return racesPutWithRequestBuilder(race: race).execute(apiResponseQueue) { result in
             switch result {
             case .success:
                 completion((), nil)
@@ -988,12 +999,13 @@ open class DefaultAPI {
 
     /**
      - PUT /races
-     - returns: RequestBuilder<Void> 
+     - parameter race: (body)
+     - returns: RequestBuilder<Void>
      */
-    open class func racesPutWithRequestBuilder() -> RequestBuilder<Void> {
+    open class func racesPutWithRequestBuilder(race: Race) -> RequestBuilder<Void> {
         let localVariablePath = "/races"
         let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
-        let localVariableParameters: [String: Any]? = nil
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: race)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
@@ -1014,7 +1026,7 @@ open class DefaultAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func userTrackedPathsGet(apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: [UserTrackedPath]?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func userTrackedPathsGet(apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: [UserTrackedPaths]?, _ error: Error?) -> Void)) -> RequestTask {
         return userTrackedPathsGetWithRequestBuilder().execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -1027,9 +1039,9 @@ open class DefaultAPI {
 
     /**
      - GET /userTrackedPaths
-     - returns: RequestBuilder<[UserTrackedPath]> 
+     - returns: RequestBuilder<[UserTrackedPaths]>
      */
-    open class func userTrackedPathsGetWithRequestBuilder() -> RequestBuilder<[UserTrackedPath]> {
+    open class func userTrackedPathsGetWithRequestBuilder() -> RequestBuilder<[UserTrackedPaths]> {
         let localVariablePath = "/userTrackedPaths"
         let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
@@ -1042,14 +1054,14 @@ open class DefaultAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<[UserTrackedPath]>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[UserTrackedPaths]>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
 
     /**
 
-     - parameter id: (path)  
+     - parameter id: (path)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -1067,8 +1079,8 @@ open class DefaultAPI {
 
     /**
      - DELETE /userTrackedPaths/{id}
-     - parameter id: (path)  
-     - returns: RequestBuilder<Void> 
+     - parameter id: (path)
+     - returns: RequestBuilder<Void>
      */
     open class func userTrackedPathsIdDeleteWithRequestBuilder(id: String) -> RequestBuilder<Void> {
         var localVariablePath = "/userTrackedPaths/{id}"
@@ -1093,12 +1105,12 @@ open class DefaultAPI {
 
     /**
 
-     - parameter id: (path)  
+     - parameter id: (path)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func userTrackedPathsIdGet(id: String, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: UserTrackedPath?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func userTrackedPathsIdGet(id: String, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: UserTrackedPaths?, _ error: Error?) -> Void)) -> RequestTask {
         return userTrackedPathsIdGetWithRequestBuilder(id: id).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -1111,10 +1123,10 @@ open class DefaultAPI {
 
     /**
      - GET /userTrackedPaths/{id}
-     - parameter id: (path)  
-     - returns: RequestBuilder<UserTrackedPath> 
+     - parameter id: (path)
+     - returns: RequestBuilder<UserTrackedPaths>
      */
-    open class func userTrackedPathsIdGetWithRequestBuilder(id: String) -> RequestBuilder<UserTrackedPath> {
+    open class func userTrackedPathsIdGetWithRequestBuilder(id: String) -> RequestBuilder<UserTrackedPaths> {
         var localVariablePath = "/userTrackedPaths/{id}"
         let idPreEscape = "\(APIHelper.mapValueToPathItem(id))"
         let idPostEscape = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1130,19 +1142,20 @@ open class DefaultAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<UserTrackedPath>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<UserTrackedPaths>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
 
     /**
 
+     - parameter userTrackedPaths: (body)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func userTrackedPathsPut(apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
-        return userTrackedPathsPutWithRequestBuilder().execute(apiResponseQueue) { result in
+    open class func userTrackedPathsPut(userTrackedPaths: UserTrackedPaths, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
+        return userTrackedPathsPutWithRequestBuilder(userTrackedPaths: userTrackedPaths).execute(apiResponseQueue) { result in
             switch result {
             case .success:
                 completion((), nil)
@@ -1154,12 +1167,13 @@ open class DefaultAPI {
 
     /**
      - PUT /userTrackedPaths
-     - returns: RequestBuilder<Void> 
+     - parameter userTrackedPaths: (body)
+     - returns: RequestBuilder<Void>
      */
-    open class func userTrackedPathsPutWithRequestBuilder() -> RequestBuilder<Void> {
+    open class func userTrackedPathsPutWithRequestBuilder(userTrackedPaths: UserTrackedPaths) -> RequestBuilder<Void> {
         let localVariablePath = "/userTrackedPaths"
         let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
-        let localVariableParameters: [String: Any]? = nil
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: userTrackedPaths)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
@@ -1180,7 +1194,7 @@ open class DefaultAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func userfriendListsGet(apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: [UserFriendList]?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func userfriendListsGet(apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: [UserfriendList]?, _ error: Error?) -> Void)) -> RequestTask {
         return userfriendListsGetWithRequestBuilder().execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -1193,9 +1207,9 @@ open class DefaultAPI {
 
     /**
      - GET /userfriendLists
-     - returns: RequestBuilder<[UserFriendList]> 
+     - returns: RequestBuilder<[UserfriendList]>
      */
-    open class func userfriendListsGetWithRequestBuilder() -> RequestBuilder<[UserFriendList]> {
+    open class func userfriendListsGetWithRequestBuilder() -> RequestBuilder<[UserfriendList]> {
         let localVariablePath = "/userfriendLists"
         let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
@@ -1208,14 +1222,14 @@ open class DefaultAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<[UserFriendList]>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[UserfriendList]>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
 
     /**
 
-     - parameter id: (path)  
+     - parameter id: (path)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -1233,8 +1247,8 @@ open class DefaultAPI {
 
     /**
      - DELETE /userfriendLists/{id}
-     - parameter id: (path)  
-     - returns: RequestBuilder<Void> 
+     - parameter id: (path)
+     - returns: RequestBuilder<Void>
      */
     open class func userfriendListsIdDeleteWithRequestBuilder(id: String) -> RequestBuilder<Void> {
         var localVariablePath = "/userfriendLists/{id}"
@@ -1259,12 +1273,12 @@ open class DefaultAPI {
 
     /**
 
-     - parameter id: (path)  
+     - parameter id: (path)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func userfriendListsIdGet(id: String, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: UserFriendList?, _ error: Error?) -> Void)) -> RequestTask {
+    open class func userfriendListsIdGet(id: String, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: UserfriendList?, _ error: Error?) -> Void)) -> RequestTask {
         return userfriendListsIdGetWithRequestBuilder(id: id).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
@@ -1277,10 +1291,10 @@ open class DefaultAPI {
 
     /**
      - GET /userfriendLists/{id}
-     - parameter id: (path)  
-     - returns: RequestBuilder<UserFriendList> 
+     - parameter id: (path)
+     - returns: RequestBuilder<UserfriendList>
      */
-    open class func userfriendListsIdGetWithRequestBuilder(id: String) -> RequestBuilder<UserFriendList> {
+    open class func userfriendListsIdGetWithRequestBuilder(id: String) -> RequestBuilder<UserfriendList> {
         var localVariablePath = "/userfriendLists/{id}"
         let idPreEscape = "\(APIHelper.mapValueToPathItem(id))"
         let idPostEscape = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1296,19 +1310,20 @@ open class DefaultAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<UserFriendList>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<UserfriendList>.Type = OpenAPIClientAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
     }
 
     /**
 
+     - parameter userfriendList: (body)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func userfriendListsPut(apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
-        return userfriendListsPutWithRequestBuilder().execute(apiResponseQueue) { result in
+    open class func userfriendListsPut(userfriendList: UserfriendList, apiResponseQueue: DispatchQueue = OpenAPIClientAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
+        return userfriendListsPutWithRequestBuilder(userfriendList: userfriendList).execute(apiResponseQueue) { result in
             switch result {
             case .success:
                 completion((), nil)
@@ -1320,12 +1335,13 @@ open class DefaultAPI {
 
     /**
      - PUT /userfriendLists
-     - returns: RequestBuilder<Void> 
+     - parameter userfriendList: (body)
+     - returns: RequestBuilder<Void>
      */
-    open class func userfriendListsPutWithRequestBuilder() -> RequestBuilder<Void> {
+    open class func userfriendListsPutWithRequestBuilder(userfriendList: UserfriendList) -> RequestBuilder<Void> {
         let localVariablePath = "/userfriendLists"
         let localVariableURLString = OpenAPIClientAPI.basePath + localVariablePath
-        let localVariableParameters: [String: Any]? = nil
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: userfriendList)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 

@@ -19,6 +19,11 @@ struct MapView: View {
                 topBar
                     .background(.white)
                 Spacer()
+//                Button {
+//                    viewModel.initUser()
+//                } label: {
+//                    Text("INITT")
+//                }
             }
             VStack(alignment: .trailing) {
                 Spacer()
@@ -74,6 +79,7 @@ struct MapView: View {
             }
         }
         .onChange(of: viewModel.cameraPos) { newValue in
+            print(newValue)
             viewModel.cameraPosChanged = true
             viewModel.checkForRaceFinish()
         }

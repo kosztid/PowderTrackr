@@ -9,9 +9,9 @@ extension MyRunsView {
         let allRuns: Race
         @Published var raceRuns: [TrackedPath] = []
         @Published var raceClosestRuns: [TrackedPath?] = []
-        @Published var user: AuthUser?
 
         private let accountService: AccountServiceProtocol
+        private let userID: String = UserDefaults.standard.string(forKey: "id") ?? ""
 
         private var cancellables: Set<AnyCancellable> = []
 
@@ -22,25 +22,14 @@ extension MyRunsView {
             self.allRuns = race
             self.title = race.name
             self.accountService = accountService
-
-            accountService.userPublisher
-                .sink { _ in
-                } receiveValue: { [weak self] user in
-                    guard let user = user else { return }
-                    self?.user = user
-                    self?.getClosestRuns()
-                }
-                .store(in: &cancellables)
-            Task {
-                await accountService.getUser()
-            }
+            self.getClosestRuns()
         }
 
         func getClosestRuns() {
             raceRuns = []
             allRuns.tracks?.forEach { race in
                 if let racerId = race.notes?.first {
-                    if racerId == user?.userId {
+                    if racerId == userID {
                         raceRuns.append(race)
                     }
                 }
@@ -52,7 +41,7 @@ extension MyRunsView {
                 raceClosestRuns.append(
                     tracks
                         .filter { opponentRun in
-                            opponentRun.notes?.first != user?.userId
+                            opponentRun.notes?.first != userID
                         }
                         .min { abs(calculateDistance($0) - calculateDistance(race)) < abs(calculateDistance($1) - calculateDistance(race)) }
                 )

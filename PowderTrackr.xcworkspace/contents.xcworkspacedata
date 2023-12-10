@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:lachtal1Piste.gpx">
+   </FileRef>
+   <FileRef
+      location = "group:lachtal2Piste.gpx">
+   </FileRef>
+   <FileRef
       location = "group:gpxgenerator_path_racer2.gpx">
    </FileRef>
    <FileRef
