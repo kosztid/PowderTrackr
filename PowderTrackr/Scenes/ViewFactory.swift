@@ -3,8 +3,16 @@ import GoogleMaps
 import SwiftUI
 
 enum ViewFactory {
-    static func powderTrackrView() -> PowderTrackrView {
-        Container.PowderTrackr.view()
+    static func powderTrackrView(navigator: PowderTrackrViewNavigatorProtocol) -> PowderTrackrView {
+        Container.PowderTrackr.view(navigator)
+    }
+    
+    static func powderTrackrNavigator() -> PowderTrackrNavigator {
+        Container.PowderTrackr.navigator()
+    }
+    
+    static func tabBarView() -> TabBarNavigator {
+        Container.TabBar.view()
     }
 
     // MARK: - PROFILE

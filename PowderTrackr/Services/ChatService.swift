@@ -47,7 +47,7 @@ extension ChatService: ChatServiceProtocol {
             } else {
                 guard var chat = data else { return }
                 
-                chat.messages?.append(
+                chat.messages.append(
                     Message(
                         id: message.id,
                         sender: self.userID,
@@ -71,53 +71,52 @@ extension ChatService: ChatServiceProtocol {
     }
     
     func queryChat(recipient: String) {
-            if chatId == "" {
-                chatId = recipient
-            }
-            if chatId != recipient {
-                messages.send([])
-                chatId = recipient
-            }
-            
-            let chats = DefaultAPI.personalChatsGet { data, error in
-                if let error = error {
-                    print("Error: \(error)")
-                } else {
-                    let currentChat: PersonalChat? = data?.first { chat in
-                        if let participants = chat.participants {
-                            if participants.contains(recipient) && participants.contains(self.userID) {
-                                return true
-                            }
-                        }
-                        return false
+        if chatId == "" {
+            chatId = recipient
+        }
+        if chatId != recipient {
+            messages.send([])
+            chatId = recipient
+        }
+        
+        let chats = DefaultAPI.personalChatsGet { data, error in
+            if let error = error {
+                print("Error: \(error)")
+            } else {
+                let currentChat: PersonalChat? = data?.first { chat in
+                    let participants = chat.participants
+                    if participants.contains(recipient) && participants.contains(self.userID) {
+                        return true
                     }
-                    
-                    self.chatRoomID = currentChat?.id ?? ""
-                    var currentMessages: [Chat.Message] = self.messages.value ?? []
-                    if let chat = currentChat {
-                        chat.messages?.forEach { message in
-                            if !currentMessages.contains(where: { currentMessage in
-                                currentMessage.id == message.id
-                            }) {
-                                currentMessages.append(
-                                    Chat.Message(
-                                        id: message.id,
-                                        user: User(
-                                            id: UUID().uuidString,
-                                            name: "",
-                                            avatarURL: nil,
-                                            isCurrentUser: self.userID == message.sender),
-                                        status: message.isSeen ? Chat.Message.Status.read : Chat.Message.Status.sent,
-                                        createdAt: self.dateFormatter.date(from: message.date) ?? Date(),
-                                        text: message.text
-                                    )
-                                )
-                            }
-                        }
-                    }
-                    self.messages.send(currentMessages)
+                    return false
                 }
+                
+                self.chatRoomID = currentChat?.id ?? ""
+                var currentMessages: [Chat.Message] = self.messages.value ?? []
+                if let chat = currentChat {
+                    chat.messages.forEach { message in
+                        if !currentMessages.contains(where: { currentMessage in
+                            currentMessage.id == message.id
+                        }) {
+                            currentMessages.append(
+                                Chat.Message(
+                                    id: message.id,
+                                    user: User(
+                                        id: UUID().uuidString,
+                                        name: "",
+                                        avatarURL: nil,
+                                        isCurrentUser: self.userID == message.sender),
+                                    status: message.isSeen ? Chat.Message.Status.read : Chat.Message.Status.sent,
+                                    createdAt: self.dateFormatter.date(from: message.date) ?? Date(),
+                                    text: message.text
+                                )
+                            )
+                        }
+                    }
+                }
+                self.messages.send(currentMessages)
             }
+        }
     }
     
     func updateMessageStatus(recipient: String) {
@@ -129,22 +128,21 @@ extension ChatService: ChatServiceProtocol {
             } else {
                 guard var data else { return }
                 currentChatIndex = data.firstIndex { chat in
-                    if let participants = chat.participants {
-                        if participants.contains(recipient) && participants.contains(self.userID) {
-                            return true
-                        }
+                    let participants = chat.participants
+                    if participants.contains(recipient) && participants.contains(self.userID) {
+                        return true
                     }
                     return false
                 } ?? -1
                 
                 if currentChatIndex == -1 { return }
                 
-                for messageDx in .zero..<(data[currentChatIndex].messages?.count ?? .zero) {
-                    if data[currentChatIndex].messages?[messageDx].sender == recipient {
-                        data[currentChatIndex].messages?[messageDx].isSeen = true
+                for messageDx in .zero..<(data[currentChatIndex].messages.count) {
+                    if data[currentChatIndex].messages[messageDx].sender == recipient {
+                        data[currentChatIndex].messages[messageDx].isSeen = true
                     }
                 }
-                let msg = data[currentChatIndex].messages?.map { message in
+                let msg = data[currentChatIndex].messages.map { message in
                     Chat.Message(
                         id: message.id,
                         user: User(
@@ -170,12 +168,11 @@ extension ChatService: ChatServiceProtocol {
                 var notifications: Set<String> = []
                 
                 data?.forEach { chat in
-                    if let participants = chat.participants {
-                        if participants.contains(self.userID) {
-                            chat.messages?.forEach { message in
-                                if !message.isSeen && message.sender != self.userID {
-                                    notifications.insert(message.sender)
-                                }
+                    let participants = chat.participants
+                    if participants.contains(self.userID) {
+                        chat.messages.forEach { message in
+                            if !message.isSeen && message.sender != self.userID {
+                                notifications.insert(message.sender)
                             }
                         }
                     }

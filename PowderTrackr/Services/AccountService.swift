@@ -231,6 +231,16 @@ extension AccountService: AccountServiceProtocol {
             if signInResult.isSignedIn {
                 print("Sign in succeeded")
                 isSignedIn.send(true)
+                let user = try await Amplify.Auth.getCurrentUser()
+                let attributes = try await Amplify.Auth.fetchUserAttributes()
+                for attribute in attributes where attribute.key.rawValue == "email" {
+                    UserDefaults.standard.set(attribute.value, forKey: "email")
+                }
+                
+                UserDefaults.standard.set(user.userId, forKey: "id")
+                UserDefaults.standard.set(user.username, forKey: "name")
+                
+                
                 self.createLocation(xCoord: "0", yCoord: "0")
                 self.createFriendList()
                 self.createUserTrackedPaths()

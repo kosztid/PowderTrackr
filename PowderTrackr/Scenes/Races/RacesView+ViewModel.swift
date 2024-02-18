@@ -16,6 +16,7 @@ extension RacesView {
         private let accountService: AccountServiceProtocol
         
         @Published var user: AuthUser?
+        @Published var signedIn = false
         @Published var showingDeleteRaceAlert = false
         @Published var races: [Race] = []
         @Published var friendList: Friendlist?
@@ -40,6 +41,12 @@ extension RacesView {
                     guard let user = user else { return }
                     self?.user = user
                 }
+                .store(in: &cancellables)
+            
+            accountService.isSignedInPublisher
+                .sink(receiveValue: { [weak self] value in
+                    self?.signedIn = value
+                })
                 .store(in: &cancellables)
             
             initBindings()

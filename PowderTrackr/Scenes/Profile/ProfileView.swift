@@ -81,8 +81,6 @@ struct ProfileView: View {
                     userData
                     Divider()
                         .padding(.vertical, 8)
-                    Divider()
-                        .padding(.vertical, 8)
                     HStack {
                         Button {
                             viewModel.updatePasswordTapped()
@@ -114,7 +112,7 @@ struct ProfileView: View {
                 Text("Email address")
                     .foregroundColor(.gray)
                     .font(.caption)
-                Text(viewModel.currentEmail ?? "")
+                Text(viewModel.currentEmail )
                 Divider()
                     .padding(.vertical, 4)
                 Text("Name")

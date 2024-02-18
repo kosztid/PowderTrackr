@@ -13,8 +13,8 @@ public class Location: Identifiable, ObservableObject {
             _data = CurrentPosition(
                 id: self.id,
                 name: self.name,
-                xCoord: self.xCoord,
-                yCoord: self.yCoord
+                xCoord: self.xCoord ?? "",
+                yCoord: self.yCoord ?? ""
             )
         }
         return _data

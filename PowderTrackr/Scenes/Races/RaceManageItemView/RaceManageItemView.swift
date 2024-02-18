@@ -23,8 +23,11 @@ struct RaceManageItemView: View {
                 Spacer()
                 Text(race.date)
             }
-            Divider().padding(.vertical, 4)
-            dataSection
+            if !(race.tracks ?? []).isEmpty {
+                Divider().padding(.vertical, 4)
+                dataSection
+            }
+            
             Divider().padding(.vertical, 4)
             managementSection
         }

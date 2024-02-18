@@ -36,6 +36,11 @@ struct RacesView: View {
                 }
             }
         }
+        .overlay {
+            if !viewModel.signedIn {
+                LoggedOutModal()
+            }
+        }
         .alert("Are you sure want to delete this race?", isPresented: $viewModel.showingDeleteRaceAlert) {
             Button(role: .destructive) {
                 viewModel.deleteRace()

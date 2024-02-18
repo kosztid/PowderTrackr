@@ -34,8 +34,8 @@ extension MapView {
         var locationManager = CLLocationManager()
         var locationTimer: Timer?
         var trackTimer: Timer?
-        var raceTracking = false
         
+        @Published var raceTracking = false 
         @Published var isMenuOpen = false
         @Published var mapMenuState = MapMenuState.off
         @Published var track: [TrackedPath] = []
@@ -140,7 +140,7 @@ extension MapView {
         }
         
         func startTracking() {
-            self.trackTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
+            self.trackTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
             startTime = Date()
             //            self.trackedPath.append(TrackedPathModel(id: UUID().uuidString, name: "Path \(self.trackedPath.count)"))
             let id = UUID().uuidString

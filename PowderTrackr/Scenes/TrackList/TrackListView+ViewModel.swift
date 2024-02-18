@@ -54,11 +54,9 @@ extension TrackListView {
                     self?.friendList = friendList
                 }
                 .store(in: &cancellables)
-
-            Task {
-                await mapService.queryTrackedPaths()
-                await friendService.queryFriends()
-            }
+            
+            mapService.queryTrackedPaths()
+            friendService.queryFriends()
         }
 
         func calculateDistance(track: TrackedPath) -> Double {
@@ -74,48 +72,34 @@ extension TrackListView {
         }
 
         func onAppear() {
-            Task {
-                await mapService.queryTrackedPaths()
-                await mapService.querySharedPaths()
-            }
+                mapService.queryTrackedPaths()
+                mapService.querySharedPaths()
         }
 
         func removeTrack(_ trackedPath: TrackedPath) {
-            Task {
-                await mapService.removeTrackedPath(trackedPath)
-            }
+            mapService.removeTrackedPath(trackedPath)
         }
 
         func updateTrack(_ trackedPath: TrackedPath, shared: Bool) {
-            Task {
-                await mapService.updateTrack(trackedPath, shared)
-            }
+            mapService.updateTrack(trackedPath, shared)
         }
 
         func shareTrack(_ trackedPath: TrackedPath) {
             trackToShare = trackedPath
         }
 
-
-        func addNote(_ note: String, _ trackedPath: TrackedPath) {
-            Task {
-                var newTrack = trackedPath
-                newTrack.notes?.append(note)
-                await mapService.updateTrack(newTrack, false)
-            }
+        func addNote(_ note: String, _ trackedPath: TrackedPath) {var newTrack = trackedPath
+            newTrack.notes?.append(note)
+            mapService.updateTrack(newTrack, false)
         }
 
         func share(with friend: Friend) {
             guard let trackToShare else { return }
-            Task {
-                await mapService.shareTrack(trackToShare, friend.id)
-            }
+            mapService.shareTrack(trackToShare, friend.id)
         }
 
         func removeSharedTrack(_ trackedPath: TrackedPath) {
-            Task {
-                await mapService.removeSharedTrackedPath(trackedPath)
-            }
+            mapService.removeSharedTrackedPath(trackedPath)
         }
     }
 }

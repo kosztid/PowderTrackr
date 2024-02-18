@@ -11,7 +11,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     ) -> Bool {
         do {
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
-            try Amplify.add(plugin: AWSAPIPlugin(modelRegistration: AmplifyModels()))
             try Amplify.configure()
         } catch {
             print("Could not initialize Amplify: \(error)")

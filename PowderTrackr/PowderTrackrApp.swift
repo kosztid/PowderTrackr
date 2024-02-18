@@ -1,3 +1,4 @@
+import Factory
 import SwiftUI
 
 typealias Navigator = View
@@ -8,7 +9,7 @@ struct PowderTrackrApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ViewFactory.powderTrackrView()
+            ViewFactory.powderTrackrNavigator()
         }
     }
 

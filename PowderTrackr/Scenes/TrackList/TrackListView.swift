@@ -9,6 +9,12 @@ struct TrackListView: View {
                 ZStack {
                     ScrollView {
                         LazyVStack {
+                            if viewModel.tracks.isEmpty {
+                                Text("You have no tracks recorded")
+                                    .font(.caption)
+                                    .foregroundStyle(.gray).opacity(0.7)
+                                    .padding(.vertical, 20)
+                            }
                             ForEach(viewModel.tracks) { track in
                                 TrackListItem(
                                     track: track,
@@ -30,6 +36,12 @@ struct TrackListView: View {
                 ZStack {
                     ScrollView {
                         LazyVStack {
+                            if viewModel.sharedTracks.isEmpty {
+                                Text("You have no tracks shared with you")
+                                    .font(.caption)
+                                    .foregroundStyle(.gray).opacity(0.7)
+                                    .padding(.vertical, 20)
+                            }
                             ForEach(viewModel.sharedTracks) { track in
                                 TrackListItem(
                                     track: track,

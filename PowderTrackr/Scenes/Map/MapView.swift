@@ -3,7 +3,7 @@ import SwiftUI
 
 struct MapView: View {
     @StateObject var viewModel: ViewModel
-
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             ViewFactory.googleMap(
@@ -19,11 +19,6 @@ struct MapView: View {
                 topBar
                     .background(.white)
                 Spacer()
-//                Button {
-//                    viewModel.initUser()
-//                } label: {
-//                    Text("INITT")
-//                }
             }
             VStack(alignment: .trailing) {
                 Spacer()
@@ -91,8 +86,8 @@ struct MapView: View {
         }
         .onDisappear(perform: viewModel.stopTimer)
         .onAppear(perform: viewModel.startTimer)
-}
-
+    }
+    
     var topBar: some View {
         HStack {
             Spacer()
