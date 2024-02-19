@@ -29,7 +29,7 @@ public struct RaceNavigator: Navigator {
     }
 
     public init() {
-        self.routes = [.root(.races, embedInNavigationView: true)]
+        self.routes = [.root(.races, embedInNavigationView: false)]
     }
 }
 

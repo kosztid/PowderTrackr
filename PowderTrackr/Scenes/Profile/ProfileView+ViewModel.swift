@@ -97,8 +97,12 @@ extension ProfileView {
             accountService.updateLeaderboard(time: totalTime, distance: totalDistance)
         }
 
-        func updatePasswordTapped() {
+        func updatePasswordTap() {
             navigator.updatePassword()
+        }
+        
+        func dismissButtonTap() {
+            navigator.dismissScreen()
         }
     }
 }

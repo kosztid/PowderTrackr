@@ -4,6 +4,33 @@ struct SocialView: View {
     @StateObject var viewModel: ViewModel
 
     var body: some View {
+        VStack {
+            HStack {
+                Button {
+                    viewModel.navigateToRequests()
+                } label: {
+                    viewModel.notification ? Image(systemName: "bell.badge.fill") : Image(systemName: "bell.fill")
+                }
+                Spacer()
+                Button {
+                    viewModel.navigateToAddFriend()
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+            .padding(.horizontal, 16)
+            segmentedControl
+        }
+        .overlay {
+            if !viewModel.signedIn {
+                LoggedOutModal()
+            }
+        }
+        .onAppear { viewModel.onAppear() }
+        .toolbar(.hidden)
+    }
+    
+    var segmentedControl: some View {
         SegmentedControl(
             firstTab: .init(tabItem: .init(name: "Friends")) {
                 ZStack {
@@ -45,29 +72,6 @@ struct SocialView: View {
                 }
             }
         )
-        .overlay {
-            if !viewModel.signedIn {
-                LoggedOutModal()
-            }
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    viewModel.navigateToRequests()
-                } label: {
-                    viewModel.notification ? Image(systemName: "bell.badge.fill") : Image(systemName: "bell.fill")
-                }
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    viewModel.navigateToAddFriend()
-                } label: {
-                    Image(systemName: "plus")
-                }
-            }
-        }
-        .onAppear { viewModel.onAppear() }
     }
 }
 

@@ -36,7 +36,7 @@ public struct SocialNavigator: Navigator {
     }
 
     public init() {
-        self.routes = [.root(.list, embedInNavigationView: true)]
+        self.routes = [.root(.list, embedInNavigationView: false)]
     }
 }
 

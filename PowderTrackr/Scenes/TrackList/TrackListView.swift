@@ -71,5 +71,6 @@ struct TrackListView: View {
                 }
             }
         }
+        .toolbar(.hidden)
     }
 }

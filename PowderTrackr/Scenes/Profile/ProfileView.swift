@@ -5,14 +5,38 @@ struct ProfileView: View {
     @StateObject var viewModel: ViewModel
 
     var body: some View {
+       profileViewBase
+    }
+
+    @ViewBuilder var profileViewBase: some View {
         if viewModel.isSignedIn {
             loggedInView
                 .onAppear(perform: viewModel.loadData)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            viewModel.dismissButtonTap()
+                        } label: {
+                            Image(systemName: "arrowshape.turn.up.backward.fill")
+                                .foregroundColor(.white)
+                        }
+                    }
+                }
         } else {
             loggedOutView
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            viewModel.dismissButtonTap()
+                        } label: {
+                            Image(systemName: "arrowshape.turn.up.backward.fill")
+                                .foregroundColor(.white)
+                        }
+                    }
+                }
         }
+        
     }
-
     var loggedOutView: some View {
         VStack(spacing: .zero) {
             ZStack {
@@ -83,7 +107,7 @@ struct ProfileView: View {
                         .padding(.vertical, 8)
                     HStack {
                         Button {
-                            viewModel.updatePasswordTapped()
+                            viewModel.updatePasswordTap()
                         } label: {
                             Text("Update password")
                         }

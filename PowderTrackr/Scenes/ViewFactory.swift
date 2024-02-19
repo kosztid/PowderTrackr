@@ -44,8 +44,8 @@ enum ViewFactory {
         Container.Profile.view(navigator)
     }
 
-    static func profileNavigator() -> ProfileNavigator {
-        Container.Profile.navigator()
+    static func profileNavigator(navigateBack: @escaping () -> Void) -> ProfileNavigator {
+        Container.Profile.navigator(navigateBack)
     }
 
     // MARK: - SOCIAL

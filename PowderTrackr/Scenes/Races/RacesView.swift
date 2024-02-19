@@ -5,27 +5,18 @@ struct RacesView: View {
     
     var body: some View {
         ZStack {
-            List {
-                ForEach(viewModel.races) { race in
-                    RaceManageItemView(
-                        race: race,
-                        openShare: viewModel.openShare,
-                        viewMyRunsAction: viewModel.navigateToMyRuns,
-                        ownRace: race.participants?[0] == viewModel.user?.userId
-                    )
-                    .swipeActions {
-                        Button(role: .cancel) {
-                            viewModel.raceToDelete = race.id
-                            viewModel.showingDeleteRaceAlert = true
-                        } label: {
-                            Text("Delete")
-                        }
+            ScrollView {
+                 VStack {
+                    ForEach(viewModel.races) { race in
+                        RaceManageItemView(
+                            race: race,
+                            openShare: viewModel.openShare,
+                            viewMyRunsAction: viewModel.navigateToMyRuns,
+                            ownRace: race.participants?[0] == viewModel.user?.userId
+                        )
                     }
-                    .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.hidden)
                 }
             }
-            .listStyle(PlainListStyle())
             if viewModel.raceToShare != nil {
                 ShareListView(friends: viewModel.friendList) { friend in
                     viewModel.share(with: friend)
@@ -36,6 +27,7 @@ struct RacesView: View {
                 }
             }
         }
+        .toolbar(.hidden)
         .overlay {
             if !viewModel.signedIn {
                 LoggedOutModal()

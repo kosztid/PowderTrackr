@@ -8,7 +8,7 @@ struct LeaderBoardView: View {
             Text("Leaderboard")
                 .font(.largeTitle)
                 .bold()
-                .padding(.vertical, 32)
+                .padding(.bottom, 32)
             segmentedButtons
             Divider()
                 .frame(height: 2)
@@ -17,6 +17,7 @@ struct LeaderBoardView: View {
         .onAppear {
             viewModel.onAppear()
         }
+        .toolbar(.hidden)
     }
 
     var segmentedButtons: some View {

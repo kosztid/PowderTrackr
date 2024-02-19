@@ -13,6 +13,7 @@ public enum ProfileScreen {
 }
 
 protocol ProfileViewNavigatorProtocol {
+    func dismissScreen()
     func login()
     func register()
     func updatePassword()
@@ -52,6 +53,7 @@ protocol ResetPasswordVerificationNavigatorProtocol {
 
 public struct ProfileNavigator: Navigator {
     @State var routes: Routes<ProfileScreen>
+    var dismissNavigator: () -> Void
 
     public var body: some View {
         Router($routes) { screen, _ in
@@ -75,12 +77,17 @@ public struct ProfileNavigator: Navigator {
     }
 
     public init(
+        dismissNavigator: @escaping () -> Void
     ) {
         self.routes = [.root(.profile, embedInNavigationView: true)]
+        self.dismissNavigator = dismissNavigator
     }
 }
 
 extension ProfileNavigator: ProfileViewNavigatorProtocol {
+    func dismissScreen() {
+        dismissNavigator()
+    }
     func updatePassword() {
         routes.push(.updatePassword)
     }

@@ -17,7 +17,7 @@ public struct PowderTrackrNavigator: Navigator {
         Router($routes) { screen, _ in
             switch screen {
             case .tabBar: ViewFactory.powderTrackrView(navigator: self)
-            case .account: ViewFactory.profileNavigator()
+            case .account: ViewFactory.profileNavigator(navigateBack: navigateBack)
             }
         }
     }

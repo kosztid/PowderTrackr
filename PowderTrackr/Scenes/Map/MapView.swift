@@ -86,6 +86,7 @@ struct MapView: View {
         }
         .onDisappear(perform: viewModel.stopTimer)
         .onAppear(perform: viewModel.startTimer)
+        .toolbar(.hidden)
     }
     
     var topBar: some View {

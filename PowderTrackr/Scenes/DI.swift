@@ -124,8 +124,8 @@ extension Container {
             )
         }
 
-        static let navigator = Factory {
-            ProfileNavigator()
+        static let navigator = ParameterFactory { navigateBack in
+            ProfileNavigator(dismissNavigator: navigateBack)
         }
     }
 
