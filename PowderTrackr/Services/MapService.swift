@@ -152,8 +152,6 @@ extension MapService: MapServiceProtocol {
         tracks = self.trackedPathModel.value?.tracks ?? []
         sharedTracks = self.sharedPathModel.value?.tracks ?? []
         
-        tracks.append(trackedPath)
-        
         let data = UserTrackedPaths(id: userID, tracks: tracks, sharedTracks: sharedTracks)
         DefaultAPI.userTrackedPathsPut(userTrackedPaths: data) { data, error in
             if let error = error {

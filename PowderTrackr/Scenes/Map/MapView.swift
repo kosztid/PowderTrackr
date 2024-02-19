@@ -15,11 +15,7 @@ struct MapView: View {
                 raceMarkers: $viewModel.raceMarkers
             )
             .ignoresSafeArea()
-            VStack {
-                topBar
-                    .background(.white)
-                Spacer()
-            }
+            topBar
             VStack(alignment: .trailing) {
                 Spacer()
                 if viewModel.selectedPath != nil {
@@ -89,48 +85,54 @@ struct MapView: View {
         .toolbar(.hidden)
     }
     
-    var topBar: some View {
-        HStack {
-            Spacer()
-            VStack(spacing: 4) {
-                Text("\(String(format: "%.f", viewModel.currentDistance ?? 0.0)) m")
-                    .bold()
+    @ViewBuilder var topBar: some View {
+        if viewModel.isTracking {
+            VStack {
                 HStack {
-                    Image(systemName: "arrow.forward")
-                        .frame(minHeight: 20)
-                    Text("distance")
-                        .font(.caption)
+                    Spacer()
+                    VStack(spacing: 4) {
+                        Text("\(String(format: "%.f", viewModel.currentDistance ?? 0.0)) m")
+                            .bold()
+                        HStack {
+                            Image(systemName: "arrow.forward")
+                                .frame(minHeight: 20)
+                            Text("distance")
+                                .font(.caption)
+                        }
+                        .foregroundColor(.gray)
+                    }
+                    Divider()
+                        .padding(.horizontal, 12)
+                    VStack(spacing: 4) {
+                        Text("\(String(format: "%.2f", viewModel.elapsedTime)) s")
+                            .bold()
+                        HStack {
+                            Image(systemName: "timer")
+                            Text("total time")
+                                .font(.caption)
+                        }
+                        .foregroundColor(.gray)
+                    }
+                    Divider()
+                        .padding(.horizontal, 12)
+                    VStack(spacing: 4) {
+                        Text("\(String(format: "%.2f", viewModel.avgSpeed)) km/h")
+                            .bold()
+                        HStack {
+                            Image(systemName: "speedometer")
+                            Text("avg speed")
+                                .font(.caption)
+                        }
+                        .foregroundColor(.gray)
+                    }
+                    Spacer()
                 }
-                .foregroundColor(.gray)
+                .padding(.bottom, 8)
+                .frame(maxHeight: 48)
+                .background(.white)
+                Spacer()
             }
-            Divider()
-                .padding(.horizontal, 12)
-            VStack(spacing: 4) {
-                Text("\(String(format: "%.2f", viewModel.elapsedTime)) s")
-                    .bold()
-                HStack {
-                    Image(systemName: "timer")
-                    Text("total time")
-                        .font(.caption)
-                }
-                .foregroundColor(.gray)
-            }
-            Divider()
-                .padding(.horizontal, 12)
-            VStack(spacing: 4) {
-                Text("\(String(format: "%.2f", viewModel.avgSpeed)) km/h")
-                    .bold()
-                HStack {
-                    Image(systemName: "speedometer")
-                    Text("avg speed")
-                        .font(.caption)
-                }
-                .foregroundColor(.gray)
-            }
-            Spacer()
         }
-        .padding(.bottom, 8)
-        .frame(maxHeight: 48)
     }
 }
 
