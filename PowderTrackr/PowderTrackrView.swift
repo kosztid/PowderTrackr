@@ -13,10 +13,13 @@ struct PowderTrackrView: View {
                 Button {
                     viewModel.accountButtonTap()
                 } label: {
-                    Image(systemName: "person.3.fill")
+                    Image(systemName: "person.fill")
+                        .resizable()
+                        .frame(width: 20, height: 20)
                 }
             }
-            .padding(16)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 4)
             ViewFactory.tabBarView()
         }
     }

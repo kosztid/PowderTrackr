@@ -43,6 +43,7 @@ extension MapView {
         @Published var cameraPos: GMSCameraPosition
         @Published var trackedPath: TrackedPathModel?
         @Published var selectedRace: Race?
+        @Published var toast: ToastModel?
         
         @Published var friendLocations: [Location] = []
         @Published var friendLocation: Location?
@@ -126,6 +127,12 @@ extension MapView {
                     }
                     self?.raceCreationState = value
                 })
+                .store(in: &cancellables)
+            
+            mapService.networkErrorPublisher
+                .sink { [weak self] model in
+                    self?.toast = model
+                }
                 .store(in: &cancellables)
         }
         

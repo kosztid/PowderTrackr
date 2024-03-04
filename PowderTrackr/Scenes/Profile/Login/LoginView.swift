@@ -19,7 +19,7 @@ struct LoginView: View {
                 }
                 .foregroundColor(.white)
             }
-            .frame(height: 200)
+            .frame(height: 160)
             ScrollView(showsIndicators: false) {
                 VStack(spacing: .zero) {
                     Text("Please enter your credentials")
@@ -42,6 +42,7 @@ struct LoginView: View {
                         Spacer()
                     }
                     .padding(.bottom, 16)
+                    errorBanner
                     Button(
                         action: {
                             viewModel.login()
@@ -67,5 +68,19 @@ struct LoginView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
+    }
+    
+    @ViewBuilder var errorBanner: some View {
+        if viewModel.showLoginError {
+            VStack(alignment: .center) {
+                Text("Failed to log in please check your credentials")
+                    .foregroundStyle(.red)
+                    .font(.subheadline)
+                Text("Please check your credentials")
+                    .foregroundStyle(.red)
+                    .font(.subheadline)
+            }
+            .padding(.bottom, 16)
+        }
     }
 }

@@ -9,7 +9,7 @@ extension RacesView {
         
         let dateFormatter = DateFormatter()
         
-        private let userID: String = UserDefaults.standard.string(forKey: "id") ?? ""
+        let userID: String = UserDefaults.standard.string(forKey: "id") ?? ""
         private let navigator: RacesViewNavigatorProtocol
         private let mapService: MapServiceProtocol
         private let friendService: FriendServiceProtocol

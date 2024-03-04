@@ -75,7 +75,7 @@ extension RaceRunView {
             var markers: [GMSMarker] = []
             list.append(CLLocation(latitude: race.xCoords?.first ?? 0.0, longitude: race.yCoords?.first ?? 0.0))
             list.append(CLLocation(latitude: race.xCoords?[index] ?? 0.0, longitude: race.yCoords?[index] ?? 0.0))
-            var racerMarker = GMSMarker(position: .init(latitude: race.xCoords?[index] ?? 0.0, longitude: race.yCoords?[index] ?? 0.0))
+            let racerMarker = GMSMarker(position: .init(latitude: race.xCoords?[index] ?? 0.0, longitude: race.yCoords?[index] ?? 0.0))
             racerMarker.title = "Me"
             let icon = UIImage(systemName: "mappin")
             racerMarker.icon = icon
@@ -99,7 +99,7 @@ extension RaceRunView {
                     opponentDistance += opponentList[itemDx].distance(from: opponentList[itemDx - 1])
                 }
                 opponentPosition = Int((opponentDistance / totalDistance * 100).rounded())
-                var opponentMarker = GMSMarker(position: .init(latitude: opponentRun.xCoords?[index] ?? 0.0, longitude: opponentRun.yCoords?[index] ?? 0.0))
+                let opponentMarker = GMSMarker(position: .init(latitude: opponentRun.xCoords?[index] ?? 0.0, longitude: opponentRun.yCoords?[index] ?? 0.0))
                 opponentMarker.title = "Opponent"
                 markers.append(opponentMarker)
             }

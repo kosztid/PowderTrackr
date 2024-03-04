@@ -7,6 +7,7 @@ public protocol FriendServiceProtocol: AnyObject {
     var friendRequestsPublisher: AnyPublisher<[FriendRequest], Never> { get }
     var friendPositionPublisher: AnyPublisher<Location?, Never> { get }
     var friendPositionsPublisher: AnyPublisher<[Location], Never> { get }
+    var networkErrorPublisher: AnyPublisher<ToastModel?, Never> { get }
     
     func updateTracking(id: String)
     func queryFriends()
@@ -25,10 +26,17 @@ final class FriendService {
     private let friendRequests: CurrentValueSubject<[FriendRequest], Never> = .init([])
     private let friendPosition: CurrentValueSubject<Location?, Never> = .init(nil)
     private let friendPositions: CurrentValueSubject<[Location], Never> = .init([])
+    private let networkError: CurrentValueSubject<ToastModel?, Never> = .init(nil)
     private var cancellables: Set<AnyCancellable> = []
 }
 
 extension FriendService: FriendServiceProtocol {
+    var networkErrorPublisher: AnyPublisher<ToastModel?, Never> {
+        networkError
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
+    
     var friendPositionPublisher: AnyPublisher<Location?, Never> {
         friendPosition
             .receive(on: DispatchQueue.main)
@@ -56,7 +64,7 @@ extension FriendService: FriendServiceProtocol {
     func updateTracking(id: String) {
         var friends = friendList.value?.friends
         
-        var friendDx = friends?.firstIndex { friend in
+        let friendDx = friends?.firstIndex { friend in
             friend.id == id
         }
         
@@ -69,6 +77,7 @@ extension FriendService: FriendServiceProtocol {
         
         DefaultAPI.userfriendListsPut(userfriendList: data) { data, error in
             if let error = error {
+                self.networkError.send(.init(title: "An issue occured while updating tracking", type: .error))
                 print("Error: \(error)")
             } else {
                 
@@ -79,6 +88,7 @@ extension FriendService: FriendServiceProtocol {
     public func queryFriendRequests() {
         DefaultAPI.friendRequestsGet { data, error in
             if let error = error {
+                self.networkError.send(.init(title: "An issue occured while getting your friend requests", type: .error))
                 print("Error: \(error)")
             } else {
                 let currentFriendRequests = data?.compactMap { item in
@@ -93,6 +103,7 @@ extension FriendService: FriendServiceProtocol {
     func queryFriends() {
         DefaultAPI.userfriendListsGet { data, error in
             if let error = error {
+                self.networkError.send(.init(title: "An issue occured while loading your friends", type: .error))
                 print("Error: \(error)")
             } else {
                 let currentFriendList = data?.first { item in
@@ -113,10 +124,12 @@ extension FriendService: FriendServiceProtocol {
         guard let data = friendlist.data else { return }
         DefaultAPI.userfriendListsPut(userfriendList: data) { data, error in
             if let error = error {
+                self.networkError.send(.init(title: "An issue occured while adding your friend", type: .error))
                 print("Error: \(error)")
             } else {
                 DefaultAPI.userfriendListsGet { data, error in
                     if let error = error {
+                        self.networkError.send(.init(title: "An issue occured while adding your friend", type: .error))
                         print("Error: \(error)")
                     } else {
                         var senderFriends: [Friend] = []
@@ -133,6 +146,7 @@ extension FriendService: FriendServiceProtocol {
                         
                         DefaultAPI.userfriendListsPut(userfriendList: data) { data, error in
                             if let error = error {
+                                self.networkError.send(.init(title: "An issue occured while adding your friend", type: .error))
                                 print("Error: \(error)")
                             } else {
                             }
@@ -142,6 +156,7 @@ extension FriendService: FriendServiceProtocol {
                         
                         DefaultAPI.userfriendListsPut(userfriendList: senderData) { data, error in
                             if let error = error {
+                                self.networkError.send(.init(title: "An issue occured while adding your friend", type: .error))
                                 print("Error: \(error)")
                             } else {
                             }
@@ -151,6 +166,7 @@ extension FriendService: FriendServiceProtocol {
                         
                         DefaultAPI.personalChatsPut(personalChat: personalChat) { data, error in
                             if let error = error {
+                                self.networkError.send(.init(title: "An issue occured while adding your friend", type: .error))
                                 print("Error: \(error)")
                             } else {
                                 self.queryFriends()
@@ -164,6 +180,7 @@ extension FriendService: FriendServiceProtocol {
         
         DefaultAPI.friendRequestsIdDelete(id: request.id) { data, error in
             if let error = error {
+                self.networkError.send(.init(title: "An issue occured while accepting your friendrequest", type: .error))
                 print("Error: \(error)")
             } else {
             }
@@ -178,6 +195,7 @@ extension FriendService: FriendServiceProtocol {
         guard let data = friendList?.data else { return }
         DefaultAPI.userfriendListsPut(userfriendList: data ) { data, error in
             if let error = error {
+                self.networkError.send(.init(title: "An issue occured while deleting your friend", type: .error))
                 print("Error: \(error)")
             } else {
                 self.friendList.send(friendList)
@@ -197,6 +215,7 @@ extension FriendService: FriendServiceProtocol {
         )
         DefaultAPI.friendRequestsPut(friendRequest: request) { data, error in
             if let error = error {
+                self.networkError.send(.init(title: "An issue occured while sending your request", type: .error))
                 print("Error: \(error)")
             } else {
             }
@@ -215,6 +234,7 @@ extension FriendService: FriendServiceProtocol {
         } ?? []
         DefaultAPI.currentPositionsGet { data, error in
             if let error = error {
+                self.networkError.send(.init(title: "An issue occured while getting your friend's locations", type: .error))
                 print("Error: \(error)")
             } else {
                 let result = data?.compactMap { cPos in

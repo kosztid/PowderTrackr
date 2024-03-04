@@ -2,7 +2,13 @@ import Amplify
 import AWSAPIPlugin
 import AWSCognitoAuthPlugin
 import Combine
-import UIKit
+import Foundation
+
+public enum AccountServiceModel {
+    public struct AccountData {
+        public let userID: String
+    }
+}
 
 public protocol AccountServiceProtocol: AnyObject {
     var isSignedInPublisher: AnyPublisher<Bool, Never> { get }
@@ -10,9 +16,8 @@ public protocol AccountServiceProtocol: AnyObject {
     var emailPublisher: AnyPublisher<String?, Never> { get }
     
     func initUser()
-    func login() async
     func signUp(_ username: String, _ email: String, _ password: String) async
-    func signIn(_ username: String, _ password: String) async
+    func signIn(_ username: String, _ password: String) -> AnyPublisher<AccountServiceModel.AccountData, Error>
     func confirmSignUp(with confirmationCode: String, _ username: String, _ password: String) async
     func resetPassword(username: String) async
     func changePassword(oldPassword: String, newPassword: String) async
@@ -183,38 +188,32 @@ extension AccountService: AccountServiceProtocol {
         }
     }
     
-    public func login() async {
-        do {
-            let signInResult = try await Amplify.Auth.signInWithWebUI(presentationAnchor: UIApplication.shared.windows.first)
-            if signInResult.isSignedIn {
-                print("Sign in succeeded")
-            }
-        } catch let error as AuthError {
-            print("Sign in failed \(error)")
-        } catch {
-            print("Unexpected error: \(error)")
-        }
-    }
-    
-    public func signIn(_ username: String, _ password: String) async {
-        do {
-            let signInResult = try await Amplify.Auth.signIn(username: username, password: password)
-            if signInResult.isSignedIn {
-                print("Sign in succeeded")
-                isSignedIn.send(true)
-                let user = try await Amplify.Auth.getCurrentUser()
-                let attributes = try await Amplify.Auth.fetchUserAttributes()
-                for attribute in attributes where attribute.key.rawValue == "email" {
-                    UserDefaults.standard.set(attribute.value, forKey: "email")
+    func signIn(_ username: String, _ password: String) -> AnyPublisher<AccountServiceModel.AccountData, Error> {
+        return Future<AccountServiceModel.AccountData, Error> { promise in
+            Task {
+                do {
+                    let signInResult = try await Amplify.Auth.signIn(username: username, password: password)
+                    if signInResult.isSignedIn {
+                        print("Sign in succeeded")
+                        self.isSignedIn.send(true)
+                        let user = try await Amplify.Auth.getCurrentUser()
+                        let attributes = try await Amplify.Auth.fetchUserAttributes()
+                        for attribute in attributes where attribute.key.rawValue == "email" {
+                            UserDefaults.standard.set(attribute.value, forKey: "email")
+                        }
+                        UserDefaults.standard.set(user.userId, forKey: "id")
+                        UserDefaults.standard.set(user.username, forKey: "name")
+                        promise(.success(.init(userID: user.userId)))
+                    }
+                } catch let error as AuthError {
+                    promise(.failure(error))
+                    print("Sign in failed \(error)")
+                } catch {
+                    promise(.failure(error))
+                    print("Unexpected error: \(error)")
                 }
-                UserDefaults.standard.set(user.userId, forKey: "id")
-                UserDefaults.standard.set(user.username, forKey: "name")
             }
-        } catch let error as AuthError {
-            print("Sign in failed \(error)")
-        } catch {
-            print("Unexpected error: \(error)")
-        }
+        }.eraseToAnyPublisher()
     }
     
     public func initUser() {
@@ -227,6 +226,7 @@ extension AccountService: AccountServiceProtocol {
     // TODO: ENDPOINT CREATE USER ENTRIES
     private func signInFirstTime(_ username: String, _ password: String) async {
         do {
+            _ = await Amplify.Auth.signOut()
             let signInResult = try await Amplify.Auth.signIn(username: username, password: password)
             if signInResult.isSignedIn {
                 print("Sign in succeeded")
@@ -239,7 +239,6 @@ extension AccountService: AccountServiceProtocol {
                 
                 UserDefaults.standard.set(user.userId, forKey: "id")
                 UserDefaults.standard.set(user.username, forKey: "name")
-                
                 
                 self.createLocation(xCoord: "0", yCoord: "0")
                 self.createFriendList()

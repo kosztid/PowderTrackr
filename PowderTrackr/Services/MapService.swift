@@ -1,4 +1,3 @@
-import Amplify
 import Combine
 import GoogleMaps
 import UIKit
@@ -9,6 +8,7 @@ public protocol MapServiceProtocol: AnyObject {
     var sharedPathPublisher: AnyPublisher<TrackedPathModel?, Never> { get }
     var raceCreationStatePublisher: AnyPublisher<RaceCreationState, Never> { get }
     var racesPublisher: AnyPublisher<[Race], Never> { get }
+    var networkErrorPublisher: AnyPublisher<ToastModel?, Never> { get }
     
     func updateTrackedPath(_ trackedPath: TrackedPath)
     func updateTrack(_ trackedPath: TrackedPath, _ shared: Bool)
@@ -34,11 +34,17 @@ final class MapService {
     private let sharedPathModel: CurrentValueSubject<TrackedPathModel?, Never> = .init(nil)
     private let raceCreationState: CurrentValueSubject<RaceCreationState, Never> = .init(.not)
     private let races: CurrentValueSubject<[Race], Never> = .init([])
+    private let networkError: CurrentValueSubject<ToastModel?, Never> = .init(nil)
     private var cancellables: Set<AnyCancellable> = []
 }
 
 extension MapService: MapServiceProtocol {
-    
+    var networkErrorPublisher: AnyPublisher<ToastModel?, Never> {
+        networkError
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
+        
     var raceCreationStatePublisher: AnyPublisher<RaceCreationState, Never> {
         raceCreationState
             .receive(on: DispatchQueue.main)
@@ -81,6 +87,7 @@ extension MapService: MapServiceProtocol {
         
         DefaultAPI.userTrackedPathsGet { data, error in
             if let error = error {
+                self.networkError.send(.init(title: "An issue occured while sharing your run", type: .error))
                 print("Error: \(error)")
             } else {
                 trackedPathModel = data?.map { path in
@@ -103,6 +110,7 @@ extension MapService: MapServiceProtocol {
                 DefaultAPI.userTrackedPathsPut(userTrackedPaths: newData) { data, error in
                     if let error = error {
                         print("Error: \(error)")
+                        self.networkError.send(.init(title: "An issue occured while sharing your run", type: .error))
                     }
                 }
             }
@@ -114,6 +122,7 @@ extension MapService: MapServiceProtocol {
         
         DefaultAPI.userTrackedPathsGet { data, error in
             if let error = error {
+                self.networkError.send(.init(title: "An issue occured while loading your trakcs", type: .error))
                 print("Error: \(error)")
             } else {
                 currentPaths = data?.map { path in
@@ -132,6 +141,7 @@ extension MapService: MapServiceProtocol {
         
         DefaultAPI.userTrackedPathsGet { data, error in
             if let error = error {
+                self.networkError.send(.init(title: "An issue occured while loading shared tracks by you", type: .error))
                 print("Error: \(error)")
             } else {
                 sharedTracks = data?.map { path in
@@ -155,6 +165,7 @@ extension MapService: MapServiceProtocol {
         let data = UserTrackedPaths(id: userID, tracks: tracks, sharedTracks: sharedTracks)
         DefaultAPI.userTrackedPathsPut(userTrackedPaths: data) { data, error in
             if let error = error {
+                self.networkError.send(.init(title: "An issue occured while updating your run", type: .error))
                 print("Error: \(error)")
             } else {
                 self.queryTrackedPaths()
@@ -163,7 +174,6 @@ extension MapService: MapServiceProtocol {
     }
     
     func updateTrack(_ trackedPath: TrackedPath, _ shared: Bool) {
-        
         var tracks: [TrackedPath] = []
         var sharedTracks: [TrackedPath] = []
         
@@ -182,6 +192,7 @@ extension MapService: MapServiceProtocol {
         
         DefaultAPI.userTrackedPathsPut(userTrackedPaths: data) { data, error in
             if let error = error {
+                self.networkError.send(.init(title: "An issue occured while updating your run", type: .error))
                 print("Error: \(error)")
             } else {
                 if shared {
@@ -194,7 +205,6 @@ extension MapService: MapServiceProtocol {
     }
     
     func removeTrackedPath(_ trackedPath: TrackedPath) {
-        
         var tracks: [TrackedPath] = []
         
         tracks = self.trackedPathModel.value?.tracks ?? []
@@ -206,6 +216,7 @@ extension MapService: MapServiceProtocol {
         
         DefaultAPI.userTrackedPathsPut(userTrackedPaths: data) { data, error in
             if let error = error {
+                self.networkError.send(.init(title: "An issue occured while removing your run", type: .error))
                 print("Error: \(error)")
             } else {
                 self.queryTrackedPaths()
@@ -226,6 +237,7 @@ extension MapService: MapServiceProtocol {
         
         DefaultAPI.userTrackedPathsPut(userTrackedPaths: newData) { data, error in
             if let error = error {
+                self.networkError.send(.init(title: "An issue occured while removing the run shared with you", type: .error))
                 print("Error: \(error)")
             } else {
                 self.querySharedPaths()
@@ -247,6 +259,7 @@ extension MapService: MapServiceProtocol {
         
         DefaultAPI.racesPut(race: race) { data, error in
             if let error = error {
+                self.networkError.send(.init(title: "An issue occured while creating your race", type: .error))
                 print("Error: \(error)")
             } else {
                 self.queryRaces()
@@ -258,6 +271,7 @@ extension MapService: MapServiceProtocol {
         DefaultAPI.racesIdDelete(id: race.id) { data, error in
             if let error = error {
                 print("Error: \(error)")
+                self.networkError.send(.init(title: "An issue occured while deleting your race", type: .error))
             } else {
                 var currentRaces = self.races.value
                 currentRaces.removeAll { $0.id == race.id }
@@ -269,6 +283,7 @@ extension MapService: MapServiceProtocol {
     func queryRaces() {
         DefaultAPI.racesGet { data, error in
             if let error = error {
+                self.networkError.send(.init(title: "An issue occured while loading your races", type: .error))
                 print("Error: \(error)")
             } else {
                 let filteredResult = data?.filter { race in
@@ -292,6 +307,7 @@ extension MapService: MapServiceProtocol {
             DefaultAPI.racesPut(race: array[index]) { data, error in
                 if let error = error {
                     print("Error: \(error)")
+                    self.networkError.send(.init(title: "An issue occured while updating your race", type: .error))
                 } else {
                     self.queryRaces()
                 }
@@ -310,6 +326,7 @@ extension MapService: MapServiceProtocol {
         DefaultAPI.racesPut(race: race) { data, error in
             if let error = error {
                 print("Error: \(error)")
+                self.networkError.send(.init(title: "An issue occured while saving your race", type: .error))
             } else {
                 self.queryRaces()
             }
@@ -328,6 +345,7 @@ extension MapService: MapServiceProtocol {
         DefaultAPI.racesPut(race: array[index]) { data, error in
             if let error = error {
                 print("Error: \(error)")
+                self.networkError.send(.init(title: "An issue occured while sharing your race", type: .error))
             } else {
                 self.queryRaces()
             }

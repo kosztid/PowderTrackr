@@ -6,6 +6,7 @@ import UIKit
 public protocol ChatServiceProtocol: AnyObject {
     var messagesPublisher: AnyPublisher<[Chat.Message]?, Never> { get }
     var chatNotificationPublisher: AnyPublisher<[String]?, Never> { get }
+    var networkErrorPublisher: AnyPublisher<ToastModel?, Never> { get }
     
     func sendMessage(message: Chat.Message, recipient: String)
     func queryChat(recipient: String)
@@ -20,6 +21,7 @@ final class ChatService {
     private var chatId: String = ""
     private var chatRoomID: String = ""
     private var cancellables: Set<AnyCancellable> = []
+    private let networkError: CurrentValueSubject<ToastModel?, Never> = .init(nil)
     let dateFormatter = DateFormatter()
     
     init() {
@@ -28,6 +30,12 @@ final class ChatService {
 }
 
 extension ChatService: ChatServiceProtocol {
+    var networkErrorPublisher: AnyPublisher<ToastModel?, Never> {
+        networkError
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
+    
     var messagesPublisher: AnyPublisher<[Chat.Message]?, Never> {
         messages
             .receive(on: DispatchQueue.main)
@@ -60,6 +68,7 @@ extension ChatService: ChatServiceProtocol {
                 DefaultAPI.personalChatsPut(personalChat: chat) { data, error in
                     if let error = error {
                         print("Error: \(error)")
+                        self.networkError.send(.init(title: "An issue occured while sending message", type: .error))
                     } else {
                     }
                 }
@@ -79,9 +88,9 @@ extension ChatService: ChatServiceProtocol {
             chatId = recipient
         }
         
-        let chats = DefaultAPI.personalChatsGet { data, error in
+        DefaultAPI.personalChatsGet { data, error in
             if let error = error {
-                print("Error: \(error)")
+                self.networkError.send(.init(title: "An issue occured while loading your messages", type: .error))
             } else {
                 let currentChat: PersonalChat? = data?.first { chat in
                     let participants = chat.participants

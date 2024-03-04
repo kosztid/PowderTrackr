@@ -12,7 +12,7 @@ struct RacesView: View {
                             race: race,
                             openShare: viewModel.openShare,
                             viewMyRunsAction: viewModel.navigateToMyRuns,
-                            ownRace: race.participants?[0] == viewModel.user?.userId
+                            ownRace: race.participants?[0] == viewModel.userID
                         )
                     }
                 }

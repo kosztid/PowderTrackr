@@ -15,6 +15,11 @@ struct MapView: View {
                 raceMarkers: $viewModel.raceMarkers
             )
             .ignoresSafeArea()
+            Button {
+                viewModel.initUser()
+            } label: {
+                Text("init")
+            }
             topBar
             VStack(alignment: .trailing) {
                 Spacer()
@@ -61,7 +66,7 @@ struct MapView: View {
                 viewModel.showingRaceNameAlert.toggle()
             }
         }
-        .onChange(of: viewModel.selectedRace) { newValue in
+        .onChange(of: viewModel.selectedRace) { _, newValue in
             if newValue != nil {
                 withAnimation {
                     viewModel.mapMenuState = .raceMarkerOpened
@@ -69,12 +74,13 @@ struct MapView: View {
                 }
             }
         }
-        .onChange(of: viewModel.cameraPos) { newValue in
+        .toastMessage(toastMessage: $viewModel.toast)
+        .onChange(of: viewModel.cameraPos) { _, newValue in
             print(newValue)
             viewModel.cameraPosChanged = true
             viewModel.checkForRaceFinish()
         }
-        .onChange(of: viewModel.isMenuOpen) { newValue in
+        .onChange(of: viewModel.isMenuOpen) { _, newValue in
             if viewModel.mapMenuState == .raceMarkerOpened && !newValue {
                 viewModel.selectedRace = nil
                 viewModel.mapMenuState = .off

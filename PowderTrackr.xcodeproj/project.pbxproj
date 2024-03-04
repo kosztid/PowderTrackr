@@ -95,6 +95,8 @@
 		55FF487C2A9136F800527F18 /* LayerWidgetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */; };
 		B44B8A9E2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44B8A9D2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift */; };
 		B44B8AA02B826D1400E8F25F /* PowderTrackrNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44B8A9F2B826D1400E8F25F /* PowderTrackrNavigator.swift */; };
+		B45E58A32B95E4BA00BA1561 /* ToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45E58A22B95E4BA00BA1561 /* ToastModifier.swift */; };
+		B45E58A62B95E54300BA1561 /* ToastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45E58A52B95E54300BA1561 /* ToastModel.swift */; };
 		B4899C3E2B7648EA0015BD3F /* UserfriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4899C332B7648E90015BD3F /* UserfriendList.swift */; };
 		B4899C3F2B7648EA0015BD3F /* TrackedPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4899C342B7648E90015BD3F /* TrackedPath.swift */; };
 		B4899C402B7648EA0015BD3F /* PersonalChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4899C352B7648E90015BD3F /* PersonalChat.swift */; };
@@ -229,6 +231,8 @@
 		705F020E722E17762F7F9CEC /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		B44B8A9D2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PowderTrackrView+ViewModel.swift"; sourceTree = "<group>"; };
 		B44B8A9F2B826D1400E8F25F /* PowderTrackrNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrNavigator.swift; sourceTree = "<group>"; };
+		B45E58A22B95E4BA00BA1561 /* ToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModifier.swift; sourceTree = "<group>"; };
+		B45E58A52B95E54300BA1561 /* ToastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModel.swift; sourceTree = "<group>"; };
 		B4899C332B7648E90015BD3F /* UserfriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserfriendList.swift; sourceTree = "<group>"; };
 		B4899C342B7648E90015BD3F /* TrackedPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackedPath.swift; sourceTree = "<group>"; };
 		B4899C352B7648E90015BD3F /* PersonalChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalChat.swift; sourceTree = "<group>"; };
@@ -624,6 +628,7 @@
 		55B459452AC9B7F3007B3775 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				B45E58A42B95E53900BA1561 /* Toast */,
 				55B459462AC9B7FB007B3775 /* ShadowModifier.swift */,
 			);
 			path = Modifiers;
@@ -691,6 +696,15 @@
 				554587C52A3E2A66009A5485 /* ServiceDI.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		B45E58A42B95E53900BA1561 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				B45E58A22B95E4BA00BA1561 /* ToastModifier.swift */,
+				B45E58A52B95E54300BA1561 /* ToastModel.swift */,
+			);
+			path = Toast;
 			sourceTree = "<group>";
 		};
 		B4F2BFF92B2124B500FA8DE1 /* API */ = {
@@ -934,6 +948,7 @@
 				B4899C432B7648EA0015BD3F /* LeaderBoard.swift in Sources */,
 				55B4593F2AC9764C007B3775 /* RaceRunView+ViewModel.swift in Sources */,
 				554588142A3E30EA009A5485 /* BaseTextFieldStyleViewModifier.swift in Sources */,
+				B45E58A62B95E54300BA1561 /* ToastModel.swift in Sources */,
 				558815B62A3E361600667C1A /* Friendlist.swift in Sources */,
 				B4899C422B7648EA0015BD3F /* GroupChat.swift in Sources */,
 				558A21722A73E15800819256 /* GroupView.swift in Sources */,
@@ -949,6 +964,7 @@
 				554587E62A3E2FAC009A5485 /* SocialView.swift in Sources */,
 				556EDE642AB5C1C400B7EA5D /* LeaderBoardView+ViewModel.swift in Sources */,
 				B4F2C00A2B2124DF00FA8DE1 /* Extensions.swift in Sources */,
+				B45E58A32B95E4BA00BA1561 /* ToastModifier.swift in Sources */,
 				B4F2C0092B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift in Sources */,
 				558A21702A73DDE300819256 /* GroupListItem.swift in Sources */,
 				554587EE2A3E2FEE009A5485 /* FriendRequestView+ViewModel.swift in Sources */,
@@ -1114,7 +1130,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1154,7 +1170,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

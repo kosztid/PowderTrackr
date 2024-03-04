@@ -63,14 +63,14 @@ struct RaceRunView: View {
                     .cornerRadius(16)
                 Grid(horizontalSpacing: .zero) {
                     GridRow {
-                        ForEach(.zero..<100) { index in
+                        ForEach(0..<100) { index in
                             ZStack {
                                 // player
                                 if index == Int(viewModel.playerPosition) {
                                     Rectangle().fill().frame(width: 2, height: 32)
                                         .foregroundColor(.blue)
                                 }
-                                if index == Int(viewModel.opponentPosition) {
+                                if index == Int(viewModel.opponentPosition) && viewModel.closestRun != nil {
                                     Rectangle().fill().frame(width: 1, height: 32).foregroundColor(.red)
                                 }
                                 Rectangle().fill().frame(height: 2).foregroundColor(.black)
@@ -121,11 +121,11 @@ struct RaceRunView: View {
     }
 }
 
-//struct RaceRunView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RaceRunView(viewModel: .init(closestRun: <#TrackedPath#>, race: "Race"))
-//    }
-//}
+struct RaceRunView_Previews: PreviewProvider {
+    static var previews: some View {
+        ViewFactory.raceRunView(closestRun: .init(id: "Race123", name: "Race123", startDate: "2024-02-18 15:04:01", endDate: "2024-02-18 15:08:01", xCoords: [47.26341597142122, 47.26338860528187, 47.263212975589646], yCoords: [14.354847300931688, 14.35446718299464, 14.354439605161424], tracking: false), race: .init(id: "Race124", name: "Race124", startDate: "2024-02-18 15:04:01", endDate: "2024-02-18 15:08:01", xCoords: [47.26341597142122, 47.26338860528187, 47.263212975589646], yCoords: [14.354847300931688, 14.35446718299464, 14.354439605161424], tracking: false))
+    }
+}
 
 func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int) {
     return ((seconds % 3600) / 60, (seconds % 3600) % 60)
