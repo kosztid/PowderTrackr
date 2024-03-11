@@ -136,7 +136,7 @@ struct ProfileView: View {
                 Text("Email address")
                     .foregroundColor(.gray)
                     .font(.caption)
-                Text(viewModel.currentEmail )
+                Text(viewModel.currentEmail)
                 Divider()
                     .padding(.vertical, 4)
                 Text("Name")

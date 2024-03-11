@@ -20,9 +20,7 @@ extension PowderTrackrChatView {
             self.chatService = chatService
             self.chatID = chatID
             initBindings()
-            Task {
-                await chatService.queryChat(recipient: chatID)
-            }
+            chatService.queryChat(recipient: chatID)
         }
 
         func initBindings() {
@@ -44,10 +42,7 @@ extension PowderTrackrChatView {
                 user: .init(id: "123", name: "Me", avatarURL: nil, isCurrentUser: true),
                 text: text
             )
-            
-            Task {
-                await chatService.sendMessage(message: message, recipient: chatID)
-            }
+            chatService.sendMessage(message: message, recipient: chatID)
         }
 
         func startTimer() {
@@ -65,9 +60,7 @@ extension PowderTrackrChatView {
         }
 
         @objc func updateChats() {
-            Task {
-                await chatService.updateMessageStatus(recipient: chatID)
-            }
+            chatService.updateMessageStatus(recipient: chatID)
         }
      }
 }

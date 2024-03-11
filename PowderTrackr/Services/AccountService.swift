@@ -226,7 +226,6 @@ extension AccountService: AccountServiceProtocol {
     // TODO: ENDPOINT CREATE USER ENTRIES
     private func signInFirstTime(_ username: String, _ password: String) async {
         do {
-            _ = await Amplify.Auth.signOut()
             let signInResult = try await Amplify.Auth.signIn(username: username, password: password)
             if signInResult.isSignedIn {
                 print("Sign in succeeded")
@@ -309,6 +308,8 @@ extension AccountService: AccountServiceProtocol {
         
         switch signOutResult {
         case .complete:
+            UserDefaults.standard.set("", forKey: "id")
+            UserDefaults.standard.set("", forKey: "name")
             print("Successfully signed out")
             isSignedIn.send(false)
             

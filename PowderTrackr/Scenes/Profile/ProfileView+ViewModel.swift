@@ -10,50 +10,14 @@ extension ProfileView {
         @Published var tracks: [TrackedPath] = []
         @Published var totalDistance: Double = 0.0
         @Published var totalTime: String = ""
-
+        
         let dateFormatter = DateFormatter()
         let formatter = DateComponentsFormatter()
         private var cancellables: Set<AnyCancellable> = []
         private let navigator: ProfileViewNavigatorProtocol
         private let accountService: AccountServiceProtocol
         private let mapService: MapServiceProtocol
-
-        func logout() {
-            Task {
-                await accountService.signOut()
-                mapService.queryTrackedPaths()
-            }
-        }
-
-        func login() {
-            navigator.login()
-        }
-
-        func register() {
-            navigator.register()
-        }
-
-        func loadData() {
-                mapService.queryTrackedPaths()
-        }
-
-        func bindPublishers() {
-            accountService.isSignedInPublisher
-                .sink { _ in
-                } receiveValue: { [weak self] isSignedIn in
-                    self?.isSignedIn = isSignedIn
-                }
-                .store(in: &cancellables)
-
-            mapService.trackedPathPublisher
-                .sink { _ in
-                } receiveValue: { [weak self] track in
-                    self?.tracks = track?.tracks ?? []
-                    self?.makeTotals()
-                }
-                .store(in: &cancellables)
-        }
-
+        
         init(
             navigator: ProfileViewNavigatorProtocol,
             accountService: AccountServiceProtocol,
@@ -62,16 +26,60 @@ extension ProfileView {
             self.navigator = navigator
             self.accountService = accountService
             self.mapService = mapService
-            currentEmail = UserDefaults.standard.string(forKey: "email") ?? ""
-            userName = UserDefaults.standard.string(forKey: "name") ?? ""
+            currentEmail = "..."
+            userName = "..."
             
             bindPublishers()
-
+            
             formatter.allowedUnits = [.hour, .minute, .second]
             formatter.unitsStyle = .abbreviated
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         }
+        
+        func logout() {
+            Task {
+                await accountService.signOut()
+                mapService.queryTrackedPaths()
+            }
+        }
+        
+        func login() {
+            navigator.login()
+        }
+        
+        func register() {
+            navigator.register()
+        }
+        
+        func loadData() {
+            mapService.queryTrackedPaths()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.currentEmail = UserDefaults.standard.string(forKey: "email") ?? ""
+                self.userName = UserDefaults.standard.string(forKey: "name") ?? ""
 
+            }
+        }
+        
+        func bindPublishers() {
+            accountService.isSignedInPublisher
+                .sink { _ in
+                } receiveValue: { [weak self] isSignedIn in
+                    self?.isSignedIn = isSignedIn
+                }
+                .store(in: &cancellables)
+            
+            mapService.trackedPathPublisher
+                .sink { _ in
+                } receiveValue: { [weak self] track in
+                    if track == nil {
+                        self?.accountService.initUser()
+                    }
+                    self?.tracks = track?.tracks ?? []
+                    self?.makeTotals()
+                }
+                .store(in: &cancellables)
+        }
+        
         func makeTotals() {
             var total = 0.0
             var totalDate = 0.0
@@ -93,10 +101,10 @@ extension ProfileView {
             totalTime = formatter.string(from: totalDate) ?? ""
             totalDistance = total
             let totalTime = totalDate
-
+            
             accountService.updateLeaderboard(time: totalTime, distance: totalDistance)
         }
-
+        
         func updatePasswordTap() {
             navigator.updatePassword()
         }
