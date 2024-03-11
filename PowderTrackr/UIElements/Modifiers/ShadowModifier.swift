@@ -4,10 +4,10 @@ public struct ShadowModifier: ViewModifier {
     public func body(content: Content) -> some View {
         content
             .shadow(
-                color: .gray.opacity(0.3),
-                radius: 4,
+                color: .gray.opacity(0.5),
+                radius: 8,
                 x: .zero,
-                y: 4
+                y: 8
             )
     }
 }
