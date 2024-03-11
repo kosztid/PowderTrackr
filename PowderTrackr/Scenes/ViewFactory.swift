@@ -11,8 +11,8 @@ enum ViewFactory {
         Container.PowderTrackr.navigator()
     }
     
-    static func tabBarView() -> TabBarNavigator {
-        Container.TabBar.view()
+    static func tabBarView(_ openAccount: @escaping () -> Void) -> TabBarNavigator {
+        Container.TabBar.view(openAccount)
     }
 
     // MARK: - PROFILE
@@ -50,16 +50,16 @@ enum ViewFactory {
 
     // MARK: - SOCIAL
 
-    static func socialView(navigator: SocialListViewNavigatorProtocol) -> SocialView {
-        Container.Social.view(navigator)
+    static func socialView(navigator: SocialListViewNavigatorProtocol, model: SocialView.InputModel) -> SocialView {
+        Container.Social.view((navigator, model))
     }
 
-    static func socialNavigator() -> SocialNavigator {
-        Container.Social.navigator()
+    static func socialNavigator(_ openAccount: @escaping () -> Void) -> SocialNavigator {
+        Container.Social.navigator(openAccount)
     }
 
-    static func raceNavigator() -> RaceNavigator {
-        Container.Races.navigator()
+    static func raceNavigator(_ openAccount: @escaping () -> Void) -> RaceNavigator {
+        Container.Races.navigator(openAccount)
     }
 
     static func friendRequestView() -> FriendRequestView {
@@ -92,8 +92,8 @@ enum ViewFactory {
 
     // MARK: - Tracklist
 
-    static func trackListView() -> TrackListView {
-        Container.TrackList.view()
+    static func trackListView(model: TrackListView.InputModel) -> TrackListView {
+        Container.TrackList.view(model)
     }
 
     // MARK: - LeaderBoard
@@ -104,8 +104,8 @@ enum ViewFactory {
 
     // MARK: - Races
 
-    static func racesView(navigator: RacesViewNavigatorProtocol) -> RacesView {
-        Container.Races.view(navigator)
+    static func racesView(navigator: RacesViewNavigatorProtocol, inputModel: RacesView.InputModel) -> RacesView {
+        Container.Races.view((navigator, inputModel))
     }
 
     static func raceRunView(closestRun: TrackedPath, race: TrackedPath) -> RaceRunView {

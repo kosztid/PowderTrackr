@@ -17,18 +17,20 @@ protocol RaceRunViewNavigatorProtocol {
 
 public struct RaceNavigator: Navigator {
     @State var routes: Routes<RacesScreen>
+    let openAccount: () -> Void
 
     public var body: some View {
         Router($routes) { screen, _ in
             switch screen {
-            case .races: ViewFactory.racesView(navigator: self)
+            case .races: ViewFactory.racesView(navigator: self, inputModel: .init(navigateToAccount: openAccount))
             case .raceRuns: EmptyView()
             case .myRuns(let runs): ViewFactory.myRunsView(runs: runs)
             }
         }
     }
 
-    public init() {
+    public init(openAccount: @escaping () -> Void) {
+        self.openAccount = openAccount
         self.routes = [.root(.races, embedInNavigationView: false)]
     }
 }

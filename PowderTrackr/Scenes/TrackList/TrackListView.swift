@@ -59,10 +59,10 @@ struct TrackListView: View {
                 .navigationBarTitleDisplayMode(.inline)
             }
         )
+        .overlayModal(isPresented: .constant(!viewModel.signedIn)) {
+            LoggedOutModal(action: viewModel.model.navigateToAccount)
+        }
         .overlay {
-            if !viewModel.signedIn {
-                LoggedOutModal()
-            }
             if viewModel.trackToShare != nil {
                 ShareListView(friends: viewModel.friendList) { friend in
                     viewModel.share(with: friend)

@@ -20,6 +20,7 @@ struct RegisterView: View {
                 .foregroundColor(.white)
             }
             .frame(height: 200)
+            .customShadow()
             ScrollView(showsIndicators: false) {
                 VStack(spacing: .zero) {
                     Text("Please fill the fields to create an account")

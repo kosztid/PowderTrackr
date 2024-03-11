@@ -43,7 +43,7 @@ struct ProfileView: View {
                 Color.teal
                     .ignoresSafeArea()
                 VStack(spacing: .zero) {
-                    Text("Welcome to Skiing")
+                    Text("Welcome to PowderTrackr")
                         .font(.largeTitle)
                         .bold()
                         .padding(.bottom, 16)
@@ -54,6 +54,7 @@ struct ProfileView: View {
                 .foregroundColor(.white)
             }
             .frame(height: 200)
+            .customShadow()
             ScrollView(showsIndicators: false) {
                 VStack(spacing: .zero) {
                     Text("Select an option to continue")

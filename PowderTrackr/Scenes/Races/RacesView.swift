@@ -6,7 +6,13 @@ struct RacesView: View {
     var body: some View {
         ZStack {
             ScrollView {
-                 VStack {
+                VStack {
+                    if viewModel.races.isEmpty {
+                        Text("You have no races so far...")
+                            .font(.caption)
+                            .foregroundStyle(.gray).opacity(0.7)
+                            .padding(.vertical, 20)
+                    }
                     ForEach(viewModel.races) { race in
                         RaceManageItemView(
                             race: race,
@@ -27,12 +33,12 @@ struct RacesView: View {
                 }
             }
         }
-        .toolbar(.hidden)
-        .overlay {
-            if !viewModel.signedIn {
-                LoggedOutModal()
+        .overlayModal(isPresented: .constant(!viewModel.signedIn)) {
+            LoggedOutModal {
+                viewModel.inputModel.navigateToAccount()
             }
         }
+        .toolbar(.hidden)
         .alert("Are you sure want to delete this race?", isPresented: $viewModel.showingDeleteRaceAlert) {
             Button(role: .destructive) {
                 viewModel.deleteRace()

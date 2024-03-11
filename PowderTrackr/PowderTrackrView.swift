@@ -20,7 +20,7 @@ struct PowderTrackrView: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 4)
-            ViewFactory.tabBarView()
+            ViewFactory.tabBarView(viewModel.accountButtonTap)
         }
     }
 }

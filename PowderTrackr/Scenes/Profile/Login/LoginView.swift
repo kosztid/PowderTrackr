@@ -8,8 +8,8 @@ struct LoginView: View {
             ZStack {
                 Color.teal
                     .ignoresSafeArea()
-                VStack(spacing: .zero) {
-                    Text("Welcome to Skiing")
+                VStack(alignment: .center, spacing: .zero) {
+                    Text("Welcome to PowderTrackr")
                         .font(.largeTitle)
                         .bold()
                         .padding(.bottom, 16)
@@ -20,6 +20,7 @@ struct LoginView: View {
                 .foregroundColor(.white)
             }
             .frame(height: 160)
+            .customShadow()
             ScrollView(showsIndicators: false) {
                 VStack(spacing: .zero) {
                     Text("Please enter your credentials")
@@ -83,4 +84,8 @@ struct LoginView: View {
             .padding(.bottom, 16)
         }
     }
+}
+
+#Preview {
+    ViewFactory.profileView(navigator: ProfileNavigator(dismissNavigator: {}))
 }

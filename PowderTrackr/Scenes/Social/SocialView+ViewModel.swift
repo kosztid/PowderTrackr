@@ -2,6 +2,10 @@ import Combine
 import SwiftUI
 
 extension SocialView {
+    struct InputModel {
+        let navigateToAccount: () -> Void
+    }
+    
     final class ViewModel: ObservableObject {
         @Published var friendList: Friendlist?
         @Published var groupList = ["asd", "asd"]
@@ -15,18 +19,22 @@ extension SocialView {
         private let chatService: ChatServiceProtocol
 
         private var cancellables: Set<AnyCancellable> = []
+        
+        let inputModel: InputModel
 
         init(
             navigator: SocialListViewNavigatorProtocol,
             friendService: FriendServiceProtocol,
             accountService: AccountServiceProtocol,
-            chatService: ChatServiceProtocol
+            chatService: ChatServiceProtocol,
+            inputModel: InputModel
         ) {
             self.navigator = navigator
             self.friendService = friendService
             self.accountService = accountService
             self.chatService = chatService
             self.notification = false
+            self.inputModel = inputModel
             initBindings()
             friendService.queryFriends()
             friendService.queryFriendRequests()

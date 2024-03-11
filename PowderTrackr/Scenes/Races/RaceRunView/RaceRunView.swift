@@ -20,7 +20,6 @@ struct RaceRunView: View {
             }
             Divider()
                 .padding(.vertical, 4)
-
             dataSection
             playerSection
         }
@@ -35,7 +34,7 @@ struct RaceRunView: View {
             x: .zero,
             y: 4
         )
-        .onChange(of: viewModel.currentArrayIndex) { index in
+        .onChange(of: viewModel.currentArrayIndex) { _, index in
             viewModel.calculateDistanceFromStartingPoint(index: index)
         }
     }

@@ -16,8 +16,8 @@ extension Container {
     }
 
     enum TabBar {
-        static let view = Factory {
-            TabBarNavigator()
+        static let view = ParameterFactory { openAccount in
+            TabBarNavigator(openAccount: openAccount)
         }
     }
 
@@ -159,23 +159,25 @@ extension Container {
 
     // MARK: - SOCIAL
     enum Social {
-        static let view = ParameterFactory { navigator in
+        static let view = ParameterFactory { navigator, model in
             SocialView(
-                viewModel: viewModel(navigator)
+                viewModel: viewModel((navigator, model))
             )
         }
 
-        static let viewModel = ParameterFactory { navigator in
+        static let viewModel = ParameterFactory { navigator, model in
             SocialView.ViewModel(
                 navigator: navigator,
                 friendService: friendService(),
                 accountService: accountService(),
-                chatService: chatService()
+                chatService: chatService(),
+                inputModel: model
+                
             )
         }
 
-        static let navigator = Factory {
-            SocialNavigator()
+        static let navigator = ParameterFactory { openAccount in
+            SocialNavigator(openAccount: openAccount)
         }
     }
 
@@ -211,12 +213,12 @@ extension Container {
     }
 
     enum TrackList {
-        static let view = Factory {
-            TrackListView(viewModel: viewModel())
+        static let view = ParameterFactory { model in
+            TrackListView(viewModel: viewModel(model))
         }
 
-        static let viewModel = Factory {
-            TrackListView.ViewModel(mapService: mapService(), accountService: accountService(), friendService: friendService())
+        static let viewModel = ParameterFactory { model in
+            TrackListView.ViewModel(mapService: mapService(), accountService: accountService(), friendService: friendService(), inputModel: model)
         }
     }
 
@@ -231,21 +233,22 @@ extension Container {
     }
 
     enum Races {
-        static let view = ParameterFactory { navigator in
-            RacesView(viewModel: viewModel(navigator))
+        static let view = ParameterFactory { navigator, model in
+            RacesView(viewModel: viewModel((navigator, model)))
         }
 
-        static let viewModel = ParameterFactory { navigator in
+        static let viewModel = ParameterFactory { navigator, model in
             RacesView.ViewModel(
                 mapService: mapService(),
                 friendService: friendService(),
                 accountService: accountService(),
-                navigator: navigator
+                navigator: navigator,
+                inputModel: model
             )
         }
 
-        static let navigator = Factory {
-            RaceNavigator()
+        static let navigator = ParameterFactory { openAccount in
+            RaceNavigator(openAccount: openAccount)
         }
     }
 

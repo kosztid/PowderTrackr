@@ -23,7 +23,9 @@ struct SocialView: View {
         }
         .overlay {
             if !viewModel.signedIn {
-                LoggedOutModal()
+                LoggedOutModal {
+                    viewModel.inputModel.navigateToAccount()
+                }
             }
         }
         .onAppear { viewModel.onAppear() }

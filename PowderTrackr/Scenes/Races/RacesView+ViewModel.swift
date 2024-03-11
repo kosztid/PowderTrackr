@@ -4,10 +4,15 @@ import GoogleMaps
 import SwiftUI
 
 extension RacesView {
+    struct InputModel {
+        let navigateToAccount: () -> Void
+    }
+    
     final class ViewModel: ObservableObject {
         private var cancellables: Set<AnyCancellable> = []
         
         let dateFormatter = DateFormatter()
+        let inputModel: InputModel
         
         let userID: String = UserDefaults.standard.string(forKey: "id") ?? ""
         private let navigator: RacesViewNavigatorProtocol
@@ -27,13 +32,15 @@ extension RacesView {
             mapService: MapServiceProtocol,
             friendService: FriendServiceProtocol,
             accountService: AccountServiceProtocol,
-            navigator: RacesViewNavigatorProtocol
+            navigator: RacesViewNavigatorProtocol,
+            inputModel: InputModel
         ) {
             self.mapService = mapService
             self.friendService = friendService
             self.accountService = accountService
             self.navigator = navigator
             self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            self.inputModel = inputModel
             
             accountService.userPublisher
                 .sink { _ in

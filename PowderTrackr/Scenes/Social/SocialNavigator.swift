@@ -23,11 +23,12 @@ protocol SocialRequestsViewNavigatorProtocol {
 
 public struct SocialNavigator: Navigator {
     @State var routes: Routes<SocialScreen>
+    let openAccount: () -> Void
 
     public var body: some View {
         Router($routes) { screen, _ in
             switch screen {
-            case .list: ViewFactory.socialView(navigator: self)
+            case .list: ViewFactory.socialView(navigator: self, model: .init(navigateToAccount: openAccount))
             case .add: ViewFactory.friendAddView(navigator: self)
             case .requests: ViewFactory.friendRequestView()
             case .chat(let id): ViewFactory.powderTrackrChatView(chatId: id)
@@ -35,7 +36,8 @@ public struct SocialNavigator: Navigator {
         }
     }
 
-    public init() {
+    public init(openAccount: @escaping () -> Void) {
+        self.openAccount = openAccount
         self.routes = [.root(.list, embedInNavigationView: false)]
     }
 }
