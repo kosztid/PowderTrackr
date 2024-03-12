@@ -37,6 +37,12 @@ struct ShareListView: View {
     var list: some View {
         ScrollView {
             VStack {
+                if friends?.friends?.count == 0 {
+                    Text("You have no friends to share with")
+                        .font(.caption)
+                        .foregroundStyle(.gray).opacity(0.7)
+                        .padding(.vertical, 20)
+                }
                 ForEach(friends?.friends ?? []) { friend in
                     HStack {
                         Text(friend.name)
