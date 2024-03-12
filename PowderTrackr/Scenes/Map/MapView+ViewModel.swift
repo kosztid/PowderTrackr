@@ -153,7 +153,6 @@ extension MapView {
             }
             self.trackTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
             startTime = Date()
-            //            self.trackedPath.append(TrackedPathModel(id: UUID().uuidString, name: "Path \(self.trackedPath.count)"))
             let id = UUID().uuidString
             self.trackedPath?.tracks?.append(
                 .init(
@@ -299,7 +298,6 @@ extension MapView {
                 startRaceCreation()
                 mapMenuState = .raceCreation
             }
-            startRaceCreation()
         }
         
         func addRace(_ name: String) {
@@ -309,6 +307,7 @@ extension MapView {
         }
         
         func startRaceCreation() {
+            print("called")
             mapService.changeRaceCreationState(.firstMarker)
         }
         

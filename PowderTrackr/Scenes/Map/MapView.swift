@@ -15,11 +15,6 @@ struct MapView: View {
                 raceMarkers: $viewModel.raceMarkers
             )
             .ignoresSafeArea()
-            Button {
-                viewModel.initUser()
-            } label: {
-                Text("init")
-            }
             topBar
             VStack(alignment: .trailing) {
                 Spacer()
