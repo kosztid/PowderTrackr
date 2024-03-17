@@ -1,5 +1,4 @@
 import Amplify
-import AWSAPIPlugin
 import AWSCognitoAuthPlugin
 import Combine
 import Foundation

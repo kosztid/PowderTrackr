@@ -1,10 +1,10 @@
 import Chat
 import SwiftUI
 
-struct PowderTrackrChatView: View {
+public struct PowderTrackrChatView: View {
     @StateObject var viewModel: ViewModel
 
-    var body: some View {
+    public var body: some View {
         ChatView(messages: viewModel.messages) { message in
             viewModel.sendMessage(draftMessage: message)
         } inputViewBuilder: { textBinding, attachments, state, style, actionClosure in
@@ -14,13 +14,6 @@ struct PowderTrackrChatView: View {
                     HStack {
                         TextField("Write your message", text: textBinding)
                         HStack {
-                            Button {
-                                actionClosure(.photo)
-                            } label: {
-                                Image(systemName: "photo.on.rectangle")
-                                    .frame(width: 48, height: 48)
-                                    .foregroundColor(.gray)
-                            }
                             Button {
                                 actionClosure(.send)
                             } label: {
@@ -84,6 +77,6 @@ struct PowderTrackrChatView: View {
 
 struct PowderTrackrChatView_Previews: PreviewProvider {
     static var previews: some View {
-        PowderTrackrChatView(viewModel: .init(chatService: ChatService(), chatID: ""))
+        PowderTrackrChatView(viewModel: .init(chatService: ChatService(), model: .init(chatId: "", names: [])))
     }
 }

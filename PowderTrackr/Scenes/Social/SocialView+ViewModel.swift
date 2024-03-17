@@ -36,8 +36,7 @@ extension SocialView {
             self.notification = false
             self.inputModel = inputModel
             initBindings()
-            friendService.queryFriends()
-            friendService.queryFriendRequests()
+            onAppear()
         }
 
         func initBindings() {
@@ -45,6 +44,17 @@ extension SocialView {
                 .sink { _ in
                 } receiveValue: { [weak self] friendList in
                     self?.friendList = friendList
+                }
+                .store(in: &cancellables)
+            
+            friendService.friendRequestsPublisher
+                .sink { _ in
+                } receiveValue: { [weak self] requests in
+                    if !requests.isEmpty {
+                        self?.notification = true
+                    } else {
+                        self?.notification = false
+                    }
                 }
                 .store(in: &cancellables)
 
@@ -83,13 +93,14 @@ extension SocialView {
             navigator.navigateToAdd()
         }
 
-        func navigateToChatWithFriend(friendId: String) {
-            navigator.navigateToChat(recipient: friendId)
+        func navigateToChatWithFriend(friendId: String, friendName: String) {
+            navigator.navigateToChat(model: .init(chatId: friendId, names: [friendName]))
         }
         
         func queryChatNotifications() {
             chatService.getChatNotifications()
         }
+        
         func navigateToChatGroup(groupId: String) {
 //            Task {
 //                await chatService.chatIdForGroup(for: groupId)
@@ -99,6 +110,8 @@ extension SocialView {
 
         func onAppear() {
             queryChatNotifications()
+            friendService.queryFriends()
+            friendService.queryFriendRequests()
         }
 
         func notification(for friendId: String) -> Bool {

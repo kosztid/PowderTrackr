@@ -12,7 +12,7 @@
 		5506F7B92A4723F40000761D /* SegmentedControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5506F7B82A4723F40000761D /* SegmentedControlButton.swift */; };
 		5506F7BB2A4724F50000761D /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5506F7BA2A4724F50000761D /* SegmentedControl.swift */; };
 		5506F7BF2A49E5F10000761D /* LoggedOutModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5506F7BE2A49E5F10000761D /* LoggedOutModal.swift */; };
-		55075E972AE9CA26003D213F /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55075E962AE9CA26003D213F /* DoubleExtension.swift */; };
+		55075E972AE9CA26003D213F /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55075E962AE9CA26003D213F /* Double+Extension.swift */; };
 		550F65E32A532DDD00797B62 /* ConfirmResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550F65E22A532DDD00797B62 /* ConfirmResetPasswordView.swift */; };
 		550F65E52A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550F65E42A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift */; };
 		55102ACD2A7ECAE30033E5E6 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55102ACC2A7ECAE30033E5E6 /* ChatService.swift */; };
@@ -71,8 +71,6 @@
 		558815B52A3E361600667C1A /* TrackedPathModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558815B22A3E361600667C1A /* TrackedPathModel.swift */; };
 		558815B62A3E361600667C1A /* Friendlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558815B32A3E361600667C1A /* Friendlist.swift */; };
 		558816122A3E3E7700667C1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558816112A3E3E7700667C1A /* AppDelegate.swift */; };
-		558816152A3E426200667C1A /* AWSAPIPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 558816142A3E426200667C1A /* AWSAPIPlugin */; };
-		558816172A3E426200667C1A /* AWSCognitoAuthPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 558816162A3E426200667C1A /* AWSCognitoAuthPlugin */; };
 		558A21702A73DDE300819256 /* GroupListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A216F2A73DDE300819256 /* GroupListItem.swift */; };
 		558A21722A73E15800819256 /* GroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A21712A73E15800819256 /* GroupView.swift */; };
 		55A318552A4625DA00EB0C5E /* FriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A318542A4625DA00EB0C5E /* FriendService.swift */; };
@@ -94,6 +92,10 @@
 		55FF48782A9136D200527F18 /* LayerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF48772A9136D200527F18 /* LayerWidget.swift */; };
 		55FF487C2A9136F800527F18 /* LayerWidgetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */; };
 		B408E83F2B9F978100167246 /* OverlayModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B408E83E2B9F978100167246 /* OverlayModal.swift */; };
+		B42B24FE2BA710250013383D /* AWSCognitoAuthPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = B42B24FD2BA710250013383D /* AWSCognitoAuthPlugin */; };
+		B42B250E2BA710250013383D /* Amplify in Frameworks */ = {isa = PBXBuildFile; productRef = B42B250D2BA710250013383D /* Amplify */; };
+		B42B25122BA730BF0013383D /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42B25112BA730BF0013383D /* Color+Extension.swift */; };
+		B42B25152BA738D20013383D /* FriendRequestRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42B25142BA738D20013383D /* FriendRequestRowView.swift */; };
 		B44B8A9E2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44B8A9D2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift */; };
 		B44B8AA02B826D1400E8F25F /* PowderTrackrNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44B8A9F2B826D1400E8F25F /* PowderTrackrNavigator.swift */; };
 		B45E58A32B95E4BA00BA1561 /* ToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45E58A22B95E4BA00BA1561 /* ToastModifier.swift */; };
@@ -150,7 +152,7 @@
 		5506F7BA2A4724F50000761D /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		5506F7BE2A49E5F10000761D /* LoggedOutModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedOutModal.swift; sourceTree = "<group>"; };
 		55075E942AE9A5FF003D213F /* GPSTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = GPSTestPlan.xctestplan; sourceTree = "<group>"; };
-		55075E962AE9CA26003D213F /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
+		55075E962AE9CA26003D213F /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		550F65E22A532DDD00797B62 /* ConfirmResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmResetPasswordView.swift; sourceTree = "<group>"; };
 		550F65E42A532DF200797B62 /* ConfirmResetPasswordView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConfirmResetPasswordView+ViewModel.swift"; sourceTree = "<group>"; };
 		55102ACC2A7ECAE30033E5E6 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
@@ -231,6 +233,8 @@
 		55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerWidgetButton.swift; sourceTree = "<group>"; };
 		705F020E722E17762F7F9CEC /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		B408E83E2B9F978100167246 /* OverlayModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayModal.swift; sourceTree = "<group>"; };
+		B42B25112BA730BF0013383D /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		B42B25142BA738D20013383D /* FriendRequestRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestRowView.swift; sourceTree = "<group>"; };
 		B44B8A9D2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PowderTrackrView+ViewModel.swift"; sourceTree = "<group>"; };
 		B44B8A9F2B826D1400E8F25F /* PowderTrackrNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrNavigator.swift; sourceTree = "<group>"; };
 		B45E58A22B95E4BA00BA1561 /* ToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModifier.swift; sourceTree = "<group>"; };
@@ -268,10 +272,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B42B24FE2BA710250013383D /* AWSCognitoAuthPlugin in Frameworks */,
+				B42B250E2BA710250013383D /* Amplify in Frameworks */,
 				B4A0BDE92B76537600FF509C /* Pods_PowderTrackr.framework in Frameworks */,
 				55E98BB42A73FB7800634917 /* Chat in Frameworks */,
-				558816152A3E426200667C1A /* AWSAPIPlugin in Frameworks */,
-				558816172A3E426200667C1A /* AWSCognitoAuthPlugin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,7 +320,8 @@
 		55075E952AE9CA1D003D213F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				55075E962AE9CA26003D213F /* DoubleExtension.swift */,
+				55075E962AE9CA26003D213F /* Double+Extension.swift */,
+				B42B25112BA730BF0013383D /* Color+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -487,6 +492,7 @@
 		554587EB2A3E2FDC009A5485 /* FriendRequest */ = {
 			isa = PBXGroup;
 			children = (
+				B42B25132BA738C50013383D /* Components */,
 				554587ED2A3E2FEE009A5485 /* FriendRequestView.swift */,
 				554587EC2A3E2FEE009A5485 /* FriendRequestView+ViewModel.swift */,
 			);
@@ -696,6 +702,14 @@
 			path = OverlayModal;
 			sourceTree = "<group>";
 		};
+		B42B25132BA738C50013383D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B42B25142BA738D20013383D /* FriendRequestRowView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		B443D0C52B265D67004D1E4C /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -767,9 +781,9 @@
 			);
 			name = PowderTrackr;
 			packageProductDependencies = (
-				558816142A3E426200667C1A /* AWSAPIPlugin */,
-				558816162A3E426200667C1A /* AWSCognitoAuthPlugin */,
 				55E98BB32A73FB7800634917 /* Chat */,
+				B42B24FD2BA710250013383D /* AWSCognitoAuthPlugin */,
+				B42B250D2BA710250013383D /* Amplify */,
 			);
 			productName = PowderTrackr;
 			productReference = 554587892A3DF8F1009A5485 /* PowderTrackr.app */;
@@ -800,8 +814,8 @@
 			);
 			mainGroup = 554587802A3DF8F1009A5485;
 			packageReferences = (
-				558816132A3E426200667C1A /* XCRemoteSwiftPackageReference "amplify-swift" */,
 				55E98BB22A73FB7800634917 /* XCRemoteSwiftPackageReference "Chat" */,
+				B42B24F82BA710250013383D /* XCRemoteSwiftPackageReference "amplify-swift" */,
 			);
 			productRefGroup = 5545878A2A3DF8F1009A5485 /* Products */;
 			projectDirPath = "";
@@ -924,6 +938,8 @@
 				5553EB332AC0760B00DFC556 /* RaceCreationState.swift in Sources */,
 				B4F2C01B2B21256900FA8DE1 /* CodableHelper.swift in Sources */,
 				556B616B2A44B08C006B2C68 /* MapService.swift in Sources */,
+				B42B25122BA730BF0013383D /* Color+Extension.swift in Sources */,
+				B42B25152BA738D20013383D /* FriendRequestRowView.swift in Sources */,
 				554587EF2A3E2FEE009A5485 /* FriendRequestView.swift in Sources */,
 				554587C62A3E2A66009A5485 /* ServiceDI.swift in Sources */,
 				B4899C452B7648EA0015BD3F /* Race.swift in Sources */,
@@ -995,7 +1011,7 @@
 				B44B8A9E2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift in Sources */,
 				55E98BAF2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift in Sources */,
 				B4899C442B7648EA0015BD3F /* Message.swift in Sources */,
-				55075E972AE9CA26003D213F /* DoubleExtension.swift in Sources */,
+				55075E972AE9CA26003D213F /* Double+Extension.swift in Sources */,
 				B4F2C0122B2124DF00FA8DE1 /* JSONDataEncoding.swift in Sources */,
 				B4899C412B7648EA0015BD3F /* CurrentPosition.swift in Sources */,
 			);
@@ -1222,14 +1238,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		558816132A3E426200667C1A /* XCRemoteSwiftPackageReference "amplify-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/aws-amplify/amplify-swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
 		55E98BB22A73FB7800634917 /* XCRemoteSwiftPackageReference "Chat" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/exyte/Chat.git";
@@ -1238,23 +1246,31 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		B42B24F82BA710250013383D /* XCRemoteSwiftPackageReference "amplify-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aws-amplify/amplify-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.27.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		558816142A3E426200667C1A /* AWSAPIPlugin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 558816132A3E426200667C1A /* XCRemoteSwiftPackageReference "amplify-swift" */;
-			productName = AWSAPIPlugin;
-		};
-		558816162A3E426200667C1A /* AWSCognitoAuthPlugin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 558816132A3E426200667C1A /* XCRemoteSwiftPackageReference "amplify-swift" */;
-			productName = AWSCognitoAuthPlugin;
-		};
 		55E98BB32A73FB7800634917 /* Chat */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 55E98BB22A73FB7800634917 /* XCRemoteSwiftPackageReference "Chat" */;
 			productName = Chat;
+		};
+		B42B24FD2BA710250013383D /* AWSCognitoAuthPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B42B24F82BA710250013383D /* XCRemoteSwiftPackageReference "amplify-swift" */;
+			productName = AWSCognitoAuthPlugin;
+		};
+		B42B250D2BA710250013383D /* Amplify */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B42B24F82BA710250013383D /* XCRemoteSwiftPackageReference "amplify-swift" */;
+			productName = Amplify;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

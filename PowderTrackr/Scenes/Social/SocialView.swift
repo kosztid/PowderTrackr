@@ -4,23 +4,24 @@ struct SocialView: View {
     @StateObject var viewModel: ViewModel
 
     var body: some View {
-        VStack {
-            HStack {
-                Button {
-                    viewModel.navigateToRequests()
-                } label: {
-                    viewModel.notification ? Image(systemName: "bell.badge.fill") : Image(systemName: "bell.fill")
-                }
-                Spacer()
-                Button {
-                    viewModel.navigateToAddFriend()
-                } label: {
-                    Image(systemName: "plus")
-                }
-            }
-            .padding(.horizontal, 16)
+        VStack(spacing: 0) {
+//            HStack {
+//                Button {
+//                    viewModel.navigateToRequests()
+//                } label: {
+//                    viewModel.notification ? Image(systemName: "bell.badge.fill") : Image(systemName: "bell.fill")
+//                }
+//                Spacer()
+//                Button {
+//                    viewModel.navigateToAddFriend()
+//                } label: {
+//                    Image(systemName: "plus")
+//                }
+//            }
+//            .padding(16)
             segmentedControl
         }
+        .background(Color.grayPrimary)
         .overlay {
             if !viewModel.signedIn {
                 LoggedOutModal {
@@ -35,8 +36,8 @@ struct SocialView: View {
     var segmentedControl: some View {
         SegmentedControl(
             firstTab: .init(tabItem: .init(name: "Friends")) {
-                ZStack {
-                    List {
+                ScrollView {
+                    LazyVStack {
                         ForEach(viewModel.friendList?.friends ?? []) { friend in
                             FriendListItem(
                                 friend: friend,
@@ -44,34 +45,26 @@ struct SocialView: View {
                             ) {
                                 viewModel.updateTracking(id: friend.id)
                             } navigationAction: {
-                                viewModel.navigateToChatWithFriend(friendId: friend.id)
+                                viewModel.navigateToChatWithFriend(friendId: friend.id, friendName: friend.name)
                             }
-                            .swipeActions {
-                                Button(role: .destructive) {
-                                    viewModel.removeFriend(friend: friend)
-                                } label: {
-                                    Text("Delete")
-                                }
-                            }
-                            .listRowSeparator(.hidden)
                         }
                     }
-                    .listStyle(.plain)
                 }
+                .background(Color.grayPrimary)
             },
             secondTab: .init(tabItem: .init(name: "Groups")) {
-                ZStack {
-                    List {
+                ScrollView {
+                    LazyVStack {
                         ForEach(viewModel.groupList, id: \.self) { group in
                             GroupListItem()
                                 .onTapGesture(perform: {
                                     viewModel.navigateToChatGroup(groupId: "group")
                                 })
-                            .listRowSeparator(.hidden)
+                                .listRowSeparator(.hidden)
                         }
                     }
-                    .listStyle(.plain)
                 }
+                .background(Color.grayPrimary)
             }
         )
     }

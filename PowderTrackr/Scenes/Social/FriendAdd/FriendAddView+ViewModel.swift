@@ -15,9 +15,7 @@ extension FriendAddView {
         }
 
         func addFriend() {
-            Task {
-                await service.sendFriendRequest(recipient: email)
-            }
+            service.sendFriendRequest(recipient: email)
             navigator.navigateBack()
         }
     }

@@ -8,7 +8,7 @@ struct FriendAddView: View {
                 .font(.largeTitle)
                 .padding(.vertical, 40)
             TextField(text: $viewModel.email)
-                .regularTextFieldStyle(label: "Email Address")
+                .regularTextFieldStyle(label: "Username")
                 .padding(.bottom, 20)
             Button {
                 viewModel.addFriend()

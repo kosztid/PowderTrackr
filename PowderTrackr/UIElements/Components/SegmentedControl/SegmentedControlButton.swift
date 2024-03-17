@@ -8,19 +8,15 @@ public struct SegmentedControlButton: View {
         Button {
             action()
         } label: {
-            HStack {
-                Text(buttonText)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
-                    .foregroundColor(selected ? Color.white : Color.black)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, 8)
-            .padding(.vertical, 6)
-            .background(
-                RoundedRectangle(cornerRadius: .infinity, style: .continuous)
-                    .fill(selected ? Color.teal : Color.teal.opacity(0.1))
-            )
+            Text(buttonText)
+                .foregroundColor(selected ? .darkSlateGray : .black)
+                .padding(.vertical, 10)
+                .overlay(
+                    Rectangle()
+                        .frame(height: selected ? 2 : 0)
+                        .foregroundColor(.darkSlateGray),
+                    alignment: .bottom
+                )
         }
     }
 

@@ -4,16 +4,16 @@ import SwiftUI
 extension FriendRequestView {
     final class ViewModel: ObservableObject {
         @Published var friendRequests: [FriendRequest] = []
-
+        
         private let service: FriendServiceProtocol
         private var cancellables: Set<AnyCancellable> = []
-
+        
         init(service: FriendServiceProtocol) {
             self.service = service
-
+            
             initFriendRequests()
         }
-
+        
         func initFriendRequests() {
             service.friendRequestsPublisher
                 .sink { _ in
@@ -22,17 +22,18 @@ extension FriendRequestView {
                 }
                 .store(in: &cancellables)
         }
-
-        func addFriend(request: FriendRequest) {
-            Task {
-                await service.addFriend(request: request)
-            }
+        
+        func acceptRequest(_ request: FriendRequest) {
+            friendRequests.removeAll { $0 == request}
+            service.addFriend(request: request)
         }
-
+        
+        // TODO: decline request
+        func declineRequest(_ request: FriendRequest) {
+        }
+        
         func refreshRequests() {
-            Task {
-                await service.queryFriendRequests()
-            }
+            service.queryFriendRequests()
         }
     }
 }

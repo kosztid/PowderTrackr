@@ -98,6 +98,7 @@ struct ProfileView: View {
                     .padding(.vertical, 24)
             }
             .frame(height: 120)
+            .customShadow()
             ScrollView(showsIndicators: false) {
                 VStack(spacing: .zero) {
                     stats

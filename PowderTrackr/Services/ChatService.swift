@@ -147,7 +147,7 @@ extension ChatService: ChatServiceProtocol {
                 if currentChatIndex == -1 { return }
                 
                 for messageDx in .zero..<(data[currentChatIndex].messages.count) {
-                    if data[currentChatIndex].messages[messageDx].sender == recipient {
+                    if data[currentChatIndex].messages[messageDx].sender != self.userID {
                         data[currentChatIndex].messages[messageDx].isSeen = true
                     }
                 }
@@ -158,13 +158,15 @@ extension ChatService: ChatServiceProtocol {
                             id: UUID().uuidString,
                             name: "",
                             avatarURL: nil,
-                            isCurrentUser: self.userID == message.sender),
+                            isCurrentUser: self.userID == message.sender
+                        ),
                         status: message.isSeen ? Chat.Message.Status.read : Chat.Message.Status.sent,
                         createdAt: self.dateFormatter.date(from: message.date) ?? Date(),
                         text: message.text
                     )
                 }
                 self.messages.send(msg)
+                DefaultAPI.personalChatsPut(personalChat: data[currentChatIndex]) { _, _ in }
             }
         }
     }

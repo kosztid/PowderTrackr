@@ -183,12 +183,12 @@ extension Container {
 
     // MARK: - CHAT
     enum Chat {
-        static let view = ParameterFactory { chatId in
-            PowderTrackrChatView(viewModel: viewModel(chatId))
+        static let view = ParameterFactory { inputModel in
+            PowderTrackrChatView(viewModel: viewModel(inputModel))
         }
 
-        static let viewModel = ParameterFactory { chatId in
-            PowderTrackrChatView.ViewModel(chatService: chatService(), chatID: chatId)
+        static let viewModel = ParameterFactory { inputModel in
+            PowderTrackrChatView.ViewModel(chatService: chatService(), model: inputModel)
         }
     }
 

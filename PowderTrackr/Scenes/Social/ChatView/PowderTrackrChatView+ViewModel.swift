@@ -2,10 +2,17 @@ import Chat
 import Combine
 import SwiftUI
 
-extension PowderTrackrChatView {
+public extension PowderTrackrChatView {
+    struct InputModel {
+        let chatId: String
+        let names: [String]
+    }
     final class ViewModel: ObservableObject {
         @Published var messages: [Chat.Message] = []
         @Published var chat: String = ""
+        
+        let model: InputModel
+        let names: [String]
         var timer: Timer?
 
         private let chatService: ChatServiceProtocol
@@ -15,10 +22,12 @@ extension PowderTrackrChatView {
 
         init(
             chatService: ChatServiceProtocol,
-            chatID: String
+            model: InputModel
         ) {
             self.chatService = chatService
-            self.chatID = chatID
+            self.chatID = model.chatId
+            self.names = model.names
+            self.model = model
             initBindings()
             chatService.queryChat(recipient: chatID)
         }

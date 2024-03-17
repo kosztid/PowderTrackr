@@ -92,7 +92,7 @@ extension FriendService: FriendServiceProtocol {
                 print("Error: \(error)")
             } else {
                 let currentFriendRequests = data?.compactMap { item in
-                    if item.recipient == self.userEmail { return item } else { return nil }
+                    if item.recipient == self.userName { return item } else { return nil }
                 }
                 guard let currentFriendRequests else { return }
                 self.friendRequests.send(currentFriendRequests)
@@ -190,7 +190,7 @@ extension FriendService: FriendServiceProtocol {
     public func deleteFriend(friend: Friend)  {
         var friends = self.friendList.value?.friends
         friends?.removeAll { $0.id == friend.id }
-        var friendList = friendList.value
+        let friendList = friendList.value
         friendList?.friends = friends
         guard let data = friendList?.data else { return }
         DefaultAPI.userfriendListsPut(userfriendList: data ) { data, error in

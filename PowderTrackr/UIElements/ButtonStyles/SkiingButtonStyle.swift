@@ -19,18 +19,18 @@ public struct SkiingButtonStyle: ButtonStyle {
 
         var foregroundColor: Color {
             switch self {
-            case .primary: return Color.white
-            case .secondary, .secondaryCompact: return Color.white
-            case .bordered: return Color.teal
-            case .borderedRed: return Color.red
+            case .primary: return Color.softWhite
+            case .secondary, .secondaryCompact: return Color.softWhite
+            case .bordered: return Color.blueSecondary
+            case .borderedRed: return Color.redUtility
             case .imageBordered: return Color.black
             }
         }
 
         var background: Color {
             switch self {
-            case .primary: return Color.blue
-            case .secondary, .secondaryCompact: return Color.teal
+            case .primary: return Color.blueSecondary
+            case .secondary, .secondaryCompact: return Color.cyanSecondary
             case .bordered: return Color.black
             case .borderedRed: return Color.black
             case .imageBordered: return Color.black
@@ -38,11 +38,11 @@ public struct SkiingButtonStyle: ButtonStyle {
         }
 
         var disabledBackground: Color {
-            Color.gray
+            Color.grayPrimary
         }
 
         var disabledForeground: Color {
-            Color.white
+            Color.softWhite
         }
     }
 
@@ -80,6 +80,7 @@ public struct SkiingButtonStyle: ButtonStyle {
                 .foregroundColor(style.foregroundColor)
                 .background(style.background)
                 .cornerRadius(Layout.cornerRadius)
+                .customShadow(style: .light)
         } else {
             configuration.label
                 .font(.subheadline)

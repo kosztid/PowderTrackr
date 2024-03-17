@@ -28,31 +28,29 @@ public struct SegmentedControl<Content1: View, Content2: View>: View {
     private let tabItems: [TabItem]
     private let firstTab: () -> Content1
     private let secondTab: () -> Content2
-
+    
     var tabButtons: some View {
-        VStack {
-            ZStack(alignment: .trailing) {
-                HStack(alignment: .center, spacing: .zero) {
-                    ForEach(Array(tabItems.enumerated()), id: \.element) { index, item in
-                        SegmentedControlButton(selected: index == selected, text: item.name) {
-                            withAnimation {
-                                selected = index
-                            }
-                        }
+        HStack(alignment: .center, spacing: .zero) {
+            ForEach(Array(tabItems.enumerated()), id: \.element) { index, item in
+                SegmentedControlButton(selected: index == selected, text: item.name) {
+                    withAnimation {
+                        selected = index
                     }
                 }
+                if item != tabItems.last {
+                    Spacer()
+                }
             }
-            .background(
-                RoundedRectangle(cornerRadius: .infinity, style: .continuous)
-                    .fill(Color.teal.opacity(0.1))
-            )
         }
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 32)
+        .padding(.bottom, 8)
     }
 
     public var body: some View {
         VStack {
             tabButtons
-                .padding(.horizontal, 16)
+                .padding(.horizontal, 32)
             TabView(selection: $selected) {
                 firstTab()
                     .tag(0)
@@ -62,7 +60,6 @@ public struct SegmentedControl<Content1: View, Content2: View>: View {
             .tabViewStyle(.page(indexDisplayMode: .never))
             .navigationBarHidden(false)
         }
-        .padding(.top, 16)
     }
 
     public init(

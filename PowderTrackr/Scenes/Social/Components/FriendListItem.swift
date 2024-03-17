@@ -9,27 +9,43 @@ public struct FriendListItem: View {
 
     public var body: some View {
         HStack {
-            Text(friend.name)
-                .fontWeight(notification ? .bold : .regular)
-                .onTapGesture {
-                    navigationAction()
-                }
-            Spacer()
-            if notification {
-                Circle()
-                    .foregroundColor(.red)
-                    .frame(width: 12, height: 12)
-                    .padding(.horizontal, 8)
+            VStack(alignment: .leading, spacing: 4) {
+                Text(friend.name)
+                    .font(.system(size: 18, weight: .medium, design: .default))
+                    .foregroundColor(.primary)
+                Text(lastMessageDescription)
+                    .font(.subheadline)
+                    .foregroundColor(notification ? .blueSecondary : .warmGray)
             }
+            .padding(.leading, 10)
+
+            Spacer()
+
             Toggle(isOn: $isTracking) {
             }
-            .frame(width: 40)
-
+            .toggleStyle(SwitchToggleStyle(tint: .blueSecondary))
+            .labelsHidden()
+            .padding(.trailing, 8)
         }
-        .onChange(of: isTracking) { _ in
+        .onChange(of: isTracking) {
             action()
         }
-        .padding(.horizontal, 20)
+        .frame(height: 60)
+        .background(Color.softWhite)
+        .cornerRadius(12)
+        .customShadow(style: .light)
+        .onTapGesture {
+            navigationAction()
+        }
+        .padding(.horizontal, 16)
+    }
+    
+    var lastMessageDescription: String {
+        if notification {
+            return "chatItem.lastMessage"
+        } else {
+            return "You: ".appending("Ez az utolsó üzenet")
+        }
     }
 
     public init(

@@ -128,11 +128,11 @@ struct LayerWidget: View {
                 }
             }
             LayerWidgetButton(isOpen: $isOpen)
-                .background(.teal)
+                .background(Color.cyanSecondary)
                 .cornerRadius(16)
+                .customShadow(style: .light)
                 .matchedGeometryEffect(id: Layout.buttonGeometry, in: animation)
         }
-        .background(background)
         .padding()
     }
 
@@ -150,9 +150,9 @@ struct LayerWidget: View {
 
     var background: some View {
         RoundedRectangle(cornerRadius: 16)
-            .foregroundColor(isOpen ? .clear : .teal)
+            .foregroundColor(isOpen ? .clear : .cyanSecondary)
             .cornerRadius(16)
-            .shadow(radius: 4, x: .zero, y: 4)
+            .customShadow(style: .light)
             .matchedGeometryEffect(id: Layout.stackGeometry, in: animation)
     }
 }
