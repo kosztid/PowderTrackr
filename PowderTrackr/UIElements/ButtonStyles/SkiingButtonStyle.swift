@@ -119,10 +119,13 @@ public struct SkiingButtonStyle: ButtonStyle {
             .foregroundColor(style.foregroundColor)
             .padding(.vertical, 10)
             .padding(.horizontal, Layout.paddingWidth)
+            .background(Color.softWhite)
+            .cornerRadius(Layout.cornerRadius)
             .overlay(
                 RoundedRectangle(cornerRadius: Layout.cornerRadius)
                     .stroke(style.foregroundColor, lineWidth: Layout.stroke)
             )
+            .customShadow(style: .light)
     }
 
     @ViewBuilder
