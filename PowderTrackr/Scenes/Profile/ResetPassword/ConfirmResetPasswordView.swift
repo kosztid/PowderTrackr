@@ -6,7 +6,8 @@ struct ConfirmResetPasswordView: View {
     var body: some View {
         VStack(spacing: .zero) {
             ZStack {
-                Color.teal
+                Color.bluePrimary
+                    .cornerRadius(16, corners: [.bottomLeft, .bottomRight])
                     .ignoresSafeArea()
                 VStack(spacing: .zero) {
                     Text("Welcome to Skiing")
@@ -19,7 +20,7 @@ struct ConfirmResetPasswordView: View {
                 }
                 .foregroundColor(.white)
             }
-            .frame(height: 200)
+            .frame(height: 160)
             ScrollView(showsIndicators: false) {
                 VStack(spacing: .zero) {
                     Text("Please enter the verification code from the password reset email to reset password for user: \(viewModel.username)")
@@ -46,7 +47,9 @@ struct ConfirmResetPasswordView: View {
                     )
                     .buttonStyle(SkiingButtonStyle(style: .secondary))
                 }
-                .padding(.horizontal, 32)
+                .floatingRoundedCardBackground()
+                .padding(.vertical, 16)
+                .padding(.horizontal, 8)
             }
             .navigationBarBackButtonHidden(true)
         }

@@ -5,7 +5,7 @@ struct PowderTrackrView: View {
     @StateObject var viewModel: ViewModel
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HStack {
                 Text("PowderTrackr")
                     .bold()
@@ -20,6 +20,7 @@ struct PowderTrackrView: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 4)
+            .background(Color.grayPrimary)
             ViewFactory.tabBarView(viewModel.accountButtonTap)
         }
     }

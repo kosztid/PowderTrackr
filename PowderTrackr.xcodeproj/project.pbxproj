@@ -111,6 +111,9 @@
 		B4899C462B7648EA0015BD3F /* UserTrackedPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4899C3B2B7648EA0015BD3F /* UserTrackedPaths.swift */; };
 		B4899C472B7648EA0015BD3F /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4899C3C2B7648EA0015BD3F /* Friend.swift */; };
 		B4899C482B7648EA0015BD3F /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4899C3D2B7648EA0015BD3F /* FriendRequest.swift */; };
+		B48E6ED82BADF9C100B98298 /* FloatingRoundedCardBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48E6ED72BADF9C100B98298 /* FloatingRoundedCardBackground.swift */; };
+		B48E6EDB2BB04CB900B98298 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48E6EDA2BB04CB900B98298 /* HeaderView.swift */; };
+		B48E6EDE2BB04D4400B98298 /* HeaderView+Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48E6EDD2BB04D4400B98298 /* HeaderView+Modifier.swift */; };
 		B4A0BDE92B76537600FF509C /* Pods_PowderTrackr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E251DFC276D77AEF0A316FA /* Pods_PowderTrackr.framework */; };
 		B4A0BDEA2B76537600FF509C /* Pods_PowderTrackr.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1E251DFC276D77AEF0A316FA /* Pods_PowderTrackr.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B4F2C0092B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2BFFB2B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift */; };
@@ -250,6 +253,9 @@
 		B4899C3B2B7648EA0015BD3F /* UserTrackedPaths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTrackedPaths.swift; sourceTree = "<group>"; };
 		B4899C3C2B7648EA0015BD3F /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		B4899C3D2B7648EA0015BD3F /* FriendRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
+		B48E6ED72BADF9C100B98298 /* FloatingRoundedCardBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingRoundedCardBackground.swift; sourceTree = "<group>"; };
+		B48E6EDA2BB04CB900B98298 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		B48E6EDD2BB04D4400B98298 /* HeaderView+Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HeaderView+Modifier.swift"; sourceTree = "<group>"; };
 		B4F2BFFB2B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenISO8601DateFormatter.swift; sourceTree = "<group>"; };
 		B4F2BFFC2B2124DF00FA8DE1 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B4F2BFFD2B2124DF00FA8DE1 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -548,6 +554,7 @@
 		5545880B2A3E30D8009A5485 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				B48E6ED92BB04C8000B98298 /* Header */,
 				55FF48792A9136E600527F18 /* LayerWidgetButton */,
 				55FF48762A9136C100527F18 /* LayerWidget */,
 				5506F7BC2A49E57F0000761D /* LoggedOut */,
@@ -636,6 +643,8 @@
 		55B459452AC9B7F3007B3775 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				B48E6EDC2BB04D2D00B98298 /* HeaderModifier */,
+				B48E6ED62BADF9A200B98298 /* FloatingRoundedCardBackground */,
 				B408E83D2B9F976400167246 /* OverlayModal */,
 				B45E58A42B95E53900BA1561 /* Toast */,
 				55B459462AC9B7FB007B3775 /* ShadowModifier.swift */,
@@ -730,6 +739,30 @@
 				B45E58A52B95E54300BA1561 /* ToastModel.swift */,
 			);
 			path = Toast;
+			sourceTree = "<group>";
+		};
+		B48E6ED62BADF9A200B98298 /* FloatingRoundedCardBackground */ = {
+			isa = PBXGroup;
+			children = (
+				B48E6ED72BADF9C100B98298 /* FloatingRoundedCardBackground.swift */,
+			);
+			path = FloatingRoundedCardBackground;
+			sourceTree = "<group>";
+		};
+		B48E6ED92BB04C8000B98298 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				B48E6EDA2BB04CB900B98298 /* HeaderView.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		B48E6EDC2BB04D2D00B98298 /* HeaderModifier */ = {
+			isa = PBXGroup;
+			children = (
+				B48E6EDD2BB04D4400B98298 /* HeaderView+Modifier.swift */,
+			);
+			path = HeaderModifier;
 			sourceTree = "<group>";
 		};
 		B4F2BFF92B2124B500FA8DE1 /* API */ = {
@@ -907,6 +940,7 @@
 				5545878F2A3DF8F1009A5485 /* PowderTrackrView.swift in Sources */,
 				558815B52A3E361600667C1A /* TrackedPathModel.swift in Sources */,
 				55DE1DC22A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift in Sources */,
+				B48E6ED82BADF9C100B98298 /* FloatingRoundedCardBackground.swift in Sources */,
 				554587A62A3E293F009A5485 /* GoogleMapsView.swift in Sources */,
 				554588082A3E30B9009A5485 /* LoginView+ViewModel.swift in Sources */,
 				554587F82A3E3056009A5485 /* ProfileNavigator.swift in Sources */,
@@ -998,6 +1032,7 @@
 				554587EE2A3E2FEE009A5485 /* FriendRequestView+ViewModel.swift in Sources */,
 				554587E12A3E2FAC009A5485 /* SocialNavigator.swift in Sources */,
 				B4F2C01C2B21256900FA8DE1 /* APIHelper.swift in Sources */,
+				B48E6EDE2BB04D4400B98298 /* HeaderView+Modifier.swift in Sources */,
 				556EDE622AB5BF4900B7EA5D /* LeaderBoardView.swift in Sources */,
 				554588042A3E3071009A5485 /* RegisterView.swift in Sources */,
 				55E402FC2ACB2FF500AE8043 /* MyRunsView+ViewModel.swift in Sources */,
@@ -1014,6 +1049,7 @@
 				55075E972AE9CA26003D213F /* Double+Extension.swift in Sources */,
 				B4F2C0122B2124DF00FA8DE1 /* JSONDataEncoding.swift in Sources */,
 				B4899C412B7648EA0015BD3F /* CurrentPosition.swift in Sources */,
+				B48E6EDB2BB04CB900B98298 /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

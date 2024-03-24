@@ -38,23 +38,6 @@ struct ProfileView: View {
         
     }
     var loggedOutView: some View {
-        VStack(spacing: .zero) {
-            ZStack {
-                Color.teal
-                    .ignoresSafeArea()
-                VStack(spacing: .zero) {
-                    Text("Welcome to PowderTrackr")
-                        .font(.largeTitle)
-                        .bold()
-                        .padding(.bottom, 16)
-                    Text("To track your snowy adventures")
-                        .font(.title3)
-                        .bold()
-                }
-                .foregroundColor(.white)
-            }
-            .frame(height: 200)
-            .customShadow()
             ScrollView(showsIndicators: false) {
                 VStack(spacing: .zero) {
                     Text("Select an option to continue")
@@ -84,55 +67,48 @@ struct ProfileView: View {
                         .foregroundColor(.gray)
                 }
             }
-        }
+            .headerView(
+                title: "Welcome to PowderTrackr",
+                description: "To track your snowy adventures"
+            )
     }
+    
     var loggedInView: some View {
-        VStack(spacing: .zero) {
-            ZStack {
-                Color.teal
-                    .ignoresSafeArea()
-                Text("Profile")
-                    .bold()
-                    .font(.largeTitle)
-                    .foregroundColor(.white)
-                    .padding(.vertical, 24)
-            }
-            .frame(height: 120)
-            .customShadow()
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: .zero) {
-                    stats
-                    Divider()
-                        .padding(.vertical, 8)
-                    userData
-                    Divider()
-                        .padding(.vertical, 8)
-                    HStack {
-                        Button {
-                            viewModel.updatePasswordTap()
-                        } label: {
-                            Text("Update password")
-                        }
-                        .buttonStyle(SkiingButtonStyle(style: .bordered))
-                        Spacer()
-                        Button {
-                            viewModel.logout()
-                        } label: {
-                            Text("Logout")
-                        }
-                        .buttonStyle(SkiingButtonStyle(style: .secondary))
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 16) {
+                stats
+                    .floatingRoundedCardBackground()
+                userData
+                    .floatingRoundedCardBackground()
+                HStack {
+                    Button {
+                        viewModel.updatePasswordTap()
+                    } label: {
+                        Text("Update password")
                     }
+                    .buttonStyle(SkiingButtonStyle(style: .bordered))
+                    Spacer()
+                    Button {
+                        viewModel.logout()
+                    } label: {
+                        Text("Logout")
+                    }
+                    .buttonStyle(SkiingButtonStyle(style: .primary))
                 }
                 .padding(.horizontal, 8)
             }
+            .padding(8)
         }
+        .background(Color.grayPrimary)
+        .headerView(
+            title: "Profile"
+        )
     }
 
     var userData: some View {
-        VStack(spacing: .zero) {
+        VStack(spacing: 16) {
             Text("You")
                 .bold()
-                .padding(.vertical, 16)
                 .font(.title)
             VStack(alignment: .leading, spacing: .zero) {
                 Text("Email address")
@@ -150,23 +126,20 @@ struct ProfileView: View {
     }
 
     var stats: some View {
-        VStack(spacing: .zero) {
+        VStack(spacing: 16) {
             Text("Stats")
                 .bold()
-                .padding(.vertical, 16)
                 .font(.title)
             HStack {
                 Text("Total distance on snow:")
                 Spacer()
                 Text("\(viewModel.totalDistance / 1_000.0, specifier: "%.2f") km")
             }
-            .padding(.vertical, 8)
             HStack {
                 Text("Total time on snow:")
                 Spacer()
                 Text("\(viewModel.totalTime)")
             }
-            .padding(.vertical, 8)
         }
     }
 }
