@@ -17,7 +17,6 @@ public struct FriendListItem: View {
                     .font(.subheadline)
                     .foregroundColor(notification ? .blueSecondary : .warmGray)
             }
-            .padding(.leading, 10)
 
             Spacer()
 
@@ -25,19 +24,15 @@ public struct FriendListItem: View {
             }
             .toggleStyle(SwitchToggleStyle(tint: .blueSecondary))
             .labelsHidden()
-            .padding(.trailing, 8)
         }
         .onChange(of: isTracking) {
             action()
         }
-        .frame(height: 60)
-        .background(Color.softWhite)
-        .cornerRadius(12)
-        .customShadow(style: .light)
         .onTapGesture {
             navigationAction()
         }
-        .padding(.horizontal, 16)
+        .frame(height: 60)
+        .floatingRoundedCardBackground()
     }
     
     var lastMessageDescription: String {
