@@ -1,0 +1,22 @@
+name: Build Project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        
+    - name: Set up Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: 'latest'
+    
+    - name: Build Project
+      run: xcodebuild -scheme PowderTrackr -sdk iphoneos -configuration Release build
