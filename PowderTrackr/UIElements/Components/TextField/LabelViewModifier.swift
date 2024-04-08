@@ -9,6 +9,7 @@ private struct LabelViewModifier: ViewModifier {
         VStack(alignment: .leading, spacing: 4) {
             if let text {
                 Text(text)
+                    .textStyle(.body)
                     .foregroundColor(isEnabled ? .darkSlateGray : .gray)
             }
             content

@@ -7,13 +7,12 @@ struct HeaderView: View {
     var body: some View {
         ZStack {
             Color.bluePrimary
-                .cornerRadius(16, corners: [.bottomLeft, .bottomRight])
+                .cornerRadius(.su16, corners: [.bottomLeft, .bottomRight])
                 .ignoresSafeArea()
             VStack(alignment: .center, spacing: .zero) {
                 Text(title)
-                    .font(.largeTitle)
-                    .bold()
-                    .padding(.bottom, 16)
+                    .textStyle(.h4)
+                    .padding(.bottom, .su16)
                 if let description = description {
                     Text(description)
                         .font(.title3)

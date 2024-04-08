@@ -41,29 +41,28 @@ struct ProfileView: View {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: .zero) {
                     Text("Select an option to continue")
+                        .textStyle(.body)
                         .foregroundColor(.gray)
-                        .padding(.vertical, 32)
+                        .padding(.vertical, .su32)
                     Button {
                         viewModel.login()
                     } label: {
                         Text("Login")
-                            .font(.title3)
                             .frame(width: UIScreen.main.bounds.width * 0.6)
                     }
                     .buttonStyle(SkiingButtonStyle())
-                    .padding(.bottom, 16)
+                    .padding(.bottom, .su16)
                     Button {
                         viewModel.register()
                     } label: {
                         Text("Register")
-                            .font(.title3)
                             .frame(width: UIScreen.main.bounds.width * 0.6)
                     }
                     .buttonStyle(SkiingButtonStyle())
-                    .padding(.bottom, 16)
+                    .padding(.bottom, .su16)
                     Text("Please login or create an account to continue")
-                        .padding(.bottom, 16)
-                        .font(.caption)
+                        .textStyle(.body)
+                        .padding(.bottom, .su16)
                         .foregroundColor(.gray)
                 }
             }
@@ -75,29 +74,25 @@ struct ProfileView: View {
     
     var loggedInView: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: 16) {
+            VStack(spacing: .su16) {
                 stats
                     .floatingRoundedCardBackground()
                 userData
                     .floatingRoundedCardBackground()
                 HStack {
-                    Button {
+                    Button("Update password") {
                         viewModel.updatePasswordTap()
-                    } label: {
-                        Text("Update password")
                     }
                     .buttonStyle(SkiingButtonStyle(style: .bordered))
                     Spacer()
-                    Button {
+                    Button("Logout") {
                         viewModel.logout()
-                    } label: {
-                        Text("Logout")
                     }
                     .buttonStyle(SkiingButtonStyle(style: .primary))
                 }
-                .padding(.horizontal, 8)
+                .padding(.horizontal, .su8)
             }
-            .padding(8)
+            .padding(.su8)
         }
         .background(Color.grayPrimary)
         .headerView(

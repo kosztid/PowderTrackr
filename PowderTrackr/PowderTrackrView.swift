@@ -8,7 +8,7 @@ struct PowderTrackrView: View {
         VStack(spacing: 0) {
             HStack {
                 Text("PowderTrackr")
-                    .bold()
+                    .textStyle(.bodyLargeBold)
                 Spacer()
                 Button {
                     viewModel.accountButtonTap()

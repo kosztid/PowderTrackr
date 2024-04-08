@@ -22,10 +22,11 @@ struct LoginView: View {
     }
     
     var loginCredentials: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: .su16) {
             Text("Please enter your credentials")
+                .textStyle(.body)
                 .foregroundColor(.blueSecondary)
-                .padding(.top, 16)
+                .padding(.top, .su16)
             TextField(text: $viewModel.userName)
                 .regularTextFieldStyle(label: "Username")
             ToggleableSecureField(text: $viewModel.password)
@@ -35,26 +36,20 @@ struct LoginView: View {
                     viewModel.resetPassword()
                 } label: {
                     Text("Forgotten Password")
-                        .font(.caption)
+                        .textStyle(.bodySmall)
                 }
-                .padding(.leading, 12)
+                .padding(.leading, .su12)
                 Spacer()
             }
             errorBanner
-            Button(
-                action: {
-                    viewModel.login()
-                },
-                label: {
-                    Text("Login")
-                        .font(.title3)
-                }
-            )
+            Button("Login") {
+                viewModel.login()
+            }
             .buttonStyle(SkiingButtonStyle(style: .secondary))
         }
         .floatingRoundedCardBackground()
-        .padding(.vertical, 16)
-        .padding(.horizontal, 8)
+        .padding(.vertical, .su16)
+        .padding(.horizontal, .su8)
     }
     
     @ViewBuilder var errorBanner: some View {

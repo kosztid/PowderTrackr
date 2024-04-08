@@ -7,25 +7,20 @@ struct ResetPasswordView: View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: .zero) {
                 Text("Please type in your username to reset your password.")
+                    .textStyle(.body)
                     .foregroundColor(.gray)
-                    .padding(.vertical, 32)
+                    .padding(.vertical, .su32)
                 TextField(text: $viewModel.username)
                     .regularTextFieldStyle(label: "Username")
-                    .padding(.bottom, 16)
-                Button(
-                    action: {
-                        viewModel.reset()
-                    },
-                    label: {
-                        Text("Reset")
-                            .font(.title3)
-                    }
-                )
+                    .padding(.bottom, .su16)
+                Button("Reset") {
+                    viewModel.reset()
+                }
                 .buttonStyle(SkiingButtonStyle(style: .secondary))
             }
             .floatingRoundedCardBackground()
-            .padding(.vertical, 16)
-            .padding(.horizontal, 8)
+            .padding(.vertical, .su16)
+            .padding(.horizontal, .su8)
         }
         .headerView(title: "Welcome to PowderTrackr", description: "Password Reset")
         .background(Color.grayPrimary)

@@ -73,8 +73,7 @@ public struct SkiingButtonStyle: ButtonStyle {
     private func plainStyle(_ configuration: Configuration) -> some View {
         if isEnabled {
             configuration.label
-                .font(.subheadline)
-                .bold()
+                .textStyle(.bodyLargeBold)
                 .padding([.leading, .trailing], Layout.paddingWidth)
                 .frame(minHeight: Layout.frameHeight)
                 .foregroundColor(style.foregroundColor)
@@ -83,8 +82,7 @@ public struct SkiingButtonStyle: ButtonStyle {
                 .customShadow(style: .light)
         } else {
             configuration.label
-                .font(.subheadline)
-                .bold()
+                .textStyle(.bodyLargeBold)
                 .padding([.leading, .trailing], Layout.paddingWidth)
                 .frame(minHeight: Layout.frameHeight)
                 .foregroundColor(style.disabledForeground)
@@ -97,14 +95,14 @@ public struct SkiingButtonStyle: ButtonStyle {
     private func plainCompactStyle(_ configuration: Configuration) -> some View {
         if isEnabled {
             configuration.label
-                .font(.subheadline)
+                .textStyle(.bodyLarge)
                 .padding([.leading, .trailing], Layout.compactPaddingWidth)
                 .foregroundColor(style.foregroundColor)
                 .background(style.background)
                 .cornerRadius(Layout.cornerRadius)
         } else {
             configuration.label
-                .font(.subheadline)
+                .textStyle(.bodyLarge)
                 .padding([.leading, .trailing], Layout.compactPaddingWidth)
                 .foregroundColor(style.disabledForeground)
                 .background(style.disabledBackground)
@@ -115,7 +113,7 @@ public struct SkiingButtonStyle: ButtonStyle {
     @ViewBuilder
     private func borderedStyle(_ configuration: Configuration) -> some View {
         configuration.label
-            .font(.subheadline)
+            .textStyle(.bodyLarge)
             .foregroundColor(style.foregroundColor)
             .padding(.vertical, 10)
             .padding(.horizontal, Layout.paddingWidth)

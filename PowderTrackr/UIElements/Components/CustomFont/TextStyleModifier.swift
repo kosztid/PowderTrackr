@@ -104,18 +104,3 @@ public extension ButtonStyleConfiguration.Label {
         modifier(TextStyleModifier(textStyle: textStyle))
     }
 }
-
-// sourcery: Showcase
-// sourcery:showcase: verticals = "Text("H1 text").textStyle(.h1)"
-// sourcery:showcase: verticals = "Text("H2 text").textStyle(.h2)"
-// sourcery:showcase: verticals = "Text("H3 text").textStyle(.h3)"
-// sourcery:showcase: verticals = "Text("H4 text").textStyle(.h4)"
-// sourcery:showcase: verticals = "Text("H5 text").textStyle(.h5)"
-// sourcery:showcase: verticals = "Text("Body text").textStyle(.body)"
-// sourcery:showcase: verticals = "Text("Body Bold text").textStyle(.bodyBold)"
-// sourcery:showcase: verticals = "Text("Body Small text").textStyle(.bodySmall)"
-// sourcery:showcase: verticals = "Text("Body SmallBold text").textStyle(.bodySmallBold)"
-// sourcery:showcase: verticals = "Text("Body Large text").textStyle(.bodyLarge)"
-// sourcery:showcase: verticals = "Text("Body Large Light text").textStyle(.bodyLargeLight)"
-// sourcery:showcase: verticals = "Text("Body Large Bold text").textStyle(.bodyLargeBold)"
-extension TextStyleModifier {}

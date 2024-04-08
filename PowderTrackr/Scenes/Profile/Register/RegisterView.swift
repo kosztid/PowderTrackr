@@ -5,30 +5,25 @@ struct RegisterView: View {
 
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: 16) {
+            VStack(spacing: .su16) {
                 Text("Please fill the fields to create an account")
+                    .textStyle(.body)
                     .foregroundColor(.blueSecondary)
-                    .padding(.top, 16)
+                    .padding(.top, .su16)
                 TextField(text: $viewModel.userName)
                     .regularTextFieldStyle(label: "Username")
                 TextField(text: $viewModel.email)
                     .regularTextFieldStyle(label: "Email")
                 ToggleableSecureField(text: $viewModel.password)
                     .regularTextFieldStyle(label: "Password")
-                Button(
-                    action: {
-                        viewModel.register()
-                    },
-                    label: {
-                        Text("Register")
-                            .font(.title3)
-                    }
-                )
+                Button("Register") {
+                    viewModel.register()
+                }
                 .buttonStyle(SkiingButtonStyle(style: .secondary))
             }
             .floatingRoundedCardBackground()
-            .padding(.vertical, 16)
-            .padding(.horizontal, 8)
+            .padding(.vertical, .su16)
+            .padding(.horizontal, .su8)
         }
         .headerView(title: "Welcome to PowderTrackr", description: "Register")
         .background(Color.grayPrimary)

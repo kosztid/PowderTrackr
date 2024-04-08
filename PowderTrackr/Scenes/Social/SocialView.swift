@@ -25,26 +25,28 @@ struct SocialView: View {
         .background(Color.grayPrimary)
         .overlay {
             VStack {
-                Spacer()
                 if !viewModel.signedIn {
                     LoggedOutModal {
                         viewModel.inputModel.navigateToAccount()
                     }
-                }
-                Spacer()
-                HStack {
+                } else {
                     Spacer()
-                    Button {
-                        viewModel.navigateToAddFriend()
-                    } label: {
-                        Image(systemName: "plus")
-                            .padding(.vertical, .su24)
+                    HStack {
+                        Spacer()
+                        Button {
+                            viewModel.navigateToAddFriend()
+                        } label: {
+                            Image(systemName: "plus")
+                                .resizable()
+                                .frame(width: .su16, height: .su16)
+                                .padding(.vertical, .su24)
+                        }
+                        .buttonStyle(SkiingButtonStyle(style: .secondary))
+                        .cornerRadius(.su32)
+                        .customShadow()
                     }
-                    .buttonStyle(SkiingButtonStyle(style: .secondary))
-                    .cornerRadius(.su32)
-                    .customShadow()
+                    .padding()
                 }
-                .padding()
             }
             
         }
@@ -89,7 +91,7 @@ struct SocialView: View {
     }
     
     @ViewBuilder var notificationSection: some View {
-        if true {
+        if viewModel.notification {
             InfoCardView(
                 model: .init(
                     message: "You have a new friendrequest(s)",

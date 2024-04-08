@@ -7,28 +7,23 @@ struct ChangePasswordView: View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: .zero) {
                 Text("Please type in your old and new password to change it.")
+                    .textStyle(.body)
                     .foregroundColor(.gray)
-                    .padding(.vertical, 32)
+                    .padding(.vertical, .su32)
                 ToggleableSecureField(text: $viewModel.oldPassword)
                     .regularTextFieldStyle(label: "Old Password")
-                    .padding(.bottom, 8)
+                    .padding(.bottom, .su8)
                 ToggleableSecureField(text: $viewModel.newPassword)
                     .regularTextFieldStyle(label: "New Password")
-                    .padding(.bottom, 16)
-                Button(
-                    action: {
-                        viewModel.changeButtonTap()
-                    },
-                    label: {
-                        Text("Update")
-                            .font(.title3)
-                    }
-                )
+                    .padding(.bottom, .su16)
+                Button("Update") {
+                    viewModel.changeButtonTap()
+                }
                 .buttonStyle(SkiingButtonStyle(style: .secondary))
             }
             .floatingRoundedCardBackground()
-            .padding(.vertical, 16)
-            .padding(.horizontal, 8)
+            .padding(.vertical, .su16)
+            .padding(.horizontal, .su8)
         }
         
         .headerView(title: "Welcome to PowderTrackr", description: "Update Password")
