@@ -9,6 +9,7 @@ public struct SegmentedControlButton: View {
             action()
         } label: {
             Text(buttonText)
+                .textStyle(.bodyBold)
                 .foregroundColor(selected ? .darkSlateGray : .black)
                 .padding(.vertical, 10)
                 .overlay(

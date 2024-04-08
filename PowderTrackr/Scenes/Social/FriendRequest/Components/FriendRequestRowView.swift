@@ -8,7 +8,7 @@ struct FriendRequestRowView: View {
     var body: some View {
         HStack {
             Text(requester)
-                .font(.system(size: 18, weight: .medium, design: .default))
+                .textStyle(.body)
                 .foregroundColor(Color.primary)
                 .padding(.leading, 10)
             
@@ -21,7 +21,7 @@ struct FriendRequestRowView: View {
                     .background(LinearGradient(gradient: Gradient(colors: [Color.cyanPrimary.opacity(0.8), Color.cyanPrimary]), startPoint: .leading, endPoint: .trailing))
                     .clipShape(Circle())
             }
-            .padding(.trailing, 5)
+            .padding(.trailing, .su4)
             
             Button(action: declineAction) {
                 Image(systemName: "xmark")
@@ -30,12 +30,12 @@ struct FriendRequestRowView: View {
                     .background(LinearGradient(gradient: Gradient(colors: [Color.redUtility.opacity(0.8), Color.redUtility]), startPoint: .leading, endPoint: .trailing))
                     .clipShape(Circle())
             }
-            .padding(.trailing, 10)
+            .padding(.trailing, .su10)
         }
-        .frame(height: 60)
+        .frame(height: .su64)
         .background(Color.softWhite)
-        .cornerRadius(8)
-        .padding([.top, .horizontal], 10)
+        .cornerRadius(.su8)
+        .padding([.top, .horizontal], .su10)
         .customShadow(style: .light)
     }
 }

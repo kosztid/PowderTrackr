@@ -123,8 +123,10 @@ public struct InfoCardView: View {
                 VStack(alignment: .leading, spacing: .su16) {
                     VStack(alignment: .leading, spacing: .su4) {
                         Text(message)
+                            .textStyle(.bodyBold)
                         if let subMessage {
                             Text(subMessage)
+                                .textStyle(.body)
                         }
                     }
                     .accessibilityElement(children: .ignore)

@@ -9,12 +9,12 @@ public struct FriendListItem: View {
 
     public var body: some View {
         HStack {
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: .su4) {
                 Text(friend.name)
-                    .font(.system(size: 18, weight: .medium, design: .default))
+                    .textStyle(.bodyLargeBold)
                     .foregroundColor(.primary)
                 Text(lastMessageDescription)
-                    .font(.subheadline)
+                    .textStyle(.body)
                     .foregroundColor(notification ? .blueSecondary : .warmGray)
             }
 
@@ -31,7 +31,7 @@ public struct FriendListItem: View {
         .onTapGesture {
             navigationAction()
         }
-        .frame(height: 60)
+        .frame(height: .su64)
         .floatingRoundedCardBackground()
     }
     

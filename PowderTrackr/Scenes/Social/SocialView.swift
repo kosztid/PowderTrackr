@@ -35,7 +35,7 @@ struct SocialView: View {
                 HStack {
                     Spacer()
                     Button {
-                        print("add")
+                        viewModel.navigateToAddFriend()
                     } label: {
                         Image(systemName: "plus")
                             .padding(.vertical, .su24)

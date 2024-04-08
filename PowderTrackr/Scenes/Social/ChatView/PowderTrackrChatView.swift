@@ -18,19 +18,19 @@ public struct PowderTrackrChatView: View {
                                 actionClosure(.send)
                             } label: {
                                 Image(systemName: "paperplane")
-                                    .frame(width: 48, height: 48)
+                                    .frame(width: .su48, height: .su48)
                                     .foregroundColor(.gray)
                             }
                         }
                     }
-                    .padding(.leading, 16)
+                    .padding(.leading, .su16)
                     .background(.white)
-                    .cornerRadius(16, corners: [.topLeft, .topRight])
+                    .cornerRadius(.su16, corners: [.topLeft, .topRight])
                     .shadow(
                         color: .gray.opacity(0.2),
-                        radius: 4,
-                        x: 0,
-                        y: -4
+                        radius: .su4,
+                        x: .zero,
+                        y: -.su4
                     )
                 case .signature:
                     HStack {
@@ -40,19 +40,19 @@ public struct PowderTrackrChatView: View {
                                 actionClosure(.send)
                             } label: {
                                 Image(systemName: "paperplane")
-                                    .frame(width: 48, height: 48)
+                                    .frame(width: .su48, height: .su48)
                                     .foregroundColor(.gray)
                             }
                         }
                     }
-                    .padding(.leading, 16)
+                    .padding(.leading, .su16)
                     .background(.white)
-                    .cornerRadius(16, corners: [.topLeft, .topRight])
+                    .cornerRadius(.su16, corners: [.topLeft, .topRight])
                     .shadow(
                         color: .gray.opacity(0.2),
-                        radius: 4,
-                        x: 0,
-                        y: -4
+                        radius: .su4,
+                        x: .zero,
+                        y: -.su4
                     )
                 }
             }

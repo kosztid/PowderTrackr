@@ -6,10 +6,10 @@ struct FriendAddView: View {
         VStack {
             Text("Add a friend to ski with")
                 .font(.largeTitle)
-                .padding(.vertical, 40)
+                .padding(.vertical, .su40)
             TextField(text: $viewModel.email)
                 .regularTextFieldStyle(label: "Username")
-                .padding(.bottom, 20)
+                .padding(.bottom, .su20)
             Button {
                 viewModel.addFriend()
             } label: {
@@ -18,6 +18,6 @@ struct FriendAddView: View {
             .buttonStyle(SkiingButtonStyle())
             Spacer()
         }
-        .padding(.horizontal, 32)
+        .padding(.horizontal, .su32)
     }
 }

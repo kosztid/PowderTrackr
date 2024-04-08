@@ -10,7 +10,7 @@ struct GroupListItem: View {
             Text("(12)")
                 .foregroundColor(.gray.opacity(0.8))
         }
-        .padding(16)
+        .padding(.su16)
     }
 }
 
