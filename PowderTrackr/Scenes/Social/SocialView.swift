@@ -2,32 +2,51 @@ import SwiftUI
 
 struct SocialView: View {
     @StateObject var viewModel: ViewModel
-
+    
     var body: some View {
-        VStack(spacing: 0) {
-//            HStack {
-//                Button {
-//                    viewModel.navigateToRequests()
-//                } label: {
-//                    viewModel.notification ? Image(systemName: "bell.badge.fill") : Image(systemName: "bell.fill")
-//                }
-//                Spacer()
-//                Button {
-//                    viewModel.navigateToAddFriend()
-//                } label: {
-//                    Image(systemName: "plus")
-//                }
-//            }
-//            .padding(16)
+        VStack(spacing: .zero) {
+            notificationSection
+            //            HStack {
+            //                Button {
+            //                    viewModel.navigateToRequests()
+            //                } label: {
+            //                    viewModel.notification ? Image(systemName: "bell.badge.fill") : Image(systemName: "bell.fill")
+            //                }
+            //                Spacer()
+            //                Button {
+            //                    viewModel.navigateToAddFriend()
+            //                } label: {
+            //                    Image(systemName: "plus")
+            //                }
+            //            }
+            //            .padding(16)
             segmentedControl
         }
         .background(Color.grayPrimary)
         .overlay {
-            if !viewModel.signedIn {
-                LoggedOutModal {
-                    viewModel.inputModel.navigateToAccount()
+            VStack {
+                Spacer()
+                if !viewModel.signedIn {
+                    LoggedOutModal {
+                        viewModel.inputModel.navigateToAccount()
+                    }
                 }
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button {
+                        print("add")
+                    } label: {
+                        Image(systemName: "plus")
+                            .padding(.vertical, .su24)
+                    }
+                    .buttonStyle(SkiingButtonStyle(style: .secondary))
+                    .cornerRadius(.su32)
+                    .customShadow()
+                }
+                .padding()
             }
+            
         }
         .onAppear { viewModel.onAppear() }
         .toolbar(.hidden)
@@ -68,5 +87,28 @@ struct SocialView: View {
             }
         )
     }
+    
+    @ViewBuilder var notificationSection: some View {
+        if true {
+            InfoCardView(
+                model: .init(
+                    message: "You have a new friendrequest(s)",
+                    bottomActionButton: .init(
+                        title: "Requests",
+                        action: viewModel.navigateToRequests
+                    )
+                ),
+                style: .info
+            )
+            .padding(.horizontal, .su16)
+        }
+    }
 }
+
+struct SocialView_Preview: PreviewProvider {
+    static var previews: some View {
+        ViewFactory.socialNavigator({})
+    }
+}
+
 

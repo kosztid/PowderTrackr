@@ -92,6 +92,16 @@
 		55FF48782A9136D200527F18 /* LayerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF48772A9136D200527F18 /* LayerWidget.swift */; };
 		55FF487C2A9136F800527F18 /* LayerWidgetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */; };
 		B408E83F2B9F978100167246 /* OverlayModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B408E83E2B9F978100167246 /* OverlayModal.swift */; };
+		B4243FB42BC45DB20056C7C5 /* InfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4243FB32BC45DB20056C7C5 /* InfoCardView.swift */; };
+		B4243FB62BC45EBD0056C7C5 /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4243FB52BC45EBD0056C7C5 /* CGFloat+Extension.swift */; };
+		B4243FBB2BC45F5A0056C7C5 /* CustomFontProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4243FBA2BC45F5A0056C7C5 /* CustomFontProvider.swift */; };
+		B4243FBD2BC45F720056C7C5 /* CustomFontProviderKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4243FBC2BC45F720056C7C5 /* CustomFontProviderKey.swift */; };
+		B4243FBF2BC45F800056C7C5 /* TextStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4243FBE2BC45F800056C7C5 /* TextStyleModifier.swift */; };
+		B4243FC12BC45F9A0056C7C5 /* UIFont+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4243FC02BC45F9A0056C7C5 /* UIFont+Register.swift */; };
+		B4243FC32BC4609C0056C7C5 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4243FC22BC4609C0056C7C5 /* UIApplication+Extension.swift */; };
+		B4243FC92BC4647C0056C7C5 /* Effra-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4243FC72BC462EB0056C7C5 /* Effra-Bold.ttf */; };
+		B4243FCA2BC4647C0056C7C5 /* Effra-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4243FC62BC462EB0056C7C5 /* Effra-Light.ttf */; };
+		B4243FCB2BC4647C0056C7C5 /* Effra-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4243FC82BC462EB0056C7C5 /* Effra-Regular.ttf */; };
 		B42B24FE2BA710250013383D /* AWSCognitoAuthPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = B42B24FD2BA710250013383D /* AWSCognitoAuthPlugin */; };
 		B42B250E2BA710250013383D /* Amplify in Frameworks */ = {isa = PBXBuildFile; productRef = B42B250D2BA710250013383D /* Amplify */; };
 		B42B25122BA730BF0013383D /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42B25112BA730BF0013383D /* Color+Extension.swift */; };
@@ -236,6 +246,16 @@
 		55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerWidgetButton.swift; sourceTree = "<group>"; };
 		705F020E722E17762F7F9CEC /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		B408E83E2B9F978100167246 /* OverlayModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayModal.swift; sourceTree = "<group>"; };
+		B4243FB32BC45DB20056C7C5 /* InfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCardView.swift; sourceTree = "<group>"; };
+		B4243FB52BC45EBD0056C7C5 /* CGFloat+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extension.swift"; sourceTree = "<group>"; };
+		B4243FBA2BC45F5A0056C7C5 /* CustomFontProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFontProvider.swift; sourceTree = "<group>"; };
+		B4243FBC2BC45F720056C7C5 /* CustomFontProviderKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFontProviderKey.swift; sourceTree = "<group>"; };
+		B4243FBE2BC45F800056C7C5 /* TextStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleModifier.swift; sourceTree = "<group>"; };
+		B4243FC02BC45F9A0056C7C5 /* UIFont+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Register.swift"; sourceTree = "<group>"; };
+		B4243FC22BC4609C0056C7C5 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
+		B4243FC62BC462EB0056C7C5 /* Effra-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Effra-Light.ttf"; sourceTree = "<group>"; };
+		B4243FC72BC462EB0056C7C5 /* Effra-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Effra-Bold.ttf"; sourceTree = "<group>"; };
+		B4243FC82BC462EB0056C7C5 /* Effra-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Effra-Regular.ttf"; sourceTree = "<group>"; };
 		B42B25112BA730BF0013383D /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		B42B25142BA738D20013383D /* FriendRequestRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestRowView.swift; sourceTree = "<group>"; };
 		B44B8A9D2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PowderTrackrView+ViewModel.swift"; sourceTree = "<group>"; };
@@ -328,6 +348,8 @@
 			children = (
 				55075E962AE9CA26003D213F /* Double+Extension.swift */,
 				B42B25112BA730BF0013383D /* Color+Extension.swift */,
+				B4243FB52BC45EBD0056C7C5 /* CGFloat+Extension.swift */,
+				B4243FC22BC4609C0056C7C5 /* UIApplication+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -356,6 +378,7 @@
 			children = (
 				555AA0542AE6A69F006ED60F /* Info.plist */,
 				B4F2BFF92B2124B500FA8DE1 /* API */,
+				B4243FC42BC462C20056C7C5 /* Resources */,
 				55075E952AE9CA1D003D213F /* Extensions */,
 				554588092A3E30C2009A5485 /* UIElements */,
 				554587C72A3E2EA0009A5485 /* Scenes */,
@@ -554,6 +577,7 @@
 		5545880B2A3E30D8009A5485 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				B4243FB72BC45F0B0056C7C5 /* CustomFont */,
 				B48E6ED92BB04C8000B98298 /* Header */,
 				55FF48792A9136E600527F18 /* LayerWidgetButton */,
 				55FF48762A9136C100527F18 /* LayerWidget */,
@@ -643,6 +667,7 @@
 		55B459452AC9B7F3007B3775 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				B4243FB22BC45DA70056C7C5 /* InfoCard */,
 				B48E6EDC2BB04D2D00B98298 /* HeaderModifier */,
 				B48E6ED62BADF9A200B98298 /* FloatingRoundedCardBackground */,
 				B408E83D2B9F976400167246 /* OverlayModal */,
@@ -709,6 +734,43 @@
 				B408E83E2B9F978100167246 /* OverlayModal.swift */,
 			);
 			path = OverlayModal;
+			sourceTree = "<group>";
+		};
+		B4243FB22BC45DA70056C7C5 /* InfoCard */ = {
+			isa = PBXGroup;
+			children = (
+				B4243FB32BC45DB20056C7C5 /* InfoCardView.swift */,
+			);
+			path = InfoCard;
+			sourceTree = "<group>";
+		};
+		B4243FB72BC45F0B0056C7C5 /* CustomFont */ = {
+			isa = PBXGroup;
+			children = (
+				B4243FBA2BC45F5A0056C7C5 /* CustomFontProvider.swift */,
+				B4243FBC2BC45F720056C7C5 /* CustomFontProviderKey.swift */,
+				B4243FBE2BC45F800056C7C5 /* TextStyleModifier.swift */,
+				B4243FC02BC45F9A0056C7C5 /* UIFont+Register.swift */,
+			);
+			path = CustomFont;
+			sourceTree = "<group>";
+		};
+		B4243FC42BC462C20056C7C5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B4243FC52BC462E30056C7C5 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B4243FC52BC462E30056C7C5 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B4243FC72BC462EB0056C7C5 /* Effra-Bold.ttf */,
+				B4243FC62BC462EB0056C7C5 /* Effra-Light.ttf */,
+				B4243FC82BC462EB0056C7C5 /* Effra-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		B42B25132BA738C50013383D /* Components */ = {
@@ -864,6 +926,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4243FC92BC4647C0056C7C5 /* Effra-Bold.ttf in Resources */,
+				B4243FCA2BC4647C0056C7C5 /* Effra-Light.ttf in Resources */,
+				B4243FCB2BC4647C0056C7C5 /* Effra-Regular.ttf in Resources */,
 				554587942A3DF8F2009A5485 /* Preview Assets.xcassets in Resources */,
 				554587912A3DF8F2009A5485 /* Assets.xcassets in Resources */,
 				DB5F670D7C78E51B71D728C8 /* awsconfiguration.json in Resources */,
@@ -956,6 +1021,7 @@
 				B4899C3E2B7648EA0015BD3F /* UserfriendList.swift in Sources */,
 				550F65E32A532DDD00797B62 /* ConfirmResetPasswordView.swift in Sources */,
 				55B4594A2AC9B923007B3775 /* RaceNavigator.swift in Sources */,
+				B4243FC12BC45F9A0056C7C5 /* UIFont+Register.swift in Sources */,
 				554587A02A3E2923009A5485 /* DI.swift in Sources */,
 				5506F7B92A4723F40000761D /* SegmentedControlButton.swift in Sources */,
 				5545879E2A3E291A009A5485 /* ViewFactory.swift in Sources */,
@@ -994,9 +1060,11 @@
 				558816122A3E3E7700667C1A /* AppDelegate.swift in Sources */,
 				558815B42A3E361600667C1A /* Location.swift in Sources */,
 				554587F32A3E2FF3009A5485 /* FriendAddView+ViewModel.swift in Sources */,
+				B4243FC32BC4609C0056C7C5 /* UIApplication+Extension.swift in Sources */,
 				554587C42A3E29A6009A5485 /* AccountService.swift in Sources */,
 				554588032A3E3071009A5485 /* RegisterView+ViewModel.swift in Sources */,
 				557B1AC02A52F911007C403E /* ResetPasswordView+ViewModel.swift in Sources */,
+				B4243FBB2BC45F5A0056C7C5 /* CustomFontProvider.swift in Sources */,
 				550254E22ABA1CA0002D05F8 /* StatisticsService.swift in Sources */,
 				554587FF2A3E306B009A5485 /* VerifyView.swift in Sources */,
 				554588192A3E30EA009A5485 /* TextFieldBorderViewModifier.swift in Sources */,
@@ -1013,6 +1081,7 @@
 				B45E58A62B95E54300BA1561 /* ToastModel.swift in Sources */,
 				558815B62A3E361600667C1A /* Friendlist.swift in Sources */,
 				B4899C422B7648EA0015BD3F /* GroupChat.swift in Sources */,
+				B4243FB42BC45DB20056C7C5 /* InfoCardView.swift in Sources */,
 				558A21722A73E15800819256 /* GroupView.swift in Sources */,
 				557343B22AAB21FB0002BD40 /* ShareListView.swift in Sources */,
 				554587E92A3E2FC4009A5485 /* FriendListItem.swift in Sources */,
@@ -1022,6 +1091,7 @@
 				B4F2C00E2B2124DF00FA8DE1 /* JSONEncodingHelper.swift in Sources */,
 				554587F92A3E3056009A5485 /* ProfileView.swift in Sources */,
 				B4F2C0142B2124DF00FA8DE1 /* DefaultAPI.swift in Sources */,
+				B4243FBD2BC45F720056C7C5 /* CustomFontProviderKey.swift in Sources */,
 				55B459442AC9B28E007B3775 /* RaceManageItemView+ViewModel.swift in Sources */,
 				554587E62A3E2FAC009A5485 /* SocialView.swift in Sources */,
 				556EDE642AB5C1C400B7EA5D /* LeaderBoardView+ViewModel.swift in Sources */,
@@ -1039,6 +1109,7 @@
 				B4F2C00F2B2124DF00FA8DE1 /* Validation.swift in Sources */,
 				55102ACD2A7ECAE30033E5E6 /* ChatService.swift in Sources */,
 				5506F7BF2A49E5F10000761D /* LoggedOutModal.swift in Sources */,
+				B4243FBF2BC45F800056C7C5 /* TextStyleModifier.swift in Sources */,
 				5506F7BB2A4724F50000761D /* SegmentedControl.swift in Sources */,
 				B4899C402B7648EA0015BD3F /* PersonalChat.swift in Sources */,
 				55B459422AC9B281007B3775 /* RaceManageItemView.swift in Sources */,
@@ -1050,6 +1121,7 @@
 				B4F2C0122B2124DF00FA8DE1 /* JSONDataEncoding.swift in Sources */,
 				B4899C412B7648EA0015BD3F /* CurrentPosition.swift in Sources */,
 				B48E6EDB2BB04CB900B98298 /* HeaderView.swift in Sources */,
+				B4243FB62BC45EBD0056C7C5 /* CGFloat+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

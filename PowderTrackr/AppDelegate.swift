@@ -8,6 +8,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
+        UIFont.registerFonts()
         do {
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
             try Amplify.configure()
