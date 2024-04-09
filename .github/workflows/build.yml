@@ -19,8 +19,10 @@ jobs:
         xcode-version: 'latest'
     
     - name: Install CocoaPods dependencies
-      run: |
-        pod install
+      run: pod install
+
+    - name: Resolve Swift Package Manager dependencies
+      run: xcodebuild -resolvePackageDependencies -scheme PowderTrackr -project PowderTrackr.xcodeproj
 
     - name: Build Project
-      run: xcodebuild -scheme PowderTrackr -sdk iphoneos -configuration Release build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -allowProvisioningUpdates
+      run: xcodebuild -scheme PowderTrackr -sdk iphoneos -configuration Release build IPHONEOS_DEPLOYMENT_TARGET=16.2 CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -allowProvisioningUpdates
