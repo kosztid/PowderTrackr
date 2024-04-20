@@ -1,6 +1,12 @@
 import SwiftUI
 
 struct HeaderView: View {
+    enum Style {
+        case inline
+        case normal
+    }
+    
+    let style: Style
     let title: String
     let description: String?
     
@@ -21,11 +27,32 @@ struct HeaderView: View {
             }
             .foregroundColor(.white)
         }
-        .frame(height: 160)
+        .frame(height: headerHeight)
         .customShadow(style: .dark)
+    }
+    
+    init(
+        title: String,
+        style: Style = .normal,
+        description: String?
+    ) {
+        self.style = style
+        self.title = title
+        self.description = description
+    }
+}
+
+extension HeaderView {
+    var headerHeight: CGFloat {
+        switch style {
+        case .inline:
+            40
+        case .normal:
+            160
+        }
     }
 }
 
 #Preview {
-    HeaderView(title: "Welcome to PowderTrackr", description: "Login")
+    HeaderView(title: "Welcome to PowderTrackr", style: .normal, description: "Login")
 }
