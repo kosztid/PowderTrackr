@@ -203,12 +203,12 @@ extension Container {
     }
 
     enum FriendAdd {
-        static let view = ParameterFactory { navigator in
-            FriendAddView(viewModel: viewModel(navigator))
+        static let view = ParameterFactory { navigator, model in
+            FriendAddView(viewModel: viewModel((navigator, model)))
         }
 
-        static let viewModel = ParameterFactory { navigator in
-            FriendAddView.ViewModel(navigator: navigator, service: friendService())
+        static let viewModel = ParameterFactory { navigator, model in
+            FriendAddView.ViewModel(navigator: navigator, service: friendService(), model: model)
         }
     }
 

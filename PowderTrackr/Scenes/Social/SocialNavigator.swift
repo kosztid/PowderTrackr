@@ -3,14 +3,14 @@ import SwiftUI
 
 public enum SocialScreen {
     case list
-    case add
+    case add(FriendAddView.InputModel)
     case requests
     case chat(PowderTrackrChatView.InputModel)
 }
 
 protocol SocialListViewNavigatorProtocol {
     func navigateToRequest()
-    func navigateToAdd()
+    func navigateToAdd(users: [User])
     func navigateToChat(model: PowderTrackrChatView.InputModel)
 }
 
@@ -29,7 +29,7 @@ public struct SocialNavigator: Navigator {
         Router($routes) { screen, _ in
             switch screen {
             case .list: ViewFactory.socialView(navigator: self, model: .init(navigateToAccount: openAccount))
-            case .add: ViewFactory.friendAddView(navigator: self)
+            case .add(let model): ViewFactory.friendAddView(navigator: self, model: model)
             case .requests: ViewFactory.friendRequestView()
             case .chat(let model): ViewFactory.powderTrackrChatView(model: model)
             }
@@ -50,8 +50,8 @@ extension SocialNavigator: SocialListViewNavigatorProtocol {
         routes.push(.requests)
     }
 
-    func navigateToAdd() {
-        routes.presentSheet(.add)
+    func navigateToAdd(users: [User]) {
+        routes.presentSheet(.add(FriendAddView.InputModel(users: users)))
     }
 }
 

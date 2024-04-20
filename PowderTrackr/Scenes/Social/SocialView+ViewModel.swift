@@ -90,7 +90,16 @@ extension SocialView {
         }
 
         func navigateToAddFriend() {
-            navigator.navigateToAdd()
+            friendService.getUsers()
+                .sink(
+                    receiveCompletion: { completion in
+                        guard case .failure(let error) = completion else { return }
+                        print(error)
+                    }, receiveValue: { [weak self] users in
+                        self?.navigator.navigateToAdd(users: users)
+                    }
+                )
+                .store(in: &cancellables)
         }
 
         func navigateToChatWithFriend(friendId: String, friendName: String) {

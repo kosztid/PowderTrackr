@@ -13,9 +13,10 @@ public protocol FriendServiceProtocol: AnyObject {
     func queryFriends()
     func addFriend(request: FriendRequest)
     func deleteFriend(friend: Friend)
-    func sendFriendRequest(recipient: String)
+    func sendFriendRequest(recipient: String) -> Future<Void, Error>
     func queryFriendRequests()
     func queryFriendLocations()
+    func getUsers() -> Future<[User], Error>
 }
 
 final class FriendService {
@@ -203,7 +204,7 @@ extension FriendService: FriendServiceProtocol {
         }
     }
     
-    public func sendFriendRequest(recipient: String) {
+    public func sendFriendRequest(recipient: String) -> Future<Void, Error> {
         let request = FriendRequest(
             senderEmail: userEmail,
             sender: Friend(
@@ -213,11 +214,15 @@ extension FriendService: FriendServiceProtocol {
             ),
             recipient: recipient
         )
-        DefaultAPI.friendRequestsPut(friendRequest: request) { data, error in
-            if let error = error {
-                self.networkError.send(.init(title: "An issue occured while sending your request", type: .error))
-                print("Error: \(error)")
-            } else {
+        return Future { promise in
+            DefaultAPI.friendRequestsPut(friendRequest: request) { data, error in
+                if let error = error {
+                    self.networkError.send(.init(title: "An issue occured while sending your request", type: .error))
+                    print("Error: \(error)")
+                    promise(.failure(error))
+                } else {
+                    promise(.success(()))
+                }
             }
         }
     }
@@ -246,6 +251,21 @@ extension FriendService: FriendServiceProtocol {
                 }
                 guard let result else { return }
                 self.friendPositions.send(result)
+            }
+        }
+    }
+    
+    func getUsers() -> Future<[User], Error>  {
+        return Future<[User], Error> { promise in
+            DefaultAPI.usersGet { data, error in
+                if let error = error {
+                    self.networkError.send(.init(title: "An issue occured while getting users", type: .error))
+                } else {
+                    let result = data?.compactMap { user in
+                        return user
+                    }
+                    promise(.success(result ?? []))
+                }
             }
         }
     }
