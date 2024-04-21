@@ -9,6 +9,7 @@ struct HeaderView: View {
     let style: Style
     let title: String
     let description: String?
+    let backAction: (() -> Void)?
     
     var body: some View {
         ZStack {
@@ -16,9 +17,23 @@ struct HeaderView: View {
                 .cornerRadius(.su16, corners: [.bottomLeft, .bottomRight])
                 .ignoresSafeArea()
             VStack(alignment: .center, spacing: .zero) {
-                Text(title)
-                    .textStyle(.h4)
-                    .padding(.bottom, .su16)
+                HStack(spacing: .su16) {
+                    if let action = backAction {
+                        Button {
+                            action()
+                        } label: {
+                            Image(systemName: "arrowshape.turn.up.backward.fill")
+                                .foregroundColor(.white)
+                        }
+                        .padding(.leading, .su16)
+                    } else {
+                        Spacer()
+                    }
+                    Text(title)
+                        .textStyle(.h4)
+                        .padding(.bottom, style == .normal ? .su16 : .zero)
+                    Spacer()
+                }
                 if let description = description {
                     Text(description)
                         .font(.title3)
@@ -34,11 +49,13 @@ struct HeaderView: View {
     init(
         title: String,
         style: Style = .normal,
-        description: String?
+        description: String?,
+        backAction: (() -> Void)?
     ) {
         self.style = style
         self.title = title
         self.description = description
+        self.backAction = backAction
     }
 }
 
@@ -46,7 +63,7 @@ extension HeaderView {
     var headerHeight: CGFloat {
         switch style {
         case .inline:
-            40
+            60
         case .normal:
             160
         }
@@ -54,5 +71,10 @@ extension HeaderView {
 }
 
 #Preview {
-    HeaderView(title: "Welcome to PowderTrackr", style: .normal, description: "Login")
+    HeaderView(
+        title: "Welcome to PowderTrackr",
+        style: .normal,
+        description: "Login",
+        backAction: nil
+    )
 }
