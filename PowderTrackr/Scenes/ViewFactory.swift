@@ -67,7 +67,7 @@ enum ViewFactory {
     }
 
     static func friendAddView(navigator: SocialAddViewNavigatorProtocol, model: FriendAddView.InputModel) -> FriendAddView {
-        Container.FriendAdd.view(navigator, model)
+        Container.FriendAdd.view((navigator, model))
     }
 
     static func powderTrackrChatView(model: PowderTrackrChatView.InputModel) -> PowderTrackrChatView {

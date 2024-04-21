@@ -110,11 +110,12 @@ extension ChatService: ChatServiceProtocol {
                             currentMessages.append(
                                 Chat.Message(
                                     id: message.id,
-                                    user: User(
+                                    user: Chat.User(
                                         id: UUID().uuidString,
                                         name: "",
                                         avatarURL: nil,
-                                        isCurrentUser: self.userID == message.sender),
+                                        isCurrentUser: self.userID == message.sender
+                                    ),
                                     status: message.isSeen ? Chat.Message.Status.read : Chat.Message.Status.sent,
                                     createdAt: self.dateFormatter.date(from: message.date) ?? Date(),
                                     text: message.text
@@ -154,7 +155,7 @@ extension ChatService: ChatServiceProtocol {
                 let msg = data[currentChatIndex].messages.map { message in
                     Chat.Message(
                         id: message.id,
-                        user: User(
+                        user: Chat.User(
                             id: UUID().uuidString,
                             name: "",
                             avatarURL: nil,
