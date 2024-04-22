@@ -1,10 +1,3 @@
-//
-//  PowderTrackrWidget.swift
-//  PowderTrackrWidget
-//
-//  Created by Dominik Kosztolánczi on 22/04/2024.
-//
-
 import WidgetKit
 import SwiftUI
 
@@ -44,11 +37,42 @@ struct PowderTrackrWidgetEntryView : View {
 
     var body: some View {
         VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Emoji:")
-            Text(entry.emoji)
+            //                HStack(spacing: .su4) {
+            //                    Text("\(String(format: "%.f", 12310.123)) m")
+            //                        .textStyle(.bodyBold)
+            //                    HStack {
+            //                        Image(systemName: "arrow.forward")
+            //                            .frame(minHeight: .su20)
+            //                        Text("distance")
+            //                            .textStyle(.body)
+            //                    }
+            //                    .foregroundStyle(Color.warmDarkGray)
+            //                }
+            //                Divider()
+            //                    .padding(.horizontal, .su12)
+            //                HStack(spacing: .su4) {
+            //                    Text("\(String(format: "%.2f", 1123.132)) s")
+            //                        .textStyle(.bodyBold)
+            //                    HStack {
+            //                        Image(systemName: "timer")
+            //                        Text("total time")
+            //                            .textStyle(.body)
+            //                    }
+            //                    .foregroundStyle(Color.warmDarkGray)
+            //                }
+            //                Divider()
+            //                    .padding(.horizontal, .su12)
+            //                HStack(spacing: .su4) {
+            //                    Text("\(String(format: "%.2f", 100.123)) km/h")
+            //                        .textStyle(.bodyBold)
+            //                    HStack {
+            //                        Image(systemName: "speedometer")
+            //                        Text("avg speed")
+            //                            .textStyle(.body)
+            //                    }
+            //                    .foregroundStyle(Color.warmDarkGray)
+            //                }
+            //            }
         }
     }
 }

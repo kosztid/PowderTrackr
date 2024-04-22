@@ -86,12 +86,11 @@
 		55E402FE2ACB300400AE8043 /* MyRunsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E402FD2ACB300400AE8043 /* MyRunsView.swift */; };
 		55E98BAF2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E98BAE2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift */; };
 		55E98BB12A73F14A00634917 /* PowderTrackrChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E98BB02A73F14A00634917 /* PowderTrackrChatView.swift */; };
-		55E98BB42A73FB7800634917 /* Chat in Frameworks */ = {isa = PBXBuildFile; productRef = 55E98BB32A73FB7800634917 /* Chat */; };
 		55E9E6632AC897E50090FC6B /* RaceRunView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E9E6622AC897E50090FC6B /* RaceRunView.swift */; };
-		55E9EEA02A92401E0099D3B0 /* Chat in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 55E98BB32A73FB7800634917 /* Chat */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55FF48782A9136D200527F18 /* LayerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF48772A9136D200527F18 /* LayerWidget.swift */; };
 		55FF487C2A9136F800527F18 /* LayerWidgetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */; };
 		B408E83F2B9F978100167246 /* OverlayModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B408E83E2B9F978100167246 /* OverlayModal.swift */; };
+		B41FA3942BD72841002D46C6 /* AWSCognitoAuthPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = B41FA3932BD72841002D46C6 /* AWSCognitoAuthPlugin */; };
 		B4243FB42BC45DB20056C7C5 /* InfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4243FB32BC45DB20056C7C5 /* InfoCardView.swift */; };
 		B4243FB62BC45EBD0056C7C5 /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4243FB52BC45EBD0056C7C5 /* CGFloat+Extension.swift */; };
 		B4243FBB2BC45F5A0056C7C5 /* CustomFontProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4243FBA2BC45F5A0056C7C5 /* CustomFontProvider.swift */; };
@@ -102,8 +101,6 @@
 		B4243FC92BC4647C0056C7C5 /* Effra-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4243FC72BC462EB0056C7C5 /* Effra-Bold.ttf */; };
 		B4243FCA2BC4647C0056C7C5 /* Effra-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4243FC62BC462EB0056C7C5 /* Effra-Light.ttf */; };
 		B4243FCB2BC4647C0056C7C5 /* Effra-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4243FC82BC462EB0056C7C5 /* Effra-Regular.ttf */; };
-		B42B24FE2BA710250013383D /* AWSCognitoAuthPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = B42B24FD2BA710250013383D /* AWSCognitoAuthPlugin */; };
-		B42B250E2BA710250013383D /* Amplify in Frameworks */ = {isa = PBXBuildFile; productRef = B42B250D2BA710250013383D /* Amplify */; };
 		B42B25122BA730BF0013383D /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42B25112BA730BF0013383D /* Color+Extension.swift */; };
 		B42B25152BA738D20013383D /* FriendRequestRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42B25142BA738D20013383D /* FriendRequestRowView.swift */; };
 		B44B8A9E2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44B8A9D2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift */; };
@@ -170,7 +167,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				B4A0BDEA2B76537600FF509C /* Pods_PowderTrackr.framework in Embed Frameworks */,
-				55E9EEA02A92401E0099D3B0 /* Chat in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,10 +338,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B42B24FE2BA710250013383D /* AWSCognitoAuthPlugin in Frameworks */,
-				B42B250E2BA710250013383D /* Amplify in Frameworks */,
 				B4A0BDE92B76537600FF509C /* Pods_PowderTrackr.framework in Frameworks */,
-				55E98BB42A73FB7800634917 /* Chat in Frameworks */,
+				B41FA3942BD72841002D46C6 /* AWSCognitoAuthPlugin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,6 +613,7 @@
 		554588092A3E30C2009A5485 /* UIElements */ = {
 			isa = PBXGroup;
 			children = (
+				B4243FB72BC45F0B0056C7C5 /* CustomFont */,
 				55B459452AC9B7F3007B3775 /* Modifiers */,
 				5545880B2A3E30D8009A5485 /* Components */,
 				5545880A2A3E30D1009A5485 /* ButtonStyles */,
@@ -637,7 +632,6 @@
 		5545880B2A3E30D8009A5485 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				B4243FB72BC45F0B0056C7C5 /* CustomFont */,
 				B48E6ED92BB04C8000B98298 /* Header */,
 				55FF48792A9136E600527F18 /* LayerWidgetButton */,
 				55FF48762A9136C100527F18 /* LayerWidget */,
@@ -968,9 +962,7 @@
 			);
 			name = PowderTrackr;
 			packageProductDependencies = (
-				55E98BB32A73FB7800634917 /* Chat */,
-				B42B24FD2BA710250013383D /* AWSCognitoAuthPlugin */,
-				B42B250D2BA710250013383D /* Amplify */,
+				B41FA3932BD72841002D46C6 /* AWSCognitoAuthPlugin */,
 			);
 			productName = PowderTrackr;
 			productReference = 554587892A3DF8F1009A5485 /* PowderTrackr.app */;
@@ -1021,8 +1013,7 @@
 			);
 			mainGroup = 554587802A3DF8F1009A5485;
 			packageReferences = (
-				55E98BB22A73FB7800634917 /* XCRemoteSwiftPackageReference "Chat" */,
-				B42B24F82BA710250013383D /* XCRemoteSwiftPackageReference "amplify-swift" */,
+				B41FA3922BD72841002D46C6 /* XCRemoteSwiftPackageReference "amplify-swift" */,
 			);
 			productRefGroup = 5545878A2A3DF8F1009A5485 /* Products */;
 			projectDirPath = "";
@@ -1568,39 +1559,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		55E98BB22A73FB7800634917 /* XCRemoteSwiftPackageReference "Chat" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/exyte/Chat.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		B42B24F82BA710250013383D /* XCRemoteSwiftPackageReference "amplify-swift" */ = {
+		B41FA3922BD72841002D46C6 /* XCRemoteSwiftPackageReference "amplify-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/aws-amplify/amplify-swift";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.27.2;
+				minimumVersion = 2.29.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		55E98BB32A73FB7800634917 /* Chat */ = {
+		B41FA3932BD72841002D46C6 /* AWSCognitoAuthPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55E98BB22A73FB7800634917 /* XCRemoteSwiftPackageReference "Chat" */;
-			productName = Chat;
-		};
-		B42B24FD2BA710250013383D /* AWSCognitoAuthPlugin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B42B24F82BA710250013383D /* XCRemoteSwiftPackageReference "amplify-swift" */;
+			package = B41FA3922BD72841002D46C6 /* XCRemoteSwiftPackageReference "amplify-swift" */;
 			productName = AWSCognitoAuthPlugin;
-		};
-		B42B250D2BA710250013383D /* Amplify */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B42B24F82BA710250013383D /* XCRemoteSwiftPackageReference "amplify-swift" */;
-			productName = Amplify;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
