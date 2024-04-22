@@ -10,39 +10,49 @@ struct HeaderView: View {
     let title: String
     let description: String?
     let backAction: (() -> Void)?
+    let bottomView: AnyView?
     
     var body: some View {
-        ZStack {
-            Color.bluePrimary
-                .cornerRadius(.su16, corners: [.bottomLeft, .bottomRight])
-                .ignoresSafeArea()
-            VStack(alignment: .center, spacing: .zero) {
-                HStack(spacing: .su16) {
-                    if let action = backAction {
-                        Button {
-                            action()
-                        } label: {
-                            Image(systemName: "arrowshape.turn.up.backward.fill")
-                                .foregroundColor(.white)
-                        }
-                        .padding(.leading, .su16)
-                    } else {
-                        Spacer()
+        VStack(alignment: .center, spacing: .su16) {
+            HStack(spacing: .su16) {
+                if let action = backAction {
+                    Button {
+                        action()
+                    } label: {
+                        Image(systemName: "arrowshape.turn.up.backward.fill")
+                            .resizable()
+                            .frame(width: .su20, height: .su20)
+                            .foregroundColor(.white)
                     }
-                    Text(title)
-                        .textStyle(.h4)
-                        .padding(.bottom, style == .normal ? .su16 : .zero)
+                } else {
                     Spacer()
                 }
-                if let description = description {
-                    Text(description)
-                        .font(.title3)
-                        .bold()
-                }
+                Text(title)
+                    .textStyle(.h4)
+                Spacer()
             }
-            .foregroundColor(.white)
+            if let description = description {
+                Text(description)
+                    .font(.title3)
+                    .bold()
+            }
+            if let bottomView = bottomView {
+                bottomView
+                    .padding(.bottom, .su8)
+            }
         }
-        .frame(height: headerHeight)
+        .foregroundColor(.white)
+        .padding(.su16)
+        .background(Color.bluePrimary)
+        .cornerRadius(.su16, corners: [.bottomLeft, .bottomRight])
+        .background(
+            GeometryReader { geo in
+                Color.bluePrimary
+                    .frame(height: geo.safeAreaInsets.top + .su16)
+                    .edgesIgnoringSafeArea(.top)
+                    .offset(y: -geo.size.height)
+            }
+        )
         .customShadow(style: .dark)
     }
     
@@ -50,12 +60,14 @@ struct HeaderView: View {
         title: String,
         style: Style = .normal,
         description: String?,
-        backAction: (() -> Void)?
+        backAction: (() -> Void)?,
+        bottomView: AnyView?
     ) {
         self.style = style
         self.title = title
         self.description = description
         self.backAction = backAction
+        self.bottomView = bottomView
     }
 }
 
@@ -63,9 +75,9 @@ extension HeaderView {
     var headerHeight: CGFloat {
         switch style {
         case .inline:
-            60
+            80
         case .normal:
-            160
+            128
         }
     }
 }
@@ -75,6 +87,7 @@ extension HeaderView {
         title: "Welcome to PowderTrackr",
         style: .normal,
         description: "Login",
-        backAction: nil
+        backAction: nil,
+        bottomView: nil
     )
 }
