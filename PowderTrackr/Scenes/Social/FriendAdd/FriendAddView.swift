@@ -22,7 +22,7 @@ public struct FriendAddView: View {
         }
         .background(Color.grayPrimary)
         .toastMessage(toastMessage: $viewModel.toast)
-        .headerView(title: "Add friends to ski with", style: .inline, backAction: viewModel.dismissButtonTap, bottomView: AnyView(searchBar))
+        .headerView(title: "Add friends to ski with", backAction: viewModel.dismissButtonTap, bottomView: AnyView(searchBar))
     }
     
     @ViewBuilder var searchBar: some View {

@@ -16,4 +16,5 @@ extension Color {
     static let warningUtility = Color("WarningUtility")
     static let softWhite = Color("SoftWhite")
     static let warmGray = Color("WarmGray")
+    static let warmDarkGray = Color("WarmDarkGray")
 }

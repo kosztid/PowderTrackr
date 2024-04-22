@@ -1,12 +1,6 @@
 import SwiftUI
 
 struct HeaderView: View {
-    enum Style {
-        case inline
-        case normal
-    }
-    
-    let style: Style
     let title: String
     let description: String?
     let backAction: (() -> Void)?
@@ -58,12 +52,10 @@ struct HeaderView: View {
     
     init(
         title: String,
-        style: Style = .normal,
         description: String?,
         backAction: (() -> Void)?,
         bottomView: AnyView?
     ) {
-        self.style = style
         self.title = title
         self.description = description
         self.backAction = backAction
@@ -71,21 +63,9 @@ struct HeaderView: View {
     }
 }
 
-extension HeaderView {
-    var headerHeight: CGFloat {
-        switch style {
-        case .inline:
-            80
-        case .normal:
-            128
-        }
-    }
-}
-
 #Preview {
     HeaderView(
         title: "Welcome to PowderTrackr",
-        style: .normal,
         description: "Login",
         backAction: nil,
         bottomView: nil

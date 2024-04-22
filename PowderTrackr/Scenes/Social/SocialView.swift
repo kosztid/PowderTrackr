@@ -4,23 +4,9 @@ public struct SocialView: View {
     @StateObject var viewModel: ViewModel
     
     public var body: some View {
-        VStack(spacing: .zero) {
+        VStack(spacing: .su16) {
             notificationSection
-            //            HStack {
-            //                Button {
-            //                    viewModel.navigateToRequests()
-            //                } label: {
-            //                    viewModel.notification ? Image(systemName: "bell.badge.fill") : Image(systemName: "bell.fill")
-            //                }
-            //                Spacer()
-            //                Button {
-            //                    viewModel.navigateToAddFriend()
-            //                } label: {
-            //                    Image(systemName: "plus")
-            //                }
-            //            }
-            //            .padding(16)
-            segmentedControl
+            friendsList
         }
         .background(Color.grayPrimary)
         .overlay {
@@ -54,41 +40,23 @@ public struct SocialView: View {
         .toolbar(.hidden)
     }
     
-    private var segmentedControl: some View {
-        SegmentedControl(
-            firstTab: .init(tabItem: .init(name: "Friends")) {
-                ScrollView {
-                    LazyVStack {
-                        ForEach(viewModel.friendList?.friends ?? []) { friend in
-                            FriendListItem(
-                                friend: friend,
-                                notification: viewModel.notification(for: friend.id),
-                                lastMessage: viewModel.lastMessage(for: friend.id)
-                            ) {
-                                viewModel.updateTracking(id: friend.id)
-                            } navigationAction: {
-                                viewModel.navigateToChatWithFriend(friendId: friend.id, friendName: friend.name)
-                            }
-                        }
+    private var friendsList: some View {
+        ScrollView {
+            LazyVStack {
+                ForEach(viewModel.friendList?.friends ?? []) { friend in
+                    FriendListItem(
+                        friend: friend,
+                        notification: viewModel.notification(for: friend.id),
+                        lastMessage: viewModel.lastMessage(for: friend.id)
+                    ) {
+                        viewModel.updateTracking(id: friend.id)
+                    } navigationAction: {
+                        viewModel.navigateToChatWithFriend(friendId: friend.id, friendName: friend.name)
                     }
                 }
-                .background(Color.grayPrimary)
-            },
-            secondTab: .init(tabItem: .init(name: "Groups")) {
-                ScrollView {
-                    LazyVStack {
-                        ForEach(viewModel.groupList, id: \.self) { group in
-                            GroupListItem()
-                                .onTapGesture(perform: {
-                                    viewModel.navigateToChatGroup(groupId: "group")
-                                })
-                                .listRowSeparator(.hidden)
-                        }
-                    }
-                }
-                .background(Color.grayPrimary)
             }
-        )
+        }
+        .background(Color.grayPrimary)
     }
     
     @ViewBuilder private var notificationSection: some View {

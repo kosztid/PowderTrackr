@@ -87,50 +87,49 @@ struct MapView: View {
     }
     
     @ViewBuilder var topBar: some View {
-        if viewModel.isTracking {
-            VStack {
+        if true {
+            VStack(alignment: .center) {
                 HStack {
-                    Spacer()
-                    VStack(spacing: 4) {
-                        Text("\(String(format: "%.f", viewModel.currentDistance ?? 0.0)) m")
-                            .bold()
+                    VStack(spacing: .su4) {
+                        Text("\(String(format: "%.f", viewModel.currentDistance ?? .zero)) m")
+                            .textStyle(.bodyBold)
                         HStack {
                             Image(systemName: "arrow.forward")
-                                .frame(minHeight: 20)
+                                .frame(minHeight: .su20)
                             Text("distance")
-                                .font(.caption)
+                                .textStyle(.body)
                         }
-                        .foregroundColor(.gray)
+                        .foregroundStyle(Color.warmDarkGray)
                     }
                     Divider()
-                        .padding(.horizontal, 12)
-                    VStack(spacing: 4) {
+                        .padding(.horizontal, .su12)
+                    VStack(spacing: .su4) {
                         Text("\(String(format: "%.2f", viewModel.elapsedTime)) s")
-                            .bold()
+                            .textStyle(.bodyBold)
                         HStack {
                             Image(systemName: "timer")
                             Text("total time")
-                                .font(.caption)
+                                .textStyle(.body)
                         }
-                        .foregroundColor(.gray)
+                        .foregroundStyle(Color.warmDarkGray)
                     }
                     Divider()
-                        .padding(.horizontal, 12)
-                    VStack(spacing: 4) {
+                        .padding(.horizontal, .su12)
+                    VStack(spacing: .su4) {
                         Text("\(String(format: "%.2f", viewModel.avgSpeed)) km/h")
-                            .bold()
+                            .textStyle(.bodyBold)
                         HStack {
                             Image(systemName: "speedometer")
                             Text("avg speed")
-                                .font(.caption)
+                                .textStyle(.body)
                         }
-                        .foregroundColor(.gray)
+                        .foregroundStyle(Color.warmDarkGray)
                     }
-                    Spacer()
                 }
-                .padding(.bottom, 8)
-                .frame(maxHeight: 48)
-                .background(.white)
+                .fixedSize()
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, .su4)
+                .background(Color.grayPrimary)
                 Spacer()
             }
         }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 public struct TabBarNavigator: View {
-    @State var selectedItem: Int = 4
+    @State var selectedItem: Int = 2
     let openAccount: () -> Void
     
     public var body: some View {
