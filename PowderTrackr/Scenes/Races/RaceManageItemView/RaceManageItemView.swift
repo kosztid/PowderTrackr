@@ -13,43 +13,46 @@ struct RaceManageItemView: View {
         VStack(spacing: .zero) {
             HStack {
                 Text("Race")
-                    .font(.callout)
-                    .bold()
+                    .textStyle(.bodySmallBold)
                 Spacer()
             }
             HStack {
                 Text(race.name)
-                    .font(.title)
+                    .textStyle(.bodyLargeBold)
                 Spacer()
                 Text(race.date)
+                    .textStyle(.bodyLarge)
             }
             if !(race.tracks ?? []).isEmpty {
-                Divider().padding(.vertical, 4)
+                Divider().padding(.vertical, .su4)
                 dataSection
             }
             
-            Divider().padding(.vertical, 4)
+            Divider().padding(.vertical, .su4)
             managementSection
         }
-        .padding(.vertical, 16)
-        .padding(.horizontal, 8)
+        .padding(.vertical, .su16)
+        .padding(.horizontal, .su8)
         .background(.white)
-        .cornerRadius(16)
-        .padding(8)
+        .cornerRadius(.su16)
         .customShadow()
     }
 
     var dataSection: some View {
-        Group {
+        VStack(alignment: .leading) {
             HStack {
                 Text("Shortest run:")
+                    .textStyle(.body)
                 Text("\(race.shortestDistance, specifier: "%.2f") meters")
-                    .italic()
+                    .textStyle(.bodyBold)
+                Spacer()
             }
             HStack {
                 Text("Best time:")
+                    .textStyle(.body)
                 Text("\(shortestTime)")
-                    .italic()
+                    .textStyle(.bodyBold)
+                Spacer()
             }
         }
     }

@@ -15,6 +15,7 @@ struct MyRunsView: View {
                 }
             }
         }
-        .navigationTitle(viewModel.title)
+        .background(Color.grayPrimary)
+        .headerView(title: viewModel.title, style: .inline)
     }
 }

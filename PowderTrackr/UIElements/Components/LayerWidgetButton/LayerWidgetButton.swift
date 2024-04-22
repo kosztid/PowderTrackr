@@ -16,9 +16,9 @@ struct LayerWidgetButton: View {
             Image(systemName: isOpen ? "xmark" : "text.justify")
                 .resizable()
                 .frame(width: Layout.widgetButtonImageSize, height: Layout.widgetButtonImageSize)
-                .padding(20)
-                .foregroundColor(.white)
-                .cornerRadius(16)
+                .padding(.su20)
+                .foregroundStyle(Color.softWhite)
+                .cornerRadius(.su16)
         }
     }
 }
