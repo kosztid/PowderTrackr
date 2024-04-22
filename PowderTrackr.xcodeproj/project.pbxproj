@@ -108,6 +108,7 @@
 		B42B25152BA738D20013383D /* FriendRequestRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42B25142BA738D20013383D /* FriendRequestRowView.swift */; };
 		B44B8A9E2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44B8A9D2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift */; };
 		B44B8AA02B826D1400E8F25F /* PowderTrackrNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44B8A9F2B826D1400E8F25F /* PowderTrackrNavigator.swift */; };
+		B45310F62BD6709C00891ADC /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45310F52BD6709C00891ADC /* CornerRadius.swift */; };
 		B45E58A32B95E4BA00BA1561 /* ToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45E58A22B95E4BA00BA1561 /* ToastModifier.swift */; };
 		B45E58A62B95E54300BA1561 /* ToastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45E58A52B95E54300BA1561 /* ToastModel.swift */; };
 		B4899C3E2B7648EA0015BD3F /* UserfriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4899C332B7648E90015BD3F /* UserfriendList.swift */; };
@@ -262,6 +263,7 @@
 		B42B25142BA738D20013383D /* FriendRequestRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestRowView.swift; sourceTree = "<group>"; };
 		B44B8A9D2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PowderTrackrView+ViewModel.swift"; sourceTree = "<group>"; };
 		B44B8A9F2B826D1400E8F25F /* PowderTrackrNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrNavigator.swift; sourceTree = "<group>"; };
+		B45310F52BD6709C00891ADC /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
 		B45E58A22B95E4BA00BA1561 /* ToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModifier.swift; sourceTree = "<group>"; };
 		B45E58A52B95E54300BA1561 /* ToastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModel.swift; sourceTree = "<group>"; };
 		B4899C332B7648E90015BD3F /* UserfriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserfriendList.swift; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 		55075E952AE9CA1D003D213F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				B45310F42BD6708600891ADC /* View+Extension */,
 				55075E962AE9CA26003D213F /* Double+Extension.swift */,
 				B42B25112BA730BF0013383D /* Color+Extension.swift */,
 				B4243FB52BC45EBD0056C7C5 /* CGFloat+Extension.swift */,
@@ -800,6 +803,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		B45310F42BD6708600891ADC /* View+Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B45310F52BD6709C00891ADC /* CornerRadius.swift */,
+			);
+			path = "View+Extension";
+			sourceTree = "<group>";
+		};
 		B45E58A42B95E53900BA1561 /* Toast */ = {
 			isa = PBXGroup;
 			children = (
@@ -1105,6 +1116,7 @@
 				55B58DA32AE525B900B4AB4F /* RaceRunGoogleMapsView.swift in Sources */,
 				55A318552A4625DA00EB0C5E /* FriendService.swift in Sources */,
 				B4F2C00E2B2124DF00FA8DE1 /* JSONEncodingHelper.swift in Sources */,
+				B45310F62BD6709C00891ADC /* CornerRadius.swift in Sources */,
 				554587F92A3E3056009A5485 /* ProfileView.swift in Sources */,
 				B4F2C0142B2124DF00FA8DE1 /* DefaultAPI.swift in Sources */,
 				B4243FBD2BC45F720056C7C5 /* CustomFontProviderKey.swift in Sources */,
