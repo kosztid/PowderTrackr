@@ -17,6 +17,7 @@ public protocol FriendServiceProtocol: AnyObject {
     func queryFriendRequests()
     func queryFriendLocations()
     func getUsers() -> Future<[User], Error>
+    func getAddableUsers() -> Future<[User], Error>
 }
 
 final class FriendService {
@@ -259,6 +260,23 @@ extension FriendService: FriendServiceProtocol {
         return Future<[User], Error> { promise in
             DefaultAPI.usersGet { data, error in
                 if let error = error {
+                    print(error)
+                    self.networkError.send(.init(title: "An issue occured while getting users", type: .error))
+                } else {
+                    let result = data?.compactMap { user in
+                        return user
+                    }
+                    promise(.success(result ?? []))
+                }
+            }
+        }
+    }
+    
+    func getAddableUsers() -> Future<[User], Error>  {
+        return Future<[User], Error> { promise in
+            DefaultAPI.usersIdGet(id: self.userID) { data, error in
+                if let error = error {
+                    print(error)
                     self.networkError.send(.init(title: "An issue occured while getting users", type: .error))
                 } else {
                     let result = data?.compactMap { user in
