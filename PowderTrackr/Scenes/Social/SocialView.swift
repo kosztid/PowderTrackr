@@ -1,9 +1,9 @@
 import SwiftUI
 
-struct SocialView: View {
+public struct SocialView: View {
     @StateObject var viewModel: ViewModel
     
-    var body: some View {
+    public var body: some View {
         VStack(spacing: .zero) {
             notificationSection
             //            HStack {
@@ -54,7 +54,7 @@ struct SocialView: View {
         .toolbar(.hidden)
     }
     
-    var segmentedControl: some View {
+    private var segmentedControl: some View {
         SegmentedControl(
             firstTab: .init(tabItem: .init(name: "Friends")) {
                 ScrollView {
@@ -62,7 +62,8 @@ struct SocialView: View {
                         ForEach(viewModel.friendList?.friends ?? []) { friend in
                             FriendListItem(
                                 friend: friend,
-                                notification: viewModel.notification(for: friend.id)
+                                notification: viewModel.notification(for: friend.id),
+                                lastMessage: viewModel.lastMessage(for: friend.id)
                             ) {
                                 viewModel.updateTracking(id: friend.id)
                             } navigationAction: {
@@ -90,7 +91,7 @@ struct SocialView: View {
         )
     }
     
-    @ViewBuilder var notificationSection: some View {
+    @ViewBuilder private var notificationSection: some View {
         if viewModel.notification {
             InfoCardView(
                 model: .init(

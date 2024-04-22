@@ -6,6 +6,7 @@ public struct FriendListItem: View {
     @State var isTracking: Bool
     let action: () -> Void
     let navigationAction: () -> Void
+    let lastMessage: Message?
 
     public var body: some View {
         HStack {
@@ -36,10 +37,14 @@ public struct FriendListItem: View {
     }
     
     var lastMessageDescription: String {
-        if notification {
-            return "chatItem.lastMessage"
+        if let message = lastMessage {
+            if message.sender == friend.id {
+                return message.text
+            } else {
+                return "You: ".appending(message.text)
+            }
         } else {
-            return "You: ".appending("Ez az utolsó üzenet")
+            return "..."
         }
     }
 
@@ -47,12 +52,14 @@ public struct FriendListItem: View {
         friend: Friend,
         notification: Bool = false,
         isTracking: Bool = false,
+        lastMessage: Message? = nil,
         action: @escaping () -> Void,
         navigationAction: @escaping () -> Void
     ) {
         self.friend = friend
         self.notification = notification
         self.isTracking = .init(friend.isTracking)
+        self.lastMessage = lastMessage
         self.action = action
         self.navigationAction = navigationAction
     }

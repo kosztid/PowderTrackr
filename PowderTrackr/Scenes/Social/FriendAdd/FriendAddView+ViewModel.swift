@@ -41,13 +41,14 @@ public extension FriendAddView {
         }
         
         func addFriend(user: User) {
-            service.sendFriendRequest(recipient: user.email)
+            service.sendFriendRequest(recipient: user.id)
                 .sink(
                     receiveCompletion: { completion in
                         guard case .failure(let error) = completion else { return }
                         print(error)
                     }, receiveValue: { [weak self] users in
                         self?.toast = .init(title: "Friendrequest sent to \(user.name)", type: .success)
+                        self?.users.removeAll { $0.id == user.id}
                     }
                 )
                 .store(in: &cancellables)

@@ -2,6 +2,15 @@ import Combine
 import SwiftUI
 
 extension SocialView {
+    public struct LastMessageModel {
+        public let id: String
+        public let message: Message?
+        
+        public init(id: String, message: Message?) {
+            self.id = id
+            self.message = message
+        }
+    }
     struct InputModel {
         let navigateToAccount: () -> Void
     }
@@ -12,6 +21,7 @@ extension SocialView {
         @Published var notification: Bool
         @Published var signedIn: Bool = false
         @Published var chatNotifications: [String] = []
+        @Published var lastMessages: [LastMessageModel] = []
 
         private let navigator: SocialListViewNavigatorProtocol
         private let friendService: FriendServiceProtocol
@@ -74,6 +84,13 @@ extension SocialView {
                     self?.chatNotifications = notifications ?? []
                 }
                 .store(in: &cancellables)
+
+            chatService.lastMessagesPublisher
+                .sink { _ in
+                } receiveValue: { [weak self] array in
+                    self?.lastMessages = array ?? []
+                }
+                .store(in: &cancellables)
         }
 
         func removeFriend(friend: Friend) {
@@ -90,7 +107,6 @@ extension SocialView {
         }
 
         func navigateToAddFriend() {
-//            navigator.navigateToAdd(users: [.init(id: "123", name: "Koszti", email: "@gmail"), .init(id: "124", name: "Panki", email: "@gmail")])
             friendService.getAddableUsers()
                 .sink(
                     receiveCompletion: { completion in
@@ -124,6 +140,12 @@ extension SocialView {
             friendService.queryFriendRequests()
         }
 
+        
+        
+        func lastMessage(for id: String) -> Message? {
+            lastMessages.first { $0.id == id }?.message
+        }
+        
         func notification(for friendId: String) -> Bool {
             chatNotifications.contains(friendId)
         }

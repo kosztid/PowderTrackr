@@ -7,6 +7,7 @@ public protocol ChatServiceProtocol: AnyObject {
     var messagesPublisher: AnyPublisher<[Chat.Message]?, Never> { get }
     var chatNotificationPublisher: AnyPublisher<[String]?, Never> { get }
     var networkErrorPublisher: AnyPublisher<ToastModel?, Never> { get }
+    var lastMessagesPublisher: AnyPublisher<[SocialView.LastMessageModel]?, Never> { get }
     
     func sendMessage(message: Chat.Message, recipient: String)
     func queryChat(recipient: String)
@@ -18,6 +19,7 @@ final class ChatService {
     private let userID: String = UserDefaults.standard.string(forKey: "id") ?? ""
     private let messages: CurrentValueSubject<[Chat.Message]?, Never> = .init(nil)
     private let chatNotifications: CurrentValueSubject<[String]?, Never> = .init(nil)
+    private let lastMessages: CurrentValueSubject<[SocialView.LastMessageModel]?, Never> = .init(nil)
     private var chatId: String = ""
     private var chatRoomID: String = ""
     private var cancellables: Set<AnyCancellable> = []
@@ -44,6 +46,12 @@ extension ChatService: ChatServiceProtocol {
     
     var chatNotificationPublisher: AnyPublisher<[String]?, Never> {
         chatNotifications
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
+
+    var lastMessagesPublisher: AnyPublisher<[SocialView.LastMessageModel]?, Never> {
+        lastMessages
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
@@ -178,6 +186,7 @@ extension ChatService: ChatServiceProtocol {
                 print("Error: \(error)")
             } else {
                 var notifications: Set<String> = []
+                var lastMessages: [SocialView.LastMessageModel] = []
                 
                 data?.forEach { chat in
                     let participants = chat.participants
@@ -187,9 +196,12 @@ extension ChatService: ChatServiceProtocol {
                                 notifications.insert(message.sender)
                             }
                         }
+                        let recipient: String = participants.first { $0 != self.userID } ?? ""
+                        lastMessages.append(.init(id: recipient, message: chat.messages.last))
                     }
                 }
                 self.chatNotifications.send(Array(notifications))
+                self.lastMessages.send(lastMessages)
             }
         }
     }
