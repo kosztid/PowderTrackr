@@ -94,7 +94,7 @@ extension FriendService: FriendServiceProtocol {
                 print("Error: \(error)")
             } else {
                 let currentFriendRequests = data?.compactMap { item in
-                    if item.recipient == self.userName { return item } else { return nil }
+                    if item.recipient == self.userID { return item } else { return nil }
                 }
                 guard let currentFriendRequests else { return }
                 self.friendRequests.send(currentFriendRequests)

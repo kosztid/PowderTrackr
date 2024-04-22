@@ -53,7 +53,7 @@ extension ProfileView {
         
         func loadData() {
             mapService.queryTrackedPaths()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.currentEmail = UserDefaults.standard.string(forKey: "email") ?? ""
                 self.userName = UserDefaults.standard.string(forKey: "name") ?? ""
 

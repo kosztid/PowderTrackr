@@ -98,6 +98,9 @@ struct ProfileView: View {
         .headerView(
             title: "Profile"
         )
+        .onAppear {
+            viewModel.loadData()
+        }
     }
 
     var userData: some View {

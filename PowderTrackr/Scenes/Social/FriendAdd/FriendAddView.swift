@@ -5,11 +5,20 @@ public struct FriendAddView: View {
     
     public var body: some View {
         ScrollView {
-            VStack {
-                ForEach(viewModel.filteredUsers, id: \.self) { user in
-                    FriendAddRowView(user: user, addAction: viewModel.addFriend)
+            VStack(spacing: .zero) {
+                if viewModel.users.isEmpty {
+                    Text("You have no users to add")
+                        .textStyle(.bodyBold)
+                        .foregroundStyle(Color.warmGray)
+                        .padding()
+                    Spacer()
+                } else {
+                    ForEach(viewModel.filteredUsers, id: \.self) { user in
+                        FriendAddRowView(user: user, addAction: viewModel.addFriend)
+                    }
                 }
             }
+            .frame(maxWidth: .infinity)
         }
         .background(Color.grayPrimary)
         .toastMessage(toastMessage: $viewModel.toast)

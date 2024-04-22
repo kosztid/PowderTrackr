@@ -316,7 +316,7 @@ extension MapView {
                 var distanceToFinish = 100.0
                 let finishCoord = CLLocation(latitude: selectedRace?.xCoords?[1] ?? 0, longitude: selectedRace?.yCoords?[1] ?? 0)
                 distanceToFinish = finishCoord.distance(from: CLLocation(latitude: cameraPos.target.latitude, longitude: cameraPos.target.longitude))
-                if distanceToFinish < 100 {
+                if distanceToFinish < 30 {
                     stopTracking()
                 }
             }

@@ -8,9 +8,8 @@ struct FriendRequestRowView: View {
     var body: some View {
         HStack {
             Text(requester)
-                .textStyle(.body)
+                .textStyle(.bodyLarge)
                 .foregroundColor(Color.primary)
-                .padding(.leading, 10)
             
             Spacer()
             
@@ -32,6 +31,7 @@ struct FriendRequestRowView: View {
             }
             .padding(.trailing, .su10)
         }
+        .padding(.leading, .su16)
         .frame(height: .su64)
         .background(Color.softWhite)
         .cornerRadius(.su8)
