@@ -10,10 +10,6 @@ struct TrackListItem: View {
     let dateFormatter: DateFormatter
     let formatter: DateComponentsFormatter
     var track: TrackedPath
-    let notes = [
-        "Note1 description something",
-        "Note2 description something"
-    ]
     let shareAction: (_ trackedPath: TrackedPath) -> Void
     let closeAction: () -> Void
     let updateAction: (_ trackedPath: TrackedPath, _ shared: Bool) -> Void
@@ -227,12 +223,13 @@ struct TrackListItem: View {
                 ForEach(track.notes ?? [], id: \.self) { note in
                     HStack {
                         Text(note)
+                            .textStyle(.bodySmallBold)
                         Spacer()
                     }
                 }
             }
             Divider()
-                .padding(.vertical, 8)
+                .padding(.vertical, .su8)
         }
     }
 
