@@ -9,6 +9,18 @@ public extension FriendAddView {
     final class ViewModel: ObservableObject {
         @Published var users: [User] = []
         @Published var toast: ToastModel?
+        @Published var searchText: String = ""
+        
+        var filteredUsers: [User] {
+            if searchText.isEmpty {
+                return users
+            } else {
+                return users.filter { user in
+                    user.name.localizedCaseInsensitiveContains(searchText) ||
+                    user.email.localizedCaseInsensitiveContains(searchText)
+                }
+            }
+        }
         
         private let navigator: SocialAddViewNavigatorProtocol
         private let service: FriendServiceProtocol
@@ -25,7 +37,7 @@ public extension FriendAddView {
             self.navigator = navigator
             self.service = service
             self.model = model
-            self.users = model.users.filter { $0.id != UserDefaults.standard.string(forKey: "id") ?? "" }
+            self.users = model.users
         }
         
         func addFriend(user: User) {
@@ -41,7 +53,7 @@ public extension FriendAddView {
                 .store(in: &cancellables)
         }
         
-        func navigateBack() {
+        func dismissButtonTap() {
             navigator.navigateBack()
         }
     }
