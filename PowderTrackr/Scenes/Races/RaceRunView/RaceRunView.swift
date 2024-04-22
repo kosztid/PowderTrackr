@@ -1,6 +1,11 @@
 import SwiftUI
 
 struct RaceRunView: View {
+    private enum Layout {
+        static let playerHeight: CGFloat = 200
+        static let positionTickWidth: CGFloat = 200
+    }
+    
     @StateObject var viewModel: ViewModel
     @State var playerOpened = false
 
@@ -8,32 +13,27 @@ struct RaceRunView: View {
         VStack(spacing: .zero) {
             HStack {
                 Text("Race name")
-                    .font(.callout)
-                    .bold()
+                    .textStyle(.body)
                 Spacer()
             }
             HStack {
                 Text(viewModel.race.name)
-                    .font(.title)
+                    .textStyle(.h4)
                 Spacer()
                 Text(viewModel.race.endDate)
+                    .textStyle(.bodyLarge)
             }
             Divider()
-                .padding(.vertical, 4)
+                .padding(.vertical, .su4)
             dataSection
             playerSection
         }
-        .padding(.vertical, 16)
-        .padding(.horizontal, 8)
-        .background(.white)
-        .cornerRadius(16)
-        .padding(8)
-        .shadow(
-            color: .gray.opacity(0.6),
-            radius: 4,
-            x: .zero,
-            y: 4
-        )
+        .padding(.vertical, .su16)
+        .padding(.horizontal, .su8)
+        .background(Color.softWhite)
+        .cornerRadius(.su16)
+        .padding(.su8)
+        .customShadow()
         .onChange(of: viewModel.currentArrayIndex) { _, index in
             viewModel.calculateDistanceFromStartingPoint(index: index)
         }
@@ -47,52 +47,51 @@ struct RaceRunView: View {
                 } label: {
                     HStack {
                         Text("Player")
-                            .font(.system(size: 18))
+                            .textStyle(.bodyLarge)
                         Spacer()
                         Image(systemName: playerOpened ? "arrowtriangle.up" : "arrowtriangle.down")
                             .resizable()
-                            .frame(width: 24, height: 24)
+                            .frame(width: .su24, height: .su24)
                     }
-                    .frame(height: 20)
+                    .frame(height: .su20)
                 }
             }
             if playerOpened {
                 ViewFactory.raceRunGoogleMap(cameraPos: $viewModel.cameraPos, raceMarkers: $viewModel.raceMarkers)
-                    .frame(height: 200)
-                    .cornerRadius(16)
+                    .frame(height: Layout.playerHeight)
+                    .cornerRadius(.su16)
                 Grid(horizontalSpacing: .zero) {
                     GridRow {
                         ForEach(0..<100) { index in
                             ZStack {
                                 // player
                                 if index == Int(viewModel.playerPosition) {
-                                    Rectangle().fill().frame(width: 2, height: 32)
+                                    Rectangle().fill().frame(width: .su2, height: .su32)
                                         .foregroundColor(.blue)
                                 }
                                 if index == Int(viewModel.opponentPosition) && viewModel.closestRun != nil {
-                                    Rectangle().fill().frame(width: 1, height: 32).foregroundColor(.red)
+                                    Rectangle().fill().frame(width: Layout.positionTickWidth, height: .su32).foregroundColor(.red)
                                 }
-                                Rectangle().fill().frame(height: 2).foregroundColor(.black)
+                                Rectangle().fill().frame(height: .su2).foregroundColor(.black)
                             }
                         }
                     }
                 }
-                .padding(.vertical, 16)
+                .padding(.vertical, .su16)
                 HStack {
                     Spacer()
-                    Button {
+                    Button("\(viewModel.playSpeed)x") {
                         viewModel.setSpeed()
-                    } label: {
-                        Text("\(Int(viewModel.playSpeed))x")
                     }
-                    .padding(.horizontal, 8)
+                    .padding(.horizontal, .su8)
+                    .buttonStyle(SkiingButtonStyle(style: .bordered))
                     Button {
                         viewModel.playButtonTap()
                     } label: {
                         Image(systemName: viewModel.playerState == .playing ? "pause" : "play")
                             .resizable()
-                            .frame(width: 24, height: 24)
-                            .foregroundColor(.blue)
+                            .frame(width: .su24, height: .su24)
+                            .foregroundColor(.bluePrimary)
                     }
                 }
             }
@@ -102,21 +101,24 @@ struct RaceRunView: View {
         Group {
             HStack {
                 Text("Distance:")
+                    .textStyle(.body)
                 Text("\(viewModel.totalDistance, specifier: "%.f") meters")
-                    .italic()
+                    .textStyle(.bodyBold)
                 Spacer()
             }
             HStack {
                 Text("Time:")
+                    .textStyle(.body)
                 Text("\(viewModel.elapsedTimeInString)")
-                    .italic()
+                    .textStyle(.bodyBold)
                 Spacer()
                 if viewModel.player >= .zero {
                     Text("\(viewModel.player) %")
+                        .textStyle(.bodyBold)
                 }
             }
         }
-        .padding(.bottom, 8)
+        .padding(.bottom, .su8)
     }
 }
 
