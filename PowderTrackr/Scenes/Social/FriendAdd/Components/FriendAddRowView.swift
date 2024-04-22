@@ -2,28 +2,27 @@ import SwiftUI
 
 struct FriendAddRowView: View {
     var user: User
-    let addAction: (String) -> Void
+    let addAction: (User) -> Void
 
     var body: some View {
         HStack {
             Text(user.name)
-                .textStyle(.body)
+                .textStyle(.bodyLarge)
                 .foregroundColor(Color.primary)
-                .padding(.leading, 10)
             
             Spacer()
             
             Button {
-                addAction(user.email)
+                addAction(user)
             } label: {
                 Image(systemName: "plus")
-                    .foregroundColor(.white)
+                    .foregroundColor(.darkSlateGray)
                     .padding()
                     .background(LinearGradient(gradient: Gradient(colors: [Color.cyanPrimary.opacity(0.8), Color.cyanPrimary]), startPoint: .leading, endPoint: .trailing))
                     .clipShape(Circle())
             }
-            .padding(.trailing, .su4)
         }
+        .padding(.horizontal, .su16)
         .frame(height: .su64)
         .background(Color.softWhite)
         .cornerRadius(.su8)
