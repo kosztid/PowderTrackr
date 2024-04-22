@@ -104,39 +104,43 @@ struct ProfileView: View {
     }
 
     var userData: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: .su16) {
             Text("You")
-                .bold()
-                .font(.title)
+                .textStyle(.h2)
             VStack(alignment: .leading, spacing: .zero) {
                 Text("Email address")
-                    .foregroundColor(.gray)
-                    .font(.caption)
+                    .textStyle(.bodySmall)
+                    .foregroundStyle(Color.warmGray)
                 Text(viewModel.currentEmail)
+                    .textStyle(.body)
                 Divider()
-                    .padding(.vertical, 4)
+                    .padding(.vertical, .su4)
                 Text("Name")
-                    .foregroundColor(.gray)
-                    .font(.caption)
+                    .textStyle(.bodySmall)
+                    .foregroundStyle(Color.warmGray)
                 Text(viewModel.userName)
+                    .textStyle(.body)
             }
         }
     }
 
     var stats: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: .su16) {
             Text("Stats")
-                .bold()
-                .font(.title)
+                .textStyle(.h2)
             HStack {
                 Text("Total distance on snow:")
+                    .textStyle(.body)
                 Spacer()
                 Text("\(viewModel.totalDistance / 1_000.0, specifier: "%.2f") km")
+                    .textStyle(.bodyBold)
             }
             HStack {
                 Text("Total time on snow:")
+                    .textStyle(.body)
                 Spacer()
                 Text("\(viewModel.totalTime)")
+                    .textStyle(.bodyBold)
             }
         }
     }
