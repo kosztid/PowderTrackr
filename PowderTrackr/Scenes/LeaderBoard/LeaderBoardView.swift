@@ -6,14 +6,14 @@ struct LeaderBoardView: View {
     var body: some View {
         VStack(spacing: .zero) {
             Text("Leaderboard")
-                .font(.largeTitle)
-                .bold()
-                .padding(.bottom, 32)
+                .textStyle(.h2)
+                .padding(.bottom, .su16)
             segmentedButtons
             Divider()
-                .frame(height: 2)
+                .frame(height: .su2)
             scrollView
         }
+        .background(Color.grayPrimary)
         .onAppear {
             viewModel.onAppear()
         }
@@ -26,26 +26,26 @@ struct LeaderBoardView: View {
                 viewModel.tabState = .distance
             } label: {
                 Text("Distance")
-                    .bold()
+                    .textStyle(.bodyLargeBold)
                     .foregroundColor(.black)
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .padding(.vertical, 8)
-                    .background(viewModel.tabState == .distance ? .cyan.opacity(0.2) : .white)
-                    .cornerRadius(8, corners: [.bottomRight, .topRight])
+                    .frame(minWidth: .zero, maxWidth: .infinity)
+                    .padding(.vertical, .su8)
+                    .background(viewModel.tabState == .distance ? Color.cyanPrimary : Color.softWhite)
+                    .cornerRadius(.su8, corners: [.bottomRight, .topRight])
             }
             Button {
                 viewModel.tabState = .time
             } label: {
                 Text("Time")
-                    .bold()
+                    .textStyle(.bodyLargeBold)
                     .foregroundColor(.black)
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .padding(.vertical, 8)
-                    .background(viewModel.tabState == .time ? .cyan.opacity(0.2) : .white)
-                    .cornerRadius(8, corners: [.bottomLeft, .topLeft])
+                    .frame(minWidth: .zero, maxWidth: .infinity)
+                    .padding(.vertical, .su8)
+                    .background(viewModel.tabState == .time ? Color.cyanPrimary : Color.softWhite)
+                    .cornerRadius(.su8, corners: [.bottomLeft, .topLeft])
             }
         }
-        .padding(.bottom, 8)
+        .padding(.bottom, .su8)
     }
 
     var scrollView: some View {
@@ -54,18 +54,16 @@ struct LeaderBoardView: View {
                 ForEach(Array(viewModel.leaderBoardList.enumerated()), id: \.offset) { index, _ in
                     HStack {
                         leaderboardLeadingView(place: index + 1)
-                            .font(leaderboardLeadingViewFontSize(place: index + 1))
-                            .bold()
                             .foregroundColor(leaderBoardForegroundColor(place: index + 1))
-                            .frame(width: 32)
+                            .frame(width: .su32)
                         Text(viewModel.leaderBoardList[index].name)
-                            .font(.body)
-                            .bold()
+                            .textStyle(.bodyLargeBold)
                         Spacer()
                         Text(leaderBoardRowData(index:index))
-                            .foregroundColor(.gray)
+                            .textStyle(.bodyLarge)
+                            .foregroundStyle(Color.darkSlateGray)
                     }
-                    .padding(.vertical, 8)
+                    .padding(.vertical, .su8)
                     .padding(.horizontal)
                     .background(leaderBoardBackgroundColor(place: index + 1))
                 }
@@ -80,8 +78,34 @@ struct LeaderBoardView: View {
             return "\(String(format: "%.f", viewModel.leaderBoardList[index].totalTimeInSeconds / 60)) min"
         }
     }
+    
+    private func leaderboardLeadingView(place: Int) -> AnyView {
+        if place < 4 {
+            return AnyView(
+                Image(systemName: "trophy")
+                .font(leaderboardLeadingViewImageSize(place: place))
+            )
+        } else {
+            return AnyView(
+                Text(String(place))
+                    .textStyle(leaderboardLeadingViewFontSize(place: place))
+            )
+        }
+    }
 
-    private func leaderboardLeadingViewFontSize(place: Int) -> Font {
+    private func leaderboardLeadingViewFontSize(place: Int) -> TextStyle {
+        if place == 1 {
+            return .h2
+        } else if place == 2 {
+            return .h3
+        } else if place == 3 {
+            return .bodyLarge
+        } else {
+            return .bodyLarge
+        }
+    }    
+    
+    private func leaderboardLeadingViewImageSize(place: Int) -> Font {
         if place == 1 {
             return .title
         } else if place == 2 {
@@ -90,13 +114,6 @@ struct LeaderBoardView: View {
             return .title3
         } else {
             return .title3
-        }
-    }
-    private func leaderboardLeadingView(place: Int) -> AnyView {
-        if place < 4 {
-            return AnyView(Image(systemName: "trophy"))
-        } else {
-            return AnyView(Text(String(place)))
         }
     }
 
