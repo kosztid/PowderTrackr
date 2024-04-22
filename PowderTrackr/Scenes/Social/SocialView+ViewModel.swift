@@ -90,7 +90,8 @@ extension SocialView {
         }
 
         func navigateToAddFriend() {
-            friendService.getUsers()
+//            navigator.navigateToAdd(users: [.init(id: "123", name: "Koszti", email: "@gmail"), .init(id: "124", name: "Panki", email: "@gmail")])
+            friendService.getAddableUsers()
                 .sink(
                     receiveCompletion: { completion in
                         guard case .failure(let error) = completion else { return }
