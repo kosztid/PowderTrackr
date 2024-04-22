@@ -35,30 +35,28 @@ struct TrackListItem: View {
     var body: some View {
         VStack(spacing: .zero) {
             header
-                .padding(.bottom, 8)
+                .padding(.bottom, .su8)
             if isOpened || openedInitially {
                 openedSection
             }
         }
-        .padding(8)
+        .padding(.su8)
         .background(.white)
-        .cornerRadius(20)
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(.black, lineWidth: 1)
-        )
-        .padding(8)
+        .cornerRadius(.su20)
+        .padding(.su8)
         .customShadow()
     }
 
     var header: some View {
         HStack {
             Text(track.name)
+                .textStyle(.bodyLargeBold)
             Spacer()
             VStack(alignment: .trailing) {
                 Text("Date")
-                    .font(.caption)
+                    .textStyle(.bodySmall)
                 Text(track.startDate)
+                    .textStyle(.bodyBold)
             }
             if openedInitially {
                 Button {
@@ -66,12 +64,11 @@ struct TrackListItem: View {
                         closeAction()
                     }
                 } label: {
-                    Image(systemName: isOpened ? "xmark" : "arrowtriangle.down")
-                        .foregroundColor(isOpened ? .white : .black)
-                        .frame(width: 40, height: 40)
-                        .rotationEffect(isOpened ? .degrees(180) : .zero)
-                        .background(.teal)
-                        .cornerRadius(20)
+                    Image(systemName: "arrowtriangle.down")
+                        .foregroundColor(.softWhite)
+                        .frame(width: .su40, height: .su40)
+                        .background(Color.blueSecondary)
+                        .cornerRadius(.su20)
                 }
             } else {
                 Button {
@@ -80,15 +77,14 @@ struct TrackListItem: View {
                     }
                 } label: {
                     Image(systemName: isOpened ? "xmark" : "arrowtriangle.down")
-                        .foregroundColor(isOpened ? .white : .black)
-                        .frame(width: 40, height: 40)
+                        .foregroundColor(isOpened ? .softWhite : .darkSlateGray)
+                        .frame(width: .su40, height: .su40)
                         .rotationEffect(isOpened ? .degrees(180) : .zero)
-                        .background(.teal)
-                        .cornerRadius(20)
+                        .background(Color.blueSecondary)
+                        .cornerRadius(.su20)
                 }
             }
         }
-        .background()
         .alert("Rename run...", isPresented: $showingRenameAlert) {
             TextField("Enter the new name...", text: $name)
                 .autocorrectionDisabled(true)
@@ -143,28 +139,34 @@ struct TrackListItem: View {
     var openedSection: some View {
         VStack(spacing: .zero) {
             Divider()
-                .padding(.vertical, 8)
+                .padding(.vertical, .su8)
             HStack {
                 Text("Total distance moved:")
+                    .textStyle(.body)
                 Spacer()
                 Text("\(totalDistance, specifier: "%.f") meters")
+                    .textStyle(.bodyBold)
             }
-            .padding(.bottom, 4)
+            .padding(.bottom, .su4)
             HStack {
                 Text("Duration:")
+                    .textStyle(.body)
                 Spacer()
                 Text("\(date)")
+                    .textStyle(.bodyBold)
             }
-            .padding(.bottom, 8)
+            .padding(.bottom, .su8)
             HStack {
                 Text("Show on Map")
+                    .textStyle(.body)
                 Spacer()
                 Toggle(isOn: $isShowingOnMap) {
                 }
+                .toggleStyle(SwitchToggleStyle(tint: .blueSecondary))
             }
             normalSection
         }
-        .onChange(of: isShowingOnMap) { newValue in
+        .onChange(of: isShowingOnMap) { _, newValue in
             var newTrack = track
             newTrack.tracking = newValue
             updateAction(newTrack, style == .shared)
@@ -177,7 +179,7 @@ struct TrackListItem: View {
     var normalSection: some View {
         VStack(spacing: .zero) {
             Divider()
-                .padding(.vertical, 8)
+                .padding(.vertical, .su8)
             if !openedInitially {
                 notesSection
             }
@@ -188,43 +190,35 @@ struct TrackListItem: View {
                     } label: {
                         Image(systemName: "square.and.arrow.up")
                     }
+                    .fixedSize()
                     .buttonStyle(SkiingButtonStyle(style: .secondary))
-                    .padding(.top, 8)
+                    Spacer()
                 }
                 if style == .normal {
-                    Button {
+                    Button("Rename") {
                         name = track.name
                         showingRenameAlert.toggle()
-                    } label: {
-                        Text("Rename run")
-                            .frame(width: 95)
                     }
                     .buttonStyle(SkiingButtonStyle(style: .secondary))
-                    .padding(.top, 8)
                 }
-                Button {
+                Spacer()
+                Button("Delete") {
                     showingDeleteAlert.toggle()
-                } label: {
-                    Text("Delete run")
-                        .frame(width: 95)
                 }
                 .buttonStyle(SkiingButtonStyle(style: .borderedRed))
-                .padding(.top, 8)
-            }
+            }.padding(.su8)
         }
     }
     var notesSection: some View {
         Group {
             HStack {
                 Text("Notes")
-                    .padding(.bottom, 8)
+                    .textStyle(.bodySmall)
+                    .padding(.bottom, .su8)
                 Spacer()
                 if style == .normal {
-                    Button {
+                    Button("Add note") {
                         showingAlert.toggle()
-                    } label: {
-                        Text("Add note")
-                            .foregroundColor(.black)
                     }
                     .buttonStyle(SkiingButtonStyle(style: .bordered))
                 }
