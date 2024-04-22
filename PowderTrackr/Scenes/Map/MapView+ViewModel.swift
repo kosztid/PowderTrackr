@@ -80,6 +80,9 @@ extension MapView {
             )
             super.init()
             self.locationManager.delegate = self
+            locationManager.requestAlwaysAuthorization()
+            locationManager.allowsBackgroundLocationUpdates = true
+            locationManager.pausesLocationUpdatesAutomatically = false
             self.locationManager.startUpdatingLocation()
             
             self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"

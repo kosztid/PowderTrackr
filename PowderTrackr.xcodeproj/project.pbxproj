@@ -109,6 +109,13 @@
 		B44B8A9E2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44B8A9D2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift */; };
 		B44B8AA02B826D1400E8F25F /* PowderTrackrNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44B8A9F2B826D1400E8F25F /* PowderTrackrNavigator.swift */; };
 		B45310F62BD6709C00891ADC /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45310F52BD6709C00891ADC /* CornerRadius.swift */; };
+		B45310FF2BD7133D00891ADC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B45310FE2BD7133D00891ADC /* WidgetKit.framework */; };
+		B45311012BD7133D00891ADC /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B45311002BD7133D00891ADC /* SwiftUI.framework */; };
+		B45311042BD7133D00891ADC /* PowderTrackrWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45311032BD7133D00891ADC /* PowderTrackrWidgetBundle.swift */; };
+		B45311062BD7133D00891ADC /* PowderTrackrWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45311052BD7133D00891ADC /* PowderTrackrWidgetLiveActivity.swift */; };
+		B45311082BD7133D00891ADC /* PowderTrackrWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45311072BD7133D00891ADC /* PowderTrackrWidget.swift */; };
+		B453110A2BD7133E00891ADC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B45311092BD7133E00891ADC /* Assets.xcassets */; };
+		B453110E2BD7133E00891ADC /* PowderTrackrWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B45310FD2BD7133D00891ADC /* PowderTrackrWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B45E58A32B95E4BA00BA1561 /* ToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45E58A22B95E4BA00BA1561 /* ToastModifier.swift */; };
 		B45E58A62B95E54300BA1561 /* ToastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45E58A52B95E54300BA1561 /* ToastModel.swift */; };
 		B4899C3E2B7648EA0015BD3F /* UserfriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4899C332B7648E90015BD3F /* UserfriendList.swift */; };
@@ -145,6 +152,16 @@
 		DB5F670D7C78E51B71D728C8 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = CAFBDA2D03070658D228A377 /* awsconfiguration.json */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		B453110C2BD7133E00891ADC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 554587812A3DF8F1009A5485 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B45310FC2BD7133D00891ADC;
+			remoteInfo = PowderTrackrWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		55E9EEA12A92401E0099D3B0 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -156,6 +173,17 @@
 				55E9EEA02A92401E0099D3B0 /* Chat in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B45311122BD7133E00891ADC /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B453110E2BD7133E00891ADC /* PowderTrackrWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -264,6 +292,16 @@
 		B44B8A9D2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PowderTrackrView+ViewModel.swift"; sourceTree = "<group>"; };
 		B44B8A9F2B826D1400E8F25F /* PowderTrackrNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrNavigator.swift; sourceTree = "<group>"; };
 		B45310F52BD6709C00891ADC /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
+		B45310FD2BD7133D00891ADC /* PowderTrackrWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PowderTrackrWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B45310FE2BD7133D00891ADC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		B45311002BD7133D00891ADC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		B45311032BD7133D00891ADC /* PowderTrackrWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrWidgetBundle.swift; sourceTree = "<group>"; };
+		B45311052BD7133D00891ADC /* PowderTrackrWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrWidgetLiveActivity.swift; sourceTree = "<group>"; };
+		B45311072BD7133D00891ADC /* PowderTrackrWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrWidget.swift; sourceTree = "<group>"; };
+		B45311092BD7133E00891ADC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B453110B2BD7133E00891ADC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B45311132BD7135B00891ADC /* PowderTrackr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PowderTrackr.entitlements; sourceTree = "<group>"; };
+		B45311142BD7142400891ADC /* PowderTrackrWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PowderTrackrWidgetExtension.entitlements; sourceTree = "<group>"; };
 		B45E58A22B95E4BA00BA1561 /* ToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModifier.swift; sourceTree = "<group>"; };
 		B45E58A52B95E54300BA1561 /* ToastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModel.swift; sourceTree = "<group>"; };
 		B4899C332B7648E90015BD3F /* UserfriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserfriendList.swift; sourceTree = "<group>"; };
@@ -308,6 +346,15 @@
 				B42B250E2BA710250013383D /* Amplify in Frameworks */,
 				B4A0BDE92B76537600FF509C /* Pods_PowderTrackr.framework in Frameworks */,
 				55E98BB42A73FB7800634917 /* Chat in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B45310FA2BD7133D00891ADC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B45311012BD7133D00891ADC /* SwiftUI.framework in Frameworks */,
+				B45310FF2BD7133D00891ADC /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,7 +411,9 @@
 		554587802A3DF8F1009A5485 = {
 			isa = PBXGroup;
 			children = (
+				B45311142BD7142400891ADC /* PowderTrackrWidgetExtension.entitlements */,
 				5545878B2A3DF8F1009A5485 /* PowderTrackr */,
+				B45311022BD7133D00891ADC /* PowderTrackrWidget */,
 				5545878A2A3DF8F1009A5485 /* Products */,
 				17D1273D6EAE2FD3D47D72FF /* AmplifyConfig */,
 				16F1AFC8377525AF79CBBAB9 /* Pods */,
@@ -376,6 +425,7 @@
 			isa = PBXGroup;
 			children = (
 				554587892A3DF8F1009A5485 /* PowderTrackr.app */,
+				B45310FD2BD7133D00891ADC /* PowderTrackrWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -383,6 +433,7 @@
 		5545878B2A3DF8F1009A5485 /* PowderTrackr */ = {
 			isa = PBXGroup;
 			children = (
+				B45311132BD7135B00891ADC /* PowderTrackr.entitlements */,
 				555AA0542AE6A69F006ED60F /* Info.plist */,
 				B4F2BFF92B2124B500FA8DE1 /* API */,
 				B4243FC42BC462C20056C7C5 /* Resources */,
@@ -733,6 +784,8 @@
 			isa = PBXGroup;
 			children = (
 				1E251DFC276D77AEF0A316FA /* Pods_PowderTrackr.framework */,
+				B45310FE2BD7133D00891ADC /* WidgetKit.framework */,
+				B45311002BD7133D00891ADC /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -809,6 +862,18 @@
 				B45310F52BD6709C00891ADC /* CornerRadius.swift */,
 			);
 			path = "View+Extension";
+			sourceTree = "<group>";
+		};
+		B45311022BD7133D00891ADC /* PowderTrackrWidget */ = {
+			isa = PBXGroup;
+			children = (
+				B45311032BD7133D00891ADC /* PowderTrackrWidgetBundle.swift */,
+				B45311052BD7133D00891ADC /* PowderTrackrWidgetLiveActivity.swift */,
+				B45311072BD7133D00891ADC /* PowderTrackrWidget.swift */,
+				B45311092BD7133E00891ADC /* Assets.xcassets */,
+				B453110B2BD7133E00891ADC /* Info.plist */,
+			);
+			path = PowderTrackrWidget;
 			sourceTree = "<group>";
 		};
 		B45E58A42B95E53900BA1561 /* Toast */ = {
@@ -894,10 +959,12 @@
 				EC9D157140FCBA06001CE768 /* [CP] Embed Pods Frameworks */,
 				E592F06E2FF6CA9FD7BA81A7 /* [CP] Copy Pods Resources */,
 				55E9EEA12A92401E0099D3B0 /* Embed Frameworks */,
+				B45311122BD7133E00891ADC /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B453110D2BD7133E00891ADC /* PBXTargetDependency */,
 			);
 			name = PowderTrackr;
 			packageProductDependencies = (
@@ -909,6 +976,23 @@
 			productReference = 554587892A3DF8F1009A5485 /* PowderTrackr.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B45310FC2BD7133D00891ADC /* PowderTrackrWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B453110F2BD7133E00891ADC /* Build configuration list for PBXNativeTarget "PowderTrackrWidgetExtension" */;
+			buildPhases = (
+				B45310F92BD7133D00891ADC /* Sources */,
+				B45310FA2BD7133D00891ADC /* Frameworks */,
+				B45310FB2BD7133D00891ADC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PowderTrackrWidgetExtension;
+			productName = PowderTrackrWidgetExtension;
+			productReference = B45310FD2BD7133D00891ADC /* PowderTrackrWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -916,11 +1000,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					554587882A3DF8F1009A5485 = {
 						CreatedOnToolsVersion = 14.3.1;
+					};
+					B45310FC2BD7133D00891ADC = {
+						CreatedOnToolsVersion = 15.3;
 					};
 				};
 			};
@@ -942,6 +1029,7 @@
 			projectRoot = "";
 			targets = (
 				554587882A3DF8F1009A5485 /* PowderTrackr */,
+				B45310FC2BD7133D00891ADC /* PowderTrackrWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -958,6 +1046,14 @@
 				554587912A3DF8F2009A5485 /* Assets.xcassets in Resources */,
 				DB5F670D7C78E51B71D728C8 /* awsconfiguration.json in Resources */,
 				38B2EF361C3DDEE6BC819CB4 /* amplifyconfiguration.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B45310FB2BD7133D00891ADC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B453110A2BD7133E00891ADC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1153,7 +1249,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B45310F92BD7133D00891ADC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B45311062BD7133D00891ADC /* PowderTrackrWidgetLiveActivity.swift in Sources */,
+				B45311082BD7133D00891ADC /* PowderTrackrWidget.swift in Sources */,
+				B45311042BD7133D00891ADC /* PowderTrackrWidgetBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B453110D2BD7133E00891ADC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B45310FC2BD7133D00891ADC /* PowderTrackrWidgetExtension */;
+			targetProxy = B453110C2BD7133E00891ADC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		554587952A3DF8F2009A5485 /* Debug */ = {
@@ -1274,8 +1388,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 27DB150C4DAEA75D75A1489D /* Pods-PowderTrackr.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PowderTrackr/PowderTrackr.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PowderTrackr/Preview Content\"";
@@ -1314,8 +1430,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F290CD367949A2DD0030157C /* Pods-PowderTrackr.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PowderTrackr/PowderTrackr.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PowderTrackr/Preview Content\"";
@@ -1350,6 +1468,73 @@
 			};
 			name = Release;
 		};
+		B45311102BD7133E00891ADC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PowderTrackrWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4TP2UP2K7D;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PowderTrackrWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PowderTrackrWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = koszti.PowderTrackr.PowderTrackrWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B45311112BD7133E00891ADC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PowderTrackrWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4TP2UP2K7D;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PowderTrackrWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PowderTrackrWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = koszti.PowderTrackr.PowderTrackrWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1367,6 +1552,15 @@
 			buildConfigurations = (
 				554587982A3DF8F2009A5485 /* Debug */,
 				554587992A3DF8F2009A5485 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B453110F2BD7133E00891ADC /* Build configuration list for PBXNativeTarget "PowderTrackrWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B45311102BD7133E00891ADC /* Debug */,
+				B45311112BD7133E00891ADC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
