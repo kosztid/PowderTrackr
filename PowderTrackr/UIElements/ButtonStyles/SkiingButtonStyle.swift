@@ -113,9 +113,9 @@ public struct SkiingButtonStyle: ButtonStyle {
     @ViewBuilder
     private func borderedStyle(_ configuration: Configuration) -> some View {
         configuration.label
-            .textStyle(.bodyLarge)
+            .textStyle(.bodyLargeBold)
             .foregroundColor(style.foregroundColor)
-            .padding(.vertical, 10)
+            .padding(.vertical, .su10)
             .padding(.horizontal, Layout.paddingWidth)
             .background(Color.softWhite)
             .cornerRadius(Layout.cornerRadius)
@@ -134,10 +134,10 @@ public struct SkiingButtonStyle: ButtonStyle {
             Spacer()
         }
         .foregroundColor(style.foregroundColor)
-        .padding(.vertical, 10)
-        .padding(.horizontal, 20)
+        .padding(.vertical, .su10)
+        .padding(.horizontal, .su20)
         .overlay(
-            RoundedRectangle(cornerRadius: 20)
+            RoundedRectangle(cornerRadius: .su20)
                 .stroke(style.foregroundColor, lineWidth: Layout.stroke)
         )
     }
