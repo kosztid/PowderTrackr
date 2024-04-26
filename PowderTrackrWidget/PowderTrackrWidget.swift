@@ -37,42 +37,52 @@ struct PowderTrackrWidgetEntryView : View {
 
     var body: some View {
         VStack {
-            //                HStack(spacing: .su4) {
-            //                    Text("\(String(format: "%.f", 12310.123)) m")
-            //                        .textStyle(.bodyBold)
-            //                    HStack {
-            //                        Image(systemName: "arrow.forward")
-            //                            .frame(minHeight: .su20)
-            //                        Text("distance")
-            //                            .textStyle(.body)
-            //                    }
-            //                    .foregroundStyle(Color.warmDarkGray)
-            //                }
-            //                Divider()
-            //                    .padding(.horizontal, .su12)
-            //                HStack(spacing: .su4) {
-            //                    Text("\(String(format: "%.2f", 1123.132)) s")
-            //                        .textStyle(.bodyBold)
-            //                    HStack {
-            //                        Image(systemName: "timer")
-            //                        Text("total time")
-            //                            .textStyle(.body)
-            //                    }
-            //                    .foregroundStyle(Color.warmDarkGray)
-            //                }
-            //                Divider()
-            //                    .padding(.horizontal, .su12)
-            //                HStack(spacing: .su4) {
-            //                    Text("\(String(format: "%.2f", 100.123)) km/h")
-            //                        .textStyle(.bodyBold)
-            //                    HStack {
-            //                        Image(systemName: "speedometer")
-            //                        Text("avg speed")
-            //                            .textStyle(.body)
-            //                    }
-            //                    .foregroundStyle(Color.warmDarkGray)
-            //                }
-            //            }
+            HStack(spacing: 4) {
+                HStack {
+                    Image(systemName: "arrow.forward")
+                        .resizable()
+                        .frame(width: 10, height: 10)
+                    Text("distance")
+                        .font(.caption2)
+                }
+                .foregroundStyle(Color.gray)
+                Spacer()
+                Text("\(String(format: "%.f", 12310.123)) m")
+                    .font(.caption2)
+                    .bold()
+            }
+            Divider()
+                .padding(.horizontal, 12)
+            HStack(spacing: 4) {
+                HStack {
+                    Image(systemName: "timer")
+                        .resizable()
+                        .frame(width: 10, height: 10)
+                    Text("total time")
+                        .font(.caption2)
+                }
+                .foregroundStyle(Color.gray)
+                Spacer()
+                Text("\(String(format: "%.2f", 1123.132)) s")
+                    .font(.caption)
+                    .bold()
+            }
+            Divider()
+                .padding(.horizontal, 12)
+            HStack(spacing: 4) {
+                HStack {
+                    Image(systemName: "speedometer")
+                        .resizable()
+                        .frame(width: 10, height: 10)
+                    Text("avg speed")
+                        .font(.caption2)
+                }
+                .foregroundStyle(Color.gray)
+                Spacer()
+                Text("\(String(format: "%.2f", 100.123)) km/h")
+                    .font(.caption)
+                    .bold()
+            }
         }
     }
 }

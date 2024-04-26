@@ -395,8 +395,8 @@
 			children = (
 				B45310F42BD6708600891ADC /* View+Extension */,
 				55075E962AE9CA26003D213F /* Double+Extension.swift */,
-				B42B25112BA730BF0013383D /* Color+Extension.swift */,
 				B4243FB52BC45EBD0056C7C5 /* CGFloat+Extension.swift */,
+				B42B25112BA730BF0013383D /* Color+Extension.swift */,
 				B4243FC22BC4609C0056C7C5 /* UIApplication+Extension.swift */,
 			);
 			path = Extensions;
