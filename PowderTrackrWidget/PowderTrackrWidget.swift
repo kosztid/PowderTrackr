@@ -37,7 +37,7 @@ struct PowderTrackrWidgetEntryView : View {
 
     var body: some View {
         VStack {
-            HStack(spacing: 4) {
+            HStack(spacing: .zero) {
                 HStack {
                     Image(systemName: "arrow.forward")
                         .resizable()
@@ -53,7 +53,7 @@ struct PowderTrackrWidgetEntryView : View {
             }
             Divider()
                 .padding(.horizontal, 12)
-            HStack(spacing: 4) {
+            HStack(spacing: .zero) {
                 HStack {
                     Image(systemName: "timer")
                         .resizable()
@@ -69,7 +69,7 @@ struct PowderTrackrWidgetEntryView : View {
             }
             Divider()
                 .padding(.horizontal, 12)
-            HStack(spacing: 4) {
+            HStack(spacing: .zero) {
                 HStack {
                     Image(systemName: "speedometer")
                         .resizable()
