@@ -26,7 +26,6 @@ extension MapView {
         }
         
         private var cancellables: Set<AnyCancellable> = []
-        
         let dateFormatter = DateFormatter()
         var accountService: AccountServiceProtocol
         var friendService: FriendServiceProtocol
@@ -45,9 +44,6 @@ extension MapView {
         @Published var selectedRace: Race?
         @Published var toast: ToastModel?
         
-        @Published var friendLocations: [Location] = []
-        @Published var friendLocation: Location?
-        
         @Published var signedIn = false
         @Published var startTime: Date? = nil
         @Published var currentDistance: Double? = nil
@@ -61,10 +57,22 @@ extension MapView {
         @Published var shared: Bool = false
         @Published var cameraPosChanged: Bool = true
         
-        var elapsedTime: Double { startTime?.distance(to: Date()) ?? 0 }
-        var avgSpeed: Double {
-            ((currentDistance ?? 0) / elapsedTime) * 3.6
+        @AppStorage("elapsedTime") var elapsedTimeStorage: Double = 0.0
+        @AppStorage("avgSpeed") var avgSpeedStorage: Double = 0.0
+        @AppStorage("distance") var distanceStorage: Double = 0.0
+        @AppStorage("isTracking") var isTrackingStorage: Bool = false
+        
+        var elapsedTime: Double { 
+            let time = startTime?.distance(to: Date()) ?? 0
+            elapsedTimeStorage = time
+            return time
         }
+        var avgSpeed: Double {
+            let speed = ((currentDistance ?? 0) / elapsedTime) * 3.6
+            avgSpeedStorage = speed
+            return speed
+        }
+        
         init(
             accountService: AccountServiceProtocol,
             mapService: MapServiceProtocol,
@@ -141,18 +149,17 @@ extension MapView {
         
         @objc
         func updateLocation() {
-            Task {
-                self.accountService.updateLocation(
-                    xCoord: String(locationManager.location?.coordinate.latitude ?? .zero),
-                    yCoord: String(locationManager.location?.coordinate.longitude ?? .zero)
-                )
-                self.friendService.queryFriendLocations()
-            }
+            self.accountService.updateLocation(
+                xCoord: String(locationManager.location?.coordinate.latitude ?? .zero),
+                yCoord: String(locationManager.location?.coordinate.longitude ?? .zero)
+            )
+            self.friendService.queryFriendLocations()
         }
         
         func startTracking() {
             withAnimation {
                 isTracking = true
+                isTrackingStorage = true
             }
             self.trackTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
             startTime = Date()
@@ -197,6 +204,7 @@ extension MapView {
         func stopTracking() {
             withAnimation {
                 isTracking = false
+                isTrackingStorage = false
             }
             self.trackTimer?.invalidate()
             self.trackTimer = nil
@@ -241,6 +249,7 @@ extension MapView {
                 }
             }
             self.currentDistance = distance
+            self.distanceStorage = distance
             
             guard let modifiedLast = modified.last else { return }
             mapService.sendCurrentlyTracked(modifiedLast)

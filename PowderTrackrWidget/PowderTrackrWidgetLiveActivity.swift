@@ -1,21 +1,12 @@
-//
-//  PowderTrackrWidgetLiveActivity.swift
-//  PowderTrackrWidget
-//
-//  Created by Dominik Kosztolánczi on 22/04/2024.
-//
-
 import ActivityKit
 import WidgetKit
 import SwiftUI
 
 struct PowderTrackrWidgetAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
-        // Dynamic stateful properties about your activity go here!
         var emoji: String
     }
 
-    // Fixed non-changing properties about your activity go here!
     var name: String
 }
 

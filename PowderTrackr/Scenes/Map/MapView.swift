@@ -87,7 +87,7 @@ struct MapView: View {
     }
     
     @ViewBuilder var topBar: some View {
-        if true {
+        if viewModel.isTracking {
             VStack(alignment: .center) {
                 HStack {
                     VStack(spacing: .su4) {

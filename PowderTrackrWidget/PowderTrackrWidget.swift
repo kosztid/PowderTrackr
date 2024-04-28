@@ -33,9 +33,30 @@ struct SimpleEntry: TimelineEntry {
 }
 
 struct PowderTrackrWidgetEntryView : View {
+    @AppStorage("elapsedTime") var elapsedTimeStorage: Double = 0.0
+    @AppStorage("avgSpeed") var avgSpeedStorage: Double = 0.0
+    @AppStorage("distance") var distanceStorage: Double = 0.0
+    @AppStorage("isTracking") var isTrackingStorage: Bool = false
+    
     var entry: Provider.Entry
 
     var body: some View {
+        if isTrackingStorage {
+            trackingView
+        } else {
+            startupView
+        }
+    }
+    private var startupView: some View {
+        VStack {
+            Text("Are you up?")
+                .font(.caption2)
+            Text("Tap to start tracking")
+                .font(.caption2)
+        }
+    }
+    
+    private var trackingView: some View {
         VStack {
             HStack(spacing: .zero) {
                 HStack {
@@ -47,7 +68,7 @@ struct PowderTrackrWidgetEntryView : View {
                 }
                 .foregroundStyle(Color.gray)
                 Spacer()
-                Text("\(String(format: "%.f", 12310.123)) m")
+                Text("\(String(format: "%.f", distanceStorage)) m")
                     .font(.caption2)
                     .bold()
             }
@@ -63,7 +84,7 @@ struct PowderTrackrWidgetEntryView : View {
                 }
                 .foregroundStyle(Color.gray)
                 Spacer()
-                Text("\(String(format: "%.2f", 1123.132)) s")
+                Text("\(String(format: "%.2f", elapsedTimeStorage)) s")
                     .font(.caption)
                     .bold()
             }
@@ -79,7 +100,7 @@ struct PowderTrackrWidgetEntryView : View {
                 }
                 .foregroundStyle(Color.gray)
                 Spacer()
-                Text("\(String(format: "%.2f", 100.123)) km/h")
+                Text("\(String(format: "%.2f", avgSpeedStorage)) km/h")
                     .font(.caption)
                     .bold()
             }
