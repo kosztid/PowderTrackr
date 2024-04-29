@@ -2,12 +2,14 @@ import WidgetKit
 import SwiftUI
 
 struct Provider: TimelineProvider {
+    let data = DataService()
+    
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), emoji: "😀")
+        SimpleEntry(date: Date(), isTracking: data.isTracking(), speed: data.speed(), time: data.time(), distance: data.distance())
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), emoji: "😀")
+        let entry = SimpleEntry(date: Date(), isTracking: data.isTracking(), speed: data.speed(), time: data.time(), distance: data.distance())
         completion(entry)
     }
 
@@ -18,7 +20,7 @@ struct Provider: TimelineProvider {
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, emoji: "😀")
+            let entry = SimpleEntry(date: Date(), isTracking: data.isTracking(), speed: data.speed(), time: data.time(), distance: data.distance())
             entries.append(entry)
         }
 
@@ -28,20 +30,20 @@ struct Provider: TimelineProvider {
 }
 
 struct SimpleEntry: TimelineEntry {
-    let date: Date
-    let emoji: String
+    var date: Date
+    
+    let isTracking: Bool
+    let speed: Double
+    let time: Double
+    let distance: Double
 }
 
 struct PowderTrackrWidgetEntryView : View {
-    @AppStorage("elapsedTime") var elapsedTimeStorage: Double = 0.0
-    @AppStorage("avgSpeed") var avgSpeedStorage: Double = 0.0
-    @AppStorage("distance") var distanceStorage: Double = 0.0
-    @AppStorage("isTracking") var isTrackingStorage: Bool = false
-    
+    let data = DataService()
     var entry: Provider.Entry
 
     var body: some View {
-        if isTrackingStorage {
+        if data.isTracking() {
             trackingView
         } else {
             startupView
@@ -68,7 +70,7 @@ struct PowderTrackrWidgetEntryView : View {
                 }
                 .foregroundStyle(Color.gray)
                 Spacer()
-                Text("\(String(format: "%.f", distanceStorage)) m")
+                Text("\(String(format: "%.f", data.distance())) m")
                     .font(.caption2)
                     .bold()
             }
@@ -84,7 +86,7 @@ struct PowderTrackrWidgetEntryView : View {
                 }
                 .foregroundStyle(Color.gray)
                 Spacer()
-                Text("\(String(format: "%.2f", elapsedTimeStorage)) s")
+                Text("\(String(format: "%.2f", data.time())) s")
                     .font(.caption)
                     .bold()
             }
@@ -100,7 +102,7 @@ struct PowderTrackrWidgetEntryView : View {
                 }
                 .foregroundStyle(Color.gray)
                 Spacer()
-                Text("\(String(format: "%.2f", avgSpeedStorage)) km/h")
+                Text("\(String(format: "%.2f", data.speed())) km/h")
                     .font(.caption)
                     .bold()
             }
@@ -130,6 +132,5 @@ struct PowderTrackrWidget: Widget {
 #Preview(as: .systemSmall) {
     PowderTrackrWidget()
 } timeline: {
-    SimpleEntry(date: .now, emoji: "😀")
-    SimpleEntry(date: .now, emoji: "🤩")
+    SimpleEntry(date: Date(), isTracking: true, speed: 100, time: 100, distance: 100)
 }

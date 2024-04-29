@@ -129,6 +129,12 @@
 		B48E6ED82BADF9C100B98298 /* FloatingRoundedCardBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48E6ED72BADF9C100B98298 /* FloatingRoundedCardBackground.swift */; };
 		B48E6EDB2BB04CB900B98298 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48E6EDA2BB04CB900B98298 /* HeaderView.swift */; };
 		B48E6EDE2BB04D4400B98298 /* HeaderView+Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48E6EDD2BB04D4400B98298 /* HeaderView+Modifier.swift */; };
+		B49FA4752BDEFA1800DC2FC1 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49FA4742BDEFA1800DC2FC1 /* DataService.swift */; };
+		B49FA47D2BDFFD1500DC2FC1 /* PowderTrackrWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49FA47C2BDFFD1500DC2FC1 /* PowderTrackrWatchApp.swift */; };
+		B49FA47F2BDFFD1500DC2FC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49FA47E2BDFFD1500DC2FC1 /* ContentView.swift */; };
+		B49FA4812BDFFD1700DC2FC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B49FA4802BDFFD1700DC2FC1 /* Assets.xcassets */; };
+		B49FA4842BDFFD1700DC2FC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B49FA4832BDFFD1700DC2FC1 /* Preview Assets.xcassets */; };
+		B49FA4872BDFFD1700DC2FC1 /* PowderTrackrWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B49FA47A2BDFFD1500DC2FC1 /* PowderTrackrWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B4A0BDE92B76537600FF509C /* Pods_PowderTrackr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E251DFC276D77AEF0A316FA /* Pods_PowderTrackr.framework */; };
 		B4A0BDEA2B76537600FF509C /* Pods_PowderTrackr.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1E251DFC276D77AEF0A316FA /* Pods_PowderTrackr.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B4C96F8B2BD419CB005B84A4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C96F8A2BD419CB005B84A4 /* User.swift */; };
@@ -157,6 +163,13 @@
 			remoteGlobalIDString = B45310FC2BD7133D00891ADC;
 			remoteInfo = PowderTrackrWidgetExtension;
 		};
+		B49FA4852BDFFD1700DC2FC1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 554587812A3DF8F1009A5485 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B49FA4792BDFFD1500DC2FC1;
+			remoteInfo = "PowderTrackrWatch Watch App";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -180,6 +193,17 @@
 				B453110E2BD7133E00891ADC /* PowderTrackrWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B49FA4882BDFFD1700DC2FC1 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				B49FA4872BDFFD1700DC2FC1 /* PowderTrackrWatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -314,6 +338,12 @@
 		B48E6ED72BADF9C100B98298 /* FloatingRoundedCardBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingRoundedCardBackground.swift; sourceTree = "<group>"; };
 		B48E6EDA2BB04CB900B98298 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		B48E6EDD2BB04D4400B98298 /* HeaderView+Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HeaderView+Modifier.swift"; sourceTree = "<group>"; };
+		B49FA4742BDEFA1800DC2FC1 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		B49FA47A2BDFFD1500DC2FC1 /* PowderTrackrWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PowderTrackrWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B49FA47C2BDFFD1500DC2FC1 /* PowderTrackrWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrWatchApp.swift; sourceTree = "<group>"; };
+		B49FA47E2BDFFD1500DC2FC1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B49FA4802BDFFD1700DC2FC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B49FA4832BDFFD1700DC2FC1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B4C96F8A2BD419CB005B84A4 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B4C96F8C2BD4365A005B84A4 /* FriendAddRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAddRowView.swift; sourceTree = "<group>"; };
 		B4F2BFFB2B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenISO8601DateFormatter.swift; sourceTree = "<group>"; };
@@ -349,6 +379,13 @@
 			files = (
 				B45311012BD7133D00891ADC /* SwiftUI.framework in Frameworks */,
 				B45310FF2BD7133D00891ADC /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B49FA4772BDFFD1500DC2FC1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +445,7 @@
 				B45311142BD7142400891ADC /* PowderTrackrWidgetExtension.entitlements */,
 				5545878B2A3DF8F1009A5485 /* PowderTrackr */,
 				B45311022BD7133D00891ADC /* PowderTrackrWidget */,
+				B49FA47B2BDFFD1500DC2FC1 /* PowderTrackrWatch Watch App */,
 				5545878A2A3DF8F1009A5485 /* Products */,
 				17D1273D6EAE2FD3D47D72FF /* AmplifyConfig */,
 				16F1AFC8377525AF79CBBAB9 /* Pods */,
@@ -420,6 +458,7 @@
 			children = (
 				554587892A3DF8F1009A5485 /* PowderTrackr.app */,
 				B45310FD2BD7133D00891ADC /* PowderTrackrWidgetExtension.appex */,
+				B49FA47A2BDFFD1500DC2FC1 /* PowderTrackrWatch Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -864,6 +903,7 @@
 				B45311032BD7133D00891ADC /* PowderTrackrWidgetBundle.swift */,
 				B45311052BD7133D00891ADC /* PowderTrackrWidgetLiveActivity.swift */,
 				B45311072BD7133D00891ADC /* PowderTrackrWidget.swift */,
+				B49FA4742BDEFA1800DC2FC1 /* DataService.swift */,
 				B45311092BD7133E00891ADC /* Assets.xcassets */,
 				B453110B2BD7133E00891ADC /* Info.plist */,
 			);
@@ -901,6 +941,25 @@
 				B48E6EDD2BB04D4400B98298 /* HeaderView+Modifier.swift */,
 			);
 			path = HeaderModifier;
+			sourceTree = "<group>";
+		};
+		B49FA47B2BDFFD1500DC2FC1 /* PowderTrackrWatch Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				B49FA47C2BDFFD1500DC2FC1 /* PowderTrackrWatchApp.swift */,
+				B49FA47E2BDFFD1500DC2FC1 /* ContentView.swift */,
+				B49FA4802BDFFD1700DC2FC1 /* Assets.xcassets */,
+				B49FA4822BDFFD1700DC2FC1 /* Preview Content */,
+			);
+			path = "PowderTrackrWatch Watch App";
+			sourceTree = "<group>";
+		};
+		B49FA4822BDFFD1700DC2FC1 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				B49FA4832BDFFD1700DC2FC1 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		B4C96F8E2BD43661005B84A4 /* Components */ = {
@@ -954,11 +1013,13 @@
 				E592F06E2FF6CA9FD7BA81A7 /* [CP] Copy Pods Resources */,
 				55E9EEA12A92401E0099D3B0 /* Embed Frameworks */,
 				B45311122BD7133E00891ADC /* Embed Foundation Extensions */,
+				B49FA4882BDFFD1700DC2FC1 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				B453110D2BD7133E00891ADC /* PBXTargetDependency */,
+				B49FA4862BDFFD1700DC2FC1 /* PBXTargetDependency */,
 			);
 			name = PowderTrackr;
 			packageProductDependencies = (
@@ -985,6 +1046,23 @@
 			productReference = B45310FD2BD7133D00891ADC /* PowderTrackrWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		B49FA4792BDFFD1500DC2FC1 /* PowderTrackrWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B49FA48B2BDFFD1700DC2FC1 /* Build configuration list for PBXNativeTarget "PowderTrackrWatch Watch App" */;
+			buildPhases = (
+				B49FA4762BDFFD1500DC2FC1 /* Sources */,
+				B49FA4772BDFFD1500DC2FC1 /* Frameworks */,
+				B49FA4782BDFFD1500DC2FC1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PowderTrackrWatch Watch App";
+			productName = "PowderTrackrWatch Watch App";
+			productReference = B49FA47A2BDFFD1500DC2FC1 /* PowderTrackrWatch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -999,6 +1077,9 @@
 						CreatedOnToolsVersion = 14.3.1;
 					};
 					B45310FC2BD7133D00891ADC = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					B49FA4792BDFFD1500DC2FC1 = {
 						CreatedOnToolsVersion = 15.3;
 					};
 				};
@@ -1021,6 +1102,7 @@
 			targets = (
 				554587882A3DF8F1009A5485 /* PowderTrackr */,
 				B45310FC2BD7133D00891ADC /* PowderTrackrWidgetExtension */,
+				B49FA4792BDFFD1500DC2FC1 /* PowderTrackrWatch Watch App */,
 			);
 		};
 /* End PBXProject section */
@@ -1045,6 +1127,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				B453110A2BD7133E00891ADC /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B49FA4782BDFFD1500DC2FC1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B49FA4842BDFFD1700DC2FC1 /* Preview Assets.xcassets in Resources */,
+				B49FA4812BDFFD1700DC2FC1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1247,6 +1338,16 @@
 				B45311062BD7133D00891ADC /* PowderTrackrWidgetLiveActivity.swift in Sources */,
 				B45311082BD7133D00891ADC /* PowderTrackrWidget.swift in Sources */,
 				B45311042BD7133D00891ADC /* PowderTrackrWidgetBundle.swift in Sources */,
+				B49FA4752BDEFA1800DC2FC1 /* DataService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B49FA4762BDFFD1500DC2FC1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B49FA47F2BDFFD1500DC2FC1 /* ContentView.swift in Sources */,
+				B49FA47D2BDFFD1500DC2FC1 /* PowderTrackrWatchApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1257,6 +1358,11 @@
 			isa = PBXTargetDependency;
 			target = B45310FC2BD7133D00891ADC /* PowderTrackrWidgetExtension */;
 			targetProxy = B453110C2BD7133E00891ADC /* PBXContainerItemProxy */;
+		};
+		B49FA4862BDFFD1700DC2FC1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B49FA4792BDFFD1500DC2FC1 /* PowderTrackrWatch Watch App */;
+			targetProxy = B49FA4852BDFFD1700DC2FC1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1526,6 +1632,75 @@
 			};
 			name = Release;
 		};
+		B49FA4892BDFFD1700DC2FC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PowderTrackrWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 4TP2UP2K7D;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PowderTrackrWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = koszti.PowderTrackr;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = koszti.PowderTrackr.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.4;
+			};
+			name = Debug;
+		};
+		B49FA48A2BDFFD1700DC2FC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PowderTrackrWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 4TP2UP2K7D;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PowderTrackrWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = koszti.PowderTrackr;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = koszti.PowderTrackr.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.4;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1552,6 +1727,15 @@
 			buildConfigurations = (
 				B45311102BD7133E00891ADC /* Debug */,
 				B45311112BD7133E00891ADC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B49FA48B2BDFFD1700DC2FC1 /* Build configuration list for PBXNativeTarget "PowderTrackrWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B49FA4892BDFFD1700DC2FC1 /* Debug */,
+				B49FA48A2BDFFD1700DC2FC1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

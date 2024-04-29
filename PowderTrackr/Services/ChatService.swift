@@ -1,4 +1,3 @@
-import Amplify
 import ExyteChat
 import Combine
 import UIKit
