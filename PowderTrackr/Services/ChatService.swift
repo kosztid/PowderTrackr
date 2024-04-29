@@ -1,15 +1,14 @@
-import Amplify
-import Chat
+import ExyteChat
 import Combine
 import UIKit
 
 public protocol ChatServiceProtocol: AnyObject {
-    var messagesPublisher: AnyPublisher<[Chat.Message]?, Never> { get }
+    var messagesPublisher: AnyPublisher<[ExyteChat.Message]?, Never> { get }
     var chatNotificationPublisher: AnyPublisher<[String]?, Never> { get }
     var networkErrorPublisher: AnyPublisher<ToastModel?, Never> { get }
     var lastMessagesPublisher: AnyPublisher<[SocialView.LastMessageModel]?, Never> { get }
     
-    func sendMessage(message: Chat.Message, recipient: String)
+    func sendMessage(message: ExyteChat.Message, recipient: String)
     func queryChat(recipient: String)
     func updateMessageStatus(recipient: String)
     func getChatNotifications()
@@ -17,7 +16,7 @@ public protocol ChatServiceProtocol: AnyObject {
 
 final class ChatService {
     private let userID: String = UserDefaults.standard.string(forKey: "id") ?? ""
-    private let messages: CurrentValueSubject<[Chat.Message]?, Never> = .init(nil)
+    private let messages: CurrentValueSubject<[ExyteChat.Message]?, Never> = .init(nil)
     private let chatNotifications: CurrentValueSubject<[String]?, Never> = .init(nil)
     private let lastMessages: CurrentValueSubject<[SocialView.LastMessageModel]?, Never> = .init(nil)
     private var chatId: String = ""
@@ -38,7 +37,7 @@ extension ChatService: ChatServiceProtocol {
             .eraseToAnyPublisher()
     }
     
-    var messagesPublisher: AnyPublisher<[Chat.Message]?, Never> {
+    var messagesPublisher: AnyPublisher<[ExyteChat.Message]?, Never> {
         messages
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
@@ -56,7 +55,7 @@ extension ChatService: ChatServiceProtocol {
             .eraseToAnyPublisher()
     }
     
-    func sendMessage(message: Chat.Message, recipient: String) {
+    func sendMessage(message: ExyteChat.Message, recipient: String) {
         DefaultAPI.personalChatsIdGet(id: chatRoomID) { data, error in
             if let error = error {
                 print("Error: \(error)")
@@ -109,22 +108,22 @@ extension ChatService: ChatServiceProtocol {
                 }
                 
                 self.chatRoomID = currentChat?.id ?? ""
-                var currentMessages: [Chat.Message] = self.messages.value ?? []
+                var currentMessages: [ExyteChat.Message] = self.messages.value ?? []
                 if let chat = currentChat {
                     chat.messages.forEach { message in
                         if !currentMessages.contains(where: { currentMessage in
                             currentMessage.id == message.id
                         }) {
                             currentMessages.append(
-                                Chat.Message(
+                                ExyteChat.Message(
                                     id: message.id,
-                                    user: Chat.User(
+                                    user: ExyteChat.User(
                                         id: UUID().uuidString,
                                         name: "",
                                         avatarURL: nil,
                                         isCurrentUser: self.userID == message.sender
                                     ),
-                                    status: message.isSeen ? Chat.Message.Status.read : Chat.Message.Status.sent,
+                                    status: message.isSeen ? ExyteChat.Message.Status.read : ExyteChat.Message.Status.sent,
                                     createdAt: self.dateFormatter.date(from: message.date) ?? Date(),
                                     text: message.text
                                 )
@@ -161,15 +160,15 @@ extension ChatService: ChatServiceProtocol {
                     }
                 }
                 let msg = data[currentChatIndex].messages.map { message in
-                    Chat.Message(
+                    ExyteChat.Message(
                         id: message.id,
-                        user: Chat.User(
+                        user: ExyteChat.User(
                             id: UUID().uuidString,
                             name: "",
                             avatarURL: nil,
                             isCurrentUser: self.userID == message.sender
                         ),
-                        status: message.isSeen ? Chat.Message.Status.read : Chat.Message.Status.sent,
+                        status: message.isSeen ? ExyteChat.Message.Status.read : ExyteChat.Message.Status.sent,
                         createdAt: self.dateFormatter.date(from: message.date) ?? Date(),
                         text: message.text
                     )

@@ -1,4 +1,4 @@
-import Chat
+import ExyteChat
 import Combine
 import SwiftUI
 
@@ -8,7 +8,7 @@ public extension PowderTrackrChatView {
         let names: [String]
     }
     final class ViewModel: ObservableObject {
-        @Published var messages: [Chat.Message] = []
+        @Published var messages: [ExyteChat.Message] = []
         @Published var chat: String = ""
         
         let model: InputModel
@@ -41,12 +41,9 @@ public extension PowderTrackrChatView {
                 .store(in: &cancellables)
         }
 
-        func sendMessage(draftMessage: Chat.DraftMessage) {
+        func sendMessage(draftMessage: ExyteChat.DraftMessage) {
             var text = draftMessage.text
-            if !draftMessage.attachments.isEmpty {
-                text = "photo"
-            }
-            let message = Chat.Message(
+            let message = ExyteChat.Message(
                 id: UUID().uuidString,
                 user: .init(id: "123", name: "Me", avatarURL: nil, isCurrentUser: true),
                 text: text

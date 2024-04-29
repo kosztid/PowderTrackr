@@ -1,4 +1,4 @@
-import Chat
+import ExyteChat
 import SwiftUI
 
 public struct PowderTrackrChatView: View {
@@ -7,7 +7,7 @@ public struct PowderTrackrChatView: View {
     public var body: some View {
         ChatView(messages: viewModel.messages) { message in
             viewModel.sendMessage(draftMessage: message)
-        } inputViewBuilder: { textBinding, attachments, state, style, actionClosure in
+        } inputViewBuilder: { textBinding, attachments, state, style, actionClosure, _  in
             Group {
                 switch style {
                 case .message:

@@ -1,4 +1,5 @@
 import GoogleMaps
+import WidgetKit
 import SwiftUI
 
 struct MapView: View {
@@ -87,7 +88,7 @@ struct MapView: View {
     }
     
     @ViewBuilder var topBar: some View {
-        if true {
+        if viewModel.isTracking {
             VStack(alignment: .center) {
                 HStack {
                     VStack(spacing: .su4) {

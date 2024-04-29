@@ -1,4 +1,5 @@
 import Combine
+import WidgetKit
 import CoreLocation
 import GoogleMaps
 import SwiftUI
@@ -26,7 +27,6 @@ extension MapView {
         }
         
         private var cancellables: Set<AnyCancellable> = []
-        
         let dateFormatter = DateFormatter()
         var accountService: AccountServiceProtocol
         var friendService: FriendServiceProtocol
@@ -34,6 +34,7 @@ extension MapView {
         var locationManager = CLLocationManager()
         var locationTimer: Timer?
         var trackTimer: Timer?
+        var widgetTimer: Timer?
         
         @Published var isTracking = false
         @Published var raceTracking = false
@@ -44,9 +45,6 @@ extension MapView {
         @Published var trackedPath: TrackedPathModel?
         @Published var selectedRace: Race?
         @Published var toast: ToastModel?
-        
-        @Published var friendLocations: [Location] = []
-        @Published var friendLocation: Location?
         
         @Published var signedIn = false
         @Published var startTime: Date? = nil
@@ -61,10 +59,18 @@ extension MapView {
         @Published var shared: Bool = false
         @Published var cameraPosChanged: Bool = true
         
-        var elapsedTime: Double { startTime?.distance(to: Date()) ?? 0 }
+        @AppStorage("elapsedTime", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var elapsedTimeStorage: Double = 0.0
+        @AppStorage("avgSpeed", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var avgSpeedStorage: Double = 0.0
+        @AppStorage("distance", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var distanceStorage: Double = 0.0
+        @AppStorage("isTracking", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var isTrackingStorage: Bool = false
+        
+        var elapsedTime: Double { 
+            startTime?.distance(to: Date()) ?? 0
+        }
         var avgSpeed: Double {
             ((currentDistance ?? 0) / elapsedTime) * 3.6
         }
+        
         init(
             accountService: AccountServiceProtocol,
             mapService: MapServiceProtocol,
@@ -80,6 +86,9 @@ extension MapView {
             )
             super.init()
             self.locationManager.delegate = self
+            locationManager.requestAlwaysAuthorization()
+            locationManager.allowsBackgroundLocationUpdates = true
+            locationManager.pausesLocationUpdatesAutomatically = false
             self.locationManager.startUpdatingLocation()
             
             self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -138,20 +147,21 @@ extension MapView {
         
         @objc
         func updateLocation() {
-            Task {
-                self.accountService.updateLocation(
-                    xCoord: String(locationManager.location?.coordinate.latitude ?? .zero),
-                    yCoord: String(locationManager.location?.coordinate.longitude ?? .zero)
-                )
-                self.friendService.queryFriendLocations()
-            }
+            self.accountService.updateLocation(
+                xCoord: String(locationManager.location?.coordinate.latitude ?? .zero),
+                yCoord: String(locationManager.location?.coordinate.longitude ?? .zero)
+            )
+            self.friendService.queryFriendLocations()
         }
         
         func startTracking() {
+            isTrackingStorage = true
+            WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
             withAnimation {
                 isTracking = true
             }
             self.trackTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
+            self.widgetTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updateWidget), userInfo: nil, repeats: true)
             startTime = Date()
             let id = UUID().uuidString
             self.trackedPath?.tracks?.append(
@@ -192,11 +202,14 @@ extension MapView {
         }
         
         func stopTracking() {
+            isTrackingStorage = false
+            WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
             withAnimation {
                 isTracking = false
             }
             self.trackTimer?.invalidate()
             self.trackTimer = nil
+            self.widgetTimer = nil
             self.mapMenuState = .off
             self.startTime = nil
             self.currentDistance = nil
@@ -210,6 +223,14 @@ extension MapView {
             mapService.updateTrackedPath(path)
         }
         
+        @objc
+        func updateWidget() {
+            var time = startTime?.distance(to: Date()) ?? 0
+            elapsedTimeStorage = time
+            avgSpeedStorage = ((currentDistance ?? 0) / time) * 3.6
+            distanceStorage = currentDistance ?? 0
+            WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
+        }
         @objc
         func trackRoute() {
             guard var modified = self.trackedPath?.tracks else { return }
@@ -237,8 +258,7 @@ extension MapView {
                     distance += list[itemDx].distance(from: list[itemDx - 1])
                 }
             }
-            self.currentDistance = distance
-            
+            currentDistance = distance
             guard let modifiedLast = modified.last else { return }
             mapService.sendCurrentlyTracked(modifiedLast)
         }
