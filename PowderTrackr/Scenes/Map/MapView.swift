@@ -62,12 +62,6 @@ struct MapView: View {
                 viewModel.showingRaceNameAlert.toggle()
             }
         }
-//        .onChange(of: viewModel.elapsedTime) { _, newValue in
-//            viewModel.elapsedTimeStorage = newValue
-//            viewModel.avgSpeedStorage = viewModel.avgSpeed
-//            viewModel.distanceStorage = viewModel.currentDistance ?? 0
-//            WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
-//        }
         .onChange(of: viewModel.selectedRace) { _, newValue in
             if newValue != nil {
                 withAnimation {
