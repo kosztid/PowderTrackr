@@ -17,6 +17,14 @@ struct MapView: View {
             )
             .ignoresSafeArea()
             topBar
+            VStack {
+                Button("Start") {
+                    viewModel.startWatchApp()
+                }
+                Button("SendMessage") {
+                    viewModel.startTrackingOnWatch()
+                }
+            }
             VStack(alignment: .trailing) {
                 Spacer()
                 if viewModel.selectedPath != nil {

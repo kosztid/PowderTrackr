@@ -1,4 +1,5 @@
 import Combine
+import WatchConnectivity
 import WidgetKit
 import CoreLocation
 import GoogleMaps
@@ -31,6 +32,7 @@ extension MapView {
         var accountService: AccountServiceProtocol
         var friendService: FriendServiceProtocol
         var mapService: MapServiceProtocol
+        var watchSessionManager: WatchSessionManager
         var locationManager = CLLocationManager()
         var locationTimer: Timer?
         var trackTimer: Timer?
@@ -74,11 +76,13 @@ extension MapView {
         init(
             accountService: AccountServiceProtocol,
             mapService: MapServiceProtocol,
-            friendService: FriendServiceProtocol
+            friendService: FriendServiceProtocol,
+            watchSessionManager: WatchSessionManager
         ) {
             self.accountService = accountService
             self.mapService = mapService
             self.friendService = friendService
+            self.watchSessionManager = watchSessionManager
             self.cameraPos = .init(
                 latitude: self.locationManager.location?.coordinate.latitude ?? 1,
                 longitude: self.locationManager.location?.coordinate.longitude ?? 1,
@@ -153,6 +157,17 @@ extension MapView {
             )
             self.friendService.queryFriendLocations()
         }
+        
+        func startWatchApp() {
+            if WCSession.isSupported() {
+                watchSessionManager.startSession()
+            }
+        }
+        
+        func startTrackingOnWatch() {
+            watchSessionManager.sendMessage()
+        }
+
         
         func startTracking() {
             isTrackingStorage = true
