@@ -1,9 +1,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    let delegate = WatchSessionDelegate()
-    
-    
     var body: some View {
         TabView {
             HomeView()

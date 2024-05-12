@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject var viewModel: ViewModel
+    @StateObject var viewModel = ViewModel()
     
     var body: some View {
         if viewModel.isTracking {
@@ -27,7 +27,7 @@ struct HomeView: View {
                 }
                 .foregroundStyle(Color.gray)
                 Spacer()
-                Text("\(String(format: "%.f", connectivityProvider.distance)) m")
+                Text("\(String(format: "%.f", viewModel.distance)) m")
                     .font(.caption2)
                     .bold()
             }
@@ -43,7 +43,7 @@ struct HomeView: View {
                 }
                 .foregroundStyle(Color.gray)
                 Spacer()
-                Text("\(String(format: "%.2f", connectivityProvider.elapsedTime)) s")
+                Text("\(String(format: "%.2f", viewModel.elapsedTime)) s")
                     .font(.caption)
                     .bold()
             }
@@ -59,15 +59,11 @@ struct HomeView: View {
                 }
                 .foregroundStyle(Color.gray)
                 Spacer()
-                Text("\(String(format: "%.2f", connectivityProvider.avgSpeed)) km/h")
+                Text("\(String(format: "%.2f", viewModel.avgSpeed)) km/h")
                     .font(.caption)
                     .bold()
             }
         }
-    }
-    
-    init() {
-        self.viewModel = ViewModel()
     }
 }
 

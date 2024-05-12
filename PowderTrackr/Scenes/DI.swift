@@ -152,8 +152,7 @@ extension Container {
             MapView.ViewModel(
                 accountService: accountService(),
                 mapService: mapService(),
-                friendService: friendService(),
-                watchSessionManager: WatchSessionManager.shared
+                friendService: friendService()
             )
         }
     }

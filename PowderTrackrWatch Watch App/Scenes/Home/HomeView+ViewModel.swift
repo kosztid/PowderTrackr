@@ -13,8 +13,8 @@ extension HomeView {
         private var cancellables: Set<AnyCancellable> = []
 
         init() {
-            setupSubscriptions()
             self.connectivityProvider = WatchConnectivityProvider()
+            setupSubscriptions()
         }
 
         private func setupSubscriptions() {

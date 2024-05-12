@@ -11,7 +11,7 @@ extension ResetPasswordView {
             Task {
                 await accountService.resetPassword(username: username)
             }
-            navigator.resetButtonTapped(username: username)
+//            navigator.resetButtonTapped(username: username)
         }
 
         func navigateBack() {

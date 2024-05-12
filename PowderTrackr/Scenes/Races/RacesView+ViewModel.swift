@@ -1,4 +1,4 @@
-import Amplify
+import AWSCognitoIdentityProvider
 import Combine
 import GoogleMaps
 import SwiftUI
@@ -20,7 +20,7 @@ extension RacesView {
         private let friendService: FriendServiceProtocol
         private let accountService: AccountServiceProtocol
         
-        @Published var user: AuthUser?
+        @Published var user: AWSCognitoIdentityUser?
         @Published var signedIn = false
         @Published var showingDeleteRaceAlert = false
         @Published var races: [Race] = []

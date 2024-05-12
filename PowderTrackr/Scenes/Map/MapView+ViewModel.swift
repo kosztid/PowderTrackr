@@ -32,7 +32,6 @@ extension MapView {
         var accountService: AccountServiceProtocol
         var friendService: FriendServiceProtocol
         var mapService: MapServiceProtocol
-        var watchSessionManager: WatchSessionManager
         var watchConnectivityProvider: WatchConnectivityProvider
         var locationManager = CLLocationManager()
         var locationTimer: Timer?
@@ -77,13 +76,11 @@ extension MapView {
         init(
             accountService: AccountServiceProtocol,
             mapService: MapServiceProtocol,
-            friendService: FriendServiceProtocol,
-            watchSessionManager: WatchSessionManager
+            friendService: FriendServiceProtocol
         ) {
             self.accountService = accountService
             self.mapService = mapService
             self.friendService = friendService
-            self.watchSessionManager = watchSessionManager
             self.watchConnectivityProvider = WatchConnectivityProvider()
             self.cameraPos = .init(
                 latitude: self.locationManager.location?.coordinate.latitude ?? 1,
@@ -158,12 +155,6 @@ extension MapView {
                 yCoord: String(locationManager.location?.coordinate.longitude ?? .zero)
             )
             self.friendService.queryFriendLocations()
-        }
-        
-        func startWatchApp() {
-            if WCSession.isSupported() {
-                watchSessionManager.startSession()
-            }
         }
         
         func startTracking() {
