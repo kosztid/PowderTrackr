@@ -80,8 +80,8 @@ extension TrackListView {
         }
 
         func onAppear() {
-                mapService.queryTrackedPaths()
-                mapService.querySharedPaths()
+            mapService.queryTrackedPaths()
+            mapService.querySharedPaths()
         }
 
         func removeTrack(_ trackedPath: TrackedPath) {
