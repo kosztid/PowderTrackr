@@ -1,3 +1,4 @@
+import Foundation
 import WatchConnectivity
 
 class WatchSessionManager: NSObject, WCSessionDelegate {
@@ -31,3 +32,4 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
         }
     }
 }
+

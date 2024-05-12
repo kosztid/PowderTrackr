@@ -33,6 +33,7 @@ extension MapView {
         var friendService: FriendServiceProtocol
         var mapService: MapServiceProtocol
         var watchSessionManager: WatchSessionManager
+        var watchConnectivityProvider: WatchConnectivityProvider
         var locationManager = CLLocationManager()
         var locationTimer: Timer?
         var trackTimer: Timer?
@@ -83,6 +84,7 @@ extension MapView {
             self.mapService = mapService
             self.friendService = friendService
             self.watchSessionManager = watchSessionManager
+            self.watchConnectivityProvider = WatchConnectivityProvider()
             self.cameraPos = .init(
                 latitude: self.locationManager.location?.coordinate.latitude ?? 1,
                 longitude: self.locationManager.location?.coordinate.longitude ?? 1,
@@ -164,14 +166,10 @@ extension MapView {
             }
         }
         
-        func startTrackingOnWatch() {
-            watchSessionManager.sendMessage()
-        }
-
-        
         func startTracking() {
             isTrackingStorage = true
             WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
+            watchConnectivityProvider.sendIsTracking(isTracking: true)
             withAnimation {
                 isTracking = true
             }
@@ -218,6 +216,7 @@ extension MapView {
         
         func stopTracking() {
             isTrackingStorage = false
+            watchConnectivityProvider.sendIsTracking(isTracking: false)
             WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
             withAnimation {
                 isTracking = false
@@ -240,12 +239,18 @@ extension MapView {
         
         @objc
         func updateWidget() {
-            var time = startTime?.distance(to: Date()) ?? 0
+            let time = startTime?.distance(to: Date()) ?? 0
             elapsedTimeStorage = time
             avgSpeedStorage = ((currentDistance ?? 0) / time) * 3.6
             distanceStorage = currentDistance ?? 0
             WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
         }
+        
+        func updateWatchData() {
+            guard let currentDistance else { return }
+            watchConnectivityProvider.sendMetrics(elapsedTime: elapsedTime, avgSpeed: avgSpeed, distance: currentDistance)
+        }
+        
         @objc
         func trackRoute() {
             guard var modified = self.trackedPath?.tracks else { return }

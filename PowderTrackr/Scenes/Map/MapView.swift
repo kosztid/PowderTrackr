@@ -17,14 +17,6 @@ struct MapView: View {
             )
             .ignoresSafeArea()
             topBar
-            VStack {
-                Button("Start") {
-                    viewModel.startWatchApp()
-                }
-                Button("SendMessage") {
-                    viewModel.startTrackingOnWatch()
-                }
-            }
             VStack(alignment: .trailing) {
                 Spacer()
                 if viewModel.selectedPath != nil {
@@ -89,6 +81,9 @@ struct MapView: View {
                 viewModel.selectedRace = nil
                 viewModel.mapMenuState = .off
             }
+        }
+        .onChange(of: viewModel.elapsedTime) { _, _ in
+            viewModel.updateWatchData() 
         }
         .onDisappear(perform: viewModel.stopTimer)
         .onAppear(perform: viewModel.startTimer)

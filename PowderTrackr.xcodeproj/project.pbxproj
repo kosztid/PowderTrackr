@@ -139,6 +139,10 @@
 		B49FA4902BE000DD00DC2FC1 /* WatchSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49FA48F2BE000DD00DC2FC1 /* WatchSessionDelegate.swift */; };
 		B4A0BDE92B76537600FF509C /* Pods_PowderTrackr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E251DFC276D77AEF0A316FA /* Pods_PowderTrackr.framework */; };
 		B4A0BDEA2B76537600FF509C /* Pods_PowderTrackr.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1E251DFC276D77AEF0A316FA /* Pods_PowderTrackr.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B4B3B8892BF01E0D009AE7B5 /* WatchConnectivityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B3B8882BF01E0D009AE7B5 /* WatchConnectivityProvider.swift */; };
+		B4B3B88A2BF01E26009AE7B5 /* WatchConnectivityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B3B8882BF01E0D009AE7B5 /* WatchConnectivityProvider.swift */; };
+		B4B3B88B2BF02D18009AE7B5 /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4243FB52BC45EBD0056C7C5 /* CGFloat+Extension.swift */; };
+		B4B3B88C2BF02D19009AE7B5 /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4243FB52BC45EBD0056C7C5 /* CGFloat+Extension.swift */; };
 		B4C96F8B2BD419CB005B84A4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C96F8A2BD419CB005B84A4 /* User.swift */; };
 		B4C96F8D2BD4365A005B84A4 /* FriendAddRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C96F8C2BD4365A005B84A4 /* FriendAddRowView.swift */; };
 		B4F2C0092B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2BFFB2B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift */; };
@@ -349,6 +353,7 @@
 		B49FA48C2BDFFFF300DC2FC1 /* PowderTrackrWatch Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "PowderTrackrWatch Watch App.entitlements"; sourceTree = "<group>"; };
 		B49FA48D2BE0006E00DC2FC1 /* WatchSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSessionManager.swift; sourceTree = "<group>"; };
 		B49FA48F2BE000DD00DC2FC1 /* WatchSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSessionDelegate.swift; sourceTree = "<group>"; };
+		B4B3B8882BF01E0D009AE7B5 /* WatchConnectivityProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityProvider.swift; sourceTree = "<group>"; };
 		B4C96F8A2BD419CB005B84A4 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B4C96F8C2BD4365A005B84A4 /* FriendAddRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAddRowView.swift; sourceTree = "<group>"; };
 		B4F2BFFB2B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenISO8601DateFormatter.swift; sourceTree = "<group>"; };
@@ -891,6 +896,7 @@
 				550254E12ABA1CA0002D05F8 /* StatisticsService.swift */,
 				554587C52A3E2A66009A5485 /* ServiceDI.swift */,
 				B49FA48D2BE0006E00DC2FC1 /* WatchSessionManager.swift */,
+				B4B3B8882BF01E0D009AE7B5 /* WatchConnectivityProvider.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1289,6 +1295,7 @@
 				55DE1DC02A56D1C300BAD8E4 /* ChangePasswordView.swift in Sources */,
 				554588152A3E30EA009A5485 /* ToggleableSecureField.swift in Sources */,
 				55E402FE2ACB300400AE8043 /* MyRunsView.swift in Sources */,
+				B4B3B8892BF01E0D009AE7B5 /* WatchConnectivityProvider.swift in Sources */,
 				B4899C432B7648EA0015BD3F /* LeaderBoard.swift in Sources */,
 				55B4593F2AC9764C007B3775 /* RaceRunView+ViewModel.swift in Sources */,
 				554588142A3E30EA009A5485 /* BaseTextFieldStyleViewModifier.swift in Sources */,
@@ -1348,6 +1355,7 @@
 				B45311082BD7133D00891ADC /* PowderTrackrWidget.swift in Sources */,
 				B45311042BD7133D00891ADC /* PowderTrackrWidgetBundle.swift in Sources */,
 				B49FA4752BDEFA1800DC2FC1 /* DataService.swift in Sources */,
+				B4B3B88B2BF02D18009AE7B5 /* CGFloat+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1358,6 +1366,8 @@
 				B49FA47F2BDFFD1500DC2FC1 /* ContentView.swift in Sources */,
 				B49FA4902BE000DD00DC2FC1 /* WatchSessionDelegate.swift in Sources */,
 				B49FA47D2BDFFD1500DC2FC1 /* PowderTrackrWatchApp.swift in Sources */,
+				B4B3B88A2BF01E26009AE7B5 /* WatchConnectivityProvider.swift in Sources */,
+				B4B3B88C2BF02D19009AE7B5 /* CGFloat+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
