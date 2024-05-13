@@ -37,6 +37,7 @@ extension MapView {
         var locationTimer: Timer?
         var trackTimer: Timer?
         var widgetTimer: Timer?
+        var watchTimer: Timer?
         
         @Published var isTracking = false
         @Published var raceTracking = false
@@ -169,6 +170,7 @@ extension MapView {
             }
             self.trackTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
             self.widgetTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updateWidget), userInfo: nil, repeats: true)
+            self.watchTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateWatchData), userInfo: nil, repeats: true)
             startTime = Date()
             let id = UUID().uuidString
             self.trackedPath?.tracks?.append(
@@ -218,6 +220,7 @@ extension MapView {
             self.trackTimer?.invalidate()
             self.trackTimer = nil
             self.widgetTimer = nil
+            self.watchTimer = nil
             self.mapMenuState = .off
             self.startTime = nil
             self.currentDistance = nil
@@ -240,6 +243,7 @@ extension MapView {
             WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
         }
         
+        @objc
         func updateWatchData() {
             guard let currentDistance else { return }
             watchConnectivityProvider.sendMetrics(elapsedTime: elapsedTime, avgSpeed: avgSpeed, distance: currentDistance)

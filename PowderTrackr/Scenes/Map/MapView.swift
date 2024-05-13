@@ -82,9 +82,6 @@ struct MapView: View {
                 viewModel.mapMenuState = .off
             }
         }
-        .onChange(of: viewModel.elapsedTime) { _, _ in
-            viewModel.updateWatchData() 
-        }
         .onDisappear(perform: viewModel.stopTimer)
         .onAppear(perform: viewModel.startTimer)
         .toolbar(.hidden)
