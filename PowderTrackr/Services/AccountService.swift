@@ -17,9 +17,9 @@ public protocol AccountServiceProtocol: AnyObject {
     func signUp(_ username: String, _ email: String, _ password: String) async
     func signIn(_ username: String, _ password: String) -> AnyPublisher<AccountServiceModel.AccountData, Error>
     func confirmSignUp(with confirmationCode: String, _ username: String, _ password: String) async
-    func resetPassword(username: String) async
-    func changePassword(oldPassword: String, newPassword: String) async
-    func confirmResetPassword(username: String, newPassword: String, confirmationCode: String) async
+    func resetPassword(username: String) -> AnyPublisher<Void, Error>
+    func changePassword(oldPassword: String, newPassword: String) -> AnyPublisher<Void, Error>
+    func confirmResetPassword(username: String, newPassword: String, confirmationCode: String) -> AnyPublisher<Void, Error>
     func updateLeaderboard(time: Double, distance: Double)
     
     func createFriendList()
@@ -119,39 +119,83 @@ extension AccountService: AccountServiceProtocol {
         }
     }
     
-    func resetPassword(username: String) async {
-        let forgotPasswordRequest = AWSCognitoIdentityProviderForgotPasswordRequest()!
-            forgotPasswordRequest.username = username
-            forgotPasswordRequest.clientId = "33uv3qc4u4msgqmrujbmq44n9i"
-        
-        do {
-            let response = try await self.identityProvider.forgotPassword(forgotPasswordRequest)
-            print("Reset password initiated: \(response)")
-        } catch {
-            print("Error resetting password: \(error)")
-        }
-    }
-    
-    func changePassword(oldPassword: String, newPassword: String) async {
-            let changePasswordResult = self.user.value?.changePassword(oldPassword, proposedPassword: newPassword)
-    }
-    
-    func confirmResetPassword(username: String, newPassword: String, confirmationCode: String) async {
-        // Create the request object for confirming a forgotten password
-        let confirmForgotPasswordRequest = AWSCognitoIdentityProviderConfirmForgotPasswordRequest()!
-        confirmForgotPasswordRequest.username = username
-        confirmForgotPasswordRequest.password = newPassword
-        confirmForgotPasswordRequest.confirmationCode = confirmationCode
-        confirmForgotPasswordRequest.clientId = "33uv3qc4u4msgqmrujbmq44n9i" // Insert your App Client ID here
+    func resetPassword(username: String) -> AnyPublisher<Void, Error> {
+        return Future<Void, Error> { [weak self] promise in
+            guard let self = self else {
+                promise(.failure(NSError(domain: "ResetPasswordError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
+                return
+            }
 
-        do {
-            // Call the confirmForgotPassword method on the Cognito identity provider
-            let confirmationResult = try await self.identityProvider.confirmForgotPassword(confirmForgotPasswordRequest)
-            print("Password reset confirmed: \(confirmationResult)")
-        } catch {
-            print("Error confirming password reset: \(error)")
+            let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
+            let user = pool?.getUser(username)
+            user?.forgotPassword().continueWith { task -> Any? in
+                DispatchQueue.main.async {
+                    if let error = task.error {
+                        promise(.failure(error))
+                    } else {
+                        promise(.success(()))
+                        print("Reset password initiated successfully.")
+                    }
+                }
+                return nil
+            }
         }
+        .eraseToAnyPublisher()
     }
+
+    
+    func changePassword(oldPassword: String, newPassword: String) -> AnyPublisher<Void, Error> {
+        return Future<Void, Error> { [weak self] promise in
+            guard let self = self else {
+                promise(.failure(NSError(domain: "ChangePasswordError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
+                return
+            }
+            
+            guard let user = self.user.value else {
+                promise(.failure(NSError(domain: "ChangePasswordError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No current user"])))
+                return
+            }
+
+            user.changePassword(oldPassword, proposedPassword: newPassword).continueWith { task -> Any? in
+                DispatchQueue.main.async {
+                    if let error = task.error {
+                        promise(.failure(error))
+                    } else {
+                        promise(.success(()))
+                        print("Password changed successfully.")
+                    }
+                }
+                return nil
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+
+    
+    func confirmResetPassword(username: String, newPassword: String, confirmationCode: String) -> AnyPublisher<Void, Error> {
+        return Future<Void, Error> { [weak self] promise in
+            guard self != nil else {
+                promise(.failure(NSError(domain: "ConfirmResetPasswordError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
+                return
+            }
+
+            let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
+            let user = pool?.getUser(username)
+            user?.confirmForgotPassword(confirmationCode, password: newPassword).continueWith { task -> Any? in
+                DispatchQueue.main.async {
+                    if let error = task.error {
+                        promise(.failure(error))
+                    } else {
+                        promise(.success(()))
+                        print("Password reset confirmed successfully.")
+                    }
+                }
+                return nil
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+
 
     
     public func createLocation(xCoord: String, yCoord: String) {

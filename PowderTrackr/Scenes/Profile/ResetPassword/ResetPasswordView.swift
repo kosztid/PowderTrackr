@@ -22,6 +22,7 @@ struct ResetPasswordView: View {
             .padding(.vertical, .su16)
             .padding(.horizontal, .su8)
         }
+        .toastMessage(toastMessage: $viewModel.toast)
         .headerView(title: "Welcome to PowderTrackr", description: "Password Reset")
         .background(Color.grayPrimary)
         .toolbar {

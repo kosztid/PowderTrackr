@@ -120,9 +120,16 @@ extension MapView {
             mapService.trackedPathPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] track in
-                    self?.track = track?.tracks ?? []
-                    self?.trackedPath = track
-                    self?.refreshSelectedPath()
+                    guard let self else { return }
+                    if self.signedIn {
+                        self.track = track?.tracks ?? []
+                        self.trackedPath = track
+                        self.refreshSelectedPath()
+                    } else {
+                        self.trackedPath = nil
+                        self.track = []
+                    }
+                    
                 }
                 .store(in: &cancellables)
             

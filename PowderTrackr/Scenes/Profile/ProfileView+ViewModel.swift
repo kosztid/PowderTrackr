@@ -52,8 +52,8 @@ extension ProfileView {
         }
         
         func loadData() {
+            self.mapService.queryTrackedPaths()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.mapService.queryTrackedPaths()
                 self.currentEmail = UserDefaults.standard.string(forKey: "email") ?? ""
                 self.userName = UserDefaults.standard.string(forKey: "name") ?? ""
                 self.makeTotals()
@@ -71,12 +71,15 @@ extension ProfileView {
             mapService.trackedPathPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] track in
+                    guard let self else { return}
                     // TODO: INIT USER ELSEWHERE
 //                    if track == nil {
 //                        self?.accountService.initUser()
 //                    }
-                    self?.tracks = track?.tracks ?? []
-                    self?.makeTotals()
+                    self.tracks = track?.tracks ?? []
+                    if !self.tracks.isEmpty {
+                        self.makeTotals()
+                    }
                 }
                 .store(in: &cancellables)
         }
@@ -103,7 +106,7 @@ extension ProfileView {
             totalDistance = total
             let totalTime = totalDate
             
-            if isSignedIn {
+            if isSignedIn && totalDistance > 0 {
                 accountService.updateLeaderboard(time: totalTime, distance: totalDistance)
             }
         }

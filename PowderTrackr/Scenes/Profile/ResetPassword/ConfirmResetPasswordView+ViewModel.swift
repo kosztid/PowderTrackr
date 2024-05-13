@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 
 extension ConfirmResetPasswordView {
@@ -5,15 +6,25 @@ extension ConfirmResetPasswordView {
         @Published var verificationCode: String = ""
         @Published var username: String
         @Published var password: String = ""
+        @Published var toast: ToastModel?
 
         private let navigator: RegisterVerificationViewNavigatorProtocol
         private let accountService: AccountServiceProtocol
+        
+        private var cancellables: Set<AnyCancellable> = []
 
         func verify() {
-            Task {
-                await accountService.confirmResetPassword(username: username,newPassword: password, confirmationCode: verificationCode)
-            }
-            navigator.verified()
+            accountService.confirmResetPassword(username: username,newPassword: password, confirmationCode: verificationCode)
+                .sink(
+                    receiveCompletion: { [weak self] completion in
+                        guard case .failure(_) = completion else { return }
+                        self?.toast = .init(title: "Failed resetting password", type: .error)
+                    }, receiveValue: { [weak self] data in
+                        self?.navigator.verified()
+                    }
+                )
+                .store(in: &cancellables)
+            
         }
 
         init(
