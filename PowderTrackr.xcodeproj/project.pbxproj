@@ -150,6 +150,7 @@
 		B49FA4872BDFFD1700DC2FC1 /* PowderTrackrWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B49FA47A2BDFFD1500DC2FC1 /* PowderTrackrWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B4A0BDE92B76537600FF509C /* Pods_PowderTrackr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E251DFC276D77AEF0A316FA /* Pods_PowderTrackr.framework */; };
 		B4A0BDEA2B76537600FF509C /* Pods_PowderTrackr.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1E251DFC276D77AEF0A316FA /* Pods_PowderTrackr.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B4A41FAC2BF2BC6300B27FF1 /* AccountService+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A41FAB2BF2BC6300B27FF1 /* AccountService+API.swift */; };
 		B4B3B8892BF01E0D009AE7B5 /* WatchConnectivityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B3B8882BF01E0D009AE7B5 /* WatchConnectivityProvider.swift */; };
 		B4B3B88A2BF01E26009AE7B5 /* WatchConnectivityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B3B8882BF01E0D009AE7B5 /* WatchConnectivityProvider.swift */; };
 		B4B3B88B2BF02D18009AE7B5 /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4243FB52BC45EBD0056C7C5 /* CGFloat+Extension.swift */; };
@@ -382,6 +383,7 @@
 		B49FA4802BDFFD1700DC2FC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B49FA4832BDFFD1700DC2FC1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B49FA48C2BDFFFF300DC2FC1 /* PowderTrackrWatch Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "PowderTrackrWatch Watch App.entitlements"; sourceTree = "<group>"; };
+		B4A41FAB2BF2BC6300B27FF1 /* AccountService+API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountService+API.swift"; sourceTree = "<group>"; };
 		B4B3B8882BF01E0D009AE7B5 /* WatchConnectivityProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityProvider.swift; sourceTree = "<group>"; };
 		B4B3B8992BF118ED009AE7B5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B4B3B89B2BF118F4009AE7B5 /* HomeView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeView+ViewModel.swift"; sourceTree = "<group>"; };
@@ -933,6 +935,7 @@
 				550254E12ABA1CA0002D05F8 /* StatisticsService.swift */,
 				554587C52A3E2A66009A5485 /* ServiceDI.swift */,
 				B4B3B8882BF01E0D009AE7B5 /* WatchConnectivityProvider.swift */,
+				B4A41FAB2BF2BC6300B27FF1 /* AccountService+API.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1369,6 +1372,7 @@
 				554588142A3E30EA009A5485 /* BaseTextFieldStyleViewModifier.swift in Sources */,
 				B45E58A62B95E54300BA1561 /* ToastModel.swift in Sources */,
 				558815B62A3E361600667C1A /* Friendlist.swift in Sources */,
+				B4A41FAC2BF2BC6300B27FF1 /* AccountService+API.swift in Sources */,
 				B4899C422B7648EA0015BD3F /* GroupChat.swift in Sources */,
 				B4243FB42BC45DB20056C7C5 /* InfoCardView.swift in Sources */,
 				558A21722A73E15800819256 /* GroupView.swift in Sources */,

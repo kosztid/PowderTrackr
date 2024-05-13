@@ -103,10 +103,6 @@ extension MapView {
             mapService.queryRaces()
         }
         
-        func initUser() {
-            accountService.initUser()
-        }
-        
         func confirm() {
             accountService.createUserTrackedPaths()
         }
