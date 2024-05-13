@@ -56,7 +56,7 @@ extension ProfileView {
                 self.mapService.queryTrackedPaths()
                 self.currentEmail = UserDefaults.standard.string(forKey: "email") ?? ""
                 self.userName = UserDefaults.standard.string(forKey: "name") ?? ""
-
+                self.makeTotals()
             }
         }
         
@@ -103,7 +103,9 @@ extension ProfileView {
             totalDistance = total
             let totalTime = totalDate
             
-            accountService.updateLeaderboard(time: totalTime, distance: totalDistance)
+            if isSignedIn {
+                accountService.updateLeaderboard(time: totalTime, distance: totalDistance)
+            }
         }
         
         func updatePasswordTap() {

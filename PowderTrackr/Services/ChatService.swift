@@ -96,7 +96,7 @@ extension ChatService: ChatServiceProtocol {
         }
         
         DefaultAPI.personalChatsGet { data, error in
-            if let error = error {
+            if error != nil {
                 self.networkError.send(.init(title: "An issue occured while loading your messages", type: .error))
             } else {
                 let currentChat: PersonalChat? = data?.first { chat in

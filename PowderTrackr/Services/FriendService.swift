@@ -103,7 +103,7 @@ extension FriendService: FriendServiceProtocol {
     
     func queryFriends() {
         DefaultAPI.userfriendListsGet { data, error in
-            if let error = error {
+            if error =! nil {
                 self.networkError.send(.init(title: "An issue occured while loading your friends", type: .error))
             } else {
                 let currentFriendList = data?.first { item in

@@ -133,12 +133,7 @@ extension AccountService: AccountServiceProtocol {
     }
     
     func changePassword(oldPassword: String, newPassword: String) async {
-        do {
-            let changePasswordResult = try await self.user.value?.changePassword(oldPassword, proposedPassword: newPassword)
-            print("Password changed: \(String(describing: changePasswordResult))")
-        } catch {
-            print("Error changing password: \(error)")
-        }
+            let changePasswordResult = self.user.value?.changePassword(oldPassword, proposedPassword: newPassword)
     }
     
     func confirmResetPassword(username: String, newPassword: String, confirmationCode: String) async {
@@ -443,14 +438,12 @@ extension AccountService: AccountServiceProtocol {
         let confirmSignUpRequest = AWSCognitoIdentityProviderConfirmSignUpRequest()!
         confirmSignUpRequest.username = username
         confirmSignUpRequest.confirmationCode = confirmationCode
-        confirmSignUpRequest.clientId = "33uv3qc4u4msgqmrujbmq44n9i"  // Replace with your actual Cognito User Pool App Client ID
+        confirmSignUpRequest.clientId = "33uv3qc4u4msgqmrujbmq44n9i"
 
         do {
-            // Perform the confirmation operation
-            let confirmationResult = try await identityProvider.confirmSignUp(confirmSignUpRequest)
+            _ = try await identityProvider.confirmSignUp(confirmSignUpRequest)
             print("Sign up confirmation successful.")
-            // If confirmation was successful, you might want to automatically sign in the user
-            signInFirstTime(username, password)
+            _ = signInFirstTime(username, password)
         } catch {
             print("Error confirming sign up: \(error)")
         }

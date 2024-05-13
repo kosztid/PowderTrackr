@@ -20,9 +20,7 @@ extension ShareListView {
             self.mapService = mapService
             self.track = track
             initBindings()
-            Task {
-                await friendService.queryFriends()
-            }
+            friendService.queryFriends()
         }
 
         func initBindings() {
@@ -35,9 +33,7 @@ extension ShareListView {
         }
 
         func share(with friend: Friend) {
-            Task {
-                await mapService.shareTrack(track, friend.id)
-            }
+            mapService.shareTrack(track, friend.id)
         }
     }
 }
