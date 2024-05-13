@@ -10,7 +10,7 @@ struct RegisterView: View {
                     .textStyle(.body)
                     .foregroundColor(.blueSecondary)
                     .padding(.top, .su16)
-                TextField(text: $viewModel.userName)
+                TextField(text: $viewModel.username)
                     .regularTextFieldStyle(label: "Username")
                 TextField(text: $viewModel.email)
                     .regularTextFieldStyle(label: "Email")

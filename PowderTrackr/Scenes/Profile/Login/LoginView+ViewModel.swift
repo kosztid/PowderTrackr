@@ -14,7 +14,7 @@ extension LoginView {
         private let accountService: AccountServiceProtocol
         
         func login() {
-            accountService.signIn(userName, password)
+            accountService.signIn(userName, password, firstTime: false)
                 .sink(
                     receiveCompletion: { [weak self] completion in
                         guard case .failure(let error) = completion else { return }

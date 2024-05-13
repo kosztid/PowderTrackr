@@ -6,7 +6,7 @@ public enum ProfileScreen {
     case profile
     case login
     case register
-    case verify
+    case verify(username: String, password: String)
     case resetPassword
     case resetPasswordConfirmation(username: String)
     case updatePassword
@@ -20,7 +20,7 @@ protocol ProfileViewNavigatorProtocol {
 }
 
 protocol RegisterViewNavigatorProtocol {
-    func registered()
+    func registered(username: String, password: String)
     func dismiss()
 }
 
@@ -64,8 +64,11 @@ public struct ProfileNavigator: Navigator {
                 ViewFactory.loginView(navigator: self)
             case .register:
                 ViewFactory.registerView(navigator: self)
-            case .verify:
-                ViewFactory.registerVerificationView(navigator: self)
+            case .verify(let username, let password):
+                ViewFactory.registerVerificationView(
+                    navigator: self,
+                    model: .init(username: username, password: password)
+                )
             case .resetPassword:
                 ViewFactory.resetPasswordView(navigator: self)
             case .resetPasswordConfirmation(let username):
@@ -115,8 +118,8 @@ extension ProfileNavigator: LoginViewNavigatorProtocol {
 }
 
 extension ProfileNavigator: RegisterViewNavigatorProtocol {
-    func registered() {
-        routes.push(.verify)
+    func registered(username: String, password: String) {
+        routes.push(.verify(username: username, password: password))
     }
 }
 

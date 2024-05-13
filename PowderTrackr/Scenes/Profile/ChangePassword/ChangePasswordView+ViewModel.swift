@@ -13,7 +13,10 @@ extension ChangePasswordView {
         private var cancellables: Set<AnyCancellable> = []
 
         func changeButtonTap() {
-            accountService.changePassword(oldPassword: oldPassword, newPassword: newPassword)
+            accountService.changePassword(
+                oldPassword: oldPassword,
+                newPassword: newPassword
+            )
                 .sink(
                     receiveCompletion: { [weak self] completion in
                         guard case .failure(_) = completion else { return }

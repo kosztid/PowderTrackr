@@ -13,10 +13,10 @@ public protocol AccountServiceProtocol: AnyObject {
     var userPublisher: AnyPublisher<AWSCognitoIdentityUser?, Never> { get }
     var emailPublisher: AnyPublisher<String?, Never> { get }
     
-    func initUser()
-    func signUp(_ username: String, _ email: String, _ password: String) async
-    func signIn(_ username: String, _ password: String) -> AnyPublisher<AccountServiceModel.AccountData, Error>
-    func confirmSignUp(with confirmationCode: String, _ username: String, _ password: String) async
+    func initUser(email: String)
+    func register(_ username: String, _ email: String, _ password: String) -> AnyPublisher<Void, Error>
+    func signIn(_ username: String, _ password: String, firstTime: Bool) -> AnyPublisher<AccountServiceModel.AccountData, Error>
+    func confirmSignUp(with confirmationCode: String, _ username: String, _ password: String) -> AnyPublisher<Void, Error>
     func resetPassword(username: String) -> AnyPublisher<Void, Error>
     func changePassword(oldPassword: String, newPassword: String) -> AnyPublisher<Void, Error>
     func confirmResetPassword(username: String, newPassword: String, confirmationCode: String) -> AnyPublisher<Void, Error>
@@ -261,7 +261,21 @@ extension AccountService: AccountServiceProtocol {
         }
     }
     
-    func signIn(_ username: String, _ password: String) -> AnyPublisher<AccountServiceModel.AccountData, Error> {
+    func addUser(email: String) {
+        if userID == "" {
+            return
+        }
+        let user = User(id: userID, name: userName, email: email)
+        
+        DefaultAPI.usersPutWithRequestBuilder(user: user) { data, error in
+            if let error = error {
+                print("Error: \(error)")
+            } else {
+            }
+        }
+    }
+    
+    func signIn(_ username: String, _ password: String, firstTime: Bool = false) -> AnyPublisher<AccountServiceModel.AccountData, Error> {
         return Future<AccountServiceModel.AccountData, Error> { [weak self] promise in
             guard let self = self else {
                 promise(.failure(NSError(domain: "LoginError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
@@ -276,7 +290,7 @@ extension AccountService: AccountServiceProtocol {
                         promise(.failure(error))
                     } else if let session = task.result {
                         self.accessToken = session.idToken?.tokenString
-                        self.fetchUserAttributes(user: user!, promise: promise)
+                        self.fetchUserAttributes(user: user!, firstTime: firstTime, promise: promise)
                     }
                 }
                 return nil
@@ -376,7 +390,7 @@ extension AccountService: AccountServiceProtocol {
     }
 
 
-    private func fetchUserAttributes(user: AWSCognitoIdentityUser, promise: @escaping (Result<AccountServiceModel.AccountData, Error>) -> Void) {
+    private func fetchUserAttributes(user: AWSCognitoIdentityUser, firstTime: Bool = false, promise: @escaping (Result<AccountServiceModel.AccountData, Error>) -> Void) {
         user.getDetails().continueWith { [weak self] task in
             DispatchQueue.main.async {
                 if let error = task.error {
@@ -395,6 +409,10 @@ extension AccountService: AccountServiceProtocol {
                     self?.userID = userID ?? ""
                     self?.isSignedIn.send(true)
                     
+                    if firstTime {
+                        self?.initUser(email: email ?? "")
+                    }
+                    
                     promise(.success(AccountServiceModel.AccountData(userID: userID!)))
                 }
             }
@@ -403,95 +421,85 @@ extension AccountService: AccountServiceProtocol {
     }
 
     
-    public func initUser() {
+    public func initUser(email: String) {
         createLocation(xCoord: "0", yCoord: "0")
         createFriendList()
         createUserTrackedPaths()
         createLeaderBoardEntity()
+        addUser(email: email)
     }
     
     // TODO: ENDPOINT CREATE USER ENTRIES
-    private func signInFirstTime(_ username: String, _ password: String) -> AnyPublisher<AccountServiceModel.AccountData, Error> {
-        return Future<AccountServiceModel.AccountData, Error> { promise in
-            Task {
-                do {
-                    let authRequest = AWSCognitoIdentityProviderInitiateAuthRequest()!
-                    authRequest.authFlow = .userPasswordAuth
-                    authRequest.clientId = "33uv3qc4u4msgqmrujbmq44n9i"
-                    authRequest.authParameters = ["USERNAME": username, "PASSWORD": password]
-                    
-                    let authResponse = try await self.identityProvider.initiateAuth(authRequest)
-                    if let authenticationResult = authResponse.authenticationResult, let idToken = authenticationResult.idToken {
-                        self.updateSignInStatus(isSignedIn: true)
-                        
-                        let userId = self.decodeIdToken(idToken: idToken)
-                        let userEmail = self.extractClaim(fromIdToken: idToken, claimKey: "email")
-                        
-                        UserDefaults.standard.set(userEmail, forKey: "email")
-                        UserDefaults.standard.set(userId, forKey: "id")
-                        UserDefaults.standard.set(username, forKey: "name")
-                        
-                        self.initUser()
-                        
-                        promise(.success(AccountServiceModel.AccountData(userID: userId)))
-                    } else {
-                        promise(.failure(NSError(domain: "LoginError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Authentication failed"])))
+    
+    func register(_ username: String, _ email: String, _ password: String) -> AnyPublisher<Void, Error> {
+        return Future<Void, Error> { [weak self] promise in
+            guard let self = self else {
+                promise(.failure(NSError(domain: "SignUpError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
+                return
+            }
+            
+            let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
+            var attributes = [AWSCognitoIdentityUserAttributeType]()
+            
+            let emailAttribute = AWSCognitoIdentityUserAttributeType(name: "email", value: email)
+            attributes.append(emailAttribute)
+            
+            pool?.signUp(username, password: password, userAttributes: attributes, validationData: nil).continueWith { task -> Any? in
+                DispatchQueue.main.async {
+                    if let error = task.error {
+                        promise(.failure(error))
+                    } else if let result = task.result {
+                        if result.user.confirmedStatus == .confirmed {
+                            // User is confirmed
+                            self.updateSignInStatus(isSignedIn: true)
+                            promise(.success(()))
+                        } else {
+                            // User needs to confirm their email
+                            print("Sign up successful, please confirm your email.")
+                            promise(.success(()))
+                        }
                     }
-                } catch {
-                    promise(.failure(error))
-                    print("Sign in failed \(error)")
                 }
+                return nil
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func confirmSignUp(with confirmationCode: String, _ username: String, _ password: String) -> AnyPublisher<Void, Error> {
+        return Future<Void, Error> { [weak self] promise in
+            guard let self = self else {
+                promise(.failure(NSError(domain: "ConfirmSignUpError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
+                return
+            }
+
+            let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
+            let user = pool?.getUser(username)
+            
+            user?.confirmSignUp(confirmationCode).continueWith { task -> Any? in
+                DispatchQueue.main.async {
+                    if let error = task.error {
+                        promise(.failure(error))
+                    } else {
+                        print("Sign up confirmation successful.")
+                        self.signIn(username, password, firstTime: true).sink(receiveCompletion: { completion in
+                            switch completion {
+                            case .failure(let error):
+                                promise(.failure(error))
+                            case .finished:
+                                promise(.success(()))
+                            }
+                        }, receiveValue: { _ in })
+                        .store(in: &self.cancellables)
+                    }
+                }
+                return nil
             }
         }
         .eraseToAnyPublisher()
     }
 
-    
-    func signUp(_ username: String, _ email: String, _ password: String) async {
-        // Create the request object
-        let signUpRequest = AWSCognitoIdentityProviderSignUpRequest()!
-        signUpRequest.username = username
-        signUpRequest.password = password
-        signUpRequest.clientId = "33uv3qc4u4msgqmrujbmq44n9i" // Insert your Cognito User Pool App Client ID here
 
-        var attributes = [AWSCognitoIdentityProviderAttributeType]()
-        let emailAttribute = AWSCognitoIdentityProviderAttributeType()
-        emailAttribute?.name = "email"
-        emailAttribute?.value = email
-        attributes.append(emailAttribute!)
-        
-        signUpRequest.userAttributes = attributes
-        
-
-        do {
-            // Perform the signup operation
-            let signUpResponse = try await identityProvider.signUp(signUpRequest)
-            if signUpResponse.userConfirmed?.boolValue == true {
-                // If user is automatically confirmed, update sign in status
-                updateSignInStatus(isSignedIn: true)
-            } else {
-                // Handle other cases, e.g., requiring email confirmation
-                print("Sign up successful, please confirm your email.")
-            }
-        } catch {
-            print("Error signing up: \(error)")
-        }
-    }
-    
-    func confirmSignUp(with confirmationCode: String, _ username: String, _ password: String) async {
-        let confirmSignUpRequest = AWSCognitoIdentityProviderConfirmSignUpRequest()!
-        confirmSignUpRequest.username = username
-        confirmSignUpRequest.confirmationCode = confirmationCode
-        confirmSignUpRequest.clientId = "33uv3qc4u4msgqmrujbmq44n9i"
-
-        do {
-            _ = try await identityProvider.confirmSignUp(confirmSignUpRequest)
-            print("Sign up confirmation successful.")
-            _ = signInFirstTime(username, password)
-        } catch {
-            print("Error confirming sign up: \(error)")
-        }
-    }
 
 
     

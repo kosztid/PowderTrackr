@@ -1,27 +1,45 @@
+import Combine
 import SwiftUI
 
 extension VerifyView {
+   public struct InputModel {
+        let username: String
+        let password: String
+    }
+    
     final class ViewModel: ObservableObject {
         @Published var verificationCode: String = ""
         @Published var username: String = ""
         @Published var password: String = ""
+        @Published var toast: ToastModel?
 
         private let navigator: RegisterVerificationViewNavigatorProtocol
         private let accountService: AccountServiceProtocol
+        private let inputModel: InputModel
+        
+        private var cancellables: Set<AnyCancellable> = []
 
         func verify() {
-            Task {
-                await accountService.confirmSignUp(with: verificationCode, username, password)
-            }
-            navigator.verified()
+            accountService.confirmSignUp(with: verificationCode, inputModel.username, inputModel.password)
+                .sink(
+                    receiveCompletion: { [weak self] completion in
+                        guard case .failure(_) = completion else { return }
+                        self?.toast = .init(title: "Failed to confirm registration", type: .error)
+                    }, receiveValue: { [weak self] data in
+                        self?.navigator.verified()
+                    }
+                )
+                .store(in: &cancellables)
         }
 
         init(
             navigator: RegisterVerificationViewNavigatorProtocol,
-            accountService: AccountServiceProtocol
+            accountService: AccountServiceProtocol,
+            inputModel: InputModel
         ) {
             self.navigator = navigator
             self.accountService = accountService
+            self.inputModel = inputModel
         }
     }
 }
