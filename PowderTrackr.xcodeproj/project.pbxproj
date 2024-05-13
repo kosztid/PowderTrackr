@@ -332,7 +332,6 @@
 		55E9E6622AC897E50090FC6B /* RaceRunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceRunView.swift; sourceTree = "<group>"; };
 		55FF48772A9136D200527F18 /* LayerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerWidget.swift; sourceTree = "<group>"; };
 		55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerWidgetButton.swift; sourceTree = "<group>"; };
-		666F949C01D29318118AE421 /* Pods_PowderTrackrWatch_Watch_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PowderTrackrWatch_Watch_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		705F020E722E17762F7F9CEC /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		B408E83E2B9F978100167246 /* OverlayModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayModal.swift; sourceTree = "<group>"; };
 		B4243FB32BC45DB20056C7C5 /* InfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCardView.swift; sourceTree = "<group>"; };
@@ -867,7 +866,6 @@
 				1E251DFC276D77AEF0A316FA /* Pods_PowderTrackr.framework */,
 				B45310FE2BD7133D00891ADC /* WidgetKit.framework */,
 				B45311002BD7133D00891ADC /* SwiftUI.framework */,
-				666F949C01D29318118AE421 /* Pods_PowderTrackrWatch_Watch_App.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

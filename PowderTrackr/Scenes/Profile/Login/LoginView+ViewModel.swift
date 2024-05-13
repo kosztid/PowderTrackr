@@ -13,20 +13,6 @@ extension LoginView {
         private let navigator: LoginViewNavigatorProtocol
         private let accountService: AccountServiceProtocol
         
-        
-        func loginUser() {
-                let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
-            let user = pool!.getUser(userName)
-                user.getSession(userName, password: password, validationData: nil).continueWith { (task) -> Any? in
-                    if let error = task.error {
-                        print("Login failed with error: \(error)")
-                    } else {
-                        print("Login successful")
-                    }
-                    return nil
-                }
-            }
-        
         func login() {
             accountService.signIn(userName, password)
                 .sink(
@@ -34,7 +20,8 @@ extension LoginView {
                         guard case .failure(let error) = completion else { return }
                         print(error)
                         self?.showLoginError = true
-                    }, receiveValue: { [weak self] _ in
+                    }, receiveValue: { [weak self] data in
+                        print("loginSuccess", data.userID)
                         self?.navigator.loggedIn()
                     }
                 )

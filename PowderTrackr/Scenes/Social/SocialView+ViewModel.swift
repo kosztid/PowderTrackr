@@ -46,24 +46,33 @@ extension SocialView {
             self.notification = false
             self.inputModel = inputModel
             initBindings()
-            onAppear()
         }
 
         func initBindings() {
             friendService.friendListPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] friendList in
-                    self?.friendList = friendList
+                    guard let self else { return }
+                    if self.signedIn {
+                        self.friendList = friendList
+                    } else {
+                        self.friendList = nil
+                    }
                 }
                 .store(in: &cancellables)
             
             friendService.friendRequestsPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] requests in
-                    if !requests.isEmpty {
-                        self?.notification = true
+                    guard let self else { return }
+                    if self.signedIn {
+                        if !requests.isEmpty {
+                            self.notification = true
+                        } else {
+                            self.notification = false
+                        }
                     } else {
-                        self?.notification = false
+                        self.notification = false
                     }
                 }
                 .store(in: &cancellables)
@@ -74,6 +83,8 @@ extension SocialView {
                     self?.signedIn = signedIn
                     if !signedIn {
                         self?.friendList = nil
+                    } else {
+                        self?.onAppear()
                     }
                 }
                 .store(in: &cancellables)
@@ -81,7 +92,12 @@ extension SocialView {
             chatService.chatNotificationPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] notifications in
-                    self?.chatNotifications = notifications ?? []
+                    guard let self else { return }
+                    if self.signedIn {
+                        self.chatNotifications = notifications ?? []
+                    } else {
+                        self.chatNotifications = []
+                    }
                 }
                 .store(in: &cancellables)
 
@@ -140,8 +156,6 @@ extension SocialView {
             friendService.queryFriendRequests()
         }
 
-        
-        
         func lastMessage(for id: String) -> Message? {
             lastMessages.first { $0.id == id }?.message
         }

@@ -105,7 +105,6 @@ extension FriendService: FriendServiceProtocol {
         DefaultAPI.userfriendListsGet { data, error in
             if let error = error {
                 self.networkError.send(.init(title: "An issue occured while loading your friends", type: .error))
-                print("Error: \(error)")
             } else {
                 let currentFriendList = data?.first { item in
                     item.id == self.userID

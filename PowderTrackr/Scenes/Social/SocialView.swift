@@ -8,6 +8,7 @@ public struct SocialView: View {
             notificationSection
             friendsList
         }
+        .onAppear { viewModel.onAppear() }
         .background(Color.grayPrimary)
         .overlay {
             VStack {
@@ -36,7 +37,6 @@ public struct SocialView: View {
             }
             
         }
-        .onAppear { viewModel.onAppear() }
         .toolbar(.hidden)
     }
     

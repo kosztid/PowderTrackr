@@ -48,33 +48,43 @@ final class AccountService {
         let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
         self.identityProvider = AWSCognitoIdentityProvider(forKey: "UserPool")
         self.user.value = pool?.currentUser()
+        reload()
     }
     
+    func reload() {
+        if self.user.value?.username == self.userName {
+            self.isSignedIn.send(true)
+        }
+    }
     private func updateSignInStatus(isSignedIn: Bool) {
         self.isSignedIn.send(isSignedIn)
-        guard let accessToken = self.accessToken else {
-            print("Access token is unavailable.")
-            return
-        }
-
-        let request = AWSCognitoIdentityProviderGetUserRequest()!
-        request.accessToken = accessToken
-
-        // Perform the asynchronous request to get user attributes
-        self.identityProvider.getUser(request).continueWith { (task: AWSTask<AWSCognitoIdentityProviderGetUserResponse>) -> AnyObject? in
-            if let error = task.error {
-                print("Failed to fetch user attributes: \(error)")
-                DispatchQueue.main.async {
-                    self.email.send(nil)
-                }
-            } else if let getUserResponse = task.result {
-                // Successfully retrieved user attributes
-                let email = getUserResponse.userAttributes?.first { $0.name == "email" }?.value
-                DispatchQueue.main.async {
-                    self.email.send(email)
-                }
+        if isSignedIn {
+            guard let accessToken = self.accessToken else {
+                print("Access token is unavailable.")
+                return
             }
-            return nil
+            
+            let request = AWSCognitoIdentityProviderGetUserRequest()!
+            request.accessToken = accessToken
+            
+            self.identityProvider.getUser(request).continueWith { (task: AWSTask<AWSCognitoIdentityProviderGetUserResponse>) -> AnyObject? in
+                if let error = task.error {
+                    print("Failed to fetch user attributes: \(error)")
+                    DispatchQueue.main.async {
+                        self.email.send(nil)
+                    }
+                } else if let getUserResponse = task.result {
+                    let email = getUserResponse.userAttributes?.first { $0.name == "email" }?.value
+                    DispatchQueue.main.async {
+                        self.email.send(email)
+                    }
+                }
+                return nil
+            }
+        } else {
+            UserDefaults.standard.set("", forKey: "email")
+            UserDefaults.standard.set("", forKey: "id")
+            UserDefaults.standard.set("", forKey: "name")
         }
     }
 }
@@ -162,6 +172,9 @@ extension AccountService: AccountServiceProtocol {
     }
     
     public func updateLocation(xCoord: String, yCoord: String) {
+        if userID == "" {
+            return
+        }
         let location = Location(id: "location_" + userID, name: userName, xCoord: xCoord, yCoord: yCoord)
         guard let data = location.data else { return }
         
@@ -196,6 +209,9 @@ extension AccountService: AccountServiceProtocol {
     }
     
     func updateLeaderboard(time: Double, distance: Double) {
+        if userID == "" {
+            return
+        }
         let leaderBoard = LeaderBoard(id: userID, name: userName, distance: distance, totalTimeInSeconds: time)
         
         DefaultAPI.leaderBoardsPut(leaderBoard: leaderBoard) { data, error in
@@ -220,7 +236,6 @@ extension AccountService: AccountServiceProtocol {
                     if let error = task.error {
                         promise(.failure(error))
                     } else if let session = task.result {
-                        // Login successful, proceed to fetch user details
                         self.accessToken = session.idToken?.tokenString
                         self.fetchUserAttributes(user: user!, promise: promise)
                     }
@@ -261,21 +276,17 @@ extension AccountService: AccountServiceProtocol {
                 } else if let userDetails = task.result {
                     let attributes = userDetails.userAttributes ?? []
 
-                    // Extracting email and Cognito user ID (sub)
                     let email = attributes.first(where: { $0.name == "email" })?.value
-                    let userID = attributes.first(where: { $0.name == "sub" })?.value // 'sub' is the unique identifier
+                    let userID = attributes.first(where: { $0.name == "sub" })?.value
                     
-                    // Updating local store with user details
                     UserDefaults.standard.set(email, forKey: "email")
                     UserDefaults.standard.set(userID, forKey: "id")
-                    UserDefaults.standard.set(user.username, forKey: "name") // user.username could be the display name or login name
+                    UserDefaults.standard.set(user.username, forKey: "name")
 
-                    // Update published values
                     self?.email.send(email)
                     self?.user.send(user)
                     self?.isSignedIn.send(true)
 
-                    // Optionally, broadcast the successful update
                     print("User attributes updated successfully: Email: \(String(describing: email)), UserID: \(String(describing: userID))")
                 }
             }
@@ -332,7 +343,6 @@ extension AccountService: AccountServiceProtocol {
                 if let error = task.error {
                     promise(.failure(error))
                 } else if let userDetails = task.result {
-                    // Successfully retrieved user details
                     let attributes = userDetails.userAttributes ?? []
                     let email = attributes.first(where: { $0.name == "email" })?.value
                     let userID = attributes.first(where: { $0.name == "sub" })?.value
@@ -342,7 +352,7 @@ extension AccountService: AccountServiceProtocol {
                     UserDefaults.standard.set(userDetails.username, forKey: "name")
                     
                     self?.email.send(email)
-                    self?.username = userDetails.username ?? ""
+                    self?.userName = userDetails.username ?? ""
                     self?.userID = userID ?? ""
                     self?.isSignedIn.send(true)
                     
@@ -430,11 +440,10 @@ extension AccountService: AccountServiceProtocol {
     }
     
     func confirmSignUp(with confirmationCode: String, _ username: String, _ password: String) async {
-        // Create the request object for confirming the sign up
         let confirmSignUpRequest = AWSCognitoIdentityProviderConfirmSignUpRequest()!
         confirmSignUpRequest.username = username
         confirmSignUpRequest.confirmationCode = confirmationCode
-        confirmSignUpRequest.clientId = "YOUR_CLIENT_ID"  // Replace with your actual Cognito User Pool App Client ID
+        confirmSignUpRequest.clientId = "33uv3qc4u4msgqmrujbmq44n9i"  // Replace with your actual Cognito User Pool App Client ID
 
         do {
             // Perform the confirmation operation
@@ -449,14 +458,10 @@ extension AccountService: AccountServiceProtocol {
 
 
     
-    func signOut() async {
-            do {
-                try await self.user.value?.signOut()
-                updateSignInStatus(isSignedIn: false)
-            } catch {
-                print("Error signing out: \(error)")
-            }
-        }
+    func signOut() {
+        self.user.value?.signOut()
+        updateSignInStatus(isSignedIn: false)
+    }
     
     // Helper function to decode the ID token and extract user ID
     private func decodeIdToken(idToken: String) -> String {

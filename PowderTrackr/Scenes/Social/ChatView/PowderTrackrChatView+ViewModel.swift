@@ -28,6 +28,7 @@ public extension PowderTrackrChatView {
             self.chatID = model.chatId
             self.names = model.names
             self.model = model
+            print("chatID", chatID)
             initBindings()
             chatService.queryChat(recipient: chatID)
         }

@@ -106,7 +106,6 @@ extension ChatService: ChatServiceProtocol {
                     }
                     return false
                 }
-                
                 self.chatRoomID = currentChat?.id ?? ""
                 var currentMessages: [ExyteChat.Message] = self.messages.value ?? []
                 if let chat = currentChat {
