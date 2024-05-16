@@ -1,6 +1,7 @@
 import ExyteChat
 import Combine
 import UIKit
+import SwiftUI
 
 public protocol ChatServiceProtocol: AnyObject {
     var messagesPublisher: AnyPublisher<[ExyteChat.Message]?, Never> { get }
@@ -15,7 +16,7 @@ public protocol ChatServiceProtocol: AnyObject {
 }
 
 final class ChatService {
-    private let userID: String = UserDefaults.standard.string(forKey: "id") ?? ""
+    @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
     private let messages: CurrentValueSubject<[ExyteChat.Message]?, Never> = .init(nil)
     private let chatNotifications: CurrentValueSubject<[String]?, Never> = .init(nil)
     private let lastMessages: CurrentValueSubject<[SocialView.LastMessageModel]?, Never> = .init(nil)

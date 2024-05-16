@@ -1,6 +1,7 @@
 import AWSCognitoIdentityProvider
 import Combine
 import Foundation
+import SwiftUI
 
 public enum AccountServiceModel {
     public struct AccountData {
@@ -30,20 +31,22 @@ public protocol AccountServiceProtocol: AnyObject {
 }
 
 final class AccountService {
-     var accessToken: String?
-     var userID: String = UserDefaults.standard.string(forKey: "id") ?? ""
-     var userName: String = UserDefaults.standard.string(forKey: "name") ?? ""
+    var accessToken: String?
+    @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
+    @AppStorage("name", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userName: String = ""
     
-     let isSignedIn: CurrentValueSubject<Bool, Never> = .init(false)
-     let user: CurrentValueSubject<AWSCognitoIdentityUser?, Never> = .init(nil)
-     let email: CurrentValueSubject<String?, Never> = .init(nil)
-     var cancellables: Set<AnyCancellable> = []
-     var username: String = ""
+    let isSignedIn: CurrentValueSubject<Bool, Never> = .init(false)
+    let user: CurrentValueSubject<AWSCognitoIdentityUser?, Never> = .init(nil)
+    let email: CurrentValueSubject<String?, Never> = .init(nil)
+    var cancellables: Set<AnyCancellable> = []
+    var username: String = ""
     
     private let cognitoClientId = "33uv3qc4u4msgqmrujbmq44n9i"
     private var identityProvider: AWSCognitoIdentityProvider
+    private var watchConnectivityProvider: WatchConnectivityProvider
     
     init() {
+        self.watchConnectivityProvider = WatchConnectivityProvider()
         let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
         self.identityProvider = AWSCognitoIdentityProvider(forKey: "UserPool")
         self.user.value = pool?.currentUser()
@@ -53,6 +56,7 @@ final class AccountService {
     func reload() {
         if self.user.value?.username == self.userName {
             self.isSignedIn.send(true)
+            watchConnectivityProvider.sendUserId(userID)
         }
     }
     private func updateSignInStatus(isSignedIn: Bool) {
@@ -81,9 +85,10 @@ final class AccountService {
                 return nil
             }
         } else {
-            UserDefaults.standard.set("", forKey: "email")
-            UserDefaults.standard.set("", forKey: "id")
-            UserDefaults.standard.set("", forKey: "name")
+            UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set("", forKey: "email")
+            UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set("", forKey: "id")
+            UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set("", forKey: "name")
+            watchConnectivityProvider.sendUserId("")
         }
     }
 }
@@ -321,18 +326,20 @@ private extension AccountService {
                 if let error = task.error {
                     print("Failed to fetch user attributes: \(error)")
                 } else if let userDetails = task.result {
+                    guard let self else { return }
                     let attributes = userDetails.userAttributes ?? []
 
                     let email = attributes.first(where: { $0.name == "email" })?.value
                     let userID = attributes.first(where: { $0.name == "sub" })?.value
                     
-                    UserDefaults.standard.set(email, forKey: "email")
-                    UserDefaults.standard.set(userID, forKey: "id")
-                    UserDefaults.standard.set(user.username, forKey: "name")
+                    UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(email, forKey: "email")
+                    UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(userID, forKey: "id")
+                    UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(user.username, forKey: "name")
 
-                    self?.email.send(email)
-                    self?.user.send(user)
-                    self?.isSignedIn.send(true)
+                    self.email.send(email)
+                    self.user.send(user)
+                    self.isSignedIn.send(true)
+                    self.watchConnectivityProvider.sendUserId(userID ?? "")
 
                     print("User attributes updated successfully: Email: \(String(describing: email)), UserID: \(String(describing: userID))")
                 }
@@ -390,21 +397,23 @@ private extension AccountService {
                 if let error = task.error {
                     promise(.failure(error))
                 } else if let userDetails = task.result {
+                    guard let self else { return }
                     let attributes = userDetails.userAttributes ?? []
                     let email = attributes.first(where: { $0.name == "email" })?.value
                     let userID = attributes.first(where: { $0.name == "sub" })?.value
                     
-                    UserDefaults.standard.set(email, forKey: "email")
-                    UserDefaults.standard.set(userID, forKey: "id")
-                    UserDefaults.standard.set(userDetails.username, forKey: "name")
+                    UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(email, forKey: "email")
+                    UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(userID, forKey: "id")
+                    UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(userDetails.username, forKey: "name")
                     
-                    self?.email.send(email)
-                    self?.userName = userDetails.username ?? ""
-                    self?.userID = userID ?? ""
-                    self?.isSignedIn.send(true)
+                    self.email.send(email)
+                    self.userName = userDetails.username ?? ""
+                    self.userID = userID ?? ""
+                    self.isSignedIn.send(true)
+                    self.watchConnectivityProvider.sendUserId(userID ?? "")
                     
                     if firstTime {
-                        self?.initUser(email: email ?? "")
+                        self.initUser(email: email ?? "")
                     }
                     
                     promise(.success(AccountServiceModel.AccountData(userID: userID!)))

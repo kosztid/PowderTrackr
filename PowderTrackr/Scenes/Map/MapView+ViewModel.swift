@@ -62,6 +62,7 @@ extension MapView {
         @Published var shared: Bool = false
         @Published var cameraPosChanged: Bool = true
         
+        @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
         @AppStorage("elapsedTime", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var elapsedTimeStorage: Double = 0.0
         @AppStorage("avgSpeed", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var avgSpeedStorage: Double = 0.0
         @AppStorage("distance", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var distanceStorage: Double = 0.0
@@ -339,7 +340,10 @@ extension MapView {
         }
         
         func addRace(_ name: String) {
-            mapService.createRace(raceMarkers, name)
+            let xCoords: [Double] = raceMarkers.map { $0.position.latitude }
+            let yCoords: [Double] = raceMarkers.map { $0.position.longitude }
+            
+            mapService.createRace(xCoords, yCoords, name)
             mapMenuState = .off
             raceName = ""
         }

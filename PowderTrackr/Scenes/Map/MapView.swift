@@ -131,6 +131,9 @@ struct MapView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, .su4)
                 .background(Color.grayPrimary)
+                Button("print") {
+                    print(viewModel.userID)
+                }
                 Spacer()
             }
         }
