@@ -20,6 +20,7 @@ struct TrackListView: View {
             }
         }
         .frame(maxWidth: .infinity)
+        .onAppear { viewModel.load() }
     }
 }
 

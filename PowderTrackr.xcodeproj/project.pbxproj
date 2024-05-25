@@ -117,6 +117,7 @@
 		B427C4DF2BF402E0002CA977 /* ToastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45E58A52B95E54300BA1561 /* ToastModel.swift */; };
 		B42B25122BA730BF0013383D /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42B25112BA730BF0013383D /* Color+Extension.swift */; };
 		B42B25152BA738D20013383D /* FriendRequestRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42B25142BA738D20013383D /* FriendRequestRowView.swift */; };
+		B44773C42C0275DA00489E97 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49FA4742BDEFA1800DC2FC1 /* DataService.swift */; };
 		B44B8A9E2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44B8A9D2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift */; };
 		B44B8AA02B826D1400E8F25F /* PowderTrackrNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44B8A9F2B826D1400E8F25F /* PowderTrackrNavigator.swift */; };
 		B45310F62BD6709C00891ADC /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45310F52BD6709C00891ADC /* CornerRadius.swift */; };
@@ -1476,6 +1477,7 @@
 				B4B3B8BA2BF11E07009AE7B5 /* FriendRequest.swift in Sources */,
 				B4B3B88A2BF01E26009AE7B5 /* WatchConnectivityProvider.swift in Sources */,
 				B4B3B88C2BF02D19009AE7B5 /* CGFloat+Extension.swift in Sources */,
+				B44773C42C0275DA00489E97 /* DataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

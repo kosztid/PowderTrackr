@@ -6,14 +6,15 @@ extension TrackListView {
         private var cancellables: Set<AnyCancellable> = []
         
         private let mapService: MapServiceProtocol
-        private var connectivityProvider: WatchConnectivityProvider
+        private let dataService: DataService
+
         @Published var tracks: [TrackedPath] = []
         
         @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
         
         init() {
             self.mapService = MapService()
-            self.connectivityProvider = WatchConnectivityProvider()
+            self.dataService = DataService()
             
             initBindings()
             
@@ -27,18 +28,11 @@ extension TrackListView {
                     self?.tracks = track?.tracks ?? []
                 }
                 .store(in: &cancellables)
-            
-            connectivityProvider.$userID
-                .receive(on: DispatchQueue.main)
-                .assign(to: \.userID, on: self)
-                .store(in: &cancellables)
         }
         
         
         func load() {
             mapService.queryTrackedPaths()
-            print("ServiceID", connectivityProvider.userID)
-            print("id: \(userID)")
         }
     }
 }
