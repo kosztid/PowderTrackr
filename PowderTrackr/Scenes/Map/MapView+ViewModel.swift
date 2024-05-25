@@ -151,6 +151,19 @@ extension MapView {
                     self?.toast = model
                 }
                 .store(in: &cancellables)
+            
+            watchConnectivityProvider.$isTracking
+                .receive(on: DispatchQueue.main)
+                .sink(receiveValue: { [weak self] value in
+                    guard let self else { return }
+                    if !self.isTracking && value {
+                        self.startTracking()
+                    } else if !value {
+                        self.stopTracking()
+                    }
+                    
+                })
+                .store(in: &cancellables)
         }
         
         @objc

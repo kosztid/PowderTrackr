@@ -38,6 +38,14 @@ extension HomeView {
                 .assign(to: \.distance, on: self)
                 .store(in: &cancellables)
         }
+        
+        func stopTracking() {
+            connectivityProvider.sendIsTracking(isTracking: false)
+        }
+        
+        func startTracking() {
+            connectivityProvider.sendIsTracking(isTracking: true)
+        }
     }
 
 }

@@ -12,7 +12,12 @@ struct HomeView: View {
     }
     
     private var homeScreen: some View {
-        Text("You are currently not tracking a run")
+        VStack {
+            Text("You are currently not tracking a run")
+            Button("Start") {
+                viewModel.startTracking()
+            }
+        }
     }
     
     private var trackingView: some View {
@@ -62,6 +67,9 @@ struct HomeView: View {
                 Text("\(String(format: "%.2f", viewModel.avgSpeed)) km/h")
                     .font(.caption)
                     .bold()
+            }
+            Button("Stop") {
+                viewModel.stopTracking()
             }
         }
     }
