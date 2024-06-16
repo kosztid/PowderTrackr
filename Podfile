@@ -11,7 +11,7 @@ target 'PowderTrackr' do
   pod 'Factory', '~> 1.2.0'
   pod 'FlowStacks'
   pod 'GoogleMaps', '7.4.0'
-  pod 'Amplify'
+  pod 'AWSCognitoIdentityProvider'
   pod 'ExyteChat'
 
 end

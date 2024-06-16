@@ -1,5 +1,3 @@
-import Amplify
-import AWSCognitoAuthPlugin
 import Combine
 import UIKit
 

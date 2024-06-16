@@ -1,21 +1,26 @@
-//
-//  ContentView.swift
-//  PowderTrackrWatch Watch App
-//
-//  Created by Dominik Kosztolánczi on 29/04/2024.
-//
-
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            HomeView()
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Home")
+                }
+            
+            TrackListView()
+                .tabItem {
+                    Image(systemName: "figure.skiing.downhill")
+                    Text("List")
+                }
         }
-        .padding()
+        .tabViewStyle(PageTabViewStyle())
+        //        if connectivityProvider.isTracking {
+        //            trackingView
+        //        } else {
+//            homeScreen
+//        }
     }
 }
 

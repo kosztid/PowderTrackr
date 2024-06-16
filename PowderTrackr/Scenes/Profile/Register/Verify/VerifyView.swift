@@ -13,12 +13,6 @@ struct VerifyView: View {
                 TextField(text: $viewModel.verificationCode)
                     .regularTextFieldStyle(label: "Verification Code")
                     .padding(.bottom, .su16)
-                TextField(text: $viewModel.username)
-                    .regularTextFieldStyle(label: "Username")
-                    .padding(.bottom, .su16)
-                ToggleableSecureField(text: $viewModel.password)
-                    .regularTextFieldStyle(label: "Password")
-                    .padding(.bottom, .su16)
                 Button("Verify") {
                     viewModel.verify()
                 }

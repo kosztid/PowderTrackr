@@ -1,25 +1,27 @@
 import Combine
 import SwiftUI
+import AWSCognitoIdentityProvider
 
 extension LoginView {
     final class ViewModel: ObservableObject {
         @Published var showLoginError = false
         @Published var isSignedIn = false
-        @Published var userName: String = ""
-        @Published var password: String = ""
+        @Published var userName: String = "kosztidominik"
+        @Published var password: String = "kosztidominik"
 
         private var cancellables: Set<AnyCancellable> = []
         private let navigator: LoginViewNavigatorProtocol
         private let accountService: AccountServiceProtocol
         
         func login() {
-            accountService.signIn(userName, password)
+            accountService.signIn(userName, password, firstTime: false)
                 .sink(
                     receiveCompletion: { [weak self] completion in
                         guard case .failure(let error) = completion else { return }
                         print(error)
                         self?.showLoginError = true
-                    }, receiveValue: { [weak self] _ in
+                    }, receiveValue: { [weak self] data in
+                        print("loginSuccess", data.userID)
                         self?.navigator.loggedIn()
                     }
                 )

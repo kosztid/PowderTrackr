@@ -1,7 +1,7 @@
-import Amplify
-import AWSCognitoAuthPlugin
+import AWSCognitoIdentityProvider
 import Combine
 import Foundation
+import SwiftUI
 
 public enum AccountServiceModel {
     public struct AccountData {
@@ -11,16 +11,15 @@ public enum AccountServiceModel {
 
 public protocol AccountServiceProtocol: AnyObject {
     var isSignedInPublisher: AnyPublisher<Bool, Never> { get }
-    var userPublisher: AnyPublisher<AuthUser?, Never> { get }
+    var userPublisher: AnyPublisher<AWSCognitoIdentityUser?, Never> { get }
     var emailPublisher: AnyPublisher<String?, Never> { get }
     
-    func initUser()
-    func signUp(_ username: String, _ email: String, _ password: String) async
-    func signIn(_ username: String, _ password: String) -> AnyPublisher<AccountServiceModel.AccountData, Error>
-    func confirmSignUp(with confirmationCode: String, _ username: String, _ password: String) async
-    func resetPassword(username: String) async
-    func changePassword(oldPassword: String, newPassword: String) async
-    func confirmResetPassword(username: String, newPassword: String, confirmationCode: String) async
+    func register(_ username: String, _ email: String, _ password: String) -> AnyPublisher<Void, Error>
+    func signIn(_ username: String, _ password: String, firstTime: Bool) -> AnyPublisher<AccountServiceModel.AccountData, Error>
+    func confirmSignUp(with confirmationCode: String, _ username: String, _ password: String) -> AnyPublisher<Void, Error>
+    func resetPassword(username: String) -> AnyPublisher<Void, Error>
+    func changePassword(oldPassword: String, newPassword: String) -> AnyPublisher<Void, Error>
+    func confirmResetPassword(username: String, newPassword: String, confirmationCode: String) -> AnyPublisher<Void, Error>
     func updateLeaderboard(time: Double, distance: Double)
     
     func createFriendList()
@@ -29,33 +28,73 @@ public protocol AccountServiceProtocol: AnyObject {
     func updateLocation(xCoord: String, yCoord: String)
     
     func signOut() async
-    func confirm() async
 }
 
 final class AccountService {
-    private let userID: String = UserDefaults.standard.string(forKey: "id") ?? ""
-    private let userName: String = UserDefaults.standard.string(forKey: "name") ?? ""
-    private let isSignedIn: CurrentValueSubject<Bool, Never> = .init(false)
-    private let user: CurrentValueSubject<AuthUser?, Never> = .init(nil)
-    private let email: CurrentValueSubject<String?, Never> = .init(nil)
-    private var cancellables: Set<AnyCancellable> = []
-    private var username: String = ""
+    var accessToken: String?
+    @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
+    @AppStorage("name", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userName: String = ""
+    
+    let isSignedIn: CurrentValueSubject<Bool, Never> = .init(false)
+    let user: CurrentValueSubject<AWSCognitoIdentityUser?, Never> = .init(nil)
+    let email: CurrentValueSubject<String?, Never> = .init(nil)
+    var cancellables: Set<AnyCancellable> = []
+    var username: String = ""
+    
+    private let cognitoClientId = "33uv3qc4u4msgqmrujbmq44n9i"
+    private var identityProvider: AWSCognitoIdentityProvider
+    private var watchConnectivityProvider: WatchConnectivityProvider
     
     init() {
-        Task {
-            do {
-                let session = try await Amplify.Auth.fetchAuthSession()
-                
-                self.isSignedIn.send(session.isSignedIn)
-            } catch {
-                print("Fetch auth session failed with error - \(error)")
+        self.watchConnectivityProvider = WatchConnectivityProvider()
+        let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
+        self.identityProvider = AWSCognitoIdentityProvider(forKey: "UserPool")
+        self.user.value = pool?.currentUser()
+        reload()
+    }
+    
+    func reload() {
+        if self.user.value?.username == self.userName {
+            self.isSignedIn.send(true)
+            watchConnectivityProvider.sendUserId(userID)
+        }
+    }
+    private func updateSignInStatus(isSignedIn: Bool) {
+        self.isSignedIn.send(isSignedIn)
+        if isSignedIn {
+            guard let accessToken = self.accessToken else {
+                print("Access token is unavailable.")
+                return
             }
+            
+            let request = AWSCognitoIdentityProviderGetUserRequest()!
+            request.accessToken = accessToken
+            
+            self.identityProvider.getUser(request).continueWith { (task: AWSTask<AWSCognitoIdentityProviderGetUserResponse>) -> AnyObject? in
+                if let error = task.error {
+                    print("Failed to fetch user attributes: \(error)")
+                    DispatchQueue.main.async {
+                        self.email.send(nil)
+                    }
+                } else if let getUserResponse = task.result {
+                    let email = getUserResponse.userAttributes?.first { $0.name == "email" }?.value
+                    DispatchQueue.main.async {
+                        self.email.send(email)
+                    }
+                }
+                return nil
+            }
+        } else {
+            UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set("", forKey: "email")
+            UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set("", forKey: "id")
+            UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set("", forKey: "name")
+            watchConnectivityProvider.sendUserId("")
         }
     }
 }
 
 extension AccountService: AccountServiceProtocol {
-    var userPublisher: AnyPublisher<AuthUser?, Never> {
+    var userPublisher: AnyPublisher<AWSCognitoIdentityUser?, Never> {
         user
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
@@ -73,260 +112,354 @@ extension AccountService: AccountServiceProtocol {
             .eraseToAnyPublisher()
     }
     
-    public func createFriendList() {
-        let friendlist = Friendlist(id: userID, friends: [])
-        guard let data = friendlist.data else { return }
-        
-        DefaultAPI.userfriendListsPut(userfriendList: data) { data, error in
-            if let error = error {
-                print("Error: \(error)")
-            } else { }
-        }
-    }
-    
-    public func resetPassword(username: String) async {
-        do {
-            let resetResult = try await Amplify.Auth.resetPassword(for: username)
-            switch resetResult.nextStep {
-            case .confirmResetPasswordWithCode(let deliveryDetails, let info):
-                print("Confirm reset password with code send to - \(deliveryDetails) \(String(describing: info))")
-            case .done:
-                print("Reset completed")
+    func resetPassword(username: String) -> AnyPublisher<Void, Error> {
+        return Future<Void, Error> { [weak self] promise in
+            guard let self = self else {
+                promise(.failure(NSError(domain: "ResetPasswordError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
+                return
             }
-        } catch let error as AuthError {
-            print("Reset password failed with error \(error)")
-        } catch {
-            print("Unexpected error: \(error)")
-        }
-    }
-    
-    func changePassword(oldPassword: String, newPassword: String) async {
-        do {
-            try await Amplify.Auth.update(oldPassword: oldPassword, to: newPassword)
-            print("Change password succeeded")
-        } catch let error as AuthError {
-            print("Change password failed with error \(error)")
-        } catch {
-            print("Unexpected error: \(error)")
-        }
-    }
-    
-    func confirmResetPassword(
-        username: String,
-        newPassword: String,
-        confirmationCode: String
-    ) async {
-        do {
-            try await Amplify.Auth.confirmResetPassword(
-                for: username,
-                with: newPassword,
-                confirmationCode: confirmationCode
-            )
-            print("Password reset confirmed")
-        } catch let error as AuthError {
-            print("Reset password failed with error \(error)")
-        } catch {
-            print("Unexpected error: \(error)")
-        }
-    }
-    
-    public func createLocation(xCoord: String, yCoord: String) {
-        let location = Location(id: "location_" + userID, name: userName, xCoord: xCoord, yCoord: yCoord)
-        guard let data = location.data else { return }
-        
-        DefaultAPI.currentPositionsPut(currentPosition: data) { data, error in
-            if let error = error {
-                print("Error: \(error)")
-            } else {
-            }
-        }
-    }
-    
-    public func updateLocation(xCoord: String, yCoord: String) {
-        let location = Location(id: "location_" + userID, name: userName, xCoord: xCoord, yCoord: yCoord)
-        guard let data = location.data else { return }
-        
-        DefaultAPI.currentPositionsPut(currentPosition: data) { data, error in
-            if let error = error {
-                print("Error: \(error)")
-            } else {
-            }
-        }
-    }
-    
-    func createUserTrackedPaths() {
-        let trackedPaths = TrackedPathModel(id: userID, tracks: [])
-        guard let data = trackedPaths.data else { return }
-        DefaultAPI.userTrackedPathsPut(userTrackedPaths: data) { data, error in
-            if let error = error {
-                print("Error: \(error)")
-            } else {
-            }
-        }
-    }
-    
-    func createLeaderBoardEntity() {
-        let leaderBoard = LeaderBoard(id: userID, name: userName, distance: 0.0, totalTimeInSeconds: 0.0)
-        
-        DefaultAPI.leaderBoardsPut(leaderBoard: leaderBoard) { data, error in
-            if let error = error {
-                print("Error: \(error)")
-            } else {
-            }
-        }
-    }
-    
-    func updateLeaderboard(time: Double, distance: Double) {
-        let leaderBoard = LeaderBoard(id: userID, name: userName, distance: distance, totalTimeInSeconds: time)
-        
-        DefaultAPI.leaderBoardsPut(leaderBoard: leaderBoard) { data, error in
-            if let error = error {
-                print("Error: \(error)")
-            } else {
-            }
-        }
-    }
-    
-    func signIn(_ username: String, _ password: String) -> AnyPublisher<AccountServiceModel.AccountData, Error> {
-        return Future<AccountServiceModel.AccountData, Error> { promise in
-            Task {
-                do {
-                    let signInResult = try await Amplify.Auth.signIn(username: username, password: password)
-                    if signInResult.isSignedIn {
-                        print("Sign in succeeded")
-                        self.isSignedIn.send(true)
-                        let user = try await Amplify.Auth.getCurrentUser()
-                        let attributes = try await Amplify.Auth.fetchUserAttributes()
-                        for attribute in attributes where attribute.key.rawValue == "email" {
-                            UserDefaults.standard.set(attribute.value, forKey: "email")
-                        }
-                        UserDefaults.standard.set(user.userId, forKey: "id")
-                        UserDefaults.standard.set(user.username, forKey: "name")
-                        promise(.success(.init(userID: user.userId)))
+
+            let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
+            let user = pool?.getUser(username)
+            user?.forgotPassword().continueWith { task -> Any? in
+                DispatchQueue.main.async {
+                    if let error = task.error {
+                        promise(.failure(error))
+                    } else {
+                        promise(.success(()))
+                        print("Reset password initiated successfully.")
                     }
-                } catch let error as AuthError {
-                    promise(.failure(error))
-                    print("Sign in failed \(error)")
-                } catch {
-                    promise(.failure(error))
-                    print("Unexpected error: \(error)")
+                }
+                return nil
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+
+    
+    func changePassword(oldPassword: String, newPassword: String) -> AnyPublisher<Void, Error> {
+        return Future<Void, Error> { [weak self] promise in
+            guard let self = self else {
+                promise(.failure(NSError(domain: "ChangePasswordError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
+                return
+            }
+            
+            guard let user = self.user.value else {
+                promise(.failure(NSError(domain: "ChangePasswordError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No current user"])))
+                return
+            }
+
+            user.changePassword(oldPassword, proposedPassword: newPassword).continueWith { task -> Any? in
+                DispatchQueue.main.async {
+                    if let error = task.error {
+                        promise(.failure(error))
+                    } else {
+                        promise(.success(()))
+                        print("Password changed successfully.")
+                    }
+                }
+                return nil
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+
+    
+    func confirmResetPassword(username: String, newPassword: String, confirmationCode: String) -> AnyPublisher<Void, Error> {
+        return Future<Void, Error> { [weak self] promise in
+            guard self != nil else {
+                promise(.failure(NSError(domain: "ConfirmResetPasswordError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
+                return
+            }
+
+            let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
+            let user = pool?.getUser(username)
+            user?.confirmForgotPassword(confirmationCode, password: newPassword).continueWith { task -> Any? in
+                DispatchQueue.main.async {
+                    if let error = task.error {
+                        promise(.failure(error))
+                    } else {
+                        promise(.success(()))
+                        print("Password reset confirmed successfully.")
+                    }
+                }
+                return nil
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func signIn(_ username: String, _ password: String, firstTime: Bool = false) -> AnyPublisher<AccountServiceModel.AccountData, Error> {
+        return Future<AccountServiceModel.AccountData, Error> { [weak self] promise in
+            guard let self = self else {
+                promise(.failure(NSError(domain: "LoginError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
+                return
+            }
+            
+            let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
+            let user = pool?.getUser(username)
+            user?.getSession(username, password: password, validationData: nil).continueWith { task -> Any? in
+                DispatchQueue.main.async {
+                    if let error = task.error {
+                        promise(.failure(error))
+                    } else if let session = task.result {
+                        self.accessToken = session.idToken?.tokenString
+                        self.fetchUserAttributes(user: user!, firstTime: firstTime, promise: promise)
+                    }
+                }
+                return nil
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    private func reloadCurrentUser() {
+        guard let currentUser = self.user.value else {
+            self.isSignedIn.send(false)
+            return
+        }
+        
+        currentUser.getSession().continueWith { [weak self] task in
+            DispatchQueue.main.async {
+                if let error = task.error {
+                    print("Error retrieving session: \(error)")
+                    self?.isSignedIn.send(false)
+                } else if let session = task.result, self!.isValidToken(session.idToken?.tokenString) {
+                    self?.isSignedIn.send(true)
+                    self?.fetchUserAttributesReload(user: currentUser)
+                } else {
+                    self?.isSignedIn.send(false)
                 }
             }
-        }.eraseToAnyPublisher()
+            return nil
+        }
     }
     
-    public func initUser() {
+    // TODO: ENDPOINT CREATE USER ENTRIES
+    
+    func register(_ username: String, _ email: String, _ password: String) -> AnyPublisher<Void, Error> {
+        return Future<Void, Error> { [weak self] promise in
+            guard let self = self else {
+                promise(.failure(NSError(domain: "SignUpError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
+                return
+            }
+            
+            let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
+            var attributes = [AWSCognitoIdentityUserAttributeType]()
+            
+            let emailAttribute = AWSCognitoIdentityUserAttributeType(name: "email", value: email)
+            attributes.append(emailAttribute)
+            
+            pool?.signUp(username, password: password, userAttributes: attributes, validationData: nil).continueWith { task -> Any? in
+                DispatchQueue.main.async {
+                    if let error = task.error {
+                        promise(.failure(error))
+                    } else if let result = task.result {
+                        if result.user.confirmedStatus == .confirmed {
+                            // User is confirmed
+                            self.updateSignInStatus(isSignedIn: true)
+                            promise(.success(()))
+                        } else {
+                            // User needs to confirm their email
+                            print("Sign up successful, please confirm your email.")
+                            promise(.success(()))
+                        }
+                    }
+                }
+                return nil
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func confirmSignUp(with confirmationCode: String, _ username: String, _ password: String) -> AnyPublisher<Void, Error> {
+        return Future<Void, Error> { [weak self] promise in
+            guard let self = self else {
+                promise(.failure(NSError(domain: "ConfirmSignUpError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
+                return
+            }
+
+            let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
+            let user = pool?.getUser(username)
+            
+            user?.confirmSignUp(confirmationCode).continueWith { task -> Any? in
+                DispatchQueue.main.async {
+                    if let error = task.error {
+                        promise(.failure(error))
+                    } else {
+                        print("Sign up confirmation successful.")
+                        self.signIn(username, password, firstTime: true).sink(receiveCompletion: { completion in
+                            switch completion {
+                            case .failure(let error):
+                                promise(.failure(error))
+                            case .finished:
+                                promise(.success(()))
+                            }
+                        }, receiveValue: { _ in })
+                        .store(in: &self.cancellables)
+                    }
+                }
+                return nil
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func signOut() {
+        self.user.value?.signOut()
+        updateSignInStatus(isSignedIn: false)
+    }
+}
+
+private extension AccountService {
+    func initUser(email: String) {
         createLocation(xCoord: "0", yCoord: "0")
         createFriendList()
         createUserTrackedPaths()
         createLeaderBoardEntity()
+        addUser(email: email)
     }
     
-    // TODO: ENDPOINT CREATE USER ENTRIES
-    private func signInFirstTime(_ username: String, _ password: String) async {
-        do {
-            let signInResult = try await Amplify.Auth.signIn(username: username, password: password)
-            if signInResult.isSignedIn {
-                print("Sign in succeeded")
-                isSignedIn.send(true)
-                let user = try await Amplify.Auth.getCurrentUser()
-                let attributes = try await Amplify.Auth.fetchUserAttributes()
-                for attribute in attributes where attribute.key.rawValue == "email" {
-                    UserDefaults.standard.set(attribute.value, forKey: "email")
+    private func fetchUserAttributesReload(user: AWSCognitoIdentityUser) {
+        user.getDetails().continueWith { [weak self] task in
+            DispatchQueue.main.async {
+                if let error = task.error {
+                    print("Failed to fetch user attributes: \(error)")
+                } else if let userDetails = task.result {
+                    guard let self else { return }
+                    let attributes = userDetails.userAttributes ?? []
+
+                    let email = attributes.first(where: { $0.name == "email" })?.value
+                    let userID = attributes.first(where: { $0.name == "sub" })?.value
+                    
+                    UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(email, forKey: "email")
+                    UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(userID, forKey: "id")
+                    UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(user.username, forKey: "name")
+
+                    self.email.send(email)
+                    self.user.send(user)
+                    self.isSignedIn.send(true)
+                    self.watchConnectivityProvider.sendUserId(userID ?? "")
+
+                    print("User attributes updated successfully: Email: \(String(describing: email)), UserID: \(String(describing: userID))")
                 }
-                
-                UserDefaults.standard.set(user.userId, forKey: "id")
-                UserDefaults.standard.set(user.username, forKey: "name")
-                
-                self.createLocation(xCoord: "0", yCoord: "0")
-                self.createFriendList()
-                self.createUserTrackedPaths()
-                self.createLeaderBoardEntity()
             }
-        } catch let error as AuthError {
-            print("Sign in failed \(error)")
-        } catch {
-            print("Unexpected error: \(error)")
+            return nil
         }
     }
-    
-    func signUp(_ username: String, _ email: String, _ password: String) async {
-        let userAttributes = [AuthUserAttribute(.email, value: email)]
-        let options = AuthSignUpRequest.Options(userAttributes: userAttributes)
-        do {
-            let signUpResult = try await Amplify.Auth.signUp(
-                username: username,
-                password: password,
-                options: options
-            )
-            
-            self.username = username
-            
-            if case let .confirmUser(deliveryDetails, _, userId) = signUpResult.nextStep {
-                print("Delivery details \(String(describing: deliveryDetails)) for userId: \(String(describing: userId)))")
-            } else {
-                print("Signup Complete")
-            }
-        } catch let error as AuthError {
-            print("An error occurred while registering a user \(error)")
-        } catch {
-            print("Unexpected error: \(error)")
+
+
+    private func isValidToken(_ token: String?) -> Bool {
+        guard let token = token, let jwtToken = try? decodeJWT(token: token) else {
+            return false
         }
-    }
-    
-    func confirmSignUp(with confirmationCode: String, _ username: String, _ password: String) async {
-        do {
-            let confirmSignUpResult = try await Amplify.Auth.confirmSignUp(
-                for: self.username,
-                confirmationCode: confirmationCode
-            )
-            print("Confirm sign up result completed: \(confirmSignUpResult.isSignUpComplete)")
-            
-            await self.signInFirstTime(username, password)
-        } catch let error as AuthError {
-            print("An error occurred while confirming sign up \(error)")
-        } catch {
-            print("Unexpected error: \(error)")
+
+        if let exp = jwtToken["exp"] as? Double {
+            return Date().timeIntervalSince1970 < exp
         }
+
+        return false
     }
-    
-    func confirm() {
-        self.createLocation(xCoord: "0", yCoord: "0")
-        self.createFriendList()
-        self.createUserTrackedPaths()
-    }
-    
-    // signout
-    public func signOut() async {
-        let result = await Amplify.Auth.signOut()
-        guard let signOutResult = result as? AWSCognitoSignOutResult
-        else {
-            print("Signout failed")
-            return
+
+    private func decodeJWT(token: String) throws -> [String: Any] {
+        let segments = token.components(separatedBy: ".")
+        guard segments.count > 1 else {
+            throw NSError(domain: "JWTError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid token"])
         }
         
-        switch signOutResult {
-        case .complete:
-            UserDefaults.standard.set("", forKey: "id")
-            UserDefaults.standard.set("", forKey: "name")
-            print("Successfully signed out")
-            isSignedIn.send(false)
-            
-        case let .partial(revokeTokenError, globalSignOutError, hostedUIError):
-            if let hostedUIError = hostedUIError {
-                print("HostedUI error  \(String(describing: hostedUIError))")
-            }
-            
-            if let globalSignOutError = globalSignOutError {
-                print("GlobalSignOut error  \(String(describing: globalSignOutError))")
-            }
-            
-            if let revokeTokenError = revokeTokenError {
-                print("Revoke token error  \(String(describing: revokeTokenError))")
-            }
-            
-        case .failed(let error):
-            print("SignOut failed with \(error)")
+        let base64String = segments[1]
+            .replacingOccurrences(of: "-", with: "+")
+            .replacingOccurrences(of: "_", with: "/")
+
+        var base64 = base64String
+        let length = Double(base64.lengthOfBytes(using: .utf8)) / 4.0
+        if floor(length) != length {
+            let paddingLength = 4 - (base64.lengthOfBytes(using: .utf8) % 4)
+            base64 += String(repeating: "=", count: paddingLength)
         }
+
+        guard let data = Data(base64Encoded: base64, options: .ignoreUnknownCharacters) else {
+            throw NSError(domain: "JWTError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid base64"])
+        }
+        
+        let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
+        guard let json = jsonObject as? [String: Any] else {
+            throw NSError(domain: "JWTError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON"])
+        }
+        
+        return json
+    }
+
+
+    private func fetchUserAttributes(user: AWSCognitoIdentityUser, firstTime: Bool = false, promise: @escaping (Result<AccountServiceModel.AccountData, Error>) -> Void) {
+        user.getDetails().continueWith { [weak self] task in
+            DispatchQueue.main.async {
+                if let error = task.error {
+                    promise(.failure(error))
+                } else if let userDetails = task.result {
+                    guard let self else { return }
+                    let attributes = userDetails.userAttributes ?? []
+                    let email = attributes.first(where: { $0.name == "email" })?.value
+                    let userID = attributes.first(where: { $0.name == "sub" })?.value
+                    
+                    UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(email, forKey: "email")
+                    UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(userID, forKey: "id")
+                    UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(userDetails.username, forKey: "name")
+                    
+                    self.email.send(email)
+                    self.userName = userDetails.username ?? ""
+                    self.userID = userID ?? ""
+                    self.isSignedIn.send(true)
+                    self.watchConnectivityProvider.sendUserId(userID ?? "")
+                    
+                    if firstTime {
+                        self.initUser(email: email ?? "")
+                    }
+                    
+                    promise(.success(AccountServiceModel.AccountData(userID: userID!)))
+                }
+            }
+            return nil
+        }
+    }
+    
+    // Helper function to decode the ID token and extract user ID
+    private func decodeIdToken(idToken: String) -> String {
+        let segments = idToken.components(separatedBy: ".")
+        guard segments.count > 1 else { return "" }
+
+        // Decode the payload part from base64URL to Data
+        if let payloadData = decodeJWTPart(segments[1]) {
+            // Convert Data to Dictionary to extract the 'sub' claim
+            if let json = try? JSONSerialization.jsonObject(with: payloadData, options: []),
+               let payloadDict = json as? [String: Any],
+               let userId = payloadDict["sub"] as? String {
+                return userId
+            }
+        }
+        return ""
+    }
+
+    // Decode base64URL encoded JWT part to Data
+    private func decodeJWTPart(_ base64URLString: String) -> Data? {
+        var base64 = base64URLString
+            .replacingOccurrences(of: "-", with: "+")
+            .replacingOccurrences(of: "_", with: "/")
+
+        // Padding with = to ensure the base64 string's length is a multiple of 4
+        while base64.count % 4 != 0 {
+            base64.append("=")
+        }
+
+        return Data(base64Encoded: base64)
+    }
+
+    private func extractClaim(fromIdToken idToken: String, claimKey: String) -> String {
+        let segments = idToken.components(separatedBy: ".")
+        guard segments.count > 1, let payloadData = decodeJWTPart(segments[1]),
+              let json = try? JSONSerialization.jsonObject(with: payloadData, options: []),
+              let payloadDict = json as? [String: Any] else { return "" }
+
+        return payloadDict[claimKey] as? String ?? ""
     }
 }

@@ -36,8 +36,8 @@ enum ViewFactory {
         Container.Register.view(navigator)
     }
 
-    static func registerVerificationView(navigator: RegisterVerificationViewNavigatorProtocol) -> VerifyView {
-        Container.RegisterVerify.view(navigator)
+    static func registerVerificationView(navigator: RegisterVerificationViewNavigatorProtocol, model: VerifyView.InputModel) -> VerifyView {
+        Container.RegisterVerify.view((navigator, model))
     }
 
     static func profileView(navigator: ProfileViewNavigatorProtocol) -> ProfileView {

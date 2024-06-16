@@ -29,6 +29,7 @@ struct ConfirmResetPasswordView: View {
                 .padding(.vertical, .su16)
                 .padding(.horizontal, .su8)
             }
+            .toastMessage(toastMessage: $viewModel.toast)
             .headerView(title: "Welcome to PowderTrackr", description: "Verification")
             .navigationBarBackButtonHidden(true)
     }

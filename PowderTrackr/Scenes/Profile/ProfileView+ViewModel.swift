@@ -52,11 +52,12 @@ extension ProfileView {
         }
         
         func loadData() {
-            mapService.queryTrackedPaths()
+            self.mapService.queryTrackedPaths()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.currentEmail = UserDefaults.standard.string(forKey: "email") ?? ""
-                self.userName = UserDefaults.standard.string(forKey: "name") ?? ""
+                self.currentEmail = UserDefaults(suiteName: "group.koszti.PowderTrackr")?.string(forKey: "email") ?? ""
 
+                self.userName = UserDefaults(suiteName: "group.koszti.PowderTrackr")?.string(forKey: "name") ?? ""
+                self.makeTotals()
             }
         }
         
@@ -71,11 +72,15 @@ extension ProfileView {
             mapService.trackedPathPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] track in
-                    if track == nil {
-                        self?.accountService.initUser()
+                    guard let self else { return}
+                    // TODO: INIT USER ELSEWHERE
+//                    if track == nil {
+//                        self?.accountService.initUser()
+//                    }
+                    self.tracks = track?.tracks ?? []
+                    if !self.tracks.isEmpty {
+                        self.makeTotals()
                     }
-                    self?.tracks = track?.tracks ?? []
-                    self?.makeTotals()
                 }
                 .store(in: &cancellables)
         }
@@ -102,7 +107,9 @@ extension ProfileView {
             totalDistance = total
             let totalTime = totalDate
             
-            accountService.updateLeaderboard(time: totalTime, distance: totalDistance)
+            if isSignedIn && totalDistance > 0 {
+                accountService.updateLeaderboard(time: totalTime, distance: totalDistance)
+            }
         }
         
         func updatePasswordTap() {

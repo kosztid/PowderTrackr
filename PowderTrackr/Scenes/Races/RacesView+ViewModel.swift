@@ -1,4 +1,4 @@
-import Amplify
+import AWSCognitoIdentityProvider
 import Combine
 import GoogleMaps
 import SwiftUI
@@ -14,13 +14,13 @@ extension RacesView {
         let dateFormatter = DateFormatter()
         let inputModel: InputModel
         
-        let userID: String = UserDefaults.standard.string(forKey: "id") ?? ""
+        @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
         private let navigator: RacesViewNavigatorProtocol
         private let mapService: MapServiceProtocol
         private let friendService: FriendServiceProtocol
         private let accountService: AccountServiceProtocol
         
-        @Published var user: AuthUser?
+        @Published var user: AWSCognitoIdentityUser?
         @Published var signedIn = false
         @Published var showingDeleteRaceAlert = false
         @Published var races: [Race] = []
@@ -42,6 +42,10 @@ extension RacesView {
             self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
             self.inputModel = inputModel
             
+            initBindings()
+        }
+        
+        func initBindings() {
             accountService.userPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] user in
@@ -56,10 +60,6 @@ extension RacesView {
                 })
                 .store(in: &cancellables)
             
-            initBindings()
-        }
-        
-        func initBindings() {
             friendService.friendListPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] friendList in
@@ -70,8 +70,14 @@ extension RacesView {
             mapService.racesPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] races in
-                    self?.races = races
-                    self?.updateShortestRun()
+                    guard let self else { return }
+                    if self.signedIn {
+                        self.races = races
+                    } else {
+                        self.races = []
+                    }
+                    
+                    self.updateShortestRun()
                 }
                 .store(in: &cancellables)
         }

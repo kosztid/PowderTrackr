@@ -62,7 +62,7 @@ struct LoginView: View {
                     .foregroundStyle(.red)
                     .font(.subheadline)
             }
-            .padding(.bottom, 16)
+            .padding(.bottom, .su16)
         }
     }
 }

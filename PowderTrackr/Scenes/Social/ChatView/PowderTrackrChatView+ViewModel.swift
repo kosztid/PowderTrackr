@@ -28,6 +28,7 @@ public extension PowderTrackrChatView {
             self.chatID = model.chatId
             self.names = model.names
             self.model = model
+            print("chatID", chatID)
             initBindings()
             chatService.queryChat(recipient: chatID)
         }
@@ -42,11 +43,10 @@ public extension PowderTrackrChatView {
         }
 
         func sendMessage(draftMessage: ExyteChat.DraftMessage) {
-            var text = draftMessage.text
             let message = ExyteChat.Message(
                 id: UUID().uuidString,
                 user: .init(id: "123", name: "Me", avatarURL: nil, isCurrentUser: true),
-                text: text
+                text: draftMessage.text
             )
             chatService.sendMessage(message: message, recipient: chatID)
         }

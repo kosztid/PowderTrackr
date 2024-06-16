@@ -1,6 +1,6 @@
-import Amplify
 import Combine
 import UIKit
+import SwiftUI
 
 public protocol FriendServiceProtocol: AnyObject {
     var friendListPublisher: AnyPublisher<Friendlist?, Never> { get }
@@ -21,9 +21,9 @@ public protocol FriendServiceProtocol: AnyObject {
 }
 
 final class FriendService {
-    private let userID: String = UserDefaults.standard.string(forKey: "id") ?? ""
-    private let userName: String = UserDefaults.standard.string(forKey: "name") ?? ""
-    private let userEmail: String = UserDefaults.standard.string(forKey: "email") ?? ""
+    @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
+    @AppStorage("name", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userName: String = ""
+    @AppStorage("email", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userEmail: String = ""
     private let friendList: CurrentValueSubject<Friendlist?, Never> = .init(nil)
     private let friendRequests: CurrentValueSubject<[FriendRequest], Never> = .init([])
     private let friendPosition: CurrentValueSubject<Location?, Never> = .init(nil)
@@ -104,9 +104,8 @@ extension FriendService: FriendServiceProtocol {
     
     func queryFriends() {
         DefaultAPI.userfriendListsGet { data, error in
-            if let error = error {
+            if error != nil {
                 self.networkError.send(.init(title: "An issue occured while loading your friends", type: .error))
-                print("Error: \(error)")
             } else {
                 let currentFriendList = data?.first { item in
                     item.id == self.userID

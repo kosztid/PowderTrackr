@@ -94,16 +94,17 @@ extension Container {
     }
 
     enum RegisterVerify {
-        static let view = ParameterFactory { navigator in
+        static let view = ParameterFactory { navigator, model in
             VerifyView(
-                viewModel: viewModel(navigator)
+                viewModel: viewModel((navigator, model))
             )
         }
 
-        static let viewModel = ParameterFactory { navigator in
+        static let viewModel = ParameterFactory { navigator, model in
             VerifyView.ViewModel(
                 navigator: navigator,
-                accountService: accountService()
+                accountService: accountService(),
+                inputModel: model
             )
         }
     }

@@ -1,6 +1,6 @@
 import Combine
-import GoogleMaps
 import UIKit
+import SwiftUI
 
 public protocol MapServiceProtocol: AnyObject {
     var trackingPublisher: AnyPublisher<TrackedPath?, Never> { get }
@@ -19,7 +19,7 @@ public protocol MapServiceProtocol: AnyObject {
     func querySharedPaths()
     func sendCurrentlyTracked(_ trackedPath: TrackedPath)
     func changeRaceCreationState(_ raceCreationState: RaceCreationState)
-    func createRace(_ markers: [GMSMarker], _ name: String)
+    func createRace(_ xCoords: [Double], _ yCoords: [Double], _ name: String)
     func queryRaces()
     func sendRaceRun(_ run: TrackedPath, _ raceId: String)
     func updateRace(_ race: Race, _ newRace: Race)
@@ -28,7 +28,7 @@ public protocol MapServiceProtocol: AnyObject {
 }
 
 final class MapService {
-    private let userID: String = UserDefaults.standard.string(forKey: "id") ?? ""
+    @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
     private let tracking: CurrentValueSubject<TrackedPath?, Never> = .init(nil)
     private let trackedPathModel: CurrentValueSubject<TrackedPathModel?, Never> = .init(nil)
     private let sharedPathModel: CurrentValueSubject<TrackedPathModel?, Never> = .init(nil)
@@ -188,7 +188,7 @@ extension MapService: MapServiceProtocol {
             tracks[id] = trackedPath
         }
         
-        let data = UserTrackedPaths(id: UserDefaults.standard.string(forKey: "id") ?? "", tracks: tracks, sharedTracks: sharedTracks)
+        let data = UserTrackedPaths(id: UserDefaults(suiteName: "group.koszti.PowderTrackr")?.string(forKey: "id") ?? "", tracks: tracks, sharedTracks: sharedTracks)
         
         DefaultAPI.userTrackedPathsPut(userTrackedPaths: data) { data, error in
             if let error = error {
@@ -249,13 +249,12 @@ extension MapService: MapServiceProtocol {
         self.raceCreationState.send(raceCreationState)
     }
     
-    func createRace(_ markers: [GMSMarker], _ name: String) {
+    func createRace(_ xCoords: [Double], _ yCoords: [Double], _ name: String) {
         raceCreationState.send(.not)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let xCoords: [Double]? = markers.map { $0.position.latitude }
-        let yCoords: [Double]? = markers.map { $0.position.longitude }
-        let race = Race(name: name, date: dateFormatter.string(from: Date()), shortestTime: -1, shortestDistance: -1, xCoords: xCoords ?? [], yCoords: yCoords ?? [], tracks: [], participants: [userID])
+        
+        let race = Race(name: name, date: dateFormatter.string(from: Date()), shortestTime: -1, shortestDistance: -1, xCoords: xCoords, yCoords: yCoords, tracks: [], participants: [userID])
         
         DefaultAPI.racesPut(race: race) { data, error in
             if let error = error {

@@ -64,7 +64,7 @@ struct PowderTrackrWidgetEntryView : View {
                 HStack {
                     Image(systemName: "arrow.forward")
                         .resizable()
-                        .frame(width: 10, height: 10)
+                        .frame(width: .su10, height: .su10)
                     Text("distance")
                         .font(.caption2)
                 }
@@ -75,12 +75,12 @@ struct PowderTrackrWidgetEntryView : View {
                     .bold()
             }
             Divider()
-                .padding(.horizontal, 12)
+                .padding(.horizontal, .su12)
             HStack(spacing: .zero) {
                 HStack {
                     Image(systemName: "timer")
                         .resizable()
-                        .frame(width: 10, height: 10)
+                        .frame(width: .su10, height: .su10)
                     Text("total time")
                         .font(.caption2)
                 }
@@ -91,12 +91,12 @@ struct PowderTrackrWidgetEntryView : View {
                     .bold()
             }
             Divider()
-                .padding(.horizontal, 12)
+                .padding(.horizontal, .su12)
             HStack(spacing: .zero) {
                 HStack {
                     Image(systemName: "speedometer")
                         .resizable()
-                        .frame(width: 10, height: 10)
+                        .frame(width: .su10, height: .su10)
                     Text("avg speed")
                         .font(.caption2)
                 }

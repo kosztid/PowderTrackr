@@ -36,22 +36,34 @@ extension TrackListView {
             mapService.trackedPathPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] track in
-                    self?.tracks = track?.tracks ?? []
+                    guard let self else { return }
+                    if self.signedIn {
+                        self.tracks = track?.tracks ?? []
+                    } else {
+                        self.tracks = []
+                    }
                 }
                 .store(in: &cancellables)
 
             mapService.sharedPathPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] track in
-                    self?.sharedTracks = track?.tracks ?? []
+                    guard let self else { return }
+                    if self.signedIn {
+                        self.sharedTracks = track?.tracks ?? []
+                    } else {
+                        self.sharedTracks = []
+                    }
                 }
                 .store(in: &cancellables)
 
             accountService.isSignedInPublisher
                 .sink(receiveValue: { [weak self] value in
-                    self?.signedIn = value
+                    guard let self else { return }
+                    self.signedIn = value
                     if !value {
-                        self?.tracks = []
+                        self.tracks = []
+                        self.sharedTracks = []
                     }
                 })
                 .store(in: &cancellables)
@@ -80,8 +92,8 @@ extension TrackListView {
         }
 
         func onAppear() {
-                mapService.queryTrackedPaths()
-                mapService.querySharedPaths()
+            mapService.queryTrackedPaths()
+            mapService.querySharedPaths()
         }
 
         func removeTrack(_ trackedPath: TrackedPath) {
