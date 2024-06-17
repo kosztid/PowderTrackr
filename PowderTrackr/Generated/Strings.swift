@@ -36,6 +36,38 @@ internal enum Rsc {
       internal static let label = Rsc.tr("Localizable", "RaceManageItemView.Race.label", fallback: "Race")
     }
   }
+  internal enum RaceRunView {
+    internal enum Data {
+      internal enum Distance {
+        /// %@ meters
+        internal static func description(_ p1: Any) -> String {
+          return Rsc.tr("Localizable", "RaceRunView.Data.Distance.description", String(describing: p1), fallback: "%@ meters")
+        }
+        /// Distance:
+        internal static let label = Rsc.tr("Localizable", "RaceRunView.Data.Distance.label", fallback: "Distance:")
+      }
+      internal enum Time {
+        /// Time:
+        internal static let label = Rsc.tr("Localizable", "RaceRunView.Data.Time.label", fallback: "Time:")
+      }
+    }
+    internal enum Player {
+      /// Player
+      internal static let label = Rsc.tr("Localizable", "RaceRunView.Player.label", fallback: "Player")
+      /// %@%
+      internal static func percentage(_ p1: Any) -> String {
+        return Rsc.tr("Localizable", "RaceRunView.Player.percentage", String(describing: p1), fallback: "%@%")
+      }
+      /// %@x
+      internal static func speed(_ p1: Any) -> String {
+        return Rsc.tr("Localizable", "RaceRunView.Player.speed", String(describing: p1), fallback: "%@x")
+      }
+    }
+    internal enum Race {
+      /// Race name
+      internal static let label = Rsc.tr("Localizable", "RaceRunView.Race.label", fallback: "Race name")
+    }
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

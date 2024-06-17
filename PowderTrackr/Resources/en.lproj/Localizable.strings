@@ -4,3 +4,11 @@
 "RaceManageItemView.Data.Time.label" = "Best time:";
 "RaceManageItemView.Button.MyRuns" = "View my runs";
 "RaceManageItemView.Button.Share" = "Add participants";
+
+"RaceRunView.Race.label" = "Race name";
+"RaceRunView.Player.label" = "Player";
+"RaceRunView.Player.speed" = "%@x";
+"RaceRunView.Player.percentage" = "%@%";
+"RaceRunView.Data.Distance.label" = "Distance:";
+"RaceRunView.Data.Distance.description" = "%@ meters";
+"RaceRunView.Data.Time.label" = "Time:";

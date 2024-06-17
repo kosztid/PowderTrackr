@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct RaceRunView: View {
+    private typealias Str = Rsc.RaceRunView
     private enum Layout {
         static let playerHeight: CGFloat = 200
         static let positionTickWidth: CGFloat = 200
@@ -12,7 +13,7 @@ struct RaceRunView: View {
     var body: some View {
         VStack(spacing: .zero) {
             HStack {
-                Text("Race name")
+                Text(Str.Race.label)
                     .textStyle(.body)
                 Spacer()
             }
@@ -46,7 +47,7 @@ struct RaceRunView: View {
                     playerOpened.toggle()
                 } label: {
                     HStack {
-                        Text("Player")
+                        Text(Str.Player.label)
                             .textStyle(.bodyLarge)
                         Spacer()
                         Image(systemName: playerOpened ? "arrowtriangle.up" : "arrowtriangle.down")
@@ -80,7 +81,7 @@ struct RaceRunView: View {
                 .padding(.vertical, .su16)
                 HStack {
                     Spacer()
-                    Button("\(viewModel.playSpeed)x") {
+                    Button(Str.Player.speed(viewModel.playSpeed)) {
                         viewModel.setSpeed()
                     }
                     .padding(.horizontal, .su8)
@@ -100,20 +101,20 @@ struct RaceRunView: View {
     var dataSection: some View {
         Group {
             HStack {
-                Text("Distance:")
+                Text(Str.Data.Distance.label)
                     .textStyle(.body)
-                Text("\(viewModel.totalDistance, specifier: "%.f") meters")
+                Text(Str.Data.Distance.description((viewModel.totalDistance, specifier: "%.f")))
                     .textStyle(.bodyBold)
                 Spacer()
             }
             HStack {
-                Text("Time:")
+                Text(Str.Data.Time.label)
                     .textStyle(.body)
                 Text("\(viewModel.elapsedTimeInString)")
                     .textStyle(.bodyBold)
                 Spacer()
                 if viewModel.player >= .zero {
-                    Text("\(viewModel.player) %")
+                    Text(Str.Player.percentage((viewModel.player)))
                         .textStyle(.bodyBold)
                 }
             }

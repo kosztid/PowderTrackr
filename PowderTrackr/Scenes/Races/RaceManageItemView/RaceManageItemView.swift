@@ -2,6 +2,7 @@ import SwiftUI
 
 struct RaceManageItemView: View {
     private typealias Str = Rsc.RaceManageItemView
+    
     let ownRace: Bool
     let race: Race
     let shortestTime: String
