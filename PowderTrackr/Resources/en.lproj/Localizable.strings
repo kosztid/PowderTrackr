@@ -12,3 +12,13 @@
 "RaceRunView.Data.Distance.label" = "Distance:";
 "RaceRunView.Data.Distance.description" = "%@ meters";
 "RaceRunView.Data.Time.label" = "Time:";
+
+"RacesView.NoRaces.Label" = "You have no races so far...";
+"RacesView.Alert.Message" = "Are you sure want to delete this race?";
+"RacesView.Alert.Button.Cancel" = "Cancel";
+"RacesView.Alert.Button.Delete" = "Delete";
+
+"LeaderBoardView.Data.Distance.label" = "Distance";
+"LeaderBoardView.Data.Time.label" = "Time";
+"LeaderBoardView.Row.Distance.label" = "%@ km";
+"LeaderBoardView.Row.Time.label" = "%@ min";

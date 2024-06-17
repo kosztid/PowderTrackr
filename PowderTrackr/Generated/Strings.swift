@@ -10,6 +10,32 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum Rsc {
+  internal enum LeaderBoardView {
+    internal enum Data {
+      internal enum Distance {
+        /// Distance
+        internal static let label = Rsc.tr("Localizable", "LeaderBoardView.Data.Distance.label", fallback: "Distance")
+      }
+      internal enum Time {
+        /// Time
+        internal static let label = Rsc.tr("Localizable", "LeaderBoardView.Data.Time.label", fallback: "Time")
+      }
+    }
+    internal enum Row {
+      internal enum Distance {
+        /// %@ km
+        internal static func label(_ p1: Any) -> String {
+          return Rsc.tr("Localizable", "LeaderBoardView.Row.Distance.label", String(describing: p1), fallback: "%@ km")
+        }
+      }
+      internal enum Time {
+        /// %@ min
+        internal static func label(_ p1: Any) -> String {
+          return Rsc.tr("Localizable", "LeaderBoardView.Row.Time.label", String(describing: p1), fallback: "%@ min")
+        }
+      }
+    }
+  }
   internal enum RaceManageItemView {
     internal enum Button {
       /// View my runs
@@ -66,6 +92,22 @@ internal enum Rsc {
     internal enum Race {
       /// Race name
       internal static let label = Rsc.tr("Localizable", "RaceRunView.Race.label", fallback: "Race name")
+    }
+  }
+  internal enum RacesView {
+    internal enum Alert {
+      /// Are you sure want to delete this race?
+      internal static let message = Rsc.tr("Localizable", "RacesView.Alert.Message", fallback: "Are you sure want to delete this race?")
+      internal enum Button {
+        /// Cancel
+        internal static let cancel = Rsc.tr("Localizable", "RacesView.Alert.Button.Cancel", fallback: "Cancel")
+        /// Delete
+        internal static let delete = Rsc.tr("Localizable", "RacesView.Alert.Button.Delete", fallback: "Delete")
+      }
+    }
+    internal enum NoRaces {
+      /// You have no races so far...
+      internal static let label = Rsc.tr("Localizable", "RacesView.NoRaces.Label", fallback: "You have no races so far...")
     }
   }
 }

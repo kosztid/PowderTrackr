@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct LeaderBoardView: View {
+    private typealias Str = Rsc.LeaderBoardView
+    
     @StateObject var viewModel: ViewModel
 
     var body: some View {
@@ -25,7 +27,7 @@ struct LeaderBoardView: View {
             Button {
                 viewModel.tabState = .distance
             } label: {
-                Text("Distance")
+                Text(Str.Data.Distance.label)
                     .textStyle(.bodyLargeBold)
                     .foregroundColor(.black)
                     .frame(minWidth: .zero, maxWidth: .infinity)
@@ -36,7 +38,7 @@ struct LeaderBoardView: View {
             Button {
                 viewModel.tabState = .time
             } label: {
-                Text("Time")
+                Text(Str.Data.Time.label)
                     .textStyle(.bodyLargeBold)
                     .foregroundColor(.black)
                     .frame(minWidth: .zero, maxWidth: .infinity)
@@ -73,9 +75,9 @@ struct LeaderBoardView: View {
 
     private func leaderBoardRowData(index: Int) -> String {
         if viewModel.tabState == .distance {
-            return "\(String(format: "%.1f", viewModel.leaderBoardList[index].distance / 1000)) Km"
+            return Str.Row.Distance.label(String(format: "%.1f", viewModel.leaderBoardList[index].distance / 1000))
         } else {
-            return "\(String(format: "%.f", viewModel.leaderBoardList[index].totalTimeInSeconds / 60)) min"
+            return Str.Row.Time.label(String(format: "%.f", viewModel.leaderBoardList[index].totalTimeInSeconds / 60))
         }
     }
     

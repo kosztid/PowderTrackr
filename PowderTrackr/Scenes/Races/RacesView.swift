@@ -1,13 +1,15 @@
 import SwiftUI
 
 struct RacesView: View {
+    private typealias Str = Rsc.RacesView
+    
     @StateObject var viewModel: ViewModel
     
     var body: some View {
         ScrollView {
             VStack {
                 if viewModel.races.isEmpty {
-                    Text("You have no races so far...")
+                    Text(Str.NoRaces.label)
                         .textStyle(.bodySmall)
                         .foregroundStyle(Color.warmGray)
                         .padding(.vertical, .su20)
@@ -42,13 +44,13 @@ struct RacesView: View {
             }
         }
         .toolbar(.hidden)
-        .alert("Are you sure want to delete this race?", isPresented: $viewModel.showingDeleteRaceAlert) {
-            Button("delete", role: .destructive) {
+        .alert(Str.Alert.message, isPresented: $viewModel.showingDeleteRaceAlert) {
+            Button(Str.Alert.Button.delete, role: .destructive) {
                 viewModel.deleteRace()
                 viewModel.showingDeleteRaceAlert.toggle()
             }
             Button(
-                "Cancel",
+                Str.Alert.Button.cancel,
                 role: .cancel
             ) {
                 viewModel.refreshRaces()
