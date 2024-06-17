@@ -2,6 +2,8 @@ import ExyteChat
 import SwiftUI
 
 public struct PowderTrackrChatView: View {
+    typealias Str = Rsc.PowderTrackrChatView
+    
     @StateObject var viewModel: ViewModel
 
     public var body: some View {
@@ -12,7 +14,7 @@ public struct PowderTrackrChatView: View {
                 switch style {
                 case .message:
                     HStack {
-                        TextField("Write your message", text: textBinding)
+                        TextField(Str.NewMessage.label, text: textBinding)
                         HStack {
                             Button {
                                 actionClosure(.send)
@@ -34,7 +36,7 @@ public struct PowderTrackrChatView: View {
                     )
                 case .signature:
                     HStack {
-                        TextField("Write your message", text: textBinding)
+                        TextField(Str.NewMessage.label, text: textBinding)
                         HStack {
                             Button {
                                 actionClosure(.send)

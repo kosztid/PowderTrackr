@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct ShareListView: View {
+    private typealias Str = Rsc.ShareListView
+    
     let friends: Friendlist?
     let action: (Friend) -> Void
     let dismissAction: () -> Void
@@ -17,18 +19,18 @@ struct ShareListView: View {
                         } label: {
                             Image(systemName: "x.circle")
                                 .resizable()
-                                .frame(width: 32, height: 32)
+                                .frame(width: .su32, height: .su32)
                         }
                         Spacer()
                     }
                     list
-                    .padding(.horizontal, 32)
+                        .padding(.horizontal, .su32)
 
                 }
                 .padding()
                 .background(.white)
-                .cornerRadius(16)
-                .padding(.horizontal, 32)
+                .cornerRadius(.su16)
+                .padding(.horizontal, .su32)
                 .padding(.vertical, 200)
             }
         }
@@ -37,11 +39,11 @@ struct ShareListView: View {
     var list: some View {
         ScrollView {
             VStack {
-                if friends?.friends?.count == 0 {
-                    Text("You have no friends to share with")
+                if friends?.friends?.count == .zero {
+                    Text(Str.emptyList)
                         .font(.caption)
                         .foregroundStyle(.gray).opacity(0.7)
-                        .padding(.vertical, 20)
+                        .padding(.vertical, .su20)
                 }
                 ForEach(friends?.friends ?? []) { friend in
                     HStack {
@@ -50,7 +52,7 @@ struct ShareListView: View {
                         Button {
                             action(friend)
                         } label: {
-                            Text("Share")
+                            Text(Str.Button.share)
                         }
                         .buttonStyle(SkiingButtonStyle(style: .secondary))
                     }

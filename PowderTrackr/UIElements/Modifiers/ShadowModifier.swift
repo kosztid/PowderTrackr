@@ -21,9 +21,9 @@ public struct ShadowModifier: ViewModifier {
     var radius: CGFloat {
         switch style {
         case .light:
-            return 4
+            return .su4
         case .normal, .dark:
-            return 8
+            return .su8
         }
     }
     var opacity: Double {

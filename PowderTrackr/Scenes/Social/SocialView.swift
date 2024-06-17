@@ -1,6 +1,8 @@
 import SwiftUI
 
 public struct SocialView: View {
+    private typealias Str = Rsc.SocialView
+    
     @StateObject var viewModel: ViewModel
     
     public var body: some View {
@@ -63,9 +65,9 @@ public struct SocialView: View {
         if viewModel.notification {
             InfoCardView(
                 model: .init(
-                    message: "You have a new friendrequest(s)",
+                    message: Str.Infocard.message,
                     bottomActionButton: .init(
-                        title: "Requests",
+                        title: Str.Infocard.buttonTitle,
                         action: viewModel.navigateToRequests
                     )
                 ),

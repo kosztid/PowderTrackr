@@ -1,19 +1,21 @@
 import SwiftUI
 
 struct VerifyView: View {
+    private typealias Str = Rsc.VerifyView
+    
     @StateObject var viewModel: ViewModel
     
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: .zero) {
-                Text("Please verify your email address by entering the verification code from the confirmation email.")
+                Text(Str.Verify.description)
                     .textStyle(.body)
                     .foregroundColor(.gray)
                     .padding(.vertical, .su32)
                 TextField(text: $viewModel.verificationCode)
-                    .regularTextFieldStyle(label: "Verification Code")
+                    .regularTextFieldStyle(label: Str.code)
                     .padding(.bottom, .su16)
-                Button("Verify") {
+                Button(Str.Button.verify) {
                     viewModel.verify()
                 }
                 .buttonStyle(SkiingButtonStyle(style: .secondary))
@@ -23,7 +25,7 @@ struct VerifyView: View {
             .padding(.horizontal, .su8)
         }
         
-        .headerView(title: "Welcome to PowderTrackr", description: "Verification")
+        .headerView(description: Str.Header.description)
         .background(Color.grayPrimary)
         .navigationBarBackButtonHidden(true)
     }

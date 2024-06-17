@@ -50,19 +50,19 @@ public struct ToastModifier: ViewModifier {
 //                        .accessibilityIdentifier(Accessibility.description)
 //                }
             }
-            .padding(8)
+            .padding(.su8)
             Spacer()
         }
         .frame(maxWidth: .infinity)
-        .padding(8)
+        .padding(.su8)
         .background(toastMessage.type.backgroundColor)
-        .cornerRadius(8, corners: .allCorners)
-        .padding(8)
+        .cornerRadius(.su8, corners: .allCorners)
+        .padding(.su8)
         .shadow(
             color: Color.blue.opacity(Constants.shadowOpacity),
-            radius: 24,
+            radius: .su24,
             x: .zero,
-            y: 12
+            y: .su12
         )
         .opacity(showToastAnimation ? Constants.opacityVisible : Constants.opacityInvisible)
     }

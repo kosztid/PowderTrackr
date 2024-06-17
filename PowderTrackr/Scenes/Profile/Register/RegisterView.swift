@@ -1,22 +1,24 @@
 import SwiftUI
 
 struct RegisterView: View {
+    private typealias Str = Rsc.RegisterView
+    
     @StateObject var viewModel: ViewModel
 
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: .su16) {
-                Text("Please fill the fields to create an account")
+                Text(Str.Register.description)
                     .textStyle(.body)
                     .foregroundColor(.blueSecondary)
                     .padding(.top, .su16)
                 TextField(text: $viewModel.username)
-                    .regularTextFieldStyle(label: "Username")
+                    .regularTextFieldStyle(label: Str.username)
                 TextField(text: $viewModel.email)
-                    .regularTextFieldStyle(label: "Email")
+                    .regularTextFieldStyle(label: Str.email)
                 ToggleableSecureField(text: $viewModel.password)
-                    .regularTextFieldStyle(label: "Password")
-                Button("Register") {
+                    .regularTextFieldStyle(label: Str.password)
+                Button(Str.Button.register) {
                     viewModel.register()
                 }
                 .buttonStyle(SkiingButtonStyle(style: .secondary))
@@ -25,7 +27,7 @@ struct RegisterView: View {
             .padding(.vertical, .su16)
             .padding(.horizontal, .su8)
         }
-        .headerView(title: "Welcome to PowderTrackr", description: "Register")
+        .headerView(description: Str.Header.description)
         .background(Color.grayPrimary)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {

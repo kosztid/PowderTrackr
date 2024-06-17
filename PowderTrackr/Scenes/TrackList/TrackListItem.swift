@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct TrackListItem: View {
+    private typealias Str = Rsc.TrackListItem
+    
     enum Style {
         case normal
         case shared
@@ -49,7 +51,7 @@ struct TrackListItem: View {
                 .textStyle(.bodyLargeBold)
             Spacer()
             VStack(alignment: .trailing) {
-                Text("Date")
+                Text(Str.Header.date)
                     .textStyle(.bodySmall)
                 Text(track.startDate)
                     .textStyle(.bodyBold)
@@ -81,10 +83,10 @@ struct TrackListItem: View {
                 }
             }
         }
-        .alert("Rename run...", isPresented: $showingRenameAlert) {
-            TextField("Enter the new name...", text: $name)
+        .alert(Str.Alert.Rename.title, isPresented: $showingRenameAlert) {
+            TextField(Str.Alert.Rename.textField, text: $name)
                 .autocorrectionDisabled(true)
-            Button("Rename") {
+            Button(Str.Alert.Rename.button) {
                 var newTrack = track
                 newTrack.name = name
                 updateAction(newTrack, false)
@@ -92,39 +94,39 @@ struct TrackListItem: View {
                 showingRenameAlert.toggle()
             }
             Button(
-                "Cancel",
+                Str.Alert.Rename.cancelButton,
                 role: .cancel
             ) {
                 name = ""
                 showingRenameAlert.toggle()
             }
         }
-        .alert("Add Note", isPresented: $showingAlert) {
-            TextField("Enter note description", text: $note)
+        .alert(Str.Alert.Note.title, isPresented: $showingAlert) {
+            TextField(Str.Alert.Note.textField, text: $note)
                 .autocorrectionDisabled(true)
-            Button("Add") {
+            Button(Str.Alert.Note.button) {
                 noteAction(note, track)
                 note = ""
                 showingAlert.toggle()
             }
             Button(
-                "Cancel",
+                Str.Alert.Note.cancelButton,
                 role: .cancel
             ) {
                 note = ""
                 showingAlert.toggle()
             }
         }
-        .alert("Are you sure to delete?", isPresented: $showingDeleteAlert) {
+        .alert(Str.Alert.Delete.title, isPresented: $showingDeleteAlert) {
             Button(
-                "Yes",
+                Str.Alert.Delete.button,
                 role: .destructive
             ) {
                 deleteAction(self.track)
                 showingDeleteAlert.toggle()
             }
             Button(
-                "Cancel",
+                Str.Alert.Delete.cancelButton,
                 role: .cancel
             ) {
                 showingDeleteAlert.toggle()

@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct HeaderView: View {
+    private typealias Str = Rsc.HeaderView
+    
     let title: String
     let description: String?
     let backAction: (() -> Void)?
@@ -51,12 +53,12 @@ struct HeaderView: View {
     }
     
     init(
-        title: String,
+        title: String?,
         description: String?,
         backAction: (() -> Void)?,
         bottomView: AnyView?
     ) {
-        self.title = title
+        self.title = title ?? Str.Title.default
         self.description = description
         self.backAction = backAction
         self.bottomView = bottomView
