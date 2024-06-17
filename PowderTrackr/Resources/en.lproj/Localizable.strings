@@ -1,0 +1,6 @@
+"RaceManageItemView.Race.label" = "Race";
+"RaceManageItemView.Data.Distance.label" = "Shortest run:";
+"RaceManageItemView.Data.Distance.description" = "%@ meters";
+"RaceManageItemView.Data.Time.label" = "Best time:";
+"RaceManageItemView.Button.MyRuns" = "View my runs";
+"RaceManageItemView.Button.Share" = "Add participants";

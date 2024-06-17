@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct RaceManageItemView: View {
+    private typealias Str = Rsc.RaceManageItemView
     let ownRace: Bool
     let race: Race
     let shortestTime: String
@@ -12,7 +13,7 @@ struct RaceManageItemView: View {
     var body: some View {
         VStack(spacing: .zero) {
             HStack {
-                Text("Race")
+                Text(Str.Race.label)
                     .textStyle(.bodySmallBold)
                 Spacer()
             }
@@ -41,14 +42,14 @@ struct RaceManageItemView: View {
     var dataSection: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("Shortest run:")
+                Text(Str.Data.Distance.label)
                     .textStyle(.body)
-                Text("\(race.shortestDistance, specifier: "%.2f") meters")
+                Text(Str.Data.Distance.description((race.shortestDistance, specifier: "%.2f")))
                     .textStyle(.bodyBold)
                 Spacer()
             }
             HStack {
-                Text("Best time:")
+                Text(Str.Data.Time.label)
                     .textStyle(.body)
                 Text("\(shortestTime)")
                     .textStyle(.bodyBold)
@@ -63,7 +64,7 @@ struct RaceManageItemView: View {
                 Button {
                     viewMyRunsAction(race)
                 } label: {
-                    Text("View my runs")
+                    Text(Str.Button.myRuns)
                 }
                 .buttonStyle(SkiingButtonStyle(style: .secondary))
                 .disabled(race.tracks?.isEmpty ?? true)
@@ -72,7 +73,7 @@ struct RaceManageItemView: View {
                     Button {
                         openShare(race)
                     } label: {
-                        Text("Add participants")
+                        Text(Str.Button.share)
                     }
                     .buttonStyle(SkiingButtonStyle(style: .secondary))
                 }

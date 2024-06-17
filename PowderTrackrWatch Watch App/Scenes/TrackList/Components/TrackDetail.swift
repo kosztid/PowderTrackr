@@ -8,10 +8,12 @@ struct TrackDetail: View {
         TabView(selection: $selection) {
             HStack {
                 Text(track.name)
+                    .bold()
                 Spacer()
                 VStack(alignment: .trailing) {
                     Text("Date")
                     Text(track.startDate)
+                        .bold()
                 }
             }
             .tag(0)
