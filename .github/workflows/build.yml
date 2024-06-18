@@ -1,38 +1,33 @@
-name: Build Project
+name: iOS Build
 
 on:
   push:
     branches:
-      - '*'
+      - main  # Set to your default branch, e.g., main or master
   pull_request:
     branches:
-      - '*'
+      - main
 
 jobs:
   build:
     runs-on: macos-latest
+
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
       with:
-        fetch-depth: 0
+        ruby-version: 2.7  # Set this to the version used in your project
 
-    - name: Set up Xcode
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: 'latest'  # This dynamically selects the latest stable Xcode version available on GitHub runners.
-
-    - name: Install CocoaPods dependencies
-      run: pod install
-
-    - name: Resolve Swift Package Manager dependencies
-      run: xcodebuild -resolvePackageDependencies -scheme PowderTrackr -project PowderTrackr.xcodeproj
-
-    - name: Build Project for Simulator
+    - name: Install CocoaPods
       run: |
-        xcodebuild -scheme PowderTrackr \
-                   -project PowderTrackr.xcodeproj \
-                   -sdk iphonesimulator \
-                   -destination 'platform=iOS Simulator,name=iPhone 13,OS=latest' \
-                   -configuration Release build \
-                   CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ARCHS=arm64
-    
+        gem install cocoapods
+        pod install
+
+    - name: Build Xcode Project
+      run: |
+        xcodebuild -workspace PowderTrackr.xcworkspace -scheme PowderTrackr -sdk iphonesimulator -configuration Debug ONLY_ACTIVE_ARCH=YES build
+      env:
+        CI: true
