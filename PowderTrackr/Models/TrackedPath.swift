@@ -56,4 +56,3 @@ public struct TrackedPath: Codable, JSONEncodable, Hashable, Identifiable {
         try container.encode(tracking, forKey: .tracking)
     }
 }
-

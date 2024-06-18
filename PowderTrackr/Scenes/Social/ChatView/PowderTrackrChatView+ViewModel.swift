@@ -1,5 +1,5 @@
-import ExyteChat
 import Combine
+import ExyteChat
 import SwiftUI
 
 public extension PowderTrackrChatView {
@@ -10,7 +10,7 @@ public extension PowderTrackrChatView {
     final class ViewModel: ObservableObject {
         @Published var messages: [ExyteChat.Message] = []
         @Published var chat: String = ""
-        
+
         let model: InputModel
         let names: [String]
         var timer: Timer?
@@ -28,7 +28,6 @@ public extension PowderTrackrChatView {
             self.chatID = model.chatId
             self.names = model.names
             self.model = model
-            print("chatID", chatID)
             initBindings()
             chatService.queryChat(recipient: chatID)
         }
@@ -45,7 +44,7 @@ public extension PowderTrackrChatView {
         func sendMessage(draftMessage: ExyteChat.DraftMessage) {
             let message = ExyteChat.Message(
                 id: UUID().uuidString,
-                user: .init(id: "123", name: "Me", avatarURL: nil, isCurrentUser: true),
+                user: .init(id: "123", name: Str.Sender.outgoing, avatarURL: nil, isCurrentUser: true),
                 text: draftMessage.text
             )
             chatService.sendMessage(message: message, recipient: chatID)

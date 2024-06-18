@@ -60,4 +60,3 @@ public struct Race: Codable, JSONEncodable, Hashable, Identifiable {
         try container.encodeIfPresent(participants, forKey: .participants)
     }
 }
-

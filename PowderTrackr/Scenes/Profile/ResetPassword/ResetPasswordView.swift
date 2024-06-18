@@ -1,19 +1,21 @@
 import SwiftUI
 
 struct ResetPasswordView: View {
+    private typealias Str = Rsc.ResetPasswordView
+
     @StateObject var viewModel: ViewModel
-    
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: .zero) {
-                Text("Please type in your username to reset your password.")
+                Text(Str.Username.description)
                     .textStyle(.body)
                     .foregroundColor(.gray)
                     .padding(.vertical, .su32)
                 TextField(text: $viewModel.username)
-                    .regularTextFieldStyle(label: "Username")
+                    .regularTextFieldStyle(label: Str.username)
                     .padding(.bottom, .su16)
-                Button("Reset") {
+                Button(Str.Button.reset) {
                     viewModel.reset()
                 }
                 .buttonStyle(SkiingButtonStyle(style: .secondary))
@@ -23,7 +25,7 @@ struct ResetPasswordView: View {
             .padding(.horizontal, .su8)
         }
         .toastMessage(toastMessage: $viewModel.toast)
-        .headerView(title: "Welcome to PowderTrackr", description: "Password Reset")
+        .headerView(description: Str.Header.description)
         .background(Color.grayPrimary)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {

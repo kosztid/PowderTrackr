@@ -6,14 +6,14 @@ extension TrackListView {
     struct InputModel {
         let navigateToAccount: () -> Void
     }
-    
+
     final class ViewModel: ObservableObject {
         private var cancellables: Set<AnyCancellable> = []
 
         private let friendService: FriendServiceProtocol
         private let mapService: MapServiceProtocol
         private let accountService: AccountServiceProtocol
-        
+
         let model: InputModel
 
         @Published var friendList: Friendlist?
@@ -74,7 +74,7 @@ extension TrackListView {
                     self?.friendList = friendList
                 }
                 .store(in: &cancellables)
-            
+
             mapService.queryTrackedPaths()
             friendService.queryFriends()
         }

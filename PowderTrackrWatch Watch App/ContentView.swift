@@ -8,7 +8,7 @@ struct ContentView: View {
                     Image(systemName: "house")
                     Text("Home")
                 }
-            
+
             TrackListView()
                 .tabItem {
                     Image(systemName: "figure.skiing.downhill")

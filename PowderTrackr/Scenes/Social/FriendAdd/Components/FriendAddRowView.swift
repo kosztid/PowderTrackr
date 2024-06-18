@@ -9,9 +9,9 @@ struct FriendAddRowView: View {
             Text(user.name)
                 .textStyle(.bodyLarge)
                 .foregroundColor(Color.primary)
-            
+
             Spacer()
-            
+
             Button {
                 addAction(user)
             } label: {

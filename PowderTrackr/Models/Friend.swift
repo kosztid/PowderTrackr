@@ -11,7 +11,6 @@ import AnyCodable
 #endif
 
 public struct Friend: Codable, JSONEncodable, Hashable, Identifiable {
-
     public var id: String
     public var name: String
     public var isTracking: Bool
@@ -37,4 +36,3 @@ public struct Friend: Codable, JSONEncodable, Hashable, Identifiable {
         try container.encode(isTracking, forKey: .isTracking)
     }
 }
-

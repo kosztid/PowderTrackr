@@ -1,6 +1,6 @@
+import AWSCognitoIdentityProvider
 import Combine
 import SwiftUI
-import AWSCognitoIdentityProvider
 
 extension LoginView {
     final class ViewModel: ObservableObject {
@@ -12,7 +12,7 @@ extension LoginView {
         private var cancellables: Set<AnyCancellable> = []
         private let navigator: LoginViewNavigatorProtocol
         private let accountService: AccountServiceProtocol
-        
+
         func login() {
             accountService.signIn(userName, password, firstTime: false)
                 .sink(

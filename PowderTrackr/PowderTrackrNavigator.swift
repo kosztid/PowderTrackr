@@ -12,7 +12,7 @@ protocol PowderTrackrViewNavigatorProtocol {
 
 public struct PowderTrackrNavigator: Navigator {
     @State var routes: Routes<PowderTrackrScreen>
-    
+
     public var body: some View {
         Router($routes) { screen, _ in
             switch screen {
@@ -21,7 +21,7 @@ public struct PowderTrackrNavigator: Navigator {
             }
         }
     }
-    
+
     public init() {
         self.routes = [.root(.tabBar, embedInNavigationView: true)]
     }
@@ -31,7 +31,7 @@ extension PowderTrackrNavigator: PowderTrackrViewNavigatorProtocol {
     func navigateToAccount() {
         routes.presentCover(.account)
     }
-    
+
     func navigateBack() {
         routes.dismiss()
     }

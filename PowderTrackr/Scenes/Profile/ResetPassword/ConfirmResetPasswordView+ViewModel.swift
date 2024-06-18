@@ -10,21 +10,20 @@ extension ConfirmResetPasswordView {
 
         private let navigator: RegisterVerificationViewNavigatorProtocol
         private let accountService: AccountServiceProtocol
-        
+
         private var cancellables: Set<AnyCancellable> = []
 
         func verify() {
-            accountService.confirmResetPassword(username: username,newPassword: password, confirmationCode: verificationCode)
+            accountService.confirmResetPassword(username: username, newPassword: password, confirmationCode: verificationCode)
                 .sink(
                     receiveCompletion: { [weak self] completion in
-                        guard case .failure(_) = completion else { return }
+                        guard case .failure = completion else { return }
                         self?.toast = .init(title: "Failed resetting password", type: .error)
-                    }, receiveValue: { [weak self] data in
+                    }, receiveValue: { [weak self] _ in
                         self?.navigator.verified()
                     }
                 )
                 .store(in: &cancellables)
-            
         }
 
         init(

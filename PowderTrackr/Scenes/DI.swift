@@ -5,11 +5,11 @@ extension Container {
         static let view = ParameterFactory { navigator in
             PowderTrackrView(viewModel: .init(navigator: navigator))
         }
-        
+
         static let viewModel = ParameterFactory { navigator in
             PowderTrackrView.ViewModel(navigator: navigator)
         }
-        
+
         static let navigator = Factory {
             PowderTrackrNavigator()
         }
@@ -173,7 +173,6 @@ extension Container {
                 accountService: accountService(),
                 chatService: chatService(),
                 inputModel: model
-                
             )
         }
 

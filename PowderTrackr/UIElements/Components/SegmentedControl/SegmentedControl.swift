@@ -28,7 +28,7 @@ public struct SegmentedControl<Content1: View, Content2: View>: View {
     private let tabItems: [TabItem]
     private let firstTab: () -> Content1
     private let secondTab: () -> Content2
-    
+
     var tabButtons: some View {
         HStack(alignment: .center, spacing: .zero) {
             ForEach(Array(tabItems.enumerated()), id: \.element) { index, item in

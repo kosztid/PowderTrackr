@@ -1,22 +1,24 @@
 import SwiftUI
 
 struct ChangePasswordView: View {
+    private typealias Str = Rsc.ChangePasswordView
+
     @StateObject var viewModel: ViewModel
-    
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: .zero) {
-                Text("Please type in your old and new password to change it.")
+                Text(Str.Password.description)
                     .textStyle(.body)
                     .foregroundColor(.gray)
                     .padding(.vertical, .su32)
                 ToggleableSecureField(text: $viewModel.oldPassword)
-                    .regularTextFieldStyle(label: "Old Password")
+                    .regularTextFieldStyle(label: Str.Password.old)
                     .padding(.bottom, .su8)
                 ToggleableSecureField(text: $viewModel.newPassword)
-                    .regularTextFieldStyle(label: "New Password")
+                    .regularTextFieldStyle(label: Str.Password.new)
                     .padding(.bottom, .su16)
-                Button("Update") {
+                Button(Str.Button.update) {
                     viewModel.changeButtonTap()
                 }
                 .buttonStyle(SkiingButtonStyle(style: .secondary))
@@ -25,8 +27,8 @@ struct ChangePasswordView: View {
             .padding(.vertical, .su16)
             .padding(.horizontal, .su8)
         }
-        
-        .headerView(title: "Welcome to PowderTrackr", description: "Update Password")
+
+        .headerView(description: Str.Header.description)
         .background(Color.grayPrimary)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {

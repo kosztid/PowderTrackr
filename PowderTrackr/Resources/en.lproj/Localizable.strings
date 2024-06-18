@@ -1,0 +1,118 @@
+"RaceManageItemView.Race.label" = "Race";
+"RaceManageItemView.Data.Distance.label" = "Shortest run:";
+"RaceManageItemView.Data.Distance.description" = "%@ meters";
+"RaceManageItemView.Data.Time.label" = "Best time:";
+"RaceManageItemView.Button.MyRuns" = "View my runs";
+"RaceManageItemView.Button.Share" = "Add participants";
+
+"RaceRunView.Race.label" = "Race name";
+"RaceRunView.Player.label" = "Player";
+"RaceRunView.Player.speed" = "%@x";
+"RaceRunView.Player.percentage" = "%@%";
+"RaceRunView.Data.Distance.label" = "Distance:";
+"RaceRunView.Data.Distance.description" = "%@ meters";
+"RaceRunView.Data.Time.label" = "Time:";
+
+"RacesView.NoRaces.Label" = "You have no races so far...";
+"RacesView.Alert.Message" = "Are you sure want to delete this race?";
+"RacesView.Alert.Button.Cancel" = "Cancel";
+"RacesView.Alert.Button.Delete" = "Delete";
+
+"LeaderBoardView.Data.Distance.label" = "Distance";
+"LeaderBoardView.Data.Time.label" = "Time";
+"LeaderBoardView.Row.Distance.label" = "%@ km";
+"LeaderBoardView.Row.Time.label" = "%@ min";
+
+"ChangePasswordView.Password.Old" = "Old Password";
+"ChangePasswordView.Password.New" = "New Password";
+"ChangePasswordView.Password.Description" = "Please type in your old and new password to change it.";
+"ChangePasswordView.Button.Update" = "Update";
+"ChangePasswordView.Header.Description" = "Update Password";
+
+"ResetPasswordView.Username" = "Username";
+"ResetPasswordView.Username.Description" = "Please type in your username to reset your password.";
+"ResetPasswordView.Button.Reset" = "Reset";
+"ResetPasswordView.Header.Description" = "Password Reset";
+
+"ConfirmResetPasswordView.Username" = "Username";
+"ConfirmResetPasswordView.Password" = "Password";
+"ConfirmResetPasswordView.Code" = "Verification Code";
+"ConfirmResetPasswordView.Username.Description" = "Please enter the verification code from the password reset email to reset password for user: %@";
+"ConfirmResetPasswordView.Button.Verify" = "Verify";
+"ConfirmResetPasswordView.Header.Description" = "Verification";
+
+"LoginView.Username" = "Username";
+"LoginView.Password" = "Password";
+"LoginView.Login.Description" = "Please enter your credentials";
+"LoginView.Button.Login" = "Login";
+"LoginView.Button.ForgottenPassword" = "Forgotten Password";
+"LoginView.Error.Description" = "Failed to log in please check your credentials";
+"LoginView.Error.SubDescription" = "Please check your credentials";
+"LoginView.Header.Description" = "Login";
+
+"RegisterView.Username" = "Username";
+"RegisterView.Email" = "Email";
+"RegisterView.Password" = "Password";
+"RegisterView.Register.Description" = "Please fill the fields to create an account";
+"RegisterView.Button.Register" = "Register";
+"RegisterView.Header.Description" = "Register";
+
+"VerifyView.Code" = "Verification Code";
+"VerifyView.Verify.Description" = "Please verify your email address by entering the verification code from the confirmation email.";
+"VerifyView.Button.Verify" = "Verify";
+"VerifyView.Header.Description" = "Verification";
+
+"ProfileView.LoggedOut.Title" = "Select an option to continue";
+"ProfileView.LoggedOut.Description" = "Please login or create an account to continue";
+"ProfileView.Verify.Description" = "Please verify your email address by entering the verification code from the confirmation email.";
+"ProfileView.Button.Login" = "Login";
+"ProfileView.Button.Register" = "Register";
+"ProfileView.Button.UpdatePassword" = "Update password";
+"ProfileView.Button.Logout" = "Logout";
+"ProfileView.Header.Description" = "To track your snowy adventures";
+"ProfileView.Header.Profile.Title" = "Profile";
+"ProfileView.Data.You" = "You";
+"ProfileView.Data.Email" = "Email address";
+"ProfileView.Data.Name" = "Name";
+"ProfileView.Stats.Label" = "Stats";
+"ProfileView.Stats.Distance.Label" = "Total distance on snow:";
+"ProfileView.Stats.Distance.Description" = "%@ km";
+"ProfileView.Stats.Time.Label" = "Total time on snow:";
+
+"TrackListView.Tabs.Normal" = "Normal";
+"TrackListView.Tabs.Shared" = "Shared";
+"TrackListView.List.Shared.Empty" = "You have no tracks shared with you";
+"TrackListView.List.Normal.Empty" = "You have no tracks recorded";
+
+"PowderTrackrChatView.NewMessage.Label" = "Write your message";
+"PowderTrackrChatView.Sender.Outgoing" = "Me";
+
+"FriendAddView.SearchBar.Label" = "Search...";
+"FriendAddView.EmptyList.Description" = "You have no users to add";
+"FriendAddView.Header.Title" = "Add friends to ski with";
+
+"FriendListItem.LastMessage.Sent" = "You: %@";
+"FriendListItem.LastMessage.Received" = "...";
+
+"SocialView.Infocard.Message" = "You have a new friendrequest(s)";
+"SocialView.Infocard.ButtonTitle" = "Requests";
+
+"ShareListView.EmptyList" = "You have no friends to share with";
+"ShareListView.Button.Share" = "Share";
+
+"TrackListItem.Header.Date" = "Date";
+"TrackListItem.Alert.Rename.Title" = "Rename run...";
+"TrackListItem.Alert.Rename.TextField" = "Enter the new name...";
+"TrackListItem.Alert.Rename.Button" = "Rename";
+"TrackListItem.Alert.Rename.CancelButton" = "Cancel";
+"TrackListItem.Alert.Note.Title" = "Add Note";
+"TrackListItem.Alert.Note.TextField" = "Enter note description";
+"TrackListItem.Alert.Note.Button" = "Add";
+"TrackListItem.Alert.Note.CancelButton" = "Cancel";
+"TrackListItem.Alert.Delete.Title" = "Are you sure to delete?";
+"TrackListItem.Alert.Delete.Button" = "Yes";
+"TrackListItem.Alert.Delete.CancelButton" = "Cancel";
+ 
+"HeaderView.Title.default" = "Welcome to PowderTrackr";
+
+

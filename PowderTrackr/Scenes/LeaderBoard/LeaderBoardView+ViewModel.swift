@@ -13,7 +13,7 @@ extension LeaderBoardView {
         case distance
         case time
     }
-    
+
     final class ViewModel: ObservableObject {
         @Published var leaderBoardItems: [LeaderBoard] = []
         @Published var tabState: TabState = .distance

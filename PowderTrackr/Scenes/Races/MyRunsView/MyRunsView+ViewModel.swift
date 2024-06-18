@@ -12,7 +12,6 @@ extension MyRunsView {
         private let accountService: AccountServiceProtocol
         @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
 
-
         private var cancellables: Set<AnyCancellable> = []
 
         init(

@@ -1,7 +1,6 @@
 import SwiftUI
 
 private struct TextFieldBorderViewModifier: ViewModifier {
-
     private var strokeBorderColor: Color {
         .darkSlateGray
     }

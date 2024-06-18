@@ -11,7 +11,6 @@ import AnyCodable
 #endif
 
 public struct FriendRequest: Codable, JSONEncodable, Hashable, Identifiable {
-
     public var id: String
     public var senderEmail: String
     public var sender: Friend
@@ -41,4 +40,3 @@ public struct FriendRequest: Codable, JSONEncodable, Hashable, Identifiable {
         try container.encode(recipient, forKey: .recipient)
     }
 }
-

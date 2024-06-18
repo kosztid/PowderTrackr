@@ -1,6 +1,8 @@
 import SwiftUI
 
 public struct FriendListItem: View {
+    private typealias Str = Rsc.FriendListItem
+
     var friend: Friend
     var notification: Bool
     @State var isTracking: Bool
@@ -35,16 +37,16 @@ public struct FriendListItem: View {
         .frame(height: .su64)
         .floatingRoundedCardBackground()
     }
-    
+
     var lastMessageDescription: String {
         if let message = lastMessage {
             if message.sender == friend.id {
                 return message.text
             } else {
-                return "You: ".appending(message.text)
+                return Str.LastMessage.sent(message.text)
             }
         } else {
-            return "..."
+            return Str.LastMessage.received
         }
     }
 

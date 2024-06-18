@@ -19,7 +19,6 @@ struct RaceRunGoogleMapsView: UIViewRepresentable {
             super.init()
         }
 
-
         func drawMapItems() {
             innerMapView?.clear()
 

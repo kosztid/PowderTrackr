@@ -1,26 +1,28 @@
 import SwiftUI
 
 struct ConfirmResetPasswordView: View {
+    private typealias Str = Rsc.ConfirmResetPasswordView
+
     @StateObject var viewModel: ViewModel
 
     var body: some View {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: .zero) {
-                    Text("Please enter the verification code from the password reset email to reset password for user: \(viewModel.username)")
+                    Text(Str.Username.description((viewModel.username)))
                         .textStyle(.body)
                         .foregroundColor(.gray)
                         .padding(.vertical, .su32)
                     TextField(text: $viewModel.verificationCode)
-                        .regularTextFieldStyle(label: "Verification Code")
+                        .regularTextFieldStyle(label: Str.code)
                         .padding(.bottom, .su16)
                     TextField(text: $viewModel.username)
-                        .regularTextFieldStyle(label: "Username")
+                        .regularTextFieldStyle(label: Str.username)
                         .padding(.bottom, .su16)
                         .disabled(true)
                     ToggleableSecureField(text: $viewModel.password)
-                        .regularTextFieldStyle(label: "Password")
+                        .regularTextFieldStyle(label: Str.password)
                         .padding(.bottom, .su16)
-                    Button("Verify") {
+                    Button(Str.Button.verify) {
                         viewModel.verify()
                     }
                     .buttonStyle(SkiingButtonStyle(style: .secondary))
@@ -30,7 +32,7 @@ struct ConfirmResetPasswordView: View {
                 .padding(.horizontal, .su8)
             }
             .toastMessage(toastMessage: $viewModel.toast)
-            .headerView(title: "Welcome to PowderTrackr", description: "Verification")
+            .headerView(description: Str.Header.description)
             .navigationBarBackButtonHidden(true)
     }
 }

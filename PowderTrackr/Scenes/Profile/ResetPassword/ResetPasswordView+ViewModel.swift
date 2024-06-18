@@ -5,19 +5,19 @@ extension ResetPasswordView {
     final class ViewModel: ObservableObject {
         @Published var username: String = ""
         @Published var toast: ToastModel?
-        
+
         private let navigator: ResetPasswordViewNavigatorProtocol
         private let accountService: AccountServiceProtocol
-        
+
         private var cancellables: Set<AnyCancellable> = []
 
         func reset() {
             accountService.resetPassword(username: username)
                 .sink(
                     receiveCompletion: { [weak self] completion in
-                        guard case .failure(_) = completion else { return }
+                        guard case .failure = completion else { return }
                         self?.toast = .init(title: "Failed resetting password", type: .error)
-                    }, receiveValue: { [weak self] data in
+                    }, receiveValue: { [weak self] _ in
                         self?.toast = .init(title: "Password reset sent", type: .success)
                         self?.navigateToReset()
                     }
@@ -28,7 +28,7 @@ extension ResetPasswordView {
         func navigateBack() {
             navigator.navigateBack()
         }
-        
+
         func navigateToReset() {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.navigator.resetButtonTapped(username: self.username)

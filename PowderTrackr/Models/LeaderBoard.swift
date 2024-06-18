@@ -11,7 +11,6 @@ import AnyCodable
 #endif
 
 public struct LeaderBoard: Codable, JSONEncodable, Hashable {
-
     public var id: String
     public var name: String
     public var distance: Double
@@ -41,4 +40,3 @@ public struct LeaderBoard: Codable, JSONEncodable, Hashable {
         try container.encode(totalTimeInSeconds, forKey: .totalTimeInSeconds)
     }
 }
-

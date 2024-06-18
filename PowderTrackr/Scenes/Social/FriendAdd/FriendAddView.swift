@@ -1,13 +1,15 @@
 import SwiftUI
 
 public struct FriendAddView: View {
+    private typealias Str = Rsc.FriendAddView
+
     @StateObject var viewModel: ViewModel
-    
+
     public var body: some View {
         ScrollView {
             VStack(spacing: .zero) {
                 if viewModel.users.isEmpty {
-                    Text("You have no users to add")
+                    Text(Str.EmptyList.description)
                         .textStyle(.bodyBold)
                         .foregroundStyle(Color.warmGray)
                         .padding()
@@ -22,11 +24,11 @@ public struct FriendAddView: View {
         }
         .background(Color.grayPrimary)
         .toastMessage(toastMessage: $viewModel.toast)
-        .headerView(title: "Add friends to ski with", backAction: viewModel.dismissButtonTap, bottomView: AnyView(searchBar))
+        .headerView(title: Str.Header.title, backAction: viewModel.dismissButtonTap, bottomView: AnyView(searchBar))
     }
-    
+
     @ViewBuilder var searchBar: some View {
-        TextField("Search...", text: $viewModel.searchText)
+        TextField(Str.SearchBar.label, text: $viewModel.searchText)
             .padding(.su8)
             .padding(.horizontal, .su24)
             .background(Color.white)

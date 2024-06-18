@@ -19,7 +19,7 @@ extension StatisticsService: StatisticsServiceProtocol {
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-    
+
     var leaderboardPublisher: AnyPublisher<[LeaderBoard], Never> {
         leaderboard
             .receive(on: DispatchQueue.main)

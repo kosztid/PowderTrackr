@@ -2,6 +2,8 @@ import Factory
 import SwiftUI
 
 struct ProfileView: View {
+    private typealias Str = Rsc.ProfileView
+
     @StateObject var viewModel: ViewModel
 
     var body: some View {
@@ -35,19 +37,18 @@ struct ProfileView: View {
                     }
                 }
         }
-        
     }
     var loggedOutView: some View {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: .zero) {
-                    Text("Select an option to continue")
+                    Text(Str.LoggedOut.title)
                         .textStyle(.body)
                         .foregroundColor(.gray)
                         .padding(.vertical, .su32)
                     Button {
                         viewModel.login()
                     } label: {
-                        Text("Login")
+                        Text(Str.Button.login)
                             .frame(width: UIScreen.main.bounds.width * 0.6)
                     }
                     .buttonStyle(SkiingButtonStyle())
@@ -55,23 +56,20 @@ struct ProfileView: View {
                     Button {
                         viewModel.register()
                     } label: {
-                        Text("Register")
+                        Text(Str.Button.register)
                             .frame(width: UIScreen.main.bounds.width * 0.6)
                     }
                     .buttonStyle(SkiingButtonStyle())
                     .padding(.bottom, .su16)
-                    Text("Please login or create an account to continue")
+                    Text(Str.LoggedOut.description)
                         .textStyle(.body)
                         .padding(.bottom, .su16)
                         .foregroundColor(.gray)
                 }
             }
-            .headerView(
-                title: "Welcome to PowderTrackr",
-                description: "To track your snowy adventures"
-            )
+            .headerView(description: Str.Header.description)
     }
-    
+
     var loggedInView: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: .su16) {
@@ -80,12 +78,12 @@ struct ProfileView: View {
                 userData
                     .floatingRoundedCardBackground()
                 HStack {
-                    Button("Update password") {
+                    Button(Str.Button.updatePassword) {
                         viewModel.updatePasswordTap()
                     }
                     .buttonStyle(SkiingButtonStyle(style: .bordered))
                     Spacer()
-                    Button("Logout") {
+                    Button(Str.Button.logout) {
                         viewModel.logout()
                     }
                     .buttonStyle(SkiingButtonStyle(style: .primary))
@@ -95,9 +93,7 @@ struct ProfileView: View {
             .padding(.su8)
         }
         .background(Color.grayPrimary)
-        .headerView(
-            title: "Profile"
-        )
+        .headerView(title: Str.Header.Profile.title)
         .onAppear {
             viewModel.loadData()
         }
@@ -105,17 +101,17 @@ struct ProfileView: View {
 
     var userData: some View {
         VStack(spacing: .su16) {
-            Text("You")
+            Text(Str.Data.you)
                 .textStyle(.h2)
             VStack(alignment: .leading, spacing: .zero) {
-                Text("Email address")
+                Text(Str.Data.email)
                     .textStyle(.bodySmall)
                     .foregroundStyle(Color.warmGray)
                 Text(viewModel.currentEmail)
                     .textStyle(.body)
                 Divider()
                     .padding(.vertical, .su4)
-                Text("Name")
+                Text(Str.Data.name)
                     .textStyle(.bodySmall)
                     .foregroundStyle(Color.warmGray)
                 Text(viewModel.userName)
@@ -126,17 +122,17 @@ struct ProfileView: View {
 
     var stats: some View {
         VStack(spacing: .su16) {
-            Text("Stats")
+            Text(Str.Stats.label)
                 .textStyle(.h2)
             HStack {
-                Text("Total distance on snow:")
+                Text(Str.Stats.Distance.label)
                     .textStyle(.body)
                 Spacer()
-                Text("\(viewModel.totalDistance / 1_000.0, specifier: "%.2f") km")
+                Text(Str.Stats.Distance.description((viewModel.totalDistance / 1_000.0, specifier: "%.2f")))
                     .textStyle(.bodyBold)
             }
             HStack {
-                Text("Total time on snow:")
+                Text(Str.Stats.Time.label)
                     .textStyle(.body)
                 Spacer()
                 Text("\(viewModel.totalTime)")

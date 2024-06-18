@@ -6,7 +6,7 @@ extension VerifyView {
         let username: String
         let password: String
     }
-    
+
     final class ViewModel: ObservableObject {
         @Published var verificationCode: String = ""
         @Published var username: String = ""
@@ -16,16 +16,16 @@ extension VerifyView {
         private let navigator: RegisterVerificationViewNavigatorProtocol
         private let accountService: AccountServiceProtocol
         private let inputModel: InputModel
-        
+
         private var cancellables: Set<AnyCancellable> = []
 
         func verify() {
             accountService.confirmSignUp(with: verificationCode, inputModel.username, inputModel.password)
                 .sink(
                     receiveCompletion: { [weak self] completion in
-                        guard case .failure(_) = completion else { return }
+                        guard case .failure = completion else { return }
                         self?.toast = .init(title: "Failed to confirm registration", type: .error)
-                    }, receiveValue: { [weak self] data in
+                    }, receiveValue: { [weak self] _ in
                         self?.navigator.verified()
                     }
                 )

@@ -3,11 +3,11 @@ import SwiftUI
 struct FloatingRoundedCardBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .padding(16)
+            .padding(.su16)
             .background(Color.softWhite)
-            .cornerRadius(12)
+            .cornerRadius(.su12)
             .customShadow(style: .light)
-            .padding(.horizontal, 8)
+            .padding(.horizontal, .su8)
     }
 }
 

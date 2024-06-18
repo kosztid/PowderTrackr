@@ -6,11 +6,11 @@ enum ViewFactory {
     static func powderTrackrView(navigator: PowderTrackrViewNavigatorProtocol) -> PowderTrackrView {
         Container.PowderTrackr.view(navigator)
     }
-    
+
     static func powderTrackrNavigator() -> PowderTrackrNavigator {
         Container.PowderTrackr.navigator()
     }
-    
+
     static func tabBarView(_ openAccount: @escaping () -> Void) -> TabBarNavigator {
         Container.TabBar.view(openAccount)
     }
