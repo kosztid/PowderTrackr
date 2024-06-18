@@ -2,9 +2,9 @@ import SwiftUI
 
 struct ResetPasswordView: View {
     private typealias Str = Rsc.ResetPasswordView
-    
+
     @StateObject var viewModel: ViewModel
-    
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: .zero) {

@@ -2,9 +2,9 @@ import SwiftUI
 
 struct RacesView: View {
     private typealias Str = Rsc.RacesView
-    
+
     @StateObject var viewModel: ViewModel
-    
+
     var body: some View {
         ScrollView {
             VStack {

@@ -2,9 +2,9 @@ import SwiftUI
 
 struct TrackListView: View {
     private typealias Str = Rsc.TrackListView
-    
+
     @StateObject var viewModel: ViewModel
-    
+
     var body: some View {
         SegmentedControl(
             firstTab: .init(tabItem: .init(name: Str.Tabs.normal)) {
@@ -29,7 +29,7 @@ struct TrackListView: View {
         }
         .toolbar(.hidden)
     }
-    
+
     var normalTab: some View {
         ScrollView {
             LazyVStack {
@@ -56,7 +56,7 @@ struct TrackListView: View {
         .onAppear(perform: viewModel.onAppear)
         .navigationBarTitleDisplayMode(.inline)
     }
-    
+
     var sharedTab: some View {
         ScrollView {
             LazyVStack {

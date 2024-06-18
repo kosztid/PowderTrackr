@@ -2,7 +2,7 @@ import SwiftUI
 
 struct RaceManageItemView: View {
     private typealias Str = Rsc.RaceManageItemView
-    
+
     let ownRace: Bool
     let race: Race
     let shortestTime: String
@@ -29,7 +29,7 @@ struct RaceManageItemView: View {
                 Divider().padding(.vertical, .su4)
                 dataSection
             }
-            
+
             Divider().padding(.vertical, .su4)
             managementSection
         }
@@ -103,6 +103,6 @@ struct RaceManageItemView: View {
 
 struct RaceManageItemView_Previews: PreviewProvider {
     static var previews: some View {
-        RaceManageItemView(race: Race(name: "Race 123", date: "2023-05-21 11:15:55", shortestTime: 123, shortestDistance: 123), openShare: { _ in}, viewMyRunsAction: { _ in }, ownRace: true)
+        RaceManageItemView(race: Race(name: "Race 123", date: "2023-05-21 11:15:55", shortestTime: 123, shortestDistance: 123), openShare: { _ in }, viewMyRunsAction: { _ in }, ownRace: true)
     }
 }

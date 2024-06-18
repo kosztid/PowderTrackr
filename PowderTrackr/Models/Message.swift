@@ -11,7 +11,6 @@ import AnyCodable
 #endif
 
 public struct Message: Codable, JSONEncodable, Hashable {
-
     public var id: String
     public var sender: String
     public var date: String
@@ -49,4 +48,3 @@ public struct Message: Codable, JSONEncodable, Hashable {
         try container.encode(isSeen, forKey: .isSeen)
     }
 }
-

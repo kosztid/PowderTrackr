@@ -6,7 +6,7 @@ struct RaceRunView: View {
         static let playerHeight: CGFloat = 200
         static let positionTickWidth: CGFloat = 200
     }
-    
+
     @StateObject var viewModel: ViewModel
     @State var playerOpened = false
 
@@ -130,10 +130,10 @@ struct RaceRunView_Previews: PreviewProvider {
 }
 
 func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int) {
-    return ((seconds % 3600) / 60, (seconds % 3600) % 60)
+    ((seconds % 3_600) / 60, (seconds % 3_600) % 60)
 }
 
 func printSecondsToHoursMinutesSeconds(_ seconds: Int) -> String {
   let (m, s) = secondsToHoursMinutesSeconds(seconds)
-    return String("\(String(format: "%02d",m)):\(String(format: "%02d",s))")
+    return String("\(String(format: "%02d", m)):\(String(format: "%02d", s))")
 }

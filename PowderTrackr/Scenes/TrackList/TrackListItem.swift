@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TrackListItem: View {
     private typealias Str = Rsc.TrackListItem
-    
+
     enum Style {
         case normal
         case shared
@@ -293,7 +293,7 @@ struct TrackListItem_Previews: PreviewProvider {
             }, noteAction: { _, _  in
             }, deleteAction: { _ in
             },
-            totalDistance: 1000
+            totalDistance: 1_000
         )
     }
 }

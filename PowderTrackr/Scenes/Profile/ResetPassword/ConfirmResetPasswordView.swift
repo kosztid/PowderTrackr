@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ConfirmResetPasswordView: View {
     private typealias Str = Rsc.ConfirmResetPasswordView
-    
+
     @StateObject var viewModel: ViewModel
 
     var body: some View {

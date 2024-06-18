@@ -1,5 +1,5 @@
-import ExyteChat
 import Combine
+import ExyteChat
 import SwiftUI
 
 public extension PowderTrackrChatView {
@@ -10,7 +10,7 @@ public extension PowderTrackrChatView {
     final class ViewModel: ObservableObject {
         @Published var messages: [ExyteChat.Message] = []
         @Published var chat: String = ""
-        
+
         let model: InputModel
         let names: [String]
         var timer: Timer?

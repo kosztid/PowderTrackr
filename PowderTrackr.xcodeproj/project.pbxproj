@@ -1125,6 +1125,7 @@
 			buildPhases = (
 				DA6255D7BD0FF67B0DEBDBBA /* [CP] Check Pods Manifest.lock */,
 				55E1F72F2C1F7E9D00DCC0D6 /* SwiftGen */,
+				555225D52C21CF85004D9725 /* Swiftlint */,
 				554587852A3DF8F1009A5485 /* Sources */,
 				554587862A3DF8F1009A5485 /* Frameworks */,
 				554587872A3DF8F1009A5485 /* Resources */,
@@ -1260,6 +1261,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		555225D52C21CF85004D9725 /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which \"${PODS_ROOT}/SwiftLint/swiftlint\" >/dev/null; then\n  \"${PODS_ROOT}/SwiftLint/swiftlint\" --fix\nelse\n  echo \"warning: SwiftLint not installed, run 'pod install'.\"\nfi\n";
+		};
 		55E1F72F2C1F7E9D00DCC0D6 /* SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

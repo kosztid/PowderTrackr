@@ -5,7 +5,7 @@ struct HeaderViewModifier: ViewModifier {
     let description: String?
     let backAction: (() -> Void)?
     let bottomView: AnyView?
-    
+
     func body(content: Content) -> some View {
         VStack(spacing: .zero) {
             HeaderView(title: title, description: description, backAction: backAction, bottomView: bottomView)

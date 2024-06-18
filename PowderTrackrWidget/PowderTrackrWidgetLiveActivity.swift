@@ -1,6 +1,6 @@
 import ActivityKit
-import WidgetKit
 import SwiftUI
+import WidgetKit
 
 struct PowderTrackrWidgetAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
@@ -19,7 +19,6 @@ struct PowderTrackrWidgetLiveActivity: Widget {
             }
             .activityBackgroundTint(Color.cyan)
             .activitySystemActionForegroundColor(Color.black)
-
         } dynamicIsland: { context in
             DynamicIsland {
                 // Expanded UI goes here.  Compose the expanded UI through
@@ -57,7 +56,7 @@ extension PowderTrackrWidgetAttributes.ContentState {
     fileprivate static var smiley: PowderTrackrWidgetAttributes.ContentState {
         PowderTrackrWidgetAttributes.ContentState(emoji: "😀")
      }
-     
+
      fileprivate static var starEyes: PowderTrackrWidgetAttributes.ContentState {
          PowderTrackrWidgetAttributes.ContentState(emoji: "🤩")
      }

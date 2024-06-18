@@ -2,9 +2,9 @@ import SwiftUI
 
 public struct FriendAddView: View {
     private typealias Str = Rsc.FriendAddView
-    
+
     @StateObject var viewModel: ViewModel
-    
+
     public var body: some View {
         ScrollView {
             VStack(spacing: .zero) {
@@ -26,7 +26,7 @@ public struct FriendAddView: View {
         .toastMessage(toastMessage: $viewModel.toast)
         .headerView(title: Str.Header.title, backAction: viewModel.dismissButtonTap, bottomView: AnyView(searchBar))
     }
-    
+
     @ViewBuilder var searchBar: some View {
         TextField(Str.SearchBar.label, text: $viewModel.searchText)
             .padding(.su8)

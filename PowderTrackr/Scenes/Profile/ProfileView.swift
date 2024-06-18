@@ -3,7 +3,7 @@ import SwiftUI
 
 struct ProfileView: View {
     private typealias Str = Rsc.ProfileView
-    
+
     @StateObject var viewModel: ViewModel
 
     var body: some View {
@@ -37,7 +37,6 @@ struct ProfileView: View {
                     }
                 }
         }
-        
     }
     var loggedOutView: some View {
             ScrollView(showsIndicators: false) {
@@ -70,7 +69,7 @@ struct ProfileView: View {
             }
             .headerView(description: Str.Header.description)
     }
-    
+
     var loggedInView: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: .su16) {

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LoginView: View {
     private typealias Str = Rsc.LoginView
-    
+
     @StateObject var viewModel: ViewModel
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -22,7 +22,7 @@ struct LoginView: View {
         }
         .navigationBarBackButtonHidden(true)
     }
-    
+
     var loginCredentials: some View {
         VStack(spacing: .su16) {
             Text(Str.Login.description)
@@ -53,7 +53,7 @@ struct LoginView: View {
         .padding(.vertical, .su16)
         .padding(.horizontal, .su8)
     }
-    
+
     @ViewBuilder var errorBanner: some View {
         if viewModel.showLoginError {
             VStack(alignment: .center) {

@@ -13,7 +13,7 @@ public protocol AccountServiceProtocol: AnyObject {
     var isSignedInPublisher: AnyPublisher<Bool, Never> { get }
     var userPublisher: AnyPublisher<AWSCognitoIdentityUser?, Never> { get }
     var emailPublisher: AnyPublisher<String?, Never> { get }
-    
+
     func register(_ username: String, _ email: String, _ password: String) -> AnyPublisher<Void, Error>
     func signIn(_ username: String, _ password: String, firstTime: Bool) -> AnyPublisher<AccountServiceModel.AccountData, Error>
     func confirmSignUp(with confirmationCode: String, _ username: String, _ password: String) -> AnyPublisher<Void, Error>
@@ -21,12 +21,12 @@ public protocol AccountServiceProtocol: AnyObject {
     func changePassword(oldPassword: String, newPassword: String) -> AnyPublisher<Void, Error>
     func confirmResetPassword(username: String, newPassword: String, confirmationCode: String) -> AnyPublisher<Void, Error>
     func updateLeaderboard(time: Double, distance: Double)
-    
+
     func createFriendList()
     func createUserTrackedPaths()
     func createLocation(xCoord: String, yCoord: String)
     func updateLocation(xCoord: String, yCoord: String)
-    
+
     func signOut() async
 }
 
@@ -34,17 +34,17 @@ final class AccountService {
     var accessToken: String?
     @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
     @AppStorage("name", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userName: String = ""
-    
+
     let isSignedIn: CurrentValueSubject<Bool, Never> = .init(false)
     let user: CurrentValueSubject<AWSCognitoIdentityUser?, Never> = .init(nil)
     let email: CurrentValueSubject<String?, Never> = .init(nil)
     var cancellables: Set<AnyCancellable> = []
     var username: String = ""
-    
+
     private let cognitoClientId = "33uv3qc4u4msgqmrujbmq44n9i"
     private var identityProvider: AWSCognitoIdentityProvider
     private var watchConnectivityProvider: WatchConnectivityProvider
-    
+
     init() {
         self.watchConnectivityProvider = WatchConnectivityProvider()
         let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
@@ -52,7 +52,7 @@ final class AccountService {
         self.user.value = pool?.currentUser()
         reload()
     }
-    
+
     func reload() {
         if self.user.value?.username == self.userName {
             self.isSignedIn.send(true)
@@ -66,10 +66,10 @@ final class AccountService {
                 print("Access token is unavailable.")
                 return
             }
-            
+
             let request = AWSCognitoIdentityProviderGetUserRequest()!
             request.accessToken = accessToken
-            
+
             self.identityProvider.getUser(request).continueWith { (task: AWSTask<AWSCognitoIdentityProviderGetUserResponse>) -> AnyObject? in
                 if let error = task.error {
                     print("Failed to fetch user attributes: \(error)")
@@ -99,21 +99,21 @@ extension AccountService: AccountServiceProtocol {
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-    
+
     var emailPublisher: AnyPublisher<String?, Never> {
         email
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-    
+
     var isSignedInPublisher: AnyPublisher<Bool, Never> {
         isSignedIn
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-    
+
     func resetPassword(username: String) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error> { [weak self] promise in
+        Future<Void, Error> { [weak self] promise in
             guard let self = self else {
                 promise(.failure(NSError(domain: "ResetPasswordError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
                 return
@@ -136,14 +136,13 @@ extension AccountService: AccountServiceProtocol {
         .eraseToAnyPublisher()
     }
 
-    
     func changePassword(oldPassword: String, newPassword: String) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error> { [weak self] promise in
+        Future<Void, Error> { [weak self] promise in
             guard let self = self else {
                 promise(.failure(NSError(domain: "ChangePasswordError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
                 return
             }
-            
+
             guard let user = self.user.value else {
                 promise(.failure(NSError(domain: "ChangePasswordError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No current user"])))
                 return
@@ -164,9 +163,8 @@ extension AccountService: AccountServiceProtocol {
         .eraseToAnyPublisher()
     }
 
-    
     func confirmResetPassword(username: String, newPassword: String, confirmationCode: String) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error> { [weak self] promise in
+        Future<Void, Error> { [weak self] promise in
             guard self != nil else {
                 promise(.failure(NSError(domain: "ConfirmResetPasswordError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
                 return
@@ -188,14 +186,14 @@ extension AccountService: AccountServiceProtocol {
         }
         .eraseToAnyPublisher()
     }
-    
+
     func signIn(_ username: String, _ password: String, firstTime: Bool = false) -> AnyPublisher<AccountServiceModel.AccountData, Error> {
-        return Future<AccountServiceModel.AccountData, Error> { [weak self] promise in
+        Future<AccountServiceModel.AccountData, Error> { [weak self] promise in
             guard let self = self else {
                 promise(.failure(NSError(domain: "LoginError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
                 return
             }
-            
+
             let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
             let user = pool?.getUser(username)
             user?.getSession(username, password: password, validationData: nil).continueWith { task -> Any? in
@@ -212,13 +210,13 @@ extension AccountService: AccountServiceProtocol {
         }
         .eraseToAnyPublisher()
     }
-    
+
     private func reloadCurrentUser() {
         guard let currentUser = self.user.value else {
             self.isSignedIn.send(false)
             return
         }
-        
+
         currentUser.getSession().continueWith { [weak self] task in
             DispatchQueue.main.async {
                 if let error = task.error {
@@ -234,22 +232,22 @@ extension AccountService: AccountServiceProtocol {
             return nil
         }
     }
-    
+
     // TODO: ENDPOINT CREATE USER ENTRIES
-    
+
     func register(_ username: String, _ email: String, _ password: String) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error> { [weak self] promise in
+        Future<Void, Error> { [weak self] promise in
             guard let self = self else {
                 promise(.failure(NSError(domain: "SignUpError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
                 return
             }
-            
+
             let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
             var attributes = [AWSCognitoIdentityUserAttributeType]()
-            
+
             let emailAttribute = AWSCognitoIdentityUserAttributeType(name: "email", value: email)
             attributes.append(emailAttribute)
-            
+
             pool?.signUp(username, password: password, userAttributes: attributes, validationData: nil).continueWith { task -> Any? in
                 DispatchQueue.main.async {
                     if let error = task.error {
@@ -271,9 +269,9 @@ extension AccountService: AccountServiceProtocol {
         }
         .eraseToAnyPublisher()
     }
-    
+
     func confirmSignUp(with confirmationCode: String, _ username: String, _ password: String) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error> { [weak self] promise in
+        Future<Void, Error> { [weak self] promise in
             guard let self = self else {
                 promise(.failure(NSError(domain: "ConfirmSignUpError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
                 return
@@ -281,7 +279,7 @@ extension AccountService: AccountServiceProtocol {
 
             let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
             let user = pool?.getUser(username)
-            
+
             user?.confirmSignUp(confirmationCode).continueWith { task -> Any? in
                 DispatchQueue.main.async {
                     if let error = task.error {
@@ -304,7 +302,7 @@ extension AccountService: AccountServiceProtocol {
         }
         .eraseToAnyPublisher()
     }
-    
+
     func signOut() {
         self.user.value?.signOut()
         updateSignInStatus(isSignedIn: false)
@@ -319,7 +317,7 @@ private extension AccountService {
         createLeaderBoardEntity()
         addUser(email: email)
     }
-    
+
     private func fetchUserAttributesReload(user: AWSCognitoIdentityUser) {
         user.getDetails().continueWith { [weak self] task in
             DispatchQueue.main.async {
@@ -331,7 +329,7 @@ private extension AccountService {
 
                     let email = attributes.first(where: { $0.name == "email" })?.value
                     let userID = attributes.first(where: { $0.name == "sub" })?.value
-                    
+
                     UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(email, forKey: "email")
                     UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(userID, forKey: "id")
                     UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(user.username, forKey: "name")
@@ -347,7 +345,6 @@ private extension AccountService {
             return nil
         }
     }
-
 
     private func isValidToken(_ token: String?) -> Bool {
         guard let token = token, let jwtToken = try? decodeJWT(token: token) else {
@@ -366,7 +363,7 @@ private extension AccountService {
         guard segments.count > 1 else {
             throw NSError(domain: "JWTError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid token"])
         }
-        
+
         let base64String = segments[1]
             .replacingOccurrences(of: "-", with: "+")
             .replacingOccurrences(of: "_", with: "/")
@@ -381,15 +378,14 @@ private extension AccountService {
         guard let data = Data(base64Encoded: base64, options: .ignoreUnknownCharacters) else {
             throw NSError(domain: "JWTError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid base64"])
         }
-        
+
         let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
         guard let json = jsonObject as? [String: Any] else {
             throw NSError(domain: "JWTError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON"])
         }
-        
+
         return json
     }
-
 
     private func fetchUserAttributes(user: AWSCognitoIdentityUser, firstTime: Bool = false, promise: @escaping (Result<AccountServiceModel.AccountData, Error>) -> Void) {
         user.getDetails().continueWith { [weak self] task in
@@ -401,28 +397,28 @@ private extension AccountService {
                     let attributes = userDetails.userAttributes ?? []
                     let email = attributes.first(where: { $0.name == "email" })?.value
                     let userID = attributes.first(where: { $0.name == "sub" })?.value
-                    
+
                     UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(email, forKey: "email")
                     UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(userID, forKey: "id")
                     UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(userDetails.username, forKey: "name")
-                    
+
                     self.email.send(email)
                     self.userName = userDetails.username ?? ""
                     self.userID = userID ?? ""
                     self.isSignedIn.send(true)
                     self.watchConnectivityProvider.sendUserId(userID ?? "")
-                    
+
                     if firstTime {
                         self.initUser(email: email ?? "")
                     }
-                    
+
                     promise(.success(AccountServiceModel.AccountData(userID: userID!)))
                 }
             }
             return nil
         }
     }
-    
+
     // Helper function to decode the ID token and extract user ID
     private func decodeIdToken(idToken: String) -> String {
         let segments = idToken.components(separatedBy: ".")

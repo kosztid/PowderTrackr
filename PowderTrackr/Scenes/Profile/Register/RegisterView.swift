@@ -2,7 +2,7 @@ import SwiftUI
 
 struct RegisterView: View {
     private typealias Str = Rsc.RegisterView
-    
+
     @StateObject var viewModel: ViewModel
 
     var body: some View {

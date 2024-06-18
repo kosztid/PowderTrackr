@@ -2,9 +2,9 @@ import SwiftUI
 
 struct VerifyView: View {
     private typealias Str = Rsc.VerifyView
-    
+
     @StateObject var viewModel: ViewModel
-    
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: .zero) {
@@ -24,7 +24,7 @@ struct VerifyView: View {
             .padding(.vertical, .su16)
             .padding(.horizontal, .su8)
         }
-        
+
         .headerView(description: Str.Header.description)
         .background(Color.grayPrimary)
         .navigationBarBackButtonHidden(true)

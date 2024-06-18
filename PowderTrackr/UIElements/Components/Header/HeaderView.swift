@@ -2,12 +2,12 @@ import SwiftUI
 
 struct HeaderView: View {
     private typealias Str = Rsc.HeaderView
-    
+
     let title: String
     let description: String?
     let backAction: (() -> Void)?
     let bottomView: AnyView?
-    
+
     var body: some View {
         VStack(alignment: .center, spacing: .su16) {
             HStack(spacing: .su16) {
@@ -51,7 +51,7 @@ struct HeaderView: View {
         )
         .customShadow(style: .dark)
     }
-    
+
     init(
         title: String?,
         description: String?,

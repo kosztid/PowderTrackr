@@ -2,9 +2,9 @@ import SwiftUI
 
 public struct SocialView: View {
     private typealias Str = Rsc.SocialView
-    
+
     @StateObject var viewModel: ViewModel
-    
+
     public var body: some View {
         VStack(spacing: .su16) {
             notificationSection
@@ -37,11 +37,10 @@ public struct SocialView: View {
                     .padding()
                 }
             }
-            
         }
         .toolbar(.hidden)
     }
-    
+
     private var friendsList: some View {
         ScrollView {
             LazyVStack {
@@ -60,7 +59,7 @@ public struct SocialView: View {
         }
         .background(Color.grayPrimary)
     }
-    
+
     @ViewBuilder private var notificationSection: some View {
         if viewModel.notification {
             InfoCardView(
@@ -83,5 +82,3 @@ struct SocialView_Preview: PreviewProvider {
         ViewFactory.socialNavigator({})
     }
 }
-
-

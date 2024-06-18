@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ShareListView: View {
     private typealias Str = Rsc.ShareListView
-    
+
     let friends: Friendlist?
     let action: (Friend) -> Void
     let dismissAction: () -> Void
@@ -25,7 +25,6 @@ struct ShareListView: View {
                     }
                     list
                         .padding(.horizontal, .su32)
-
                 }
                 .padding()
                 .background(.white)

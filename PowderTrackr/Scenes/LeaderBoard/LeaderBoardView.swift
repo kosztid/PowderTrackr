@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LeaderBoardView: View {
     private typealias Str = Rsc.LeaderBoardView
-    
+
     @StateObject var viewModel: ViewModel
 
     var body: some View {
@@ -61,7 +61,7 @@ struct LeaderBoardView: View {
                         Text(viewModel.leaderBoardList[index].name)
                             .textStyle(.bodyLargeBold)
                         Spacer()
-                        Text(leaderBoardRowData(index:index))
+                        Text(leaderBoardRowData(index: index))
                             .textStyle(.bodyLarge)
                             .foregroundStyle(Color.darkSlateGray)
                     }
@@ -75,12 +75,12 @@ struct LeaderBoardView: View {
 
     private func leaderBoardRowData(index: Int) -> String {
         if viewModel.tabState == .distance {
-            return Str.Row.Distance.label(String(format: "%.1f", viewModel.leaderBoardList[index].distance / 1000))
+            return Str.Row.Distance.label(String(format: "%.1f", viewModel.leaderBoardList[index].distance / 1_000))
         } else {
             return Str.Row.Time.label(String(format: "%.f", viewModel.leaderBoardList[index].totalTimeInSeconds / 60))
         }
     }
-    
+
     private func leaderboardLeadingView(place: Int) -> AnyView {
         if place < 4 {
             return AnyView(
@@ -105,8 +105,8 @@ struct LeaderBoardView: View {
         } else {
             return .bodyLarge
         }
-    }    
-    
+    }
+
     private func leaderboardLeadingViewImageSize(place: Int) -> Font {
         if place == 1 {
             return .title

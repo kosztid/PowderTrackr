@@ -2,9 +2,9 @@ import SwiftUI
 
 struct ChangePasswordView: View {
     private typealias Str = Rsc.ChangePasswordView
-    
+
     @StateObject var viewModel: ViewModel
-    
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: .zero) {
@@ -27,7 +27,7 @@ struct ChangePasswordView: View {
             .padding(.vertical, .su16)
             .padding(.horizontal, .su8)
         }
-        
+
         .headerView(description: Str.Header.description)
         .background(Color.grayPrimary)
         .toolbar {

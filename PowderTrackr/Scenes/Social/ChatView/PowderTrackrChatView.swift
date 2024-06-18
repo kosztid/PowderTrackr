@@ -3,13 +3,13 @@ import SwiftUI
 
 public struct PowderTrackrChatView: View {
     typealias Str = Rsc.PowderTrackrChatView
-    
+
     @StateObject var viewModel: ViewModel
 
     public var body: some View {
         ChatView(messages: viewModel.messages) { message in
             viewModel.sendMessage(draftMessage: message)
-        } inputViewBuilder: { textBinding, attachments, state, style, actionClosure, _  in
+        } inputViewBuilder: { textBinding, _, _, style, actionClosure, _  in
             Group {
                 switch style {
                 case .message:

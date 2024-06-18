@@ -10,9 +10,9 @@ struct FriendRequestRowView: View {
             Text(requester)
                 .textStyle(.bodyLarge)
                 .foregroundColor(Color.primary)
-            
+
             Spacer()
-            
+
             Button(action: acceptAction) {
                 Image(systemName: "checkmark")
                     .foregroundColor(.white)
@@ -21,7 +21,7 @@ struct FriendRequestRowView: View {
                     .clipShape(Circle())
             }
             .padding(.trailing, .su4)
-            
+
             Button(action: declineAction) {
                 Image(systemName: "xmark")
                     .foregroundColor(.white)

@@ -10,14 +10,14 @@ extension ProfileView {
         @Published var tracks: [TrackedPath] = []
         @Published var totalDistance: Double = 0.0
         @Published var totalTime: String = ""
-        
+
         let dateFormatter = DateFormatter()
         let formatter = DateComponentsFormatter()
         private var cancellables: Set<AnyCancellable> = []
         private let navigator: ProfileViewNavigatorProtocol
         private let accountService: AccountServiceProtocol
         private let mapService: MapServiceProtocol
-        
+
         init(
             navigator: ProfileViewNavigatorProtocol,
             accountService: AccountServiceProtocol,
@@ -28,29 +28,29 @@ extension ProfileView {
             self.mapService = mapService
             currentEmail = "..."
             userName = "..."
-            
+
             bindPublishers()
-            
+
             formatter.allowedUnits = [.hour, .minute, .second]
             formatter.unitsStyle = .abbreviated
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         }
-        
+
         func logout() {
             Task {
                 await accountService.signOut()
                 mapService.queryTrackedPaths()
             }
         }
-        
+
         func login() {
             navigator.login()
         }
-        
+
         func register() {
             navigator.register()
         }
-        
+
         func loadData() {
             self.mapService.queryTrackedPaths()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -60,7 +60,7 @@ extension ProfileView {
                 self.makeTotals()
             }
         }
-        
+
         func bindPublishers() {
             accountService.isSignedInPublisher
                 .sink { _ in
@@ -68,7 +68,7 @@ extension ProfileView {
                     self?.isSignedIn = isSignedIn
                 }
                 .store(in: &cancellables)
-            
+
             mapService.trackedPathPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] track in
@@ -84,7 +84,7 @@ extension ProfileView {
                 }
                 .store(in: &cancellables)
         }
-        
+
         func makeTotals() {
             var total = 0.0
             var totalDate = 0.0
@@ -106,16 +106,16 @@ extension ProfileView {
             totalTime = formatter.string(from: totalDate) ?? ""
             totalDistance = total
             let totalTime = totalDate
-            
+
             if isSignedIn && totalDistance > 0 {
                 accountService.updateLeaderboard(time: totalTime, distance: totalDistance)
             }
         }
-        
+
         func updatePasswordTap() {
             navigator.updatePassword()
         }
-        
+
         func dismissButtonTap() {
             navigator.dismissScreen()
         }

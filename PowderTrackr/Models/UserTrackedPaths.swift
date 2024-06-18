@@ -11,7 +11,6 @@ import AnyCodable
 #endif
 
 public struct UserTrackedPaths: Codable, JSONEncodable, Hashable {
-
     public var id: String
     public var tracks: [TrackedPath]?
     public var sharedTracks: [TrackedPath]?
@@ -37,4 +36,3 @@ public struct UserTrackedPaths: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(sharedTracks, forKey: .sharedTracks)
     }
 }
-

@@ -2,7 +2,7 @@ import SwiftUI
 
 public struct FriendListItem: View {
     private typealias Str = Rsc.FriendListItem
-    
+
     var friend: Friend
     var notification: Bool
     @State var isTracking: Bool
@@ -37,7 +37,7 @@ public struct FriendListItem: View {
         .frame(height: .su64)
         .floatingRoundedCardBackground()
     }
-    
+
     var lastMessageDescription: String {
         if let message = lastMessage {
             if message.sender == friend.id {
