@@ -104,11 +104,7 @@ extension MapView {
             mapService.querySharedPaths()
             mapService.queryRaces()
         }
-        
-        func confirm() {
-            accountService.createUserTrackedPaths()
-        }
-        
+
         func raceTrackAction() {
             raceTracking = true
             startTracking()

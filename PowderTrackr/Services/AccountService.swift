@@ -21,10 +21,7 @@ public protocol AccountServiceProtocol: AnyObject {
     func changePassword(oldPassword: String, newPassword: String) -> AnyPublisher<Void, Error>
     func confirmResetPassword(username: String, newPassword: String, confirmationCode: String) -> AnyPublisher<Void, Error>
     func updateLeaderboard(time: Double, distance: Double)
-    
-    func createFriendList()
-    func createUserTrackedPaths()
-    func createLocation(xCoord: String, yCoord: String)
+
     func updateLocation(xCoord: String, yCoord: String)
     
     func signOut() async
@@ -114,7 +111,7 @@ extension AccountService: AccountServiceProtocol {
     
     func resetPassword(username: String) -> AnyPublisher<Void, Error> {
         return Future<Void, Error> { [weak self] promise in
-            guard let self = self else {
+            if self == nil {
                 promise(.failure(NSError(domain: "ResetPasswordError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
                 return
             }
@@ -313,10 +310,6 @@ extension AccountService: AccountServiceProtocol {
 
 private extension AccountService {
     func initUser(email: String) {
-        createLocation(xCoord: "0", yCoord: "0")
-        createFriendList()
-        createUserTrackedPaths()
-        createLeaderBoardEntity()
         addUser(email: email)
     }
     
