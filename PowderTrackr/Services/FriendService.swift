@@ -193,8 +193,7 @@ extension FriendService: FriendServiceProtocol {
         friends?.removeAll { $0.id == friend.id }
         let friendList = friendList.value
         friendList?.friends = friends
-        guard let data = friendList?.data else { return }
-        DefaultAPI.userfriendListsPut(userfriendList: data ) { data, error in
+        DefaultAPI.userfriendListsDelete(userFriendDeletion: .init(userId: userID, friendId: friend.id)){ data, error in
             if let error = error {
                 self.networkError.send(.init(title: "An issue occured while deleting your friend", type: .error))
                 print("Error: \(error)")

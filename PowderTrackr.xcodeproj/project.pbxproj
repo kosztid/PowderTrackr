@@ -102,6 +102,8 @@
 		55E98BAF2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E98BAE2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift */; };
 		55E98BB12A73F14A00634917 /* PowderTrackrChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E98BB02A73F14A00634917 /* PowderTrackrChatView.swift */; };
 		55E9E6632AC897E50090FC6B /* RaceRunView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E9E6622AC897E50090FC6B /* RaceRunView.swift */; };
+		55EE20AA2C36C2E400CC6F7A /* UserFriendDeletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EE20A92C36C2E400CC6F7A /* UserFriendDeletion.swift */; };
+		55EE20AB2C36C2E400CC6F7A /* UserFriendDeletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EE20A92C36C2E400CC6F7A /* UserFriendDeletion.swift */; };
 		55FF48782A9136D200527F18 /* LayerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF48772A9136D200527F18 /* LayerWidget.swift */; };
 		55FF487C2A9136F800527F18 /* LayerWidgetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */; };
 		9351A2604BD131F77467E18C /* Pods_PowderTrackr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4B3B8A52BF11AE2009AE7B5 /* Pods_PowderTrackr.framework */; };
@@ -337,6 +339,7 @@
 		55E98BAE2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PowderTrackrChatView+ViewModel.swift"; sourceTree = "<group>"; };
 		55E98BB02A73F14A00634917 /* PowderTrackrChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrChatView.swift; sourceTree = "<group>"; };
 		55E9E6622AC897E50090FC6B /* RaceRunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceRunView.swift; sourceTree = "<group>"; };
+		55EE20A92C36C2E400CC6F7A /* UserFriendDeletion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFriendDeletion.swift; sourceTree = "<group>"; };
 		55FF48772A9136D200527F18 /* LayerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerWidget.swift; sourceTree = "<group>"; };
 		55FF487B2A9136F800527F18 /* LayerWidgetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerWidgetButton.swift; sourceTree = "<group>"; };
 		705F020E722E17762F7F9CEC /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
@@ -580,6 +583,7 @@
 				B4899C3A2B7648EA0015BD3F /* Race.swift */,
 				B4899C342B7648E90015BD3F /* TrackedPath.swift */,
 				B4899C332B7648E90015BD3F /* UserfriendList.swift */,
+				55EE20A92C36C2E400CC6F7A /* UserFriendDeletion.swift */,
 				B4C96F8A2BD419CB005B84A4 /* User.swift */,
 				B4899C3B2B7648EA0015BD3F /* UserTrackedPaths.swift */,
 				558815B32A3E361600667C1A /* Friendlist.swift */,
@@ -1423,6 +1427,7 @@
 				5506F7BB2A4724F50000761D /* SegmentedControl.swift in Sources */,
 				B4899C402B7648EA0015BD3F /* PersonalChat.swift in Sources */,
 				55B459422AC9B281007B3775 /* RaceManageItemView.swift in Sources */,
+				55EE20AA2C36C2E400CC6F7A /* UserFriendDeletion.swift in Sources */,
 				55E9E6632AC897E50090FC6B /* RaceRunView.swift in Sources */,
 				B44B8A9E2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift in Sources */,
 				55E98BAF2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift in Sources */,
@@ -1483,6 +1488,7 @@
 				B4B3B8B12BF11E07009AE7B5 /* LeaderBoard.swift in Sources */,
 				B4B3B8B22BF11E07009AE7B5 /* UserfriendList.swift in Sources */,
 				B4B3B8B32BF11E07009AE7B5 /* User.swift in Sources */,
+				55EE20AB2C36C2E400CC6F7A /* UserFriendDeletion.swift in Sources */,
 				B4B3B8B42BF11E07009AE7B5 /* UserTrackedPaths.swift in Sources */,
 				B4B3B8B52BF11E07009AE7B5 /* Race.swift in Sources */,
 				B4B3B8B62BF11E07009AE7B5 /* PersonalChat.swift in Sources */,

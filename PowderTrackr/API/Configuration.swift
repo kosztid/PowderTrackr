@@ -9,7 +9,7 @@ import Foundation
 import FoundationNetworking
 #endif
 
-open class ApiConfiguration {
+open class Configuration {
     
     /// Configures the range of HTTP status codes that will result in a successful response
     ///

@@ -54,7 +54,7 @@ public struct SkiingButtonStyle: ButtonStyle {
         self.style = style
     }
 
-    public func makeBody(configuration: Configuration) -> some View {
+    public func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         switch style {
         case .primary, .secondary:
             plainStyle(configuration)
@@ -70,7 +70,7 @@ public struct SkiingButtonStyle: ButtonStyle {
     }
 
     @ViewBuilder
-    private func plainStyle(_ configuration: Configuration) -> some View {
+    private func plainStyle(_ configuration: ButtonStyle.Configuration) -> some View {
         if isEnabled {
             configuration.label
                 .textStyle(.bodyLargeBold)
@@ -92,7 +92,7 @@ public struct SkiingButtonStyle: ButtonStyle {
     }
 
     @ViewBuilder
-    private func plainCompactStyle(_ configuration: Configuration) -> some View {
+    private func plainCompactStyle(_ configuration: ButtonStyle.Configuration) -> some View {
         if isEnabled {
             configuration.label
                 .textStyle(.bodyLarge)
@@ -111,7 +111,7 @@ public struct SkiingButtonStyle: ButtonStyle {
     }
 
     @ViewBuilder
-    private func borderedStyle(_ configuration: Configuration) -> some View {
+    private func borderedStyle(_ configuration: ButtonStyle.Configuration) -> some View {
         configuration.label
             .textStyle(.bodyLargeBold)
             .foregroundColor(style.foregroundColor)
@@ -127,7 +127,7 @@ public struct SkiingButtonStyle: ButtonStyle {
     }
 
     @ViewBuilder
-    private func imageBorderedStyle(_ configuration: Configuration, image: Image) -> some View {
+    private func imageBorderedStyle(_ configuration: ButtonStyle.Configuration, image: Image) -> some View {
         HStack {
             image
             configuration.label
