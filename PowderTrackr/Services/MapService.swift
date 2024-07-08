@@ -29,8 +29,7 @@ public protocol MapServiceProtocol: AnyObject {
 
 final class MapService {
     var userID: String {
-        "5f32e5d8-373f-4276-b419-d86e0551bf67"
-//        UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? ""
+        UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? ""
     }
     private let tracking: CurrentValueSubject<TrackedPath?, Never> = .init(nil)
     private let trackedPathModel: CurrentValueSubject<TrackedPathModel?, Never> = .init(nil)
