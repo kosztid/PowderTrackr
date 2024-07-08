@@ -62,11 +62,13 @@ extension MapView {
         @Published var shared: Bool = false
         @Published var cameraPosChanged: Bool = true
         
-        @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
-        @AppStorage("elapsedTime", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var elapsedTimeStorage: Double = 0.0
-        @AppStorage("avgSpeed", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var avgSpeedStorage: Double = 0.0
-        @AppStorage("distance", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var distanceStorage: Double = 0.0
-        @AppStorage("isTracking", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var isTrackingStorage: Bool = false
+        var userID: String {
+            UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? ""
+        }
+        @AppStorage("elapsedTime", store: UserDefaults(suiteName: "group.koszti.storedData")) var elapsedTimeStorage: Double = 0.0
+        @AppStorage("avgSpeed", store: UserDefaults(suiteName: "group.koszti.storedData")) var avgSpeedStorage: Double = 0.0
+        @AppStorage("distance", store: UserDefaults(suiteName: "group.koszti.storedData")) var distanceStorage: Double = 0.0
+        @AppStorage("isTracking", store: UserDefaults(suiteName: "group.koszti.storedData")) var isTrackingStorage: Bool = false
         
         var elapsedTime: Double { 
             startTime?.distance(to: Date()) ?? 0

@@ -28,7 +28,10 @@ public protocol MapServiceProtocol: AnyObject {
 }
 
 final class MapService {
-    @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
+    var userID: String {
+        "5f32e5d8-373f-4276-b419-d86e0551bf67"
+//        UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? ""
+    }
     private let tracking: CurrentValueSubject<TrackedPath?, Never> = .init(nil)
     private let trackedPathModel: CurrentValueSubject<TrackedPathModel?, Never> = .init(nil)
     private let sharedPathModel: CurrentValueSubject<TrackedPathModel?, Never> = .init(nil)
@@ -188,7 +191,7 @@ extension MapService: MapServiceProtocol {
             tracks[id] = trackedPath
         }
         
-        let data = UserTrackedPaths(id: UserDefaults(suiteName: "group.koszti.PowderTrackr")?.string(forKey: "id") ?? "", tracks: tracks, sharedTracks: sharedTracks)
+        let data = UserTrackedPaths(id: UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? "", tracks: tracks, sharedTracks: sharedTracks)
         
         DefaultAPI.userTrackedPathsPut(userTrackedPaths: data) { data, error in
             if let error = error {

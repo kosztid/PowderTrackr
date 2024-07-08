@@ -14,7 +14,9 @@ extension RacesView {
         let dateFormatter = DateFormatter()
         let inputModel: InputModel
         
-        @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
+        var userID: String {
+            UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? ""
+        }
         private let navigator: RacesViewNavigatorProtocol
         private let mapService: MapServiceProtocol
         private let friendService: FriendServiceProtocol

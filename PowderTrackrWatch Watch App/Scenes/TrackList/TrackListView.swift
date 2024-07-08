@@ -11,11 +11,12 @@ struct TrackListView: View {
                         .foregroundStyle(Color.warmGray)
                         .padding(.vertical, .su20)
                 }
-                Button("LOAD") {
-                    viewModel.load()
-                }
                 ForEach(viewModel.tracks) { track in
-                    Text(track.name)
+                    HStack {
+                        Text(track.name)
+                        Spacer()
+                        Text("\(viewModel.calculateDistance(track: track), specifier: "%.f") m")
+                    }
                 }
             }
         }

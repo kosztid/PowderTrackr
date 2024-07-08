@@ -6,15 +6,10 @@ extension TrackListView {
         private var cancellables: Set<AnyCancellable> = []
         
         private let mapService: MapServiceProtocol
-        private let dataService: DataService
-
         @Published var tracks: [TrackedPath] = []
-        
-        @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
         
         init() {
             self.mapService = MapService()
-            self.dataService = DataService()
             
             initBindings()
             
@@ -33,6 +28,18 @@ extension TrackListView {
         
         func load() {
             mapService.queryTrackedPaths()
+        }
+        
+        func calculateDistance(track: TrackedPath) -> Double {
+            var list: [CLLocation] = []
+            var distance = 0.0
+            for index in 0..<(track.xCoords?.count ?? 0) {
+                list.append(CLLocation(latitude: track.xCoords?[index] ?? 0, longitude: track.yCoords?[index] ?? 0))
+            }
+            for itemDx in 1..<list.count {
+                distance += list[itemDx].distance(from: list[itemDx - 1])
+            }
+            return distance
         }
     }
 }
