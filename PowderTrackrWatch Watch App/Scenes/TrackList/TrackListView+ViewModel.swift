@@ -7,6 +7,7 @@ extension TrackListView {
         
         private let mapService: MapServiceProtocol
         @Published var tracks: [TrackedPath] = []
+        @Published var selectedTrack: TrackedPath?
         
         init() {
             self.mapService = MapService()
