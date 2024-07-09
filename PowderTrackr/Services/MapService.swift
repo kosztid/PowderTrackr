@@ -15,7 +15,7 @@ public protocol MapServiceProtocol: AnyObject {
     func shareTrack(_ trackedPath: TrackedPath, _ friend: String)
     func removeTrackedPath(_ trackedPath: TrackedPath)
     func removeSharedTrackedPath(_ trackedPath: TrackedPath)
-    func queryTrackedPaths()
+    func queryTrackedPaths(_ id: String?)
     func querySharedPaths()
     func sendCurrentlyTracked(_ trackedPath: TrackedPath)
     func changeRaceCreationState(_ raceCreationState: RaceCreationState)
@@ -120,6 +120,10 @@ extension MapService: MapServiceProtocol {
     }
     
     func queryTrackedPaths() {
+        queryTrackedPaths(nil)
+    }
+    
+    func queryTrackedPaths(_ id: String? = nil) {
         var currentPaths: TrackedPathModel?
         
         DefaultAPI.userTrackedPathsGet { data, error in
@@ -131,7 +135,7 @@ extension MapService: MapServiceProtocol {
                     let model = TrackedPathModel(id: path.id, tracks: path.tracks)
                     return model
                 }.first { item in
-                    item.id == self.userID
+                    item.id == (id ?? self.userID)
                 }
                 self.trackedPathModel.send(currentPaths)
             }

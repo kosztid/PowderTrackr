@@ -4,11 +4,14 @@ struct HomeView: View {
     @StateObject var viewModel = ViewModel()
     
     var body: some View {
-        if viewModel.isTracking {
-            trackingView
-        } else {
-            homeScreen
+        VStack {
+            if viewModel.isTracking {
+                trackingView
+            } else {
+                homeScreen
+            }
         }
+        
     }
     
     private var homeScreen: some View {

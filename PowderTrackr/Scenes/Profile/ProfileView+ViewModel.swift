@@ -39,7 +39,7 @@ extension ProfileView {
         func logout() {
             Task {
                 await accountService.signOut()
-                mapService.queryTrackedPaths()
+                mapService.queryTrackedPaths(nil)
             }
         }
         
@@ -52,7 +52,7 @@ extension ProfileView {
         }
         
         func loadData() {
-            self.mapService.queryTrackedPaths()
+            self.mapService.queryTrackedPaths(nil)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.currentEmail = UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "email") ?? ""
 
