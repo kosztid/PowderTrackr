@@ -19,7 +19,6 @@ public extension UIFont {
 
 /// https://stackoverflow.com/questions/30507905/xcode-using-custom-fonts-inside-dynamic-framework/32600784#comment101568381_32600784
 extension UIFont {
-
     static var bundle: Bundle {
         Bundle(for: BundleToken.self)
     }

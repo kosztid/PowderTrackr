@@ -30,7 +30,7 @@ DEPENDENCIES:
   - Factory (~> 1.2.0)
   - FlowStacks
   - GoogleMaps (= 7.4.0)
-  - SwiftGen
+  - SwiftGen (~> 6.0)
   - SwiftLint
 
 SPEC REPOS:
@@ -64,6 +64,6 @@ SPEC CHECKSUMS:
   SwiftLint: 1ac76dac888ca05cb0cf24d0c85887ec1209961d
   SwiftUIIntrospect: 622899b318ecf437d0bef44b79bec10c69efb86f
 
-PODFILE CHECKSUM: a417e5a4117494cc86e22ac030293bcbf47084fe
+PODFILE CHECKSUM: 26545046c74463a089d88918f6f57ea8ee55ce57
 
 COCOAPODS: 1.15.2

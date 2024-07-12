@@ -1,12 +1,14 @@
 import SwiftUI
 
 struct LoginView: View {
+    private typealias Str = Rsc.LoginView
+
     @StateObject var viewModel: ViewModel
     var body: some View {
         ScrollView(showsIndicators: false) {
             loginCredentials
         }
-        .headerView(title: "Welcome to PowderTrackr", description: "Login")
+        .headerView(description: Str.Header.description)
         .background(Color.grayPrimary)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -20,29 +22,29 @@ struct LoginView: View {
         }
         .navigationBarBackButtonHidden(true)
     }
-    
+
     var loginCredentials: some View {
         VStack(spacing: .su16) {
-            Text("Please enter your credentials")
+            Text(Str.Login.description)
                 .textStyle(.body)
                 .foregroundColor(.blueSecondary)
                 .padding(.top, .su16)
             TextField(text: $viewModel.userName)
-                .regularTextFieldStyle(label: "Username")
+                .regularTextFieldStyle(label: Str.username)
             ToggleableSecureField(text: $viewModel.password)
-                .regularTextFieldStyle(label: "Password")
+                .regularTextFieldStyle(label: Str.password)
             HStack {
                 Button {
                     viewModel.resetPassword()
                 } label: {
-                    Text("Forgotten Password")
+                    Text(Str.Button.forgottenPassword)
                         .textStyle(.bodySmall)
                 }
                 .padding(.leading, .su12)
                 Spacer()
             }
             errorBanner
-            Button("Login") {
+            Button(Str.Button.login) {
                 viewModel.login()
             }
             .buttonStyle(SkiingButtonStyle(style: .secondary))
@@ -51,14 +53,14 @@ struct LoginView: View {
         .padding(.vertical, .su16)
         .padding(.horizontal, .su8)
     }
-    
+
     @ViewBuilder var errorBanner: some View {
         if viewModel.showLoginError {
             VStack(alignment: .center) {
-                Text("Failed to log in please check your credentials")
+                Text(Str.Error.description)
                     .foregroundStyle(.red)
                     .font(.subheadline)
-                Text("Please check your credentials")
+                Text(Str.Error.subDescription)
                     .foregroundStyle(.red)
                     .font(.subheadline)
             }

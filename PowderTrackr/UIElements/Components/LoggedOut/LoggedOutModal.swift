@@ -4,9 +4,9 @@ struct LoggedOutModal: View {
     private enum Layout {
         static let backgroundOpacity: CGFloat = 0.3
     }
-    
+
     let action: () -> Void
-    
+
     var body: some View {
         ZStack {
             Color.black.opacity(Layout.backgroundOpacity)

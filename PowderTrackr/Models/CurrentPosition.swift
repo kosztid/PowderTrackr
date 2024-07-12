@@ -11,7 +11,6 @@ import AnyCodable
 #endif
 
 public struct CurrentPosition: Codable, JSONEncodable, Hashable {
-
     public var id: String
     public var name: String
     public var xCoord: String
@@ -41,4 +40,3 @@ public struct CurrentPosition: Codable, JSONEncodable, Hashable {
         try container.encode(yCoord, forKey: .yCoord)
     }
 }
-

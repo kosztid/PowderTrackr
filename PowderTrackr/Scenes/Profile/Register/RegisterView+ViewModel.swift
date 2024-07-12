@@ -10,21 +10,20 @@ extension RegisterView {
 
         private let navigator: RegisterViewNavigatorProtocol
         private let accountService: AccountServiceProtocol
-        
+
         private var cancellables: Set<AnyCancellable> = []
 
         func register() {
             accountService.register(username, email, password).sink(
                 receiveCompletion: { [weak self] completion in
-                    guard case .failure(_) = completion else { return }
+                    guard case .failure = completion else { return }
                     self?.toast = .init(title: "Failed to register", type: .error)
-                }, receiveValue: { [weak self] data in
+                }, receiveValue: { [weak self] _ in
                     guard let self else { return }
                     self.navigator.registered(username: self.username, password: self.password)
                 }
             )
             .store(in: &cancellables)
-            
         }
 
         func dismiss() {

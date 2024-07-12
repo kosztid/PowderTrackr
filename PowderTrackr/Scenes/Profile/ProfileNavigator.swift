@@ -39,12 +39,10 @@ protocol ResetPasswordViewNavigatorProtocol {
     func navigateBack()
 }
 
-
 protocol ChangePasswordViewNavigatorProtocol {
     func changeButtonTapped()
     func navigateBack()
 }
-
 
 protocol ResetPasswordVerificationNavigatorProtocol {
     func verifyButtonTapped()

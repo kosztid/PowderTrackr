@@ -3,7 +3,7 @@ import SwiftUI
 
 struct PowderTrackrView: View {
     @StateObject var viewModel: ViewModel
-    
+
     var body: some View {
         VStack(spacing: 0) {
             HStack {

@@ -11,7 +11,6 @@ import AnyCodable
 #endif
 
 public struct GroupChat: Codable, JSONEncodable, Hashable {
-
     public var id: String
     public var participants: [String]
     public var messages: [Message]
@@ -37,4 +36,3 @@ public struct GroupChat: Codable, JSONEncodable, Hashable {
         try container.encode(messages, forKey: .messages)
     }
 }
-

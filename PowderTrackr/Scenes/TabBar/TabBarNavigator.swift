@@ -3,7 +3,7 @@ import SwiftUI
 public struct TabBarNavigator: View {
     @State var selectedItem: Int = 0
     let openAccount: () -> Void
-    
+
     public var body: some View {
         TabView(selection: $selectedItem) {
             ViewFactory.mapView()
@@ -21,7 +21,6 @@ public struct TabBarNavigator: View {
             ViewFactory.socialNavigator(openAccount)
                 .tabItem { Label("Social", systemImage: "person.3.fill") }
                 .tag(4)
-            
         }
         .toolbarColorScheme(.light, for: .tabBar)
     }

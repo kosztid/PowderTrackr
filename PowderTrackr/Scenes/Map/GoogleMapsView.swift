@@ -42,7 +42,7 @@ struct GoogleMapsView: UIViewRepresentable {
             self._shared = shared
             self._raceMarkers = raceMarkers
             super.init()
-            
+
             friendService.queryFriendLocations()
 
             mapService.raceCreationStatePublisher
@@ -105,7 +105,6 @@ struct GoogleMapsView: UIViewRepresentable {
                 })
                 .store(in: &cancellables)
         }
-
 
         func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
             guard let race = marker.userData as? Race else { return false }
@@ -170,15 +169,15 @@ struct GoogleMapsView: UIViewRepresentable {
             for raceMarker in raceMarkers {
                 raceMarker.map = innerMapView
             }
-            
+
             if selectedRace == nil {
                 endPointMarker = nil
             }
-            
+
             if endPointMarker != nil {
                 endPointMarker?.map = innerMapView
             }
-            
+
             makePolylines()
         }
 
@@ -190,7 +189,7 @@ struct GoogleMapsView: UIViewRepresentable {
             }
 
             list.append(contentsOf: sharedPath)
-            
+
             for track in list where track.tracking {
                 let path = GMSMutablePath()
                 for index in 0..<(track.xCoords?.count ?? 0) {
