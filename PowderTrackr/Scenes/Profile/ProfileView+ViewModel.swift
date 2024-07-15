@@ -8,7 +8,7 @@ extension ProfileView {
         @Published var currentEmail: String
         @Published var userName: String
         @Published var tracks: [TrackedPath] = []
-        @Published var totalDistance: Double = 0.0
+        @Published var totalDistance: Double = .zero
         @Published var totalTime: String = ""
         
         let dateFormatter = DateFormatter()

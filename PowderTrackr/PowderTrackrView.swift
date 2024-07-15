@@ -5,7 +5,7 @@ struct PowderTrackrView: View {
     @StateObject var viewModel: ViewModel
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: .zero) {
             HStack {
                 Text("PowderTrackr")
                     .textStyle(.bodyLargeBold)
@@ -15,11 +15,11 @@ struct PowderTrackrView: View {
                 } label: {
                     Image(systemName: "person.fill")
                         .resizable()
-                        .frame(width: 20, height: 20)
+                        .frame(width: .su20, height: .su20)
                 }
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 4)
+            .padding(.horizontal, .su16)
+            .padding(.vertical, .su4)
             .background(Color.grayPrimary)
             ViewFactory.tabBarView(viewModel.accountButtonTap)
         }
