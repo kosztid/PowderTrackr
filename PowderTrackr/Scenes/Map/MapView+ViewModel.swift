@@ -1,9 +1,9 @@
 import Combine
-import WatchConnectivity
-import WidgetKit
 import CoreLocation
 import GoogleMaps
 import SwiftUI
+import WatchConnectivity
+import WidgetKit
 
 extension MapView {
     private enum Constants {
@@ -32,7 +32,7 @@ extension MapView {
                 }
             }
         }
-        
+
         private var cancellables: Set<AnyCancellable> = []
         let dateFormatter = DateFormatter()
         var accountService: AccountServiceProtocol
@@ -44,7 +44,7 @@ extension MapView {
         var trackTimer: Timer?
         var widgetTimer: Timer?
         var watchTimer: Timer?
-        
+
         @Published var isTracking = false
         @Published var raceTracking = false
         @Published var isMenuOpen = false
@@ -54,16 +54,16 @@ extension MapView {
         @Published var trackedPath: TrackedPathModel?
         @Published var selectedRace: Race?
         @Published var toast: ToastModel?
-        
+
         @Published var signedIn = false
-        @Published var startTime: Date? = nil
-        @Published var currentDistance: Double? = nil
-        
+        @Published var startTime: Date?
+        @Published var currentDistance: Double?
+
         @Published var raceName: String = ""
         @Published var showingRaceNameAlert = false
         @Published var raceMarkers: [GMSMarker] = []
         @Published var raceCreationState: RaceCreationState = .not
-        
+
         @Published var selectedPath: TrackedPath?
         @Published var shared: Bool = false
         @Published var cameraPosChanged: Bool = true
@@ -82,7 +82,7 @@ extension MapView {
         var avgSpeed: Double {
             ((currentDistance ?? 0) / elapsedTime) * 3.6
         }
-        
+
         init(
             accountService: AccountServiceProtocol,
             mapService: MapServiceProtocol,
@@ -103,25 +103,25 @@ extension MapView {
             locationManager.allowsBackgroundLocationUpdates = true
             locationManager.pausesLocationUpdatesAutomatically = false
             self.locationManager.startUpdatingLocation()
-            
+
             self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            
+
             self.initBindings()
             
             mapService.queryTrackedPaths(nil)
             mapService.querySharedPaths()
             mapService.queryRaces()
         }
-        
+
         func confirm() {
             accountService.createUserTrackedPaths()
         }
-        
+
         func raceTrackAction() {
             raceTracking = true
             startTracking()
         }
-        
+
         func initBindings() {
             mapService.trackedPathPublisher
                 .sink { _ in
@@ -135,16 +135,15 @@ extension MapView {
                         self.trackedPath = nil
                         self.track = []
                     }
-                    
                 }
                 .store(in: &cancellables)
-            
+
             accountService.isSignedInPublisher
                 .sink(receiveValue: { [weak self] value in
                     self?.signedIn = value
                 })
                 .store(in: &cancellables)
-            
+
             mapService.raceCreationStatePublisher
                 .sink(receiveValue: { [weak self] value in
                     if value == .finished {
@@ -153,7 +152,7 @@ extension MapView {
                     self?.raceCreationState = value
                 })
                 .store(in: &cancellables)
-            
+
             mapService.networkErrorPublisher
                 .sink { [weak self] model in
                     self?.toast = model
@@ -173,7 +172,7 @@ extension MapView {
                 })
                 .store(in: &cancellables)
         }
-        
+
         @objc
         func updateLocation() {
             self.accountService.updateLocation(
@@ -182,7 +181,7 @@ extension MapView {
             )
             self.friendService.queryFriendLocations()
         }
-        
+
         func startTracking() {
             isTrackingStorage = true
             WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
@@ -207,7 +206,7 @@ extension MapView {
             )
             self.mapMenuState = .on
         }
-        
+
         func calculateDistance() -> Double {
             guard let track = selectedPath else { return 0.0 }
             var list: [CLLocation] = []
@@ -220,18 +219,18 @@ extension MapView {
             }
             return distance
         }
-        
+
         func resumeTracking() {
             self.trackTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
             self.mapMenuState = .on
         }
-        
+
         func pauseTracking() {
             self.trackTimer?.invalidate()
             self.trackTimer = nil
             self.mapMenuState = .paused
         }
-        
+
         func stopTracking() {
             isTrackingStorage = false
             watchConnectivityProvider.sendIsTracking(isTracking: false)
@@ -255,7 +254,7 @@ extension MapView {
             }
             mapService.updateTrackedPath(path)
         }
-        
+
         @objc
         func updateWidget() {
             let time = startTime?.distance(to: Date()) ?? 0
@@ -264,29 +263,28 @@ extension MapView {
             distanceStorage = currentDistance ?? 0
             WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
         }
-        
+
         @objc
         func updateWatchData() {
             guard let currentDistance else { return }
             watchConnectivityProvider.sendMetrics(elapsedTime: elapsedTime, avgSpeed: avgSpeed, distance: currentDistance)
         }
-        
+
         @objc
         func trackRoute() {
             guard var modified = self.trackedPath?.tracks else { return }
             var xCoords = modified.last?.xCoords
             var yCoords = modified.last?.yCoords
-            
+
             xCoords?.append(locationManager.location?.coordinate.latitude ?? 0)
             yCoords?.append(locationManager.location?.coordinate.longitude ?? 0)
-            
+
             modified[modified.count - 1].xCoords = xCoords ?? []
             modified[modified.count - 1].yCoords = yCoords ?? []
             modified[modified.count - 1].endDate = "\(dateFormatter.string(from: Date()))"
             self.trackedPath?.tracks = modified
             self.track = modified
-            
-            
+
             let track = modified[modified.count - 1]
             var list: [CLLocation] = []
             var distance = 0.0
@@ -302,11 +300,11 @@ extension MapView {
             guard let modifiedLast = modified.last else { return }
             mapService.sendCurrentlyTracked(modifiedLast)
         }
-        
+
         func stopTimer() {
             self.locationTimer?.invalidate()
         }
-        
+
         func startTimer() {
             self.locationTimer = Timer.scheduledTimer(
                 timeInterval: Constants.locationTimer,
@@ -316,33 +314,33 @@ extension MapView {
                 repeats: true
             )
         }
-        
+
         func refreshSelectedPath() {
             guard let selected = selectedPath else { return }
             selectedPath = self.track.first { $0.id == selected.id }
         }
-        
+
         func closeAction() {
             withAnimation {
                 selectedPath = nil
             }
             friendService.queryFriendLocations()
         }
-        
+
         func removeTrack(_ trackedPath: TrackedPath) {
             mapService.removeTrackedPath(trackedPath)
         }
-        
+
         func updateTrack(_ trackedPath: TrackedPath, shared: Bool) {
             mapService.updateTrack(trackedPath, shared)
         }
-        
+
         func addNote(_ note: String, _ trackedPath: TrackedPath) {
             var newTrack = trackedPath
             newTrack.notes?.append(note)
             mapService.updateTrack(newTrack, false)
         }
-        
+
         func raceAction(cancel: Bool) {
             if cancel {
                 mapMenuState = .off
@@ -359,21 +357,21 @@ extension MapView {
                 mapMenuState = .raceCreation
             }
         }
-        
+
         func addRace(_ name: String) {
             let xCoords: [Double] = raceMarkers.map { $0.position.latitude }
             let yCoords: [Double] = raceMarkers.map { $0.position.longitude }
-            
+
             mapService.createRace(xCoords, yCoords, name)
             mapMenuState = .off
             raceName = ""
         }
-        
+
         func startRaceCreation() {
             print("called")
             mapService.changeRaceCreationState(.firstMarker)
         }
-        
+
         func checkForRaceFinish() {
             if raceTracking {
                 var distanceToFinish = 100.0

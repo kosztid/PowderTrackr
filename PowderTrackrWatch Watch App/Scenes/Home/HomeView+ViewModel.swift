@@ -1,10 +1,10 @@
-import Foundation
 import Combine
+import Foundation
 
 extension HomeView {
     final class ViewModel: ObservableObject {
         var connectivityProvider: WatchConnectivityProvider
-        
+
         @Published var isTracking = false
         @Published var elapsedTime: Double = 0.0
         @Published var avgSpeed: Double = 0.0
@@ -47,5 +47,4 @@ extension HomeView {
             connectivityProvider.sendIsTracking(isTracking: true)
         }
     }
-
 }

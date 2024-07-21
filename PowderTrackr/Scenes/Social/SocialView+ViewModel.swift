@@ -5,7 +5,7 @@ extension SocialView {
     public struct LastMessageModel {
         public let id: String
         public let message: Message?
-        
+
         public init(id: String, message: Message?) {
             self.id = id
             self.message = message
@@ -14,12 +14,12 @@ extension SocialView {
     struct InputModel {
         let navigateToAccount: () -> Void
     }
-    
+
     final class ViewModel: ObservableObject {
         @Published var friendList: Friendlist?
         @Published var groupList = ["asd", "asd"]
         @Published var notification: Bool
-        @Published var signedIn: Bool = false
+        @Published var signedIn = false
         @Published var chatNotifications: [String] = []
         @Published var lastMessages: [LastMessageModel] = []
 
@@ -29,7 +29,7 @@ extension SocialView {
         private let chatService: ChatServiceProtocol
 
         private var cancellables: Set<AnyCancellable> = []
-        
+
         let inputModel: InputModel
 
         init(
@@ -60,7 +60,7 @@ extension SocialView {
                     }
                 }
                 .store(in: &cancellables)
-            
+
             friendService.friendRequestsPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] requests in
@@ -110,7 +110,7 @@ extension SocialView {
         }
 
         func removeFriend(friend: Friend) {
-            friendList?.friends?.removeAll { $0.id == friend.id}
+            friendList?.friends?.removeAll { $0.id == friend.id }
             friendService.deleteFriend(friend: friend)
         }
 
@@ -138,11 +138,11 @@ extension SocialView {
         func navigateToChatWithFriend(friendId: String, friendName: String) {
             navigator.navigateToChat(model: .init(chatId: friendId, names: [friendName]))
         }
-        
+
         func queryChatNotifications() {
             chatService.getChatNotifications()
         }
-        
+
         func navigateToChatGroup(groupId: String) {
 //            Task {
 //                await chatService.chatIdForGroup(for: groupId)
@@ -159,7 +159,7 @@ extension SocialView {
         func lastMessage(for id: String) -> Message? {
             lastMessages.first { $0.id == id }?.message
         }
-        
+
         func notification(for friendId: String) -> Bool {
             chatNotifications.contains(friendId)
         }

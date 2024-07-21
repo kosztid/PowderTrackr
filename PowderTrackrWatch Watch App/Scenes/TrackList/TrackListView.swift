@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TrackListView: View {
     @StateObject var viewModel = ViewModel()
-    
+
     var body: some View {
         VStack {
             if viewModel.tracks.isEmpty {
@@ -19,7 +19,7 @@ struct TrackListView: View {
             }
         }
     }
-    
+
     private var trackList: some View {
         NavigationSplitView {
             List(selection: $viewModel.selectedTrack) {
@@ -39,8 +39,6 @@ struct TrackListView: View {
             }
         }
     }
-    
-    
 }
 
 #Preview {

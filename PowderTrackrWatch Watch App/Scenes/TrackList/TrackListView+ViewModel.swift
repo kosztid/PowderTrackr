@@ -6,7 +6,7 @@ extension TrackListView {
         var connectivityProvider: WatchConnectivityProvider
         
         private var cancellables: Set<AnyCancellable> = []
-        
+
         private let mapService: MapServiceProtocol
         
         @Published var tracks: [TrackedPath] = []
@@ -15,12 +15,12 @@ extension TrackListView {
         init() {
             self.mapService = MapService()
             self.connectivityProvider = WatchConnectivityProvider()
-            
+
             initBindings()
             
             mapService.queryTrackedPaths(connectivityProvider.userID)
         }
-        
+
         func initBindings() {
             mapService.trackedPathPublisher
                 .sink { _ in
@@ -29,8 +29,7 @@ extension TrackListView {
                 }
                 .store(in: &cancellables)
         }
-        
-        
+
         func load() {
             mapService.queryTrackedPaths(connectivityProvider.userID)
         }

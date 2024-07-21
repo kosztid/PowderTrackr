@@ -7,10 +7,10 @@ extension RacesView {
     struct InputModel {
         let navigateToAccount: () -> Void
     }
-    
+
     final class ViewModel: ObservableObject {
         private var cancellables: Set<AnyCancellable> = []
-        
+
         let dateFormatter = DateFormatter()
         let inputModel: InputModel
         
@@ -21,7 +21,7 @@ extension RacesView {
         private let mapService: MapServiceProtocol
         private let friendService: FriendServiceProtocol
         private let accountService: AccountServiceProtocol
-        
+
         @Published var user: AWSCognitoIdentityUser?
         @Published var signedIn = false
         @Published var showingDeleteRaceAlert = false
@@ -29,7 +29,7 @@ extension RacesView {
         @Published var friendList: Friendlist?
         @Published var raceToShare: Race?
         @Published var raceToDelete: String?
-        
+
         init(
             mapService: MapServiceProtocol,
             friendService: FriendServiceProtocol,
@@ -43,10 +43,10 @@ extension RacesView {
             self.navigator = navigator
             self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
             self.inputModel = inputModel
-            
+
             initBindings()
         }
-        
+
         func initBindings() {
             accountService.userPublisher
                 .sink { _ in
@@ -55,20 +55,20 @@ extension RacesView {
                     self?.user = user
                 }
                 .store(in: &cancellables)
-            
+
             accountService.isSignedInPublisher
                 .sink(receiveValue: { [weak self] value in
                     self?.signedIn = value
                 })
                 .store(in: &cancellables)
-            
+
             friendService.friendListPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] friendList in
                     self?.friendList = friendList
                 }
                 .store(in: &cancellables)
-            
+
             mapService.racesPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] races in
@@ -78,41 +78,41 @@ extension RacesView {
                     } else {
                         self.races = []
                     }
-                    
+
                     self.updateShortestRun()
                 }
                 .store(in: &cancellables)
         }
-        
+
         func navigateToMyRuns(race: Race) {
             navigator.navigateToRaceRuns(race: race)
         }
-        
+
         func share(with friend: Friend) {
             guard let raceToShare else { return }
             mapService.shareRace(friend.id, raceToShare)
         }
-        
+
         func openShare(for race: Race) {
             withAnimation {
                 raceToShare = race
             }
         }
-        
+
         func refreshRaces() {
             raceToDelete = nil
             mapService.queryRaces()
         }
-        
+
         func deleteRace() {
             guard let race = races.first(where: { $0.id == raceToDelete }) else { return }
             withAnimation {
-                races.removeAll { $0.id == raceToDelete}
+                races.removeAll { $0.id == raceToDelete }
                 raceToDelete = nil
             }
             mapService.deleteRace(race)
         }
-        
+
         func updateShortestRun() {
             races.forEach { race in
                 var time = race.shortestTime
@@ -131,10 +131,10 @@ extension RacesView {
                         distance = currentDistance
                     }
                 }
-                
+
                 newRace.shortestTime = time
                 newRace.shortestDistance = distance
-                
+
                 if race.shortestTime == -1 || race.shortestTime > time || race.shortestDistance > distance {
                     newRace.shortestTime = time
                     newRace.shortestDistance = distance
@@ -142,11 +142,11 @@ extension RacesView {
                 }
             }
         }
-        
+
         func updateRace(race: Race, newRace: Race) {
             mapService.updateRace(race, newRace)
         }
-        
+
         func calculateDistance(track: TrackedPath) -> Double {
             var list: [CLLocation] = []
             var distance = 0.0

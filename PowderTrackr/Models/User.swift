@@ -11,7 +11,6 @@ import AnyCodable
 #endif
 
 public struct User: Codable, JSONEncodable, Hashable {
-
     public var id: String
     public var name: String
     public var email: String
@@ -37,4 +36,3 @@ public struct User: Codable, JSONEncodable, Hashable {
         try container.encode(email, forKey: .email)
     }
 }
-

@@ -97,6 +97,8 @@
 		55B58DA32AE525B900B4AB4F /* RaceRunGoogleMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B58DA22AE525B900B4AB4F /* RaceRunGoogleMapsView.swift */; };
 		55DE1DC02A56D1C300BAD8E4 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE1DBF2A56D1C300BAD8E4 /* ChangePasswordView.swift */; };
 		55DE1DC22A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE1DC12A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift */; };
+		55E1F72E2C1F7E1200DCC0D6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55E1F72C2C1F7E1200DCC0D6 /* Localizable.strings */; };
+		55E1F7352C1F89B600DCC0D6 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E1F7342C1F89B600DCC0D6 /* Strings.swift */; };
 		55E402FC2ACB2FF500AE8043 /* MyRunsView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E402FB2ACB2FF500AE8043 /* MyRunsView+ViewModel.swift */; };
 		55E402FE2ACB300400AE8043 /* MyRunsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E402FD2ACB300400AE8043 /* MyRunsView.swift */; };
 		55E98BAF2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E98BAE2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift */; };
@@ -333,6 +335,8 @@
 		55B58DA22AE525B900B4AB4F /* RaceRunGoogleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceRunGoogleMapsView.swift; sourceTree = "<group>"; };
 		55DE1DBF2A56D1C300BAD8E4 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		55DE1DC12A56D1CD00BAD8E4 /* ChangePasswordView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChangePasswordView+ViewModel.swift"; sourceTree = "<group>"; };
+		55E1F72D2C1F7E1200DCC0D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		55E1F7342C1F89B600DCC0D6 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		55E402FB2ACB2FF500AE8043 /* MyRunsView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyRunsView+ViewModel.swift"; sourceTree = "<group>"; };
 		55E402FD2ACB300400AE8043 /* MyRunsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunsView.swift; sourceTree = "<group>"; };
 		55E98BAE2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PowderTrackrChatView+ViewModel.swift"; sourceTree = "<group>"; };
@@ -524,6 +528,7 @@
 				B45311132BD7135B00891ADC /* PowderTrackr.entitlements */,
 				555AA0542AE6A69F006ED60F /* Info.plist */,
 				B4F2BFF92B2124B500FA8DE1 /* API */,
+				55E1F7302C1F7ECE00DCC0D6 /* Generated */,
 				B4243FC42BC462C20056C7C5 /* Resources */,
 				55075E952AE9CA1D003D213F /* Extensions */,
 				554588092A3E30C2009A5485 /* UIElements */,
@@ -843,6 +848,14 @@
 			path = ChangePassword;
 			sourceTree = "<group>";
 		};
+		55E1F7302C1F7ECE00DCC0D6 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				55E1F7342C1F89B600DCC0D6 /* Strings.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		55E402FA2ACB2FE700AE8043 /* MyRunsView */ = {
 			isa = PBXGroup;
 			children = (
@@ -918,6 +931,7 @@
 		B4243FC42BC462C20056C7C5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				55E1F72C2C1F7E1200DCC0D6 /* Localizable.strings */,
 				B4243FC52BC462E30056C7C5 /* Fonts */,
 			);
 			path = Resources;
@@ -1111,6 +1125,8 @@
 			buildConfigurationList = 554587972A3DF8F2009A5485 /* Build configuration list for PBXNativeTarget "PowderTrackr" */;
 			buildPhases = (
 				DA6255D7BD0FF67B0DEBDBBA /* [CP] Check Pods Manifest.lock */,
+				55E1F72F2C1F7E9D00DCC0D6 /* SwiftGen */,
+				555225D52C21CF85004D9725 /* Swiftlint */,
 				554587852A3DF8F1009A5485 /* Sources */,
 				554587862A3DF8F1009A5485 /* Frameworks */,
 				554587872A3DF8F1009A5485 /* Resources */,
@@ -1220,6 +1236,7 @@
 				B4243FCB2BC4647C0056C7C5 /* Effra-Regular.ttf in Resources */,
 				554587942A3DF8F2009A5485 /* Preview Assets.xcassets in Resources */,
 				554587912A3DF8F2009A5485 /* Assets.xcassets in Resources */,
+				55E1F72E2C1F7E1200DCC0D6 /* Localizable.strings in Resources */,
 				DB5F670D7C78E51B71D728C8 /* awsconfiguration.json in Resources */,
 				38B2EF361C3DDEE6BC819CB4 /* amplifyconfiguration.json in Resources */,
 			);
@@ -1245,6 +1262,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		555225D52C21CF85004D9725 /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which \"${PODS_ROOT}/SwiftLint/swiftlint\" >/dev/null; then\n  \"${PODS_ROOT}/SwiftLint/swiftlint\" --fix\nelse\n  echo \"warning: SwiftLint not installed, run 'pod install'.\"\nfi\n";
+		};
+		55E1F72F2C1F7E9D00DCC0D6 /* SwiftGen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftGen;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" ]; then\n  \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" config run --config \"${SRCROOT}/swiftgen.yml\"\nelse\n  echo \"warning: SwiftGen not installed, run 'pod install'.\"\nfi\n";
+		};
 		DA6255D7BD0FF67B0DEBDBBA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1426,6 +1479,7 @@
 				55B459422AC9B281007B3775 /* RaceManageItemView.swift in Sources */,
 				55E9E6632AC897E50090FC6B /* RaceRunView.swift in Sources */,
 				B44B8A9E2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift in Sources */,
+				55E1F7352C1F89B600DCC0D6 /* Strings.swift in Sources */,
 				55E98BAF2A73F13200634917 /* PowderTrackrChatView+ViewModel.swift in Sources */,
 				B4899C442B7648EA0015BD3F /* Message.swift in Sources */,
 				55075E972AE9CA26003D213F /* Double+Extension.swift in Sources */,
@@ -1511,6 +1565,17 @@
 			targetProxy = B49FA4852BDFFD1700DC2FC1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		55E1F72C2C1F7E1200DCC0D6 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55E1F72D2C1F7E1200DCC0D6 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		554587952A3DF8F2009A5485 /* Debug */ = {

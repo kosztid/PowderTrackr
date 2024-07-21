@@ -1,19 +1,19 @@
-import WidgetKit
 import SwiftUI
+import WidgetKit
 
 struct Provider: TimelineProvider {
     let data = DataService()
-    
+
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), isTracking: data.isTracking(), speed: data.speed(), time: data.time(), distance: data.distance())
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> Void) {
         let entry = SimpleEntry(date: Date(), isTracking: data.isTracking(), speed: data.speed(), time: data.time(), distance: data.distance())
         completion(entry)
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
         var entries: [SimpleEntry] = []
 
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
@@ -31,14 +31,14 @@ struct Provider: TimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
     var date: Date
-    
+
     let isTracking: Bool
     let speed: Double
     let time: Double
     let distance: Double
 }
 
-struct PowderTrackrWidgetEntryView : View {
+struct PowderTrackrWidgetEntryView: View {
     let data = DataService()
     var entry: Provider.Entry
 
@@ -57,7 +57,7 @@ struct PowderTrackrWidgetEntryView : View {
                 .font(.caption2)
         }
     }
-    
+
     private var trackingView: some View {
         VStack {
             HStack(spacing: .zero) {

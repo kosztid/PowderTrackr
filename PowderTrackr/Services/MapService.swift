@@ -1,6 +1,6 @@
 import Combine
-import UIKit
 import SwiftUI
+import UIKit
 
 public protocol MapServiceProtocol: AnyObject {
     var trackingPublisher: AnyPublisher<TrackedPath?, Never> { get }
@@ -9,7 +9,7 @@ public protocol MapServiceProtocol: AnyObject {
     var raceCreationStatePublisher: AnyPublisher<RaceCreationState, Never> { get }
     var racesPublisher: AnyPublisher<[Race], Never> { get }
     var networkErrorPublisher: AnyPublisher<ToastModel?, Never> { get }
-    
+
     func updateTrackedPath(_ trackedPath: TrackedPath)
     func updateTrack(_ trackedPath: TrackedPath, _ shared: Bool)
     func shareTrack(_ trackedPath: TrackedPath, _ friend: String)
@@ -46,47 +46,46 @@ extension MapService: MapServiceProtocol {
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-        
+
     var raceCreationStatePublisher: AnyPublisher<RaceCreationState, Never> {
         raceCreationState
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-    
+
     func sendCurrentlyTracked(_ trackedPath: TrackedPath) {
         tracking.send(trackedPath)
     }
-    
+
     var trackingPublisher: AnyPublisher<TrackedPath?, Never> {
         tracking
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-    
+
     var trackedPathPublisher: AnyPublisher<TrackedPathModel?, Never> {
         trackedPathModel
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-    
+
     var sharedPathPublisher: AnyPublisher<TrackedPathModel?, Never> {
         sharedPathModel
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-    
+
     var racesPublisher: AnyPublisher<[Race], Never> {
         races
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-    
-    
+
     // TODO: bugs sometimes
     func shareTrack(_ trackedPath: TrackedPath, _ friend: String) {
         var trackedPathModel: TrackedPathModel?
         var sharedTrackedPathModel: TrackedPathModel?
-        
+
         DefaultAPI.userTrackedPathsGet { data, error in
             if let error = error {
                 self.networkError.send(.init(title: "An issue occured while sharing your run", type: .error))
@@ -98,18 +97,18 @@ extension MapService: MapServiceProtocol {
                 .first { item in
                     item.id == friend
                 }
-                
+
                 sharedTrackedPathModel = data?.map { path in
                     TrackedPathModel(id: path.id, tracks: path.sharedTracks)
                 }
                 .first { item in
                     item.id == friend
                 }
-                
+
                 sharedTrackedPathModel?.tracks?.append(trackedPath)
-                
+
                 let newData = UserTrackedPaths(id: friend, tracks: trackedPathModel?.tracks, sharedTracks: sharedTrackedPathModel?.tracks)
-                DefaultAPI.userTrackedPathsPut(userTrackedPaths: newData) { data, error in
+                DefaultAPI.userTrackedPathsPut(userTrackedPaths: newData) { _, error in
                     if let error = error {
                         print("Error: \(error)")
                         self.networkError.send(.init(title: "An issue occured while sharing your run", type: .error))
@@ -118,14 +117,14 @@ extension MapService: MapServiceProtocol {
             }
         }
     }
-    
+
     func queryTrackedPaths() {
         queryTrackedPaths(nil)
     }
     
     func queryTrackedPaths(_ id: String? = nil) {
         var currentPaths: TrackedPathModel?
-        
+
         DefaultAPI.userTrackedPathsGet { data, error in
             if let error = error {
                 self.networkError.send(.init(title: "An issue occured while loading your trakcs", type: .error))
@@ -141,10 +140,10 @@ extension MapService: MapServiceProtocol {
             }
         }
     }
-    
+
     func querySharedPaths() {
         var sharedTracks: TrackedPathModel?
-        
+
         DefaultAPI.userTrackedPathsGet { data, error in
             if let error = error {
                 self.networkError.send(.init(title: "An issue occured while loading shared tracks by you", type: .error))
@@ -160,16 +159,16 @@ extension MapService: MapServiceProtocol {
             }
         }
     }
-    
+
     func updateTrackedPath(_ trackedPath: TrackedPath) {
         var tracks: [TrackedPath] = []
         var sharedTracks: [TrackedPath] = []
-        
+
         tracks = self.trackedPathModel.value?.tracks ?? []
         sharedTracks = self.sharedPathModel.value?.tracks ?? []
-        
+
         let data = UserTrackedPaths(id: userID, tracks: tracks, sharedTracks: sharedTracks)
-        DefaultAPI.userTrackedPathsPut(userTrackedPaths: data) { data, error in
+        DefaultAPI.userTrackedPathsPut(userTrackedPaths: data) { _, error in
             if let error = error {
                 self.networkError.send(.init(title: "An issue occured while updating your run", type: .error))
                 print("Error: \(error)")
@@ -178,14 +177,14 @@ extension MapService: MapServiceProtocol {
             }
         }
     }
-    
+
     func updateTrack(_ trackedPath: TrackedPath, _ shared: Bool) {
         var tracks: [TrackedPath] = []
         var sharedTracks: [TrackedPath] = []
-        
+
         tracks = self.trackedPathModel.value?.tracks ?? []
         sharedTracks = self.sharedPathModel.value?.tracks ?? []
-        
+
         if shared {
             let id = sharedTracks.firstIndex { $0.id == trackedPath.id } ?? 0
             sharedTracks[id] = trackedPath
@@ -209,18 +208,18 @@ extension MapService: MapServiceProtocol {
             }
         }
     }
-    
+
     func removeTrackedPath(_ trackedPath: TrackedPath) {
         var tracks: [TrackedPath] = []
-        
+
         tracks = self.trackedPathModel.value?.tracks ?? []
-        
+
         tracks.removeAll { $0.id == trackedPath.id }
-        
+
         let trackModel = TrackedPathModel(id: userID, tracks: tracks)
         guard let data = trackModel.data else { return }
-        
-        DefaultAPI.userTrackedPathsPut(userTrackedPaths: data) { data, error in
+
+        DefaultAPI.userTrackedPathsPut(userTrackedPaths: data) { _, error in
             if let error = error {
                 self.networkError.send(.init(title: "An issue occured while removing your run", type: .error))
                 print("Error: \(error)")
@@ -229,19 +228,19 @@ extension MapService: MapServiceProtocol {
             }
         }
     }
-    
+
     func removeSharedTrackedPath(_ trackedPath: TrackedPath) {
         var tracks: [TrackedPath] = []
         var sharedTracks: [TrackedPath] = []
-        
+
         tracks = self.trackedPathModel.value?.tracks ?? []
         sharedTracks = self.sharedPathModel.value?.tracks ?? []
-        
+
         sharedTracks.removeAll { $0.id == trackedPath.id }
-        
+
         let newData = UserTrackedPaths(id: userID, tracks: tracks, sharedTracks: sharedTracks)
-        
-        DefaultAPI.userTrackedPathsPut(userTrackedPaths: newData) { data, error in
+
+        DefaultAPI.userTrackedPathsPut(userTrackedPaths: newData) { _, error in
             if let error = error {
                 self.networkError.send(.init(title: "An issue occured while removing the run shared with you", type: .error))
                 print("Error: \(error)")
@@ -250,19 +249,19 @@ extension MapService: MapServiceProtocol {
             }
         }
     }
-    
+
     func changeRaceCreationState(_ raceCreationState: RaceCreationState) {
         self.raceCreationState.send(raceCreationState)
     }
-    
+
     func createRace(_ xCoords: [Double], _ yCoords: [Double], _ name: String) {
         raceCreationState.send(.not)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
+
         let race = Race(name: name, date: dateFormatter.string(from: Date()), shortestTime: -1, shortestDistance: -1, xCoords: xCoords, yCoords: yCoords, tracks: [], participants: [userID])
-        
-        DefaultAPI.racesPut(race: race) { data, error in
+
+        DefaultAPI.racesPut(race: race) { _, error in
             if let error = error {
                 self.networkError.send(.init(title: "An issue occured while creating your race", type: .error))
                 print("Error: \(error)")
@@ -271,9 +270,9 @@ extension MapService: MapServiceProtocol {
             }
         }
     }
-    
+
     func deleteRace(_ race: Race) {
-        DefaultAPI.racesIdDelete(id: race.id) { data, error in
+        DefaultAPI.racesIdDelete(id: race.id) { _, error in
             if let error = error {
                 print("Error: \(error)")
                 self.networkError.send(.init(title: "An issue occured while deleting your race", type: .error))
@@ -284,7 +283,7 @@ extension MapService: MapServiceProtocol {
             }
         }
     }
-    
+
     func queryRaces() {
         DefaultAPI.racesGet { data, error in
             if let error = error {
@@ -303,13 +302,13 @@ extension MapService: MapServiceProtocol {
             }
         }
     }
-    
+
     func updateRace(_ race: Race, _ newRace: Race) {
             var array = races.value
             guard let index = array.firstIndex(of: race) else { return }
             array[index] = newRace
-            
-            DefaultAPI.racesPut(race: array[index]) { data, error in
+
+            DefaultAPI.racesPut(race: array[index]) { _, error in
                 if let error = error {
                     print("Error: \(error)")
                     self.networkError.send(.init(title: "An issue occured while updating your race", type: .error))
@@ -318,17 +317,17 @@ extension MapService: MapServiceProtocol {
                 }
             }
     }
-    
+
     func sendRaceRun(_ run: TrackedPath, _ raceId: String) {
         var currentRun = run
         currentRun.notes?.append(userID)
-        
+
         var race = races.value.first { $0.id == raceId }
-        
+
         race?.tracks?.append(currentRun)
         guard let race else { return }
-        
-        DefaultAPI.racesPut(race: race) { data, error in
+
+        DefaultAPI.racesPut(race: race) { _, error in
             if let error = error {
                 print("Error: \(error)")
                 self.networkError.send(.init(title: "An issue occured while saving your race", type: .error))
@@ -337,7 +336,7 @@ extension MapService: MapServiceProtocol {
             }
         }
     }
-    
+
     func shareRace(_ friend: String, _ race: Race) {
         var array = races.value
         guard let index = array.firstIndex(of: race) else { return }
@@ -347,7 +346,7 @@ extension MapService: MapServiceProtocol {
             }
         }
         array[index].participants?.append(friend)
-        DefaultAPI.racesPut(race: array[index]) { data, error in
+        DefaultAPI.racesPut(race: array[index]) { _, error in
             if let error = error {
                 print("Error: \(error)")
                 self.networkError.send(.init(title: "An issue occured while sharing your race", type: .error))

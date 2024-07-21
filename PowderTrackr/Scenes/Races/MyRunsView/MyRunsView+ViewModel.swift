@@ -14,7 +14,6 @@ extension MyRunsView {
             UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? ""
         }
 
-
         private var cancellables: Set<AnyCancellable> = []
 
         init(

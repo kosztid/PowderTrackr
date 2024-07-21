@@ -2,7 +2,7 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject var viewModel = ViewModel()
-    
+
     var body: some View {
         VStack {
             if viewModel.isTracking {
@@ -13,7 +13,7 @@ struct HomeView: View {
         }
         
     }
-    
+
     private var homeScreen: some View {
         VStack {
             Text("You are currently not tracking a run")
@@ -22,7 +22,7 @@ struct HomeView: View {
             }
         }
     }
-    
+
     private var trackingView: some View {
         VStack {
             HStack(spacing: .zero) {

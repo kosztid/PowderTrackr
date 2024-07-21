@@ -1,14 +1,14 @@
-import ExyteChat
 import Combine
-import UIKit
+import ExyteChat
 import SwiftUI
+import UIKit
 
 public protocol ChatServiceProtocol: AnyObject {
     var messagesPublisher: AnyPublisher<[ExyteChat.Message]?, Never> { get }
     var chatNotificationPublisher: AnyPublisher<[String]?, Never> { get }
     var networkErrorPublisher: AnyPublisher<ToastModel?, Never> { get }
     var lastMessagesPublisher: AnyPublisher<[SocialView.LastMessageModel]?, Never> { get }
-    
+
     func sendMessage(message: ExyteChat.Message, recipient: String)
     func queryChat(recipient: String)
     func updateMessageStatus(recipient: String)
@@ -27,7 +27,7 @@ final class ChatService {
     private var cancellables: Set<AnyCancellable> = []
     private let networkError: CurrentValueSubject<ToastModel?, Never> = .init(nil)
     let dateFormatter = DateFormatter()
-    
+
     init() {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     }
@@ -39,13 +39,13 @@ extension ChatService: ChatServiceProtocol {
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-    
+
     var messagesPublisher: AnyPublisher<[ExyteChat.Message]?, Never> {
         messages
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-    
+
     var chatNotificationPublisher: AnyPublisher<[String]?, Never> {
         chatNotifications
             .receive(on: DispatchQueue.main)
@@ -57,14 +57,14 @@ extension ChatService: ChatServiceProtocol {
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-    
+
     func sendMessage(message: ExyteChat.Message, recipient: String) {
         DefaultAPI.personalChatsIdGet(id: chatRoomID) { data, error in
             if let error = error {
                 print("Error: \(error)")
             } else {
                 guard var chat = data else { return }
-                
+
                 chat.messages.append(
                     Message(
                         id: message.id,
@@ -75,7 +75,7 @@ extension ChatService: ChatServiceProtocol {
                         isSeen: false
                     )
                 )
-                DefaultAPI.personalChatsPut(personalChat: chat) { data, error in
+                DefaultAPI.personalChatsPut(personalChat: chat) { _, error in
                     if let error = error {
                         print("Error: \(error)")
                         self.networkError.send(.init(title: "An issue occured while sending message", type: .error))
@@ -88,7 +88,7 @@ extension ChatService: ChatServiceProtocol {
             }
         }
     }
-    
+
     func queryChat(recipient: String) {
         if chatId == "" {
             chatId = recipient
@@ -97,7 +97,7 @@ extension ChatService: ChatServiceProtocol {
             messages.send([])
             chatId = recipient
         }
-        
+
         DefaultAPI.personalChatsGet { data, error in
             if error != nil {
                 self.networkError.send(.init(title: "An issue occured while loading your messages", type: .error))
@@ -137,10 +137,10 @@ extension ChatService: ChatServiceProtocol {
             }
         }
     }
-    
+
     func updateMessageStatus(recipient: String) {
         var currentChatIndex = -1
-        
+
         DefaultAPI.personalChatsGet { data, error in
             if let error = error {
                 print("Error: \(error)")
@@ -153,9 +153,9 @@ extension ChatService: ChatServiceProtocol {
                     }
                     return false
                 } ?? -1
-                
+
                 if currentChatIndex == -1 { return }
-                
+
                 for messageDx in .zero..<(data[currentChatIndex].messages.count) {
                     if data[currentChatIndex].messages[messageDx].sender != self.userID {
                         data[currentChatIndex].messages[messageDx].isSeen = true
@@ -180,7 +180,7 @@ extension ChatService: ChatServiceProtocol {
             }
         }
     }
-    
+
     func getChatNotifications() {
         DefaultAPI.personalChatsGet { data, error in
             if let error = error {
@@ -188,7 +188,7 @@ extension ChatService: ChatServiceProtocol {
             } else {
                 var notifications: Set<String> = []
                 var lastMessages: [SocialView.LastMessageModel] = []
-                
+
                 data?.forEach { chat in
                     let participants = chat.participants
                     if participants.contains(self.userID) {

@@ -6,7 +6,7 @@ target 'PowderTrackr' do
   use_frameworks!
 
   # Pods for PowderTrackr
-  pod 'SwiftGen'
+  pod 'SwiftGen', '~> 6.0'
   pod 'SwiftLint'
   pod 'Factory', '~> 1.2.0'
   pod 'FlowStacks'

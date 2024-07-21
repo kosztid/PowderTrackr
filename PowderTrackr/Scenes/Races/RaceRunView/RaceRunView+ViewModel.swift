@@ -68,7 +68,6 @@ extension RaceRunView {
             arrayBreakPoint = Int((Double(race.xCoords?.count ?? .zero) / 100.0).rounded())
         }
 
-
         func calculateDistanceFromStartingPoint(index: Int) {
             var distance = 0.0
             var list: [CLLocation] = []
@@ -89,7 +88,6 @@ extension RaceRunView {
                 distance += list[itemDx].distance(from: list[itemDx - 1])
             }
 
-
             if let opponentRun = closestRun {
                 var opponentDistance = 0.0
                 var opponentList: [CLLocation] = []
@@ -103,7 +101,6 @@ extension RaceRunView {
                 opponentMarker.title = "Opponent"
                 markers.append(opponentMarker)
             }
-
 
             currentDistanceToFinish = totalDistance - distance
             playerPosition = Int((distance / totalDistance * 100).rounded())

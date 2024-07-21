@@ -6,7 +6,7 @@ public struct ShadowModifier: ViewModifier {
         case normal
         case dark
     }
-    
+
     let style: Style
     public func body(content: Content) -> some View {
         content
@@ -17,13 +17,13 @@ public struct ShadowModifier: ViewModifier {
                 y: radius
             )
     }
-    
+
     var radius: CGFloat {
         switch style {
         case .light:
-            return 4
+            return .su4
         case .normal, .dark:
-            return 8
+            return .su8
         }
     }
     var opacity: Double {
@@ -36,8 +36,8 @@ public struct ShadowModifier: ViewModifier {
             return 0.8
         }
     }
-    
-    public init(style: ShadowModifier.Style = .normal) {
+
+    public init(style: Self.Style = .normal) {
         self.style = style
     }
 }
