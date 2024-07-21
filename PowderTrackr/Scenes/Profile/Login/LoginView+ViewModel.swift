@@ -21,7 +21,6 @@ extension LoginView {
                         print(error)
                         self?.showLoginError = true
                     }, receiveValue: { [weak self] data in
-                        print("loginSuccess", data.userID)
                         self?.navigator.loggedIn()
                     }
                 )

@@ -220,28 +220,6 @@ extension AccountService: AccountServiceProtocol {
         .eraseToAnyPublisher()
     }
     
-    private func reloadCurrentUser() {
-        guard let currentUser = self.user.value else {
-            self.isSignedIn.send(false)
-            return
-        }
-        
-        currentUser.getSession().continueWith { [weak self] task in
-            DispatchQueue.main.async {
-                if let error = task.error {
-                    print("Error retrieving session: \(error)")
-                    self?.isSignedIn.send(false)
-                } else if let session = task.result, self!.isValidToken(session.idToken?.tokenString) {
-                    self?.isSignedIn.send(true)
-                    self?.fetchUserAttributesReload(user: currentUser)
-                } else {
-                    self?.isSignedIn.send(false)
-                }
-            }
-            return nil
-        }
-    }
-    
     // TODO: ENDPOINT CREATE USER ENTRIES
     
     func register(_ username: String, _ email: String, _ password: String) -> AnyPublisher<Void, Error> {
@@ -326,35 +304,6 @@ private extension AccountService {
         createLeaderBoardEntity()
         addUser(email: email)
     }
-    
-    private func fetchUserAttributesReload(user: AWSCognitoIdentityUser) {
-        user.getDetails().continueWith { [weak self] task in
-            DispatchQueue.main.async {
-                if let error = task.error {
-                    print("Failed to fetch user attributes: \(error)")
-                } else if let userDetails = task.result {
-                    guard let self else { return }
-                    let attributes = userDetails.userAttributes ?? []
-
-                    let email = attributes.first(where: { $0.name == "email" })?.value
-                    let userID = attributes.first(where: { $0.name == "sub" })?.value
-                    
-                    UserDefaults(suiteName: "group.koszti.storedData")?.set(email, forKey: "email")
-                    UserDefaults(suiteName: "group.koszti.storedData")?.set(userID, forKey: "id")
-                    UserDefaults(suiteName: "group.koszti.storedData")?.set(user.username, forKey: "name")
-
-                    self.email.send(email)
-                    self.user.send(user)
-                    self.isSignedIn.send(true)
-                    self.watchConnectivityProvider.sendUserId(userID ?? "")
-
-                    print("User attributes updated successfully: Email: \(String(describing: email)), UserID: \(String(describing: userID))")
-                }
-            }
-            return nil
-        }
-    }
-
 
     private func isValidToken(_ token: String?) -> Bool {
         guard let token = token, let jwtToken = try? decodeJWT(token: token) else {

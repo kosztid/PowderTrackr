@@ -6,6 +6,12 @@ import GoogleMaps
 import SwiftUI
 
 extension MapView {
+    private enum Constants {
+        static let locationTimer: Double = 60
+        static let trackTimer: Double = 0.2
+        static let widgetTimer: Double = 5
+        static let watchTimer: Double = 1
+    }
     enum MapMenuState {
         case paused
         case on
@@ -184,9 +190,9 @@ extension MapView {
             withAnimation {
                 isTracking = true
             }
-            self.trackTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
-            self.widgetTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updateWidget), userInfo: nil, repeats: true)
-            self.watchTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateWatchData), userInfo: nil, repeats: true)
+            self.trackTimer = Timer.scheduledTimer(timeInterval: Constants.trackTimer, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
+            self.widgetTimer = Timer.scheduledTimer(timeInterval: Constants.watchTimer, target: self, selector: #selector(updateWidget), userInfo: nil, repeats: true)
+            self.watchTimer = Timer.scheduledTimer(timeInterval: Constants.watchTimer, target: self, selector: #selector(updateWatchData), userInfo: nil, repeats: true)
             startTime = Date()
             let id = UUID().uuidString
             self.trackedPath?.tracks?.append(
@@ -303,7 +309,7 @@ extension MapView {
         
         func startTimer() {
             self.locationTimer = Timer.scheduledTimer(
-                timeInterval: 5,
+                timeInterval: Constants.locationTimer,
                 target: self,
                 selector: #selector(updateLocation),
                 userInfo: nil,
