@@ -6,6 +6,12 @@ import WatchConnectivity
 import WidgetKit
 
 extension MapView {
+    private enum Constants {
+        static let locationTimer: Double = 60
+        static let trackTimer: Double = 0.2
+        static let widgetTimer: Double = 5
+        static let watchTimer: Double = 1
+    }
     enum MapMenuState {
         case paused
         case on
@@ -59,16 +65,18 @@ extension MapView {
         @Published var raceCreationState: RaceCreationState = .not
 
         @Published var selectedPath: TrackedPath?
-        @Published var shared = false
-        @Published var cameraPosChanged = true
-
-        @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
-        @AppStorage("elapsedTime", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var elapsedTimeStorage: Double = 0.0
-        @AppStorage("avgSpeed", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var avgSpeedStorage: Double = 0.0
-        @AppStorage("distance", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var distanceStorage: Double = 0.0
-        @AppStorage("isTracking", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var isTrackingStorage = false
-
-        var elapsedTime: Double {
+        @Published var shared: Bool = false
+        @Published var cameraPosChanged: Bool = true
+        
+        var userID: String {
+            UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? ""
+        }
+        @AppStorage("elapsedTime", store: UserDefaults(suiteName: "group.koszti.storedData")) var elapsedTimeStorage: Double = 0.0
+        @AppStorage("avgSpeed", store: UserDefaults(suiteName: "group.koszti.storedData")) var avgSpeedStorage: Double = 0.0
+        @AppStorage("distance", store: UserDefaults(suiteName: "group.koszti.storedData")) var distanceStorage: Double = 0.0
+        @AppStorage("isTracking", store: UserDefaults(suiteName: "group.koszti.storedData")) var isTrackingStorage: Bool = false
+        
+        var elapsedTime: Double { 
             startTime?.distance(to: Date()) ?? 0
         }
         var avgSpeed: Double {
@@ -99,8 +107,8 @@ extension MapView {
             self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
             self.initBindings()
-
-            mapService.queryTrackedPaths()
+            
+            mapService.queryTrackedPaths(nil)
             mapService.querySharedPaths()
             mapService.queryRaces()
         }
@@ -150,6 +158,19 @@ extension MapView {
                     self?.toast = model
                 }
                 .store(in: &cancellables)
+            
+            watchConnectivityProvider.$isTracking
+                .receive(on: DispatchQueue.main)
+                .sink(receiveValue: { [weak self] value in
+                    guard let self else { return }
+                    if !self.isTracking && value {
+                        self.startTracking()
+                    } else if !value {
+                        self.stopTracking()
+                    }
+                    
+                })
+                .store(in: &cancellables)
         }
 
         @objc
@@ -168,9 +189,9 @@ extension MapView {
             withAnimation {
                 isTracking = true
             }
-            self.trackTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
-            self.widgetTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updateWidget), userInfo: nil, repeats: true)
-            self.watchTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateWatchData), userInfo: nil, repeats: true)
+            self.trackTimer = Timer.scheduledTimer(timeInterval: Constants.trackTimer, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
+            self.widgetTimer = Timer.scheduledTimer(timeInterval: Constants.watchTimer, target: self, selector: #selector(updateWidget), userInfo: nil, repeats: true)
+            self.watchTimer = Timer.scheduledTimer(timeInterval: Constants.watchTimer, target: self, selector: #selector(updateWatchData), userInfo: nil, repeats: true)
             startTime = Date()
             let id = UUID().uuidString
             self.trackedPath?.tracks?.append(
@@ -286,7 +307,7 @@ extension MapView {
 
         func startTimer() {
             self.locationTimer = Timer.scheduledTimer(
-                timeInterval: 5,
+                timeInterval: Constants.locationTimer,
                 target: self,
                 selector: #selector(updateLocation),
                 userInfo: nil,

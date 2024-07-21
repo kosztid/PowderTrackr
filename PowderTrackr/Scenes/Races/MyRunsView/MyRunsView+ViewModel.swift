@@ -10,7 +10,9 @@ extension MyRunsView {
         @Published var raceClosestRuns: [TrackedPath?] = []
 
         private let accountService: AccountServiceProtocol
-        @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
+        var userID: String {
+            UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? ""
+        }
 
         private var cancellables: Set<AnyCancellable> = []
 

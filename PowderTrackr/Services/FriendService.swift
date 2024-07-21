@@ -21,9 +21,15 @@ public protocol FriendServiceProtocol: AnyObject {
 }
 
 final class FriendService {
-    @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
-    @AppStorage("name", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userName: String = ""
-    @AppStorage("email", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userEmail: String = ""
+    var userID: String {
+        UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? ""
+    }
+    var userName: String {
+        UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "name") ?? ""
+    }
+    var userEmail: String {
+        UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "email") ?? ""
+    }
     private let friendList: CurrentValueSubject<Friendlist?, Never> = .init(nil)
     private let friendRequests: CurrentValueSubject<[FriendRequest], Never> = .init([])
     private let friendPosition: CurrentValueSubject<Location?, Never> = .init(nil)

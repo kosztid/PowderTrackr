@@ -16,11 +16,6 @@ struct ContentView: View {
                 }
         }
         .tabViewStyle(PageTabViewStyle())
-        //        if connectivityProvider.isTracking {
-        //            trackingView
-        //        } else {
-//            homeScreen
-//        }
     }
 }
 

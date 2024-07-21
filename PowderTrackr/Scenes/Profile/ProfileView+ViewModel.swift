@@ -8,7 +8,7 @@ extension ProfileView {
         @Published var currentEmail: String
         @Published var userName: String
         @Published var tracks: [TrackedPath] = []
-        @Published var totalDistance: Double = 0.0
+        @Published var totalDistance: Double = .zero
         @Published var totalTime: String = ""
 
         let dateFormatter = DateFormatter()
@@ -39,7 +39,7 @@ extension ProfileView {
         func logout() {
             Task {
                 await accountService.signOut()
-                mapService.queryTrackedPaths()
+                mapService.queryTrackedPaths(nil)
             }
         }
 
@@ -52,11 +52,11 @@ extension ProfileView {
         }
 
         func loadData() {
-            self.mapService.queryTrackedPaths()
+            self.mapService.queryTrackedPaths(nil)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.currentEmail = UserDefaults(suiteName: "group.koszti.PowderTrackr")?.string(forKey: "email") ?? ""
+                self.currentEmail = UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "email") ?? ""
 
-                self.userName = UserDefaults(suiteName: "group.koszti.PowderTrackr")?.string(forKey: "name") ?? ""
+                self.userName = UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "name") ?? ""
                 self.makeTotals()
             }
         }

@@ -15,7 +15,7 @@ public protocol MapServiceProtocol: AnyObject {
     func shareTrack(_ trackedPath: TrackedPath, _ friend: String)
     func removeTrackedPath(_ trackedPath: TrackedPath)
     func removeSharedTrackedPath(_ trackedPath: TrackedPath)
-    func queryTrackedPaths()
+    func queryTrackedPaths(_ id: String?)
     func querySharedPaths()
     func sendCurrentlyTracked(_ trackedPath: TrackedPath)
     func changeRaceCreationState(_ raceCreationState: RaceCreationState)
@@ -28,7 +28,9 @@ public protocol MapServiceProtocol: AnyObject {
 }
 
 final class MapService {
-    @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
+    var userID: String {
+        UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? ""
+    }
     private let tracking: CurrentValueSubject<TrackedPath?, Never> = .init(nil)
     private let trackedPathModel: CurrentValueSubject<TrackedPathModel?, Never> = .init(nil)
     private let sharedPathModel: CurrentValueSubject<TrackedPathModel?, Never> = .init(nil)
@@ -117,6 +119,10 @@ extension MapService: MapServiceProtocol {
     }
 
     func queryTrackedPaths() {
+        queryTrackedPaths(nil)
+    }
+    
+    func queryTrackedPaths(_ id: String? = nil) {
         var currentPaths: TrackedPathModel?
 
         DefaultAPI.userTrackedPathsGet { data, error in
@@ -128,7 +134,7 @@ extension MapService: MapServiceProtocol {
                     let model = TrackedPathModel(id: path.id, tracks: path.tracks)
                     return model
                 }.first { item in
-                    item.id == self.userID
+                    item.id == (id ?? self.userID)
                 }
                 self.trackedPathModel.send(currentPaths)
             }
@@ -186,10 +192,10 @@ extension MapService: MapServiceProtocol {
             let id = tracks.firstIndex { $0.id == trackedPath.id } ?? 0
             tracks[id] = trackedPath
         }
-
-        let data = UserTrackedPaths(id: UserDefaults(suiteName: "group.koszti.PowderTrackr")?.string(forKey: "id") ?? "", tracks: tracks, sharedTracks: sharedTracks)
-
-        DefaultAPI.userTrackedPathsPut(userTrackedPaths: data) { _, error in
+        
+        let data = UserTrackedPaths(id: UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? "", tracks: tracks, sharedTracks: sharedTracks)
+        
+        DefaultAPI.userTrackedPathsPut(userTrackedPaths: data) { data, error in
             if let error = error {
                 self.networkError.send(.init(title: "An issue occured while updating your run", type: .error))
                 print("Error: \(error)")

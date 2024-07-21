@@ -16,7 +16,9 @@ public protocol ChatServiceProtocol: AnyObject {
 }
 
 final class ChatService {
-    @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
+    var userID: String {
+        UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? ""
+    }
     private let messages: CurrentValueSubject<[ExyteChat.Message]?, Never> = .init(nil)
     private let chatNotifications: CurrentValueSubject<[String]?, Never> = .init(nil)
     private let lastMessages: CurrentValueSubject<[SocialView.LastMessageModel]?, Never> = .init(nil)
