@@ -8,16 +8,16 @@ extension ProfileView {
         @Published var currentEmail: String
         @Published var userName: String
         @Published var tracks: [TrackedPath] = []
-        @Published var totalDistance: Double = 0.0
+        @Published var totalDistance: Double = .zero
         @Published var totalTime: String = ""
-        
+
         let dateFormatter = DateFormatter()
         let formatter = DateComponentsFormatter()
         private var cancellables: Set<AnyCancellable> = []
         private let navigator: ProfileViewNavigatorProtocol
         private let accountService: AccountServiceProtocol
         private let mapService: MapServiceProtocol
-        
+
         init(
             navigator: ProfileViewNavigatorProtocol,
             accountService: AccountServiceProtocol,
@@ -28,39 +28,39 @@ extension ProfileView {
             self.mapService = mapService
             currentEmail = "..."
             userName = "..."
-            
+
             bindPublishers()
-            
+
             formatter.allowedUnits = [.hour, .minute, .second]
             formatter.unitsStyle = .abbreviated
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         }
-        
+
         func logout() {
             Task {
                 await accountService.signOut()
-                mapService.queryTrackedPaths()
+                mapService.queryTrackedPaths(nil)
             }
         }
-        
+
         func login() {
             navigator.login()
         }
-        
+
         func register() {
             navigator.register()
         }
-        
-        func loadData() {
-            self.mapService.queryTrackedPaths()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.currentEmail = UserDefaults(suiteName: "group.koszti.PowderTrackr")?.string(forKey: "email") ?? ""
 
-                self.userName = UserDefaults(suiteName: "group.koszti.PowderTrackr")?.string(forKey: "name") ?? ""
+        func loadData() {
+            self.mapService.queryTrackedPaths(nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.currentEmail = UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "email") ?? ""
+
+                self.userName = UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "name") ?? ""
                 self.makeTotals()
             }
         }
-        
+
         func bindPublishers() {
             accountService.isSignedInPublisher
                 .sink { _ in
@@ -68,7 +68,7 @@ extension ProfileView {
                     self?.isSignedIn = isSignedIn
                 }
                 .store(in: &cancellables)
-            
+
             mapService.trackedPathPublisher
                 .sink { _ in
                 } receiveValue: { [weak self] track in
@@ -84,7 +84,7 @@ extension ProfileView {
                 }
                 .store(in: &cancellables)
         }
-        
+
         func makeTotals() {
             var total = 0.0
             var totalDate = 0.0
@@ -106,16 +106,16 @@ extension ProfileView {
             totalTime = formatter.string(from: totalDate) ?? ""
             totalDistance = total
             let totalTime = totalDate
-            
+
             if isSignedIn && totalDistance > 0 {
                 accountService.updateLeaderboard(time: totalTime, distance: totalDistance)
             }
         }
-        
+
         func updatePasswordTap() {
             navigator.updatePassword()
         }
-        
+
         func dismissButtonTap() {
             navigator.dismissScreen()
         }

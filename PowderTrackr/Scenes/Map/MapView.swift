@@ -1,10 +1,10 @@
 import GoogleMaps
-import WidgetKit
 import SwiftUI
+import WidgetKit
 
 struct MapView: View {
     @StateObject var viewModel: ViewModel
-    
+
     var body: some View {
         ZStack(alignment: .bottom) {
             ViewFactory.googleMap(
@@ -86,7 +86,7 @@ struct MapView: View {
         .onAppear(perform: viewModel.startTimer)
         .toolbar(.hidden)
     }
-    
+
     @ViewBuilder var topBar: some View {
         if viewModel.isTracking {
             VStack(alignment: .center) {
@@ -131,9 +131,6 @@ struct MapView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, .su4)
                 .background(Color.grayPrimary)
-                Button("print") {
-                    print(viewModel.userID)
-                }
                 Spacer()
             }
         }

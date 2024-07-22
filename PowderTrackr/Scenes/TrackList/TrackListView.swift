@@ -1,14 +1,16 @@
 import SwiftUI
 
 struct TrackListView: View {
+    private typealias Str = Rsc.TrackListView
+
     @StateObject var viewModel: ViewModel
-    
+
     var body: some View {
         SegmentedControl(
-            firstTab: .init(tabItem: .init(name: "Normal")) {
+            firstTab: .init(tabItem: .init(name: Str.Tabs.normal)) {
                 normalTab
             },
-            secondTab: .init(tabItem: .init(name: "Shared")) {
+            secondTab: .init(tabItem: .init(name: Str.Tabs.shared)) {
                 sharedTab
             }
         )
@@ -27,12 +29,12 @@ struct TrackListView: View {
         }
         .toolbar(.hidden)
     }
-    
+
     var normalTab: some View {
         ScrollView {
             LazyVStack {
                 if viewModel.tracks.isEmpty {
-                    Text("You have no tracks recorded")
+                    Text(Str.List.Normal.empty)
                         .textStyle(.bodySmall)
                         .foregroundStyle(Color.warmGray)
                         .padding(.vertical, .su20)
@@ -54,12 +56,12 @@ struct TrackListView: View {
         .onAppear(perform: viewModel.onAppear)
         .navigationBarTitleDisplayMode(.inline)
     }
-    
+
     var sharedTab: some View {
         ScrollView {
             LazyVStack {
                 if viewModel.sharedTracks.isEmpty {
-                    Text("You have no tracks shared with you")
+                    Text(Str.List.Shared.empty)
                         .textStyle(.bodySmall)
                         .foregroundStyle(Color.warmGray)
                         .padding(.vertical, .su20)

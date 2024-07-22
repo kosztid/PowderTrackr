@@ -8,18 +8,18 @@ struct DataService {
     @AppStorage("isTracking", store: UserDefaults(suiteName: "group.koszti.storedData")) private var isTrackingStorage = false
 
     func isTracking() -> Bool {
-        return isTrackingStorage
+        isTrackingStorage
     }
-    
+
     func distance() -> Double {
-        return distanceStorage
-    }    
-    
+        distanceStorage
+    }
+
     func time() -> Double {
-        return elapsedTimeStorage
-    }  
-    
+        elapsedTimeStorage
+    }
+
     func speed() -> Double {
-        return avgSpeedStorage
+        avgSpeedStorage
     }
 }

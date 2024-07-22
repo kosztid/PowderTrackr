@@ -11,7 +11,6 @@ import AnyCodable
 #endif
 
 public struct UserFriendDeletion: Codable, JSONEncodable, Hashable {
-
     public var userId: String
     public var friendId: String
 
@@ -33,4 +32,3 @@ public struct UserFriendDeletion: Codable, JSONEncodable, Hashable {
         try container.encode(friendId, forKey: .friendId)
     }
 }
-

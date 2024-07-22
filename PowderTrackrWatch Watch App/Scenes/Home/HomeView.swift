@@ -2,19 +2,26 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject var viewModel = ViewModel()
-    
+
     var body: some View {
-        if viewModel.isTracking {
-            trackingView
-        } else {
-            homeScreen
+        VStack {
+            if viewModel.isTracking {
+                trackingView
+            } else {
+                homeScreen
+            }
         }
     }
-    
+
     private var homeScreen: some View {
-        Text("You are currently not tracking a run")
+        VStack {
+            Text("You are currently not tracking a run")
+            Button("Start") {
+                viewModel.startTracking()
+            }
+        }
     }
-    
+
     private var trackingView: some View {
         VStack {
             HStack(spacing: .zero) {
@@ -62,6 +69,9 @@ struct HomeView: View {
                 Text("\(String(format: "%.2f", viewModel.avgSpeed)) km/h")
                     .font(.caption)
                     .bold()
+            }
+            Button("Stop") {
+                viewModel.stopTracking()
             }
         }
     }

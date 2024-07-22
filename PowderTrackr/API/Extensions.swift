@@ -124,7 +124,6 @@ extension String: CodingKey {
     public init?(intValue: Int) {
         return nil
     }
-
 }
 
 extension KeyedEncodingContainerProtocol {

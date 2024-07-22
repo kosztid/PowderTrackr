@@ -15,12 +15,12 @@ extension TrackListView {
         init() {
             self.mapService = MapService()
             self.connectivityProvider = WatchConnectivityProvider()
-            
+
             initBindings()
 
             mapService.queryTrackedPaths(connectivityProvider.userID)
         }
-        
+
         func initBindings() {
             mapService.trackedPathPublisher
                 .sink { _ in
@@ -28,6 +28,10 @@ extension TrackListView {
                     self?.tracks = track?.tracks ?? []
                 }
                 .store(in: &cancellables)
+        }
+
+        func load() {
+            mapService.queryTrackedPaths(connectivityProvider.userID)
         }
 
         func calculateDistance(track: TrackedPath) -> Double {

@@ -9,7 +9,7 @@ extension ChangePasswordView {
 
         private let navigator: ChangePasswordViewNavigatorProtocol
         private let accountService: AccountServiceProtocol
-        
+
         private var cancellables: Set<AnyCancellable> = []
 
         func changeButtonTap() {
@@ -19,9 +19,9 @@ extension ChangePasswordView {
             )
                 .sink(
                     receiveCompletion: { [weak self] completion in
-                        guard case .failure(_) = completion else { return }
+                        guard case .failure = completion else { return }
                         self?.toast = .init(title: "Failed changing password", type: .error)
-                    }, receiveValue: { [weak self] data in
+                    }, receiveValue: { [weak self] _ in
                         self?.passwordChangedSuccessfully()
                     }
                 )
@@ -31,7 +31,7 @@ extension ChangePasswordView {
         func navigateBack() {
             navigator.navigateBack()
         }
-        
+
         func passwordChangedSuccessfully() {
             toast = .init(title: "Password changed successfully", type: .success)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

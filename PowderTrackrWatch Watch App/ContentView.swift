@@ -8,7 +8,7 @@ struct ContentView: View {
                     Image(systemName: "house")
                     Text("Home")
                 }
-            
+
             TrackListView()
                 .tabItem {
                     Image(systemName: "figure.skiing.downhill")
@@ -16,11 +16,6 @@ struct ContentView: View {
                 }
         }
         .tabViewStyle(PageTabViewStyle())
-        //        if connectivityProvider.isTracking {
-        //            trackingView
-        //        } else {
-//            homeScreen
-//        }
     }
 }
 

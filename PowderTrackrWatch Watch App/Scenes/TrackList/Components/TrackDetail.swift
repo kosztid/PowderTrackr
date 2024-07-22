@@ -8,10 +8,12 @@ struct TrackDetail: View {
         TabView(selection: $selection) {
             HStack {
                 Text(track.name)
+                    .bold()
                 Spacer()
                 VStack(alignment: .trailing) {
                     Text("Date")
                     Text(track.startDate)
+                        .bold()
                 }
             }
             .tag(0)
@@ -44,7 +46,6 @@ struct TrackDetail: View {
                 }
             }
             .tag(2)
-
         }
         .tabViewStyle(.verticalPage)
         .padding(.su4)
@@ -63,7 +64,7 @@ extension TrackDetail {
         }
         return distance
     }
-    
+
     private func elapsedTime() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
