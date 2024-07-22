@@ -10,9 +10,6 @@ struct TrackListView: View {
                     Text("You have no tracks recorded")
                         .foregroundStyle(Color.warmGray)
                         .padding(.vertical, .su20)
-                    Button("Refresh") {
-                        viewModel.load()
-                    }
                 }
             } else {
                 trackList

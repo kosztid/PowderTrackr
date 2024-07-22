@@ -74,8 +74,8 @@ extension TrackListView {
                     self?.friendList = friendList
                 }
                 .store(in: &cancellables)
-            
-            mapService.queryTrackedPaths()
+
+            mapService.queryTrackedPaths(nil)
             friendService.queryFriends()
         }
 

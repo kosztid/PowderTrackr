@@ -29,9 +29,16 @@ public protocol AccountServiceProtocol: AnyObject {
 
 final class AccountService {
     var accessToken: String?
-    @AppStorage("id", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userID: String = ""
-    @AppStorage("name", store: UserDefaults(suiteName: "group.koszti.PowderTrackr")) var userName: String = ""
-    
+    var userID: String {
+            get {
+                UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? ""
+            }
+            set {
+                UserDefaults(suiteName: "group.koszti.storedData")?.set(newValue, forKey: "id")
+            }
+        }
+    @AppStorage("name", store: UserDefaults(suiteName: "group.koszti.storedData")) var userName: String = ""
+
     let isSignedIn: CurrentValueSubject<Bool, Never> = .init(false)
     let user: CurrentValueSubject<AWSCognitoIdentityUser?, Never> = .init(nil)
     let email: CurrentValueSubject<String?, Never> = .init(nil)
@@ -209,29 +216,7 @@ extension AccountService: AccountServiceProtocol {
         }
         .eraseToAnyPublisher()
     }
-    
-    private func reloadCurrentUser() {
-        guard let currentUser = self.user.value else {
-            self.isSignedIn.send(false)
-            return
-        }
-        
-        currentUser.getSession().continueWith { [weak self] task in
-            DispatchQueue.main.async {
-                if let error = task.error {
-                    print("Error retrieving session: \(error)")
-                    self?.isSignedIn.send(false)
-                } else if let session = task.result, self!.isValidToken(session.idToken?.tokenString) {
-                    self?.isSignedIn.send(true)
-                    self?.fetchUserAttributesReload(user: currentUser)
-                } else {
-                    self?.isSignedIn.send(false)
-                }
-            }
-            return nil
-        }
-    }
-    
+
     // TODO: ENDPOINT CREATE USER ENTRIES
     
     func register(_ username: String, _ email: String, _ password: String) -> AnyPublisher<Void, Error> {
@@ -394,11 +379,11 @@ private extension AccountService {
                     let attributes = userDetails.userAttributes ?? []
                     let email = attributes.first(where: { $0.name == "email" })?.value
                     let userID = attributes.first(where: { $0.name == "sub" })?.value
-                    
-                    UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(email, forKey: "email")
-                    UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(userID, forKey: "id")
-                    UserDefaults(suiteName: "group.koszti.PowderTrackr")?.set(userDetails.username, forKey: "name")
-                    
+
+                    UserDefaults(suiteName: "group.koszti.storedData")?.set(email, forKey: "email")
+                    UserDefaults(suiteName: "group.koszti.storedData")?.set(userID, forKey: "id")
+                    UserDefaults(suiteName: "group.koszti.storedData")?.set(userDetails.username, forKey: "name")
+
                     self.email.send(email)
                     self.userName = userDetails.username ?? ""
                     self.userID = userID ?? ""
