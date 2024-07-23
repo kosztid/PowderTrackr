@@ -15,6 +15,7 @@ public protocol MapServiceProtocol: AnyObject {
     func shareTrack(_ trackedPath: TrackedPath, _ friend: String)
     func removeTrackedPath(_ trackedPath: TrackedPath)
     func removeSharedTrackedPath(_ trackedPath: TrackedPath)
+    func queryTrackedPaths()
     func queryTrackedPaths(_ id: String?)
     func querySharedPaths()
     func sendCurrentlyTracked(_ trackedPath: TrackedPath)
@@ -121,7 +122,7 @@ extension MapService: MapServiceProtocol {
     func queryTrackedPaths() {
         queryTrackedPaths(nil)
     }
-    
+
     func queryTrackedPaths(_ id: String? = nil) {
         var currentPaths: TrackedPathModel?
 
@@ -192,10 +193,10 @@ extension MapService: MapServiceProtocol {
             let id = tracks.firstIndex { $0.id == trackedPath.id } ?? 0
             tracks[id] = trackedPath
         }
-        
+
         let data = UserTrackedPaths(id: UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? "", tracks: tracks, sharedTracks: sharedTracks)
-        
-        DefaultAPI.userTrackedPathsPut(userTrackedPaths: data) { data, error in
+
+        DefaultAPI.userTrackedPathsPut(userTrackedPaths: data) { _, error in
             if let error = error {
                 self.networkError.send(.init(title: "An issue occured while updating your run", type: .error))
                 print("Error: \(error)")

@@ -13,7 +13,7 @@ extension RacesView {
 
         let dateFormatter = DateFormatter()
         let inputModel: InputModel
-        
+
         var userID: String {
             UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? ""
         }

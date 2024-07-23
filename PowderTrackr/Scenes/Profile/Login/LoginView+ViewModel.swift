@@ -20,7 +20,7 @@ extension LoginView {
                         guard case .failure(let error) = completion else { return }
                         print(error)
                         self?.showLoginError = true
-                    }, receiveValue: { [weak self] data in
+                    }, receiveValue: { [weak self] _ in
                         self?.navigator.loggedIn()
                     }
                 )

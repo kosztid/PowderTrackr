@@ -22,9 +22,6 @@ public protocol AccountServiceProtocol: AnyObject {
     func confirmResetPassword(username: String, newPassword: String, confirmationCode: String) -> AnyPublisher<Void, Error>
     func updateLeaderboard(time: Double, distance: Double)
 
-    func createFriendList()
-    func createUserTrackedPaths()
-    func createLocation(xCoord: String, yCoord: String)
     func updateLocation(xCoord: String, yCoord: String)
 
     func signOut() async
@@ -34,14 +31,14 @@ final class AccountService {
     var accessToken: String?
     var userID: String {
             get {
-                return UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? ""
+                UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? ""
             }
             set {
                 UserDefaults(suiteName: "group.koszti.storedData")?.set(newValue, forKey: "id")
             }
         }
     @AppStorage("name", store: UserDefaults(suiteName: "group.koszti.storedData")) var userName: String = ""
-    
+
     let isSignedIn: CurrentValueSubject<Bool, Never> = .init(false)
     let user: CurrentValueSubject<AWSCognitoIdentityUser?, Never> = .init(nil)
     let email: CurrentValueSubject<String?, Never> = .init(nil)
@@ -121,7 +118,7 @@ extension AccountService: AccountServiceProtocol {
 
     func resetPassword(username: String) -> AnyPublisher<Void, Error> {
         Future<Void, Error> { [weak self] promise in
-            guard let self = self else {
+            if self == nil {
                 promise(.failure(NSError(domain: "ResetPasswordError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
                 return
             }
@@ -217,7 +214,7 @@ extension AccountService: AccountServiceProtocol {
         }
         .eraseToAnyPublisher()
     }
-    
+
     // TODO: ENDPOINT CREATE USER ENTRIES
 
     func register(_ username: String, _ email: String, _ password: String) -> AnyPublisher<Void, Error> {
@@ -296,10 +293,6 @@ extension AccountService: AccountServiceProtocol {
 
 private extension AccountService {
     func initUser(email: String) {
-        createLocation(xCoord: "0", yCoord: "0")
-        createFriendList()
-        createUserTrackedPaths()
-        createLeaderBoardEntity()
         addUser(email: email)
     }
 
@@ -354,11 +347,11 @@ private extension AccountService {
                     let attributes = userDetails.userAttributes ?? []
                     let email = attributes.first(where: { $0.name == "email" })?.value
                     let userID = attributes.first(where: { $0.name == "sub" })?.value
-                    
+
                     UserDefaults(suiteName: "group.koszti.storedData")?.set(email, forKey: "email")
                     UserDefaults(suiteName: "group.koszti.storedData")?.set(userID, forKey: "id")
                     UserDefaults(suiteName: "group.koszti.storedData")?.set(userDetails.username, forKey: "name")
-                    
+
                     self.email.send(email)
                     self.userName = userDetails.username ?? ""
                     self.userID = userID ?? ""

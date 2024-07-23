@@ -11,7 +11,6 @@ struct HomeView: View {
                 homeScreen
             }
         }
-        
     }
 
     private var homeScreen: some View {

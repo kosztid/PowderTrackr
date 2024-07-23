@@ -65,18 +65,18 @@ extension MapView {
         @Published var raceCreationState: RaceCreationState = .not
 
         @Published var selectedPath: TrackedPath?
-        @Published var shared: Bool = false
-        @Published var cameraPosChanged: Bool = true
-        
+        @Published var shared = false
+        @Published var cameraPosChanged = true
+
         var userID: String {
             UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "id") ?? ""
         }
         @AppStorage("elapsedTime", store: UserDefaults(suiteName: "group.koszti.storedData")) var elapsedTimeStorage: Double = 0.0
         @AppStorage("avgSpeed", store: UserDefaults(suiteName: "group.koszti.storedData")) var avgSpeedStorage: Double = 0.0
         @AppStorage("distance", store: UserDefaults(suiteName: "group.koszti.storedData")) var distanceStorage: Double = 0.0
-        @AppStorage("isTracking", store: UserDefaults(suiteName: "group.koszti.storedData")) var isTrackingStorage: Bool = false
-        
-        var elapsedTime: Double { 
+        @AppStorage("isTracking", store: UserDefaults(suiteName: "group.koszti.storedData")) var isTrackingStorage = false
+
+        var elapsedTime: Double {
             startTime?.distance(to: Date()) ?? 0
         }
         var avgSpeed: Double {
@@ -107,14 +107,10 @@ extension MapView {
             self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
             self.initBindings()
-            
+
             mapService.queryTrackedPaths(nil)
             mapService.querySharedPaths()
             mapService.queryRaces()
-        }
-
-        func confirm() {
-            accountService.createUserTrackedPaths()
         }
 
         func raceTrackAction() {
@@ -158,7 +154,7 @@ extension MapView {
                     self?.toast = model
                 }
                 .store(in: &cancellables)
-            
+
             watchConnectivityProvider.$isTracking
                 .receive(on: DispatchQueue.main)
                 .sink(receiveValue: { [weak self] value in
@@ -168,7 +164,6 @@ extension MapView {
                     } else if !value {
                         self.stopTracking()
                     }
-                    
                 })
                 .store(in: &cancellables)
         }
