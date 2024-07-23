@@ -1,0 +1,33 @@
+targetTemplates:
+  Framework:
+    platform: iOS
+    type: framework
+    sources:
+      - path: "../PowderTrackr"
+        excludes:
+          - ".swiftlint.yml"
+          - ".swiftgen.yml"
+    settings:
+      GENERATE_INFOPLIST_FILE: YES
+
+  FrameworkTests:
+    platform: iOS
+    type: bundle.unit-test
+    dependencies:
+      - target: PowderTrackr
+    settings:
+      GENERATE_INFOPLIST_FILE: YES
+    sources:
+      - path: "../PowderTrackrTests"
+        excludes:
+          - ".swiftlint-test.yml"
+
+schemeTemplates:
+  TestScheme:
+    build:
+      targets:
+        PowderTrackr: build
+    test:
+      gatherCoverageData: true
+      targets:
+        - name: PowderTrackrTests

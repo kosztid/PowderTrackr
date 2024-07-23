@@ -1,6 +1,7 @@
 import Combine
 import UIKit
 
+// sourcery: mock
 public protocol StatisticsServiceProtocol: AnyObject {
     var leaderboardPublisher: AnyPublisher<[LeaderBoard], Never> { get }
     var networkErrorPublisher: AnyPublisher<ToastModel?, Never> { get }

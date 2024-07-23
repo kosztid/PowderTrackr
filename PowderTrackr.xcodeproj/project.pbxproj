@@ -136,6 +136,7 @@
 		B453110E2BD7133E00891ADC /* PowderTrackrWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B45310FD2BD7133D00891ADC /* PowderTrackrWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B45E58A32B95E4BA00BA1561 /* ToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45E58A22B95E4BA00BA1561 /* ToastModifier.swift */; };
 		B45E58A62B95E54300BA1561 /* ToastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45E58A52B95E54300BA1561 /* ToastModel.swift */; };
+		B476CCC62C4F7994004AA3EE /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B476CCC42C4F7994004AA3EE /* Mock.swift */; };
 		B4899C3E2B7648EA0015BD3F /* UserfriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4899C332B7648E90015BD3F /* UserfriendList.swift */; };
 		B4899C3F2B7648EA0015BD3F /* TrackedPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4899C342B7648E90015BD3F /* TrackedPath.swift */; };
 		B4899C402B7648EA0015BD3F /* PersonalChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4899C352B7648E90015BD3F /* PersonalChat.swift */; };
@@ -376,6 +377,7 @@
 		B45311142BD7142400891ADC /* PowderTrackrWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PowderTrackrWidgetExtension.entitlements; sourceTree = "<group>"; };
 		B45E58A22B95E4BA00BA1561 /* ToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModifier.swift; sourceTree = "<group>"; };
 		B45E58A52B95E54300BA1561 /* ToastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModel.swift; sourceTree = "<group>"; };
+		B476CCC42C4F7994004AA3EE /* Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
 		B4899C332B7648E90015BD3F /* UserfriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserfriendList.swift; sourceTree = "<group>"; };
 		B4899C342B7648E90015BD3F /* TrackedPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackedPath.swift; sourceTree = "<group>"; };
 		B4899C352B7648E90015BD3F /* PersonalChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalChat.swift; sourceTree = "<group>"; };
@@ -503,8 +505,10 @@
 		554587802A3DF8F1009A5485 = {
 			isa = PBXGroup;
 			children = (
+				B4CA6E332C4F755500180CAF /* PowderTrackrMock */,
 				B45311142BD7142400891ADC /* PowderTrackrWidgetExtension.entitlements */,
 				5545878B2A3DF8F1009A5485 /* PowderTrackr */,
+				B4CA6E322C4F743400180CAF /* PowderTrackrTests */,
 				B45311022BD7133D00891ADC /* PowderTrackrWidget */,
 				B49FA47B2BDFFD1500DC2FC1 /* PowderTrackrWatch Watch App */,
 				5545878A2A3DF8F1009A5485 /* Products */,
@@ -1004,6 +1008,14 @@
 			path = Toast;
 			sourceTree = "<group>";
 		};
+		B476CCC52C4F7994004AA3EE /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				B476CCC42C4F7994004AA3EE /* Mock.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		B48E6ED62BADF9A200B98298 /* FloatingRoundedCardBackground */ = {
 			isa = PBXGroup;
 			children = (
@@ -1091,6 +1103,21 @@
 				B4C96F8C2BD4365A005B84A4 /* FriendAddRowView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		B4CA6E322C4F743400180CAF /* PowderTrackrTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PowderTrackrTests;
+			sourceTree = "<group>";
+		};
+		B4CA6E332C4F755500180CAF /* PowderTrackrMock */ = {
+			isa = PBXGroup;
+			children = (
+				B476CCC52C4F7994004AA3EE /* Generated */,
+			);
+			path = PowderTrackrMock;
 			sourceTree = "<group>";
 		};
 		B4F2BFF92B2124B500FA8DE1 /* API */ = {
@@ -1476,6 +1503,7 @@
 				55E402FC2ACB2FF500AE8043 /* MyRunsView+ViewModel.swift in Sources */,
 				B4F2C00F2B2124DF00FA8DE1 /* Validation.swift in Sources */,
 				55102ACD2A7ECAE30033E5E6 /* ChatService.swift in Sources */,
+				B476CCC62C4F7994004AA3EE /* Mock.swift in Sources */,
 				5506F7BF2A49E5F10000761D /* LoggedOutModal.swift in Sources */,
 				B4243FBF2BC45F800056C7C5 /* TextStyleModifier.swift in Sources */,
 				5506F7BB2A4724F50000761D /* SegmentedControl.swift in Sources */,

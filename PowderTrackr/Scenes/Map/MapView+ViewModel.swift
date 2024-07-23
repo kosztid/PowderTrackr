@@ -108,7 +108,7 @@ extension MapView {
 
             self.initBindings()
 
-            mapService.queryTrackedPaths(nil)
+            mapService.queryTrackedPaths()
             mapService.querySharedPaths()
             mapService.queryRaces()
         }
