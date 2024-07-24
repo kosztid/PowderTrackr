@@ -206,6 +206,9 @@ extension MapView {
             guard let track = selectedPath else { return 0.0 }
             var list: [CLLocation] = []
             var distance = 0.0
+            if list.count < 2 {
+                return distance
+            }
             for index in .zero..<(track.xCoords?.count ?? .zero) {
                 list.append(CLLocation(latitude: track.xCoords?[index] ?? .zero, longitude: track.yCoords?[index] ?? .zero))
             }
