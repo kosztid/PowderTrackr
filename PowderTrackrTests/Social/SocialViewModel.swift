@@ -3,7 +3,7 @@ import Combine
 import XCTest
 
 final class SocialViewModelTests: XCTestCase {
-    private var viewModel: SocialView.ViewModel!
+    private var sut: SocialView.ViewModel!
     private var navigatorMock: SocialListViewNavigatorProtocolMock!
     private var friendService: FriendServiceProtocolMock!
     private var accountService: AccountServiceProtocolMock!
@@ -22,7 +22,7 @@ final class SocialViewModelTests: XCTestCase {
         chatService.underlyingChatNotificationPublisher = CurrentValueSubject<[String]?, Never>(["New Chat"]).eraseToAnyPublisher()
         chatService.underlyingLastMessagesPublisher = CurrentValueSubject<[SocialView.LastMessageModel]?, Never>([]).eraseToAnyPublisher()
 
-        viewModel = SocialView.ViewModel(
+        sut = SocialView.ViewModel(
             navigator: navigatorMock,
             friendService: friendService,
             accountService: accountService,
@@ -32,7 +32,7 @@ final class SocialViewModelTests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
-        viewModel = nil
+        sut = nil
         navigatorMock = nil
         friendService = nil
         accountService = nil
@@ -41,7 +41,7 @@ final class SocialViewModelTests: XCTestCase {
     }
 
     func test_onAppear_whenViewAppears_shouldQueryServices() {
-            viewModel.onAppear()
+        sut.onAppear()
 
             XCTAssertTrue(friendService.queryFriendsCalled)
             XCTAssertTrue(friendService.queryFriendRequestsCalled)
@@ -55,7 +55,7 @@ final class SocialViewModelTests: XCTestCase {
                     promise(.success([]))
             }
 
-            viewModel.navigateToAddFriend()
+            sut.navigateToAddFriend()
 
             expect.fulfill()
 
@@ -63,24 +63,24 @@ final class SocialViewModelTests: XCTestCase {
         }
 
         func test_navigateToRequests_whenCalled_shouldNavigateToRequests() {
-            viewModel.navigateToRequests()
+            sut.navigateToRequests()
 
             XCTAssertTrue(navigatorMock.navigateToRequestCalled)
         }
 
         func test_removeFriend_whenCalled_shouldRemoveFriendFromList() {
             let friend = Friend(id: "2", name: "Jane Doe", isTracking: true)
-            viewModel.friendList = Friendlist(id: "123", friends: [friend])
+            sut.friendList = Friendlist(id: "123", friends: [friend])
 
-            viewModel.removeFriend(friend: friend)
+            sut.removeFriend(friend: friend)
 
             XCTAssertTrue(friendService.deleteFriendFriendCalled)
-            XCTAssertTrue(viewModel.friendList?.friends?.isEmpty ?? false)
+            XCTAssertTrue(sut.friendList?.friends?.isEmpty ?? false)
         }
 
         func test_updateTracking_whenCalled_shouldUpdateTrackingStatus() {
             let friendId = "3"
-            viewModel.updateTracking(id: friendId)
+            sut.updateTracking(id: friendId)
 
             XCTAssertTrue(friendService.updateTrackingIdCalled)
         }
@@ -88,7 +88,7 @@ final class SocialViewModelTests: XCTestCase {
         func test_navigateToChatWithFriend_whenCalled_shouldNavigateToChat() {
             let friendId = "4"
             let friendName = "Emily"
-            viewModel.navigateToChatWithFriend(friendId: friendId, friendName: friendName)
+            sut.navigateToChatWithFriend(friendId: friendId, friendName: friendName)
 
             XCTAssertTrue(navigatorMock.navigateToChatModelCalled)
         }
@@ -96,17 +96,17 @@ final class SocialViewModelTests: XCTestCase {
         func test_lastMessage_forId_shouldReturnMessage() {
             let message = Message(id: "1", sender: "John", date: "2000.01.01.", text: "Hello", isPhoto: false, isSeen: false)
             let lastMessageModel = SocialView.LastMessageModel(id: "1", message: message)
-            viewModel.lastMessages = [lastMessageModel]
+            sut.lastMessages = [lastMessageModel]
 
-            let result = viewModel.lastMessage(for: "1")
+            let result = sut.lastMessage(for: "1")
 
             XCTAssertEqual(result?.text, message.text)
         }
 
         func test_notification_forFriendId_shouldReturnNotificationStatus() {
             let friendId = "1"
-            viewModel.chatNotifications = [friendId]
+            sut.chatNotifications = [friendId]
 
-            XCTAssertTrue(viewModel.notification(for: friendId))
+            XCTAssertTrue(sut.notification(for: friendId))
         }
 }
