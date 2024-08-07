@@ -45,7 +45,6 @@ public extension FriendAddView {
                 .sink(
                     receiveCompletion: { completion in
                         guard case .failure(let error) = completion else { return }
-                        print(error)
                     }, receiveValue: { [weak self] _ in
                         self?.toast = .init(title: "Friendrequest sent to \(user.name)", type: .success)
                         self?.users.removeAll { $0.id == user.id }

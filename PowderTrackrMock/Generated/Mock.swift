@@ -247,6 +247,42 @@ public init() {}
     }
 
 }
+public final class ChangePasswordViewNavigatorProtocolMock: ChangePasswordViewNavigatorProtocol {
+private let lock = NSLock()
+
+public init() {}
+
+    //MARK: - changeButtonTapped
+
+    public var changeButtonTappedCallsCount = 0
+    public var changeButtonTappedCalled: Bool {
+        changeButtonTappedCallsCount > 0
+    }
+    public var changeButtonTappedStub: (() -> Void)?
+
+    public func changeButtonTapped() {
+        lock.withLock {
+            changeButtonTappedCallsCount += 1
+        }
+        changeButtonTappedStub?()
+    }
+
+    //MARK: - navigateBack
+
+    public var navigateBackCallsCount = 0
+    public var navigateBackCalled: Bool {
+        navigateBackCallsCount > 0
+    }
+    public var navigateBackStub: (() -> Void)?
+
+    public func navigateBack() {
+        lock.withLock {
+            navigateBackCallsCount += 1
+        }
+        navigateBackStub?()
+    }
+
+}
 public final class ChatServiceProtocolMock: ChatServiceProtocol {
 private let lock = NSLock()
     public var messagesPublisher: AnyPublisher<[ExyteChat.Message]?, Never> {
@@ -539,6 +575,57 @@ public init() {}
         } else {
             return getAddableUsersReturnValue
         }
+    }
+
+}
+public final class LoginViewNavigatorProtocolMock: LoginViewNavigatorProtocol {
+private let lock = NSLock()
+
+public init() {}
+
+    //MARK: - loggedIn
+
+    public var loggedInCallsCount = 0
+    public var loggedInCalled: Bool {
+        loggedInCallsCount > 0
+    }
+    public var loggedInStub: (() -> Void)?
+
+    public func loggedIn() {
+        lock.withLock {
+            loggedInCallsCount += 1
+        }
+        loggedInStub?()
+    }
+
+    //MARK: - navigateToResetPassword
+
+    public var navigateToResetPasswordCallsCount = 0
+    public var navigateToResetPasswordCalled: Bool {
+        navigateToResetPasswordCallsCount > 0
+    }
+    public var navigateToResetPasswordStub: (() -> Void)?
+
+    public func navigateToResetPassword() {
+        lock.withLock {
+            navigateToResetPasswordCallsCount += 1
+        }
+        navigateToResetPasswordStub?()
+    }
+
+    //MARK: - dismiss
+
+    public var dismissCallsCount = 0
+    public var dismissCalled: Bool {
+        dismissCallsCount > 0
+    }
+    public var dismissStub: (() -> Void)?
+
+    public func dismiss() {
+        lock.withLock {
+            dismissCallsCount += 1
+        }
+        dismissStub?()
     }
 
 }
@@ -868,6 +955,341 @@ public init() {}
         }
         deleteRaceStub?(race)
     }
+
+}
+public final class ProfileViewNavigatorProtocolMock: ProfileViewNavigatorProtocol {
+private let lock = NSLock()
+
+public init() {}
+
+    //MARK: - dismissScreen
+
+    public var dismissScreenCallsCount = 0
+    public var dismissScreenCalled: Bool {
+        dismissScreenCallsCount > 0
+    }
+    public var dismissScreenStub: (() -> Void)?
+
+    public func dismissScreen() {
+        lock.withLock {
+            dismissScreenCallsCount += 1
+        }
+        dismissScreenStub?()
+    }
+
+    //MARK: - login
+
+    public var loginCallsCount = 0
+    public var loginCalled: Bool {
+        loginCallsCount > 0
+    }
+    public var loginStub: (() -> Void)?
+
+    public func login() {
+        lock.withLock {
+            loginCallsCount += 1
+        }
+        loginStub?()
+    }
+
+    //MARK: - register
+
+    public var registerCallsCount = 0
+    public var registerCalled: Bool {
+        registerCallsCount > 0
+    }
+    public var registerStub: (() -> Void)?
+
+    public func register() {
+        lock.withLock {
+            registerCallsCount += 1
+        }
+        registerStub?()
+    }
+
+    //MARK: - updatePassword
+
+    public var updatePasswordCallsCount = 0
+    public var updatePasswordCalled: Bool {
+        updatePasswordCallsCount > 0
+    }
+    public var updatePasswordStub: (() -> Void)?
+
+    public func updatePassword() {
+        lock.withLock {
+            updatePasswordCallsCount += 1
+        }
+        updatePasswordStub?()
+    }
+
+}
+public final class RaceRunViewNavigatorProtocolMock: RaceRunViewNavigatorProtocol {
+private let lock = NSLock()
+
+public init() {}
+
+    //MARK: - navigateBack
+
+    public var navigateBackCallsCount = 0
+    public var navigateBackCalled: Bool {
+        navigateBackCallsCount > 0
+    }
+    public var navigateBackStub: (() -> Void)?
+
+    public func navigateBack() {
+        lock.withLock {
+            navigateBackCallsCount += 1
+        }
+        navigateBackStub?()
+    }
+
+}
+public final class RacesViewNavigatorProtocolMock: RacesViewNavigatorProtocol {
+private let lock = NSLock()
+
+public init() {}
+
+    //MARK: - navigateToRaceRuns
+
+    public var navigateToRaceRunsRaceCallsCount = 0
+    public var navigateToRaceRunsRaceCalled: Bool {
+        navigateToRaceRunsRaceCallsCount > 0
+    }
+    public var navigateToRaceRunsRaceReceivedRace: Race?
+    public var navigateToRaceRunsRaceReceivedInvocations: [Race] = []
+    public var navigateToRaceRunsRaceStub: ((Race) -> Void)?
+
+    public func navigateToRaceRuns(race: Race) {
+        lock.withLock {
+            navigateToRaceRunsRaceCallsCount += 1
+        navigateToRaceRunsRaceReceivedRace = race
+        navigateToRaceRunsRaceReceivedInvocations.append(race)
+        }
+        navigateToRaceRunsRaceStub?(race)
+    }
+
+}
+public final class RegisterVerificationViewNavigatorProtocolMock: RegisterVerificationViewNavigatorProtocol {
+private let lock = NSLock()
+
+public init() {}
+
+    //MARK: - verified
+
+    public var verifiedCallsCount = 0
+    public var verifiedCalled: Bool {
+        verifiedCallsCount > 0
+    }
+    public var verifiedStub: (() -> Void)?
+
+    public func verified() {
+        lock.withLock {
+            verifiedCallsCount += 1
+        }
+        verifiedStub?()
+    }
+
+}
+public final class RegisterViewNavigatorProtocolMock: RegisterViewNavigatorProtocol {
+private let lock = NSLock()
+
+public init() {}
+
+    //MARK: - registered
+
+    public var registeredUsernamePasswordCallsCount = 0
+    public var registeredUsernamePasswordCalled: Bool {
+        registeredUsernamePasswordCallsCount > 0
+    }
+    public var registeredUsernamePasswordReceivedArguments: (username: String, password: String)?
+    public var registeredUsernamePasswordReceivedInvocations: [(username: String, password: String)] = []
+    public var registeredUsernamePasswordStub: ((String, String) -> Void)?
+
+    public func registered(username: String, password: String) {
+        lock.withLock {
+            registeredUsernamePasswordCallsCount += 1
+        registeredUsernamePasswordReceivedArguments = (username: username, password: password)
+        registeredUsernamePasswordReceivedInvocations.append((username: username, password: password))
+        }
+        registeredUsernamePasswordStub?(username, password)
+    }
+
+    //MARK: - dismiss
+
+    public var dismissCallsCount = 0
+    public var dismissCalled: Bool {
+        dismissCallsCount > 0
+    }
+    public var dismissStub: (() -> Void)?
+
+    public func dismiss() {
+        lock.withLock {
+            dismissCallsCount += 1
+        }
+        dismissStub?()
+    }
+
+}
+public final class ResetPasswordVerificationNavigatorProtocolMock: ResetPasswordVerificationNavigatorProtocol {
+private let lock = NSLock()
+
+public init() {}
+
+    //MARK: - verifyButtonTapped
+
+    public var verifyButtonTappedCallsCount = 0
+    public var verifyButtonTappedCalled: Bool {
+        verifyButtonTappedCallsCount > 0
+    }
+    public var verifyButtonTappedStub: (() -> Void)?
+
+    public func verifyButtonTapped() {
+        lock.withLock {
+            verifyButtonTappedCallsCount += 1
+        }
+        verifyButtonTappedStub?()
+    }
+
+    //MARK: - navigateBack
+
+    public var navigateBackCallsCount = 0
+    public var navigateBackCalled: Bool {
+        navigateBackCallsCount > 0
+    }
+    public var navigateBackStub: (() -> Void)?
+
+    public func navigateBack() {
+        lock.withLock {
+            navigateBackCallsCount += 1
+        }
+        navigateBackStub?()
+    }
+
+}
+public final class ResetPasswordViewNavigatorProtocolMock: ResetPasswordViewNavigatorProtocol {
+private let lock = NSLock()
+
+public init() {}
+
+    //MARK: - resetButtonTapped
+
+    public var resetButtonTappedUsernameCallsCount = 0
+    public var resetButtonTappedUsernameCalled: Bool {
+        resetButtonTappedUsernameCallsCount > 0
+    }
+    public var resetButtonTappedUsernameReceivedUsername: String?
+    public var resetButtonTappedUsernameReceivedInvocations: [String] = []
+    public var resetButtonTappedUsernameStub: ((String) -> Void)?
+
+    public func resetButtonTapped(username: String) {
+        lock.withLock {
+            resetButtonTappedUsernameCallsCount += 1
+        resetButtonTappedUsernameReceivedUsername = username
+        resetButtonTappedUsernameReceivedInvocations.append(username)
+        }
+        resetButtonTappedUsernameStub?(username)
+    }
+
+    //MARK: - navigateBack
+
+    public var navigateBackCallsCount = 0
+    public var navigateBackCalled: Bool {
+        navigateBackCallsCount > 0
+    }
+    public var navigateBackStub: (() -> Void)?
+
+    public func navigateBack() {
+        lock.withLock {
+            navigateBackCallsCount += 1
+        }
+        navigateBackStub?()
+    }
+
+}
+public final class SocialAddViewNavigatorProtocolMock: SocialAddViewNavigatorProtocol {
+private let lock = NSLock()
+
+public init() {}
+
+    //MARK: - navigateBack
+
+    public var navigateBackCallsCount = 0
+    public var navigateBackCalled: Bool {
+        navigateBackCallsCount > 0
+    }
+    public var navigateBackStub: (() -> Void)?
+
+    public func navigateBack() {
+        lock.withLock {
+            navigateBackCallsCount += 1
+        }
+        navigateBackStub?()
+    }
+
+}
+public final class SocialListViewNavigatorProtocolMock: SocialListViewNavigatorProtocol {
+private let lock = NSLock()
+
+public init() {}
+
+    //MARK: - navigateToRequest
+
+    public var navigateToRequestCallsCount = 0
+    public var navigateToRequestCalled: Bool {
+        navigateToRequestCallsCount > 0
+    }
+    public var navigateToRequestStub: (() -> Void)?
+
+    public func navigateToRequest() {
+        lock.withLock {
+            navigateToRequestCallsCount += 1
+        }
+        navigateToRequestStub?()
+    }
+
+    //MARK: - navigateToAdd
+
+    public var navigateToAddUsersCallsCount = 0
+    public var navigateToAddUsersCalled: Bool {
+        navigateToAddUsersCallsCount > 0
+    }
+    public var navigateToAddUsersReceivedUsers: [User]?
+    public var navigateToAddUsersReceivedInvocations: [[User]] = []
+    public var navigateToAddUsersStub: (([User]) -> Void)?
+
+    public func navigateToAdd(users: [User]) {
+        lock.withLock {
+            navigateToAddUsersCallsCount += 1
+        navigateToAddUsersReceivedUsers = users
+        navigateToAddUsersReceivedInvocations.append(users)
+        }
+        navigateToAddUsersStub?(users)
+    }
+
+    //MARK: - navigateToChat
+
+    public var navigateToChatModelCallsCount = 0
+    public var navigateToChatModelCalled: Bool {
+        navigateToChatModelCallsCount > 0
+    }
+    public var navigateToChatModelReceivedModel: PowderTrackrChatView.InputModel?
+    public var navigateToChatModelReceivedInvocations: [PowderTrackrChatView.InputModel] = []
+    public var navigateToChatModelStub: ((PowderTrackrChatView.InputModel) -> Void)?
+
+    public func navigateToChat(model: PowderTrackrChatView.InputModel) {
+        lock.withLock {
+            navigateToChatModelCallsCount += 1
+        navigateToChatModelReceivedModel = model
+        navigateToChatModelReceivedInvocations.append(model)
+        }
+        navigateToChatModelStub?(model)
+    }
+
+}
+public final class SocialRequestsViewNavigatorProtocolMock: SocialRequestsViewNavigatorProtocol {
+private let lock = NSLock()
+
+public init() {}
 
 }
 public final class StatisticsServiceProtocolMock: StatisticsServiceProtocol {

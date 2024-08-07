@@ -190,6 +190,10 @@
 		B4C96F8D2BD4365A005B84A4 /* FriendAddRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C96F8C2BD4365A005B84A4 /* FriendAddRowView.swift */; };
 		B4DC317E2C50CBE3001428C6 /* TrackListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC317D2C50CBE3001428C6 /* TrackListViewModelTests.swift */; };
 		B4DC31802C50CD09001428C6 /* ShareListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC317F2C50CD09001428C6 /* ShareListViewModelTests.swift */; };
+		B4DC31832C50D516001428C6 /* SocialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31822C50D516001428C6 /* SocialViewModel.swift */; };
+		B4DC31862C6347B6001428C6 /* FriendRequestViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31852C6347B6001428C6 /* FriendRequestViewModelTests.swift */; };
+		B4DC31892C6392E6001428C6 /* FriendAddViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31882C6392E6001428C6 /* FriendAddViewModelTests.swift */; };
+		B4DC318C2C639591001428C6 /* PowderTrackrChatViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC318B2C639591001428C6 /* PowderTrackrChatViewModelTests.swift */; };
 		B4F2C0092B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2BFFB2B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift */; };
 		B4F2C00A2B2124DF00FA8DE1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2BFFC2B2124DF00FA8DE1 /* Extensions.swift */; };
 		B4F2C00B2B2124DF00FA8DE1 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2BFFD2B2124DF00FA8DE1 /* Models.swift */; };
@@ -423,6 +427,10 @@
 		B4C96F8C2BD4365A005B84A4 /* FriendAddRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAddRowView.swift; sourceTree = "<group>"; };
 		B4DC317D2C50CBE3001428C6 /* TrackListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListViewModelTests.swift; sourceTree = "<group>"; };
 		B4DC317F2C50CD09001428C6 /* ShareListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareListViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC31822C50D516001428C6 /* SocialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialViewModel.swift; sourceTree = "<group>"; };
+		B4DC31852C6347B6001428C6 /* FriendRequestViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC31882C6392E6001428C6 /* FriendAddViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAddViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC318B2C639591001428C6 /* PowderTrackrChatViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrChatViewModelTests.swift; sourceTree = "<group>"; };
 		B4F2BFFB2B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenISO8601DateFormatter.swift; sourceTree = "<group>"; };
 		B4F2BFFC2B2124DF00FA8DE1 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B4F2BFFD2B2124DF00FA8DE1 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -1041,6 +1049,7 @@
 		B476CCCE2C4F87DD004AA3EE /* PowderTrackrTests */ = {
 			isa = PBXGroup;
 			children = (
+				B4DC31812C50D50D001428C6 /* Social */,
 				B4DC31792C50CBAA001428C6 /* TrackListViewModel */,
 				B4DC31712C50C6AA001428C6 /* MapViewModel */,
 			);
@@ -1159,6 +1168,41 @@
 				B4DC317F2C50CD09001428C6 /* ShareListViewModelTests.swift */,
 			);
 			path = TrackListViewModel;
+			sourceTree = "<group>";
+		};
+		B4DC31812C50D50D001428C6 /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				B4DC318A2C63958A001428C6 /* PowderTrackrChatViewModel */,
+				B4DC31872C6392D9001428C6 /* FriendAddViewModel */,
+				B4DC31842C6347A2001428C6 /* FriendRequestViewModel */,
+				B4DC31822C50D516001428C6 /* SocialViewModel.swift */,
+			);
+			path = Social;
+			sourceTree = "<group>";
+		};
+		B4DC31842C6347A2001428C6 /* FriendRequestViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B4DC31852C6347B6001428C6 /* FriendRequestViewModelTests.swift */,
+			);
+			path = FriendRequestViewModel;
+			sourceTree = "<group>";
+		};
+		B4DC31872C6392D9001428C6 /* FriendAddViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B4DC31882C6392E6001428C6 /* FriendAddViewModelTests.swift */,
+			);
+			path = FriendAddViewModel;
+			sourceTree = "<group>";
+		};
+		B4DC318A2C63958A001428C6 /* PowderTrackrChatViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B4DC318B2C639591001428C6 /* PowderTrackrChatViewModelTests.swift */,
+			);
+			path = PowderTrackrChatViewModel;
 			sourceTree = "<group>";
 		};
 		B4F2BFF92B2124B500FA8DE1 /* API */ = {
@@ -1610,9 +1654,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4DC31862C6347B6001428C6 /* FriendRequestViewModelTests.swift in Sources */,
 				B4DC31802C50CD09001428C6 /* ShareListViewModelTests.swift in Sources */,
 				B4DC317E2C50CBE3001428C6 /* TrackListViewModelTests.swift in Sources */,
+				B4DC318C2C639591001428C6 /* PowderTrackrChatViewModelTests.swift in Sources */,
 				B476CCD62C4F87E4004AA3EE /* MapViewViewModelTests.swift in Sources */,
+				B4DC31892C6392E6001428C6 /* FriendAddViewModelTests.swift in Sources */,
+				B4DC31832C50D516001428C6 /* SocialViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

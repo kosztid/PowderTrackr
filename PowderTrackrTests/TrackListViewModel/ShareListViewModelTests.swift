@@ -13,7 +13,7 @@ final class ShareListViewModelTests: XCTestCase {
         mapService = MapServiceProtocolMock()
         friendService = FriendServiceProtocolMock()
         track = TrackedPath(id: "testTrack", name: "testTrack", startDate: "", endDate: "", xCoords: [0.0, 1.0], yCoords: [0.0, 1.0], tracking: false)
-        
+
         let friendList = Friendlist(id: "123", friends: [Friend(id: "1", name: "John Doe", isTracking: true)])
         friendService.underlyingFriendListPublisher = CurrentValueSubject<Friendlist?, Never>(friendList).eraseToAnyPublisher()
 
