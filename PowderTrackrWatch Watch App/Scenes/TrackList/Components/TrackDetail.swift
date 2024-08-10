@@ -6,6 +6,7 @@ struct TrackDetail: View {
     let track: TrackedPath
     @Namespace private var namespace
     @State private var selection = 0
+    
     var body: some View {
         TabView(selection: $selection) {
             HStack {
@@ -53,7 +54,7 @@ struct TrackDetail: View {
         .padding(.su4)
     }
 }
-#endif
+
 extension TrackDetail {
     private func calculateDistance() -> Double {
         var list: [CLLocation] = []
@@ -82,3 +83,5 @@ extension TrackDetail {
 #Preview {
     TrackDetail(track: .init(id: "123", name: "Track 123", startDate: "2024-02-18 15:04:01", endDate: "2024-02-18 15:08:01", tracking: false))
 }
+
+#endif
