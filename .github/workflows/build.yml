@@ -22,9 +22,19 @@ jobs:
           pod install
           
       - name: Run Tests
-        run: xcodebuild test \
-          -workspace PowderTrackr.xcworkspace \
-          -scheme PowderTrackr \
-          -sdk iphonesimulator \
-          -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
-          ONLY_ACTIVE_ARCH=YES | xcpretty
+        run: |
+          xcodebuild test \
+            -workspace PowderTrackr.xcworkspace \
+            -scheme PowderTrackr \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
+            ONLY_ACTIVE_ARCH=YES \
+            -resultBundlePath TestResults.xcresult | xcpretty --test --color --report junit
+          
+      - name: Parse Test Results
+        run: |
+          tests=$(grep -o 'testsuite tests="\d*"' TestResults.xcresult/TestSummaries.plist | grep -o '\d*')
+          failures=$(grep -o 'testsuite failures="\d*"' TestResults.xcresult/TestSummaries.plist | grep -o '\d*')
+          echo "Total Tests: $tests"
+          echo "Failures: $failures"
+          echo "Succeeded: $(($tests - $failures))"
