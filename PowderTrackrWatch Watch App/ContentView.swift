@@ -1,6 +1,5 @@
 import SwiftUI
 
-#if os(watchOS)
 public struct ContentView: View {
     public var body: some View {
         TabView {
@@ -23,5 +22,3 @@ public struct ContentView: View {
 #Preview {
     ContentView()
 }
-
-#endif

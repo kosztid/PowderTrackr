@@ -1,6 +1,5 @@
 import SwiftUI
 
-#if os(watchOS)
 struct TrackListView: View {
     @StateObject var viewModel = ViewModel()
 
@@ -46,4 +45,3 @@ struct TrackListView: View {
     TrackListView()
 }
 
-#endif

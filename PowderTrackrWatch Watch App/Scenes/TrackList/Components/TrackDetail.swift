@@ -1,7 +1,6 @@
 import CoreLocation
 import SwiftUI
 
-#if os(watchOS)
 struct TrackDetail: View {
     let track: TrackedPath
     @Namespace private var namespace
@@ -50,7 +49,9 @@ struct TrackDetail: View {
             }
             .tag(2)
         }
+#if os(watchOS)
         .tabViewStyle(.verticalPage)
+#endif
         .padding(.su4)
     }
 }
@@ -83,5 +84,3 @@ extension TrackDetail {
 #Preview {
     TrackDetail(track: .init(id: "123", name: "Track 123", startDate: "2024-02-18 15:04:01", endDate: "2024-02-18 15:08:01", tracking: false))
 }
-
-#endif
