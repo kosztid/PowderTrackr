@@ -1,15 +1,15 @@
-name: iOS Unit Tests
+name: iOS Build and Unit Tests
 
 on:
   push:
     branches:
-      - main
+      - main # or the branch you want to run the tests on
   pull_request:
     branches:
       - main
 
 jobs:
-  test:
+  build:
     runs-on: macos-latest
 
     steps:
@@ -20,21 +20,51 @@ jobs:
         run: |
           sudo gem install cocoapods
           pod install
-          
-      - name: Run Tests
+
+      - name: Build Project
         run: |
-          xcodebuild test \
+          xcodebuild build \
             -workspace PowderTrackr.xcworkspace \
             -scheme PowderTrackr \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
-            ONLY_ACTIVE_ARCH=YES \
-            -resultBundlePath TestResults.xcresult | xcpretty --test --color --report junit
-          
+            ONLY_ACTIVE_ARCH=YES | xcpretty
+
+  test:
+    runs-on: macos-latest
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo gem install cocoapods
+          pod install
+
+      - name: Run Tests
+        run: |
+          set -o pipefail && xcodebuild test \
+            -workspace PowderTrackr.xcworkspace \
+            -scheme PowderTrackr \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
+            ONLY_ACTIVE_ARCH=YES | xcpretty --test --color --report junit --output TestsResult.xml
+
       - name: Parse Test Results
         run: |
-          tests=$(grep -o 'testsuite tests="\d*"' TestResults.xcresult/TestSummaries.plist | grep -o '\d*')
-          failures=$(grep -o 'testsuite failures="\d*"' TestResults.xcresult/TestSummaries.plist | grep -o '\d*')
-          echo "Total Tests: $tests"
-          echo "Failures: $failures"
-          echo "Succeeded: $(($tests - $failures))"
+          if grep -q "<failure" TestsResult.xml; then
+            echo "There were test failures"
+            exit 1
+          else
+            echo "All tests passed"
+          fi
+
+      - name: Display Test Summary
+        run: |
+          total_tests=$(grep -o 'tests="[^"]*"' TestsResult.xml | sed -E 's/tests="([0-9]+)"/\1/')
+          total_failures=$(grep -o 'failures="[^"]*"' TestsResult.xml | sed -E 's/failures="([0-9]+)"/\1/')
+          echo "Total Tests: $total_tests"
+          echo "Failures: $total_failures"
+          echo "Succeeded: $(($total_tests - $total_failures))"
