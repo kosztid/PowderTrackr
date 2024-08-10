@@ -1,33 +1,33 @@
-name: iOS Build
+name: iOS Unit Tests
 
 on:
   push:
     branches:
-      - main  # Set to your default branch, e.g., main or master
+      - main
   pull_request:
     branches:
       - main
 
 jobs:
-  build:
+  test:
     runs-on: macos-latest
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 2.7  # Set this to the version used in your project
+      - name: Set up Xcode
+        uses: maxim-lobanov/setup-xcode@v3
 
-    - name: Install CocoaPods
-      run: |
-        gem install cocoapods
-        pod install
-
-    - name: Build Xcode Project
-      run: |
-        xcodebuild -workspace PowderTrackr.xcworkspace -scheme PowderTrackr -sdk iphonesimulator -configuration Debug ONLY_ACTIVE_ARCH=YES build
-      env:
-        CI: true
+      - name: Install dependencies
+        run: |
+          sudo gem install cocoapods
+          pod install
+          
+      - name: Run Tests
+        run: xcodebuild test \
+          -workspace PowderTrackr.xcworkspace \
+          -scheme PowderTrackr \
+          -sdk iphonesimulator \
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
+          ONLY_ACTIVE_ARCH=YES | xcpretty
