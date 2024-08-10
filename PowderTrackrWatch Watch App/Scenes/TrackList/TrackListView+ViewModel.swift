@@ -1,4 +1,5 @@
 import Combine
+import CoreLocation
 import SwiftUI
 
 extension TrackListView {

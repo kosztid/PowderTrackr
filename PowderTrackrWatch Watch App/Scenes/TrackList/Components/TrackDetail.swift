@@ -1,5 +1,7 @@
+import CoreLocation
 import SwiftUI
 
+#if os(watchOS)
 struct TrackDetail: View {
     let track: TrackedPath
     @Namespace private var namespace
@@ -51,7 +53,7 @@ struct TrackDetail: View {
         .padding(.su4)
     }
 }
-
+#endif
 extension TrackDetail {
     private func calculateDistance() -> Double {
         var list: [CLLocation] = []
