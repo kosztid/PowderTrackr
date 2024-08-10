@@ -126,6 +126,7 @@
 		B44773C42C0275DA00489E97 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49FA4742BDEFA1800DC2FC1 /* DataService.swift */; };
 		B44B8A9E2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44B8A9D2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift */; };
 		B44B8AA02B826D1400E8F25F /* PowderTrackrNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44B8A9F2B826D1400E8F25F /* PowderTrackrNavigator.swift */; };
+		B451B01D2C679CD4000BC18D /* PowderTrackrTests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = B451B01C2C679CD4000BC18D /* PowderTrackrTests.xctestplan */; };
 		B45310F62BD6709C00891ADC /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45310F52BD6709C00891ADC /* CornerRadius.swift */; };
 		B45310FF2BD7133D00891ADC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B45310FE2BD7133D00891ADC /* WidgetKit.framework */; };
 		B45311012BD7133D00891ADC /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B45311002BD7133D00891ADC /* SwiftUI.framework */; };
@@ -389,6 +390,7 @@
 		B42B25142BA738D20013383D /* FriendRequestRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestRowView.swift; sourceTree = "<group>"; };
 		B44B8A9D2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PowderTrackrView+ViewModel.swift"; sourceTree = "<group>"; };
 		B44B8A9F2B826D1400E8F25F /* PowderTrackrNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrNavigator.swift; sourceTree = "<group>"; };
+		B451B01C2C679CD4000BC18D /* PowderTrackrTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PowderTrackrTests.xctestplan; sourceTree = "<group>"; };
 		B45310F52BD6709C00891ADC /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
 		B45310FD2BD7133D00891ADC /* PowderTrackrWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PowderTrackrWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B45310FE2BD7133D00891ADC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -556,6 +558,7 @@
 		554587802A3DF8F1009A5485 = {
 			isa = PBXGroup;
 			children = (
+				B451B01C2C679CD4000BC18D /* PowderTrackrTests.xctestplan */,
 				B4CA6E332C4F755500180CAF /* PowderTrackrMock */,
 				B45311142BD7142400891ADC /* PowderTrackrWidgetExtension.entitlements */,
 				5545878B2A3DF8F1009A5485 /* PowderTrackr */,
@@ -1433,6 +1436,7 @@
 				554587942A3DF8F2009A5485 /* Preview Assets.xcassets in Resources */,
 				554587912A3DF8F2009A5485 /* Assets.xcassets in Resources */,
 				55E1F72E2C1F7E1200DCC0D6 /* Localizable.strings in Resources */,
+				B451B01D2C679CD4000BC18D /* PowderTrackrTests.xctestplan in Resources */,
 				DB5F670D7C78E51B71D728C8 /* awsconfiguration.json in Resources */,
 				38B2EF361C3DDEE6BC819CB4 /* amplifyconfiguration.json in Resources */,
 			);

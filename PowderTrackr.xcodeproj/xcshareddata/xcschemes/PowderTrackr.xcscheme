@@ -29,7 +29,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:../PowderTrackr.xctestplan"
+            reference = "container:PowderTrackrTests.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>

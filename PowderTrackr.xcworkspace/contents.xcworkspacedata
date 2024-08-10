@@ -19,7 +19,4 @@
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:../PowderTrackr.xctestplan">
-   </FileRef>
 </Workspace>

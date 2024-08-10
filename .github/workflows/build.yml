@@ -43,6 +43,7 @@ jobs:
             -scheme PowderTrackr \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
+            -testPlan PowderTrackrTests \
             ONLY_ACTIVE_ARCH=YES | xcpretty
 
       - name: Display Test Summary

@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "6B43F417-DDFF-47D9-83DA-13844CCB6BD6",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:PowderTrackr.xcodeproj",
+        "identifier" : "B476CCCC2C4F87DD004AA3EE",
+        "name" : "PowderTrackrTests"
+      }
+    }
+  ],
+  "version" : 1
+}
