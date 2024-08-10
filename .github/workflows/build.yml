@@ -40,7 +40,7 @@ jobs:
         run: |
           set -o pipefail && xcodebuild test \
             -workspace PowderTrackr.xcworkspace \
-            -scheme PowderTrackr \
+            -scheme App+Watch \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
             ONLY_ACTIVE_ARCH=YES | xcpretty
