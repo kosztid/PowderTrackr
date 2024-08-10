@@ -38,7 +38,7 @@ final class ChangePasswordViewModelTests: XCTestCase {
         sut.$toast
             .dropFirst()
             .sink { toast in
-                XCTAssertNotNil(toast, "Toast should be shown when password change succeeds")
+                XCTAssertNotNil(toast)
                 XCTAssertEqual(toast?.title, "Password changed successfully")
                 expectation.fulfill()
             }
@@ -58,7 +58,7 @@ final class ChangePasswordViewModelTests: XCTestCase {
         sut.$toast
             .dropFirst()
             .sink { toast in
-                XCTAssertNotNil(toast, "Toast should be shown when password change fails")
+                XCTAssertNotNil(toast)
                 XCTAssertEqual(toast?.title, "Failed changing password")
                 expectation.fulfill()
             }

@@ -47,7 +47,7 @@ final class RegisterViewModelTests: XCTestCase {
         sut.register()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            XCTAssertTrue(self.navigatorMock.registeredUsernamePasswordCalled, "Registered should be called on the navigator with the correct credentials")
+            XCTAssertTrue(self.navigatorMock.registeredUsernamePasswordCalled)
             expect.fulfill()
         }
 

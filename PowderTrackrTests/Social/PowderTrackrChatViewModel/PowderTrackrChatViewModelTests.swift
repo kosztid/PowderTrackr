@@ -28,21 +28,21 @@ final class PowderTrackrChatViewModelTests: XCTestCase {
     }
 
     func test_initBindings_whenInitialized_shouldSubscribeToMessages() {
-        XCTAssertEqual(sut.messages.count, 1, "Should initialize and load messages from the chat service.")
+        XCTAssertEqual(sut.messages.count, 1)
     }
 
     func test_sendMessage_whenCalled_shouldCreateAndSendMessage() {
         let draftMessage = DraftMessage(text: "Test message", medias: [], recording: nil, replyMessage: nil, createdAt: Date())
         sut.sendMessage(draftMessage: draftMessage)
 
-        XCTAssertTrue(chatServiceMock.sendMessageMessageRecipientCalled, "sendMessage should be called on chatService.")
+        XCTAssertTrue(chatServiceMock.sendMessageMessageRecipientCalled)
     }
 
     func test_updateChats_whenTimerFires_shouldRequestUpdate() {
         sut.startTimer()
         sut.updateChats()
 
-        XCTAssertTrue(chatServiceMock.updateMessageStatusRecipientCalled, "updateMessageStatus should be called on chatService.")
+        XCTAssertTrue(chatServiceMock.updateMessageStatusRecipientCalled)
         sut.stopTimer()
     }
 }

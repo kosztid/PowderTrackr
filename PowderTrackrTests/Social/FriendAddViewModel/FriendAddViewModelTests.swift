@@ -35,15 +35,15 @@ final class FriendAddViewModelTests: XCTestCase {
     }
 
     func test_initialState_whenInitialized_shouldContainAllUsers() {
-        XCTAssertEqual(sut.users.count, 2, "Should load all users from the input model.")
+        XCTAssertEqual(sut.users.count, 2)
     }
 
     func test_filteredUsers_whenSearchTextIsNotEmpty_shouldFilterUsers() {
         sut.searchText = "John"
         let filteredUsers = sut.filteredUsers
 
-        XCTAssertEqual(filteredUsers.count, 1, "Should filter users based on search text.")
-        XCTAssertEqual(filteredUsers.first?.name, "John Doe", "Filtered user should be John Doe.")
+        XCTAssertEqual(filteredUsers.count, 1)
+        XCTAssertEqual(filteredUsers.first?.name, "John Doe")
     }
 
     func test_addFriend_whenCalled_shouldSendFriendRequestAndRemoveUser() {
@@ -57,9 +57,9 @@ final class FriendAddViewModelTests: XCTestCase {
         sut.addFriend(user: userToAdd)
 
         DispatchQueue.main.async { [weak self] in
-            XCTAssertTrue(self?.sut.users.allSatisfy { $0.id != userToAdd.id } ?? false, "User should be removed after adding as friend.")
-            XCTAssertNotNil(self?.sut.toast, "Toast should be presented on successful friend request.")
-            XCTAssertEqual(self?.sut.toast?.title, "Friendrequest sent to John Doe", "Toast message should confirm friend request.")
+            XCTAssertTrue(self?.sut.users.allSatisfy { $0.id != userToAdd.id } ?? false)
+            XCTAssertNotNil(self?.sut.toast)
+            XCTAssertEqual(self?.sut.toast?.title, "Friendrequest sent to John Doe")
             expect.fulfill()
         }
 
@@ -69,6 +69,6 @@ final class FriendAddViewModelTests: XCTestCase {
     func test_dismissButtonTap_whenCalled_shouldNavigateBack() {
         sut.dismissButtonTap()
 
-        XCTAssertTrue(navigatorMock.navigateBackCalled, "Should navigate back upon dismiss button tap.")
+        XCTAssertTrue(navigatorMock.navigateBackCalled)
     }
 }

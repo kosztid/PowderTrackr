@@ -38,38 +38,38 @@ final class ProfileViewModelTests: XCTestCase {
     }
 
     func test_viewModelInitialization_whenCreated_bindsToServices() {
-        XCTAssertNotNil(viewModel, "ViewModel should not be nil after initialization")
-        XCTAssertTrue(viewModel.isSignedIn, "ViewModel should reflect signed-in status from the account service")
+        XCTAssertNotNil(viewModel)
+        XCTAssertTrue(viewModel.isSignedIn)
     }
 
     func test_login_whenInvoked_triggersNavigationToLogin() {
         viewModel.login()
 
-        XCTAssertTrue(navigatorMock.loginCalled, "login should trigger navigation to login screen")
+        XCTAssertTrue(navigatorMock.loginCalled)
     }
 
     func test_register_whenInvoked_triggersNavigationToRegister() {
         viewModel.register()
 
-        XCTAssertTrue(navigatorMock.registerCalled, "register should trigger navigation to registration screen")
+        XCTAssertTrue(navigatorMock.registerCalled)
     }
 
     func test_updatePasswordTap_whenInvoked_triggersPasswordUpdateNavigation() {
         viewModel.updatePasswordTap()
 
-        XCTAssertTrue(navigatorMock.updatePasswordCalled, "updatePassword should trigger navigation to update password screen")
+        XCTAssertTrue(navigatorMock.updatePasswordCalled)
     }
 
     func test_dismissButtonTap_whenInvoked_triggersDismissScreen() {
         viewModel.dismissButtonTap()
 
-        XCTAssertTrue(navigatorMock.dismissScreenCalled, "dismissButtonTap should trigger navigation to dismiss the screen")
+        XCTAssertTrue(navigatorMock.dismissScreenCalled)
     }
 
     func test_makeTotals_whenCalled_updatesTotals() {
         viewModel.makeTotals()
 
-        XCTAssertGreaterThan(viewModel.totalDistance, 0, "Total distance should be updated and greater than zero after totals are made")
-        XCTAssertNotEqual(viewModel.totalTime, "", "Total time should be updated and not be empty after totals are made")
+        XCTAssertGreaterThan(viewModel.totalDistance, .zero)
+        XCTAssertNotEqual(viewModel.totalTime, "")
     }
 }

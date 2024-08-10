@@ -43,7 +43,7 @@ class LoginViewModelTests: XCTestCase {
 
         sut.$showLoginError
             .sink { showLoginError in
-                XCTAssertTrue(showLoginError, "showLoginError should be true when login fails")
+                XCTAssertTrue(showLoginError)
                 failureCompletionExpectation.fulfill()
             }
             .store(in: &cancellables)
@@ -54,12 +54,12 @@ class LoginViewModelTests: XCTestCase {
     func test_resetPassword_shouldNavigateToResetPassword() {
         sut.resetPassword()
 
-        XCTAssertTrue(navigatorMock.navigateToResetPasswordCalled, "navigateToResetPassword should be called on navigator")
+        XCTAssertTrue(navigatorMock.navigateToResetPasswordCalled)
     }
 
     func test_dismiss_shouldCallNavigatorDismiss() {
         sut.dismiss()
 
-        XCTAssertTrue(navigatorMock.dismissCalled, "dismiss should be called on navigator")
+        XCTAssertTrue(navigatorMock.dismissCalled)
     }
 }

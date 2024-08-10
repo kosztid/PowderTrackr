@@ -38,9 +38,7 @@ extension LeaderBoardView {
         }
 
         func onAppear() {
-            Task {
-                await statService.loadLeaderboard()
-            }
+            statService.loadLeaderboard()
         }
     }
 }

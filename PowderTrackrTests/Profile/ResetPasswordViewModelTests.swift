@@ -47,8 +47,8 @@ final class ResetPasswordViewModelTests: XCTestCase {
         sut.$toast
             .dropFirst()
             .sink { toast in
-                XCTAssertNotNil(toast, "Toast should be shown when reset password fails")
-                XCTAssertEqual(toast?.title, "Failed resetting password")
+                XCTAssertNotNil(toast)
+                XCTAssertEqual(toast?.title)
                 expectation.fulfill()
             }
             .store(in: &cancellables)

@@ -1313,13 +1313,13 @@ public init() {}
     public var loadLeaderboardCalled: Bool {
         loadLeaderboardCallsCount > 0
     }
-    public var loadLeaderboardStub: (() async -> Void)?
+    public var loadLeaderboardStub: (() -> Void)?
 
-    public func loadLeaderboard() async {
+    public func loadLeaderboard() {
         lock.withLock {
             loadLeaderboardCallsCount += 1
         }
-        await loadLeaderboardStub?()
+        loadLeaderboardStub?()
     }
 
 }

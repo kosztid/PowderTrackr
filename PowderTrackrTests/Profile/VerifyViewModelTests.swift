@@ -38,7 +38,7 @@ final class VerifyViewModelTests: XCTestCase {
         sut.$toast
             .sink { toast in
                 if toast != nil {
-                    XCTFail("Toast should not be shown on successful verification")
+                    XCTFail()
                 }
             }
             .store(in: &cancellables)
@@ -46,7 +46,7 @@ final class VerifyViewModelTests: XCTestCase {
         sut.verify()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            XCTAssertTrue(self.navigatorMock.verifiedCalled, "Navigator should be called to navigate to the verified view")
+            XCTAssertTrue(self.navigatorMock.verifiedCalled)
             expectation.fulfill()
         }
 

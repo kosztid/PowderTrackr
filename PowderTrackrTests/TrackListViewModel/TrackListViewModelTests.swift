@@ -49,7 +49,7 @@ final class TrackListViewModelTests: XCTestCase {
         let track = TrackedPath(id: "testTrack", name: "testTrack", startDate: "", endDate: "", xCoords: [0.0, 1.0], yCoords: [0.0, 1.0], tracking: false)
         let distance = viewModel.calculateDistance(track: track)
 
-        XCTAssertEqual(distance, 157_249.37625418047, accuracy: 1_000, "Distance calculation should match expected value.")
+        XCTAssertEqual(distance, 157_249.37625418047, accuracy: 1_000)
     }
 
     func test_removeTrack_whenCalled_shouldRemoveTrackFromService() {

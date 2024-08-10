@@ -27,7 +27,7 @@ final class FriendRequestViewModelTests: XCTestCase {
     }
 
     func test_initFriendRequests_whenViewModelInitialized_shouldBindAndLoadRequests() {
-        XCTAssertEqual(sut.friendRequests.count, 2, "Should load initial friend requests.")
+        XCTAssertEqual(sut.friendRequests.count, 2)
     }
 
     func test_acceptRequest_whenCalled_shouldRemoveRequestAndUpdateService() {
@@ -35,14 +35,14 @@ final class FriendRequestViewModelTests: XCTestCase {
 
         sut.acceptRequest(request)
 
-        XCTAssertTrue(service.addFriendRequestCalled, "Service method to add friend should be called.")
-        XCTAssertEqual(sut.friendRequests.count, 1, "Should remove the accepted request from the list.")
-        XCTAssertFalse(sut.friendRequests.contains(where: { $0.id == "1" }), "The accepted request should no longer be present.")
+        XCTAssertTrue(service.addFriendRequestCalled)
+        XCTAssertEqual(sut.friendRequests.count, 1)
+        XCTAssertFalse(sut.friendRequests.contains(where: { $0.id == "1" }))
     }
 
     func test_refreshRequests_whenCalled_shouldQueryService() {
         sut.refreshRequests()
 
-        XCTAssertTrue(service.queryFriendRequestsCalled, "Service method to query friend requests should be called.")
+        XCTAssertTrue(service.queryFriendRequestsCalled)
     }
 }

@@ -201,6 +201,10 @@
 		B4DC31972C63ABA7001428C6 /* ConfirmResetPasswordViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31962C63ABA7001428C6 /* ConfirmResetPasswordViewModelTests.swift */; };
 		B4DC31992C63AC7B001428C6 /* ResetPasswordViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31982C63AC7B001428C6 /* ResetPasswordViewModelTests.swift */; };
 		B4DC319B2C63ADA6001428C6 /* ChangePasswordViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC319A2C63ADA6001428C6 /* ChangePasswordViewModelTests.swift */; };
+		B4DC319E2C6780AA001428C6 /* LeaderBoardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC319D2C6780AA001428C6 /* LeaderBoardViewModelTests.swift */; };
+		B4DC31A12C6783F0001428C6 /* RacesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31A02C6783F0001428C6 /* RacesViewModelTests.swift */; };
+		B4DC31A32C678544001428C6 /* RaceRunViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31A22C678544001428C6 /* RaceRunViewModelTests.swift */; };
+		B4DC31A52C678760001428C6 /* MyRunsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31A42C678760001428C6 /* MyRunsViewModelTests.swift */; };
 		B4F2C0092B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2BFFB2B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift */; };
 		B4F2C00A2B2124DF00FA8DE1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2BFFC2B2124DF00FA8DE1 /* Extensions.swift */; };
 		B4F2C00B2B2124DF00FA8DE1 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2BFFD2B2124DF00FA8DE1 /* Models.swift */; };
@@ -445,6 +449,10 @@
 		B4DC31962C63ABA7001428C6 /* ConfirmResetPasswordViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmResetPasswordViewModelTests.swift; sourceTree = "<group>"; };
 		B4DC31982C63AC7B001428C6 /* ResetPasswordViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModelTests.swift; sourceTree = "<group>"; };
 		B4DC319A2C63ADA6001428C6 /* ChangePasswordViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC319D2C6780AA001428C6 /* LeaderBoardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC31A02C6783F0001428C6 /* RacesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RacesViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC31A22C678544001428C6 /* RaceRunViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceRunViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC31A42C678760001428C6 /* MyRunsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunsViewModelTests.swift; sourceTree = "<group>"; };
 		B4F2BFFB2B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenISO8601DateFormatter.swift; sourceTree = "<group>"; };
 		B4F2BFFC2B2124DF00FA8DE1 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B4F2BFFD2B2124DF00FA8DE1 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -1063,6 +1071,8 @@
 		B476CCCE2C4F87DD004AA3EE /* PowderTrackrTests */ = {
 			isa = PBXGroup;
 			children = (
+				B4DC319F2C6783DA001428C6 /* Races */,
+				B4DC319C2C678091001428C6 /* LeaderBoard */,
 				B4DC318D2C6399FA001428C6 /* Profile */,
 				B4DC31812C50D50D001428C6 /* Social */,
 				B4DC31792C50CBAA001428C6 /* TrackListViewModel */,
@@ -1232,6 +1242,24 @@
 				B4DC319A2C63ADA6001428C6 /* ChangePasswordViewModelTests.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		B4DC319C2C678091001428C6 /* LeaderBoard */ = {
+			isa = PBXGroup;
+			children = (
+				B4DC319D2C6780AA001428C6 /* LeaderBoardViewModelTests.swift */,
+			);
+			path = LeaderBoard;
+			sourceTree = "<group>";
+		};
+		B4DC319F2C6783DA001428C6 /* Races */ = {
+			isa = PBXGroup;
+			children = (
+				B4DC31A02C6783F0001428C6 /* RacesViewModelTests.swift */,
+				B4DC31A22C678544001428C6 /* RaceRunViewModelTests.swift */,
+				B4DC31A42C678760001428C6 /* MyRunsViewModelTests.swift */,
+			);
+			path = Races;
 			sourceTree = "<group>";
 		};
 		B4F2BFF92B2124B500FA8DE1 /* API */ = {
@@ -1684,17 +1712,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4DC31862C6347B6001428C6 /* FriendRequestViewModelTests.swift in Sources */,
+				B4DC31A12C6783F0001428C6 /* RacesViewModelTests.swift in Sources */,
 				B4DC31952C63A585001428C6 /* LoginViewModelTests.swift in Sources */,
 				B4DC31802C50CD09001428C6 /* ShareListViewModelTests.swift in Sources */,
 				B4DC317E2C50CBE3001428C6 /* TrackListViewModelTests.swift in Sources */,
 				B4DC318C2C639591001428C6 /* PowderTrackrChatViewModelTests.swift in Sources */,
 				B476CCD62C4F87E4004AA3EE /* MapViewViewModelTests.swift in Sources */,
 				B4DC31932C63A3D7001428C6 /* RegisterViewModelTests.swift in Sources */,
+				B4DC31A52C678760001428C6 /* MyRunsViewModelTests.swift in Sources */,
 				B4DC31912C63A256001428C6 /* VerifyViewModelTests.swift in Sources */,
 				B4DC31892C6392E6001428C6 /* FriendAddViewModelTests.swift in Sources */,
+				B4DC31A32C678544001428C6 /* RaceRunViewModelTests.swift in Sources */,
 				B4DC318F2C639A01001428C6 /* ProfileViewModelTests.swift in Sources */,
 				B4DC31972C63ABA7001428C6 /* ConfirmResetPasswordViewModelTests.swift in Sources */,
 				B4DC319B2C63ADA6001428C6 /* ChangePasswordViewModelTests.swift in Sources */,
+				B4DC319E2C6780AA001428C6 /* LeaderBoardViewModelTests.swift in Sources */,
 				B4DC31992C63AC7B001428C6 /* ResetPasswordViewModelTests.swift in Sources */,
 				B4DC31832C50D516001428C6 /* SocialViewModel.swift in Sources */,
 			);

@@ -48,7 +48,7 @@ final class ConfirmResetPasswordViewModelTests: XCTestCase {
 
         sut.$toast
             .sink { toast in
-                XCTAssertNotNil(toast, "Toast should be shown when reset password fails")
+                XCTAssertNotNil(toast)
                 XCTAssertEqual(toast?.title, "Failed resetting password")
                 expectation.fulfill()
             }
