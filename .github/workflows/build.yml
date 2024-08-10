@@ -50,11 +50,3 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
             -testPlan PowderTrackrTests \
             ONLY_ACTIVE_ARCH=YES | xcpretty --report junit --output TestsResult.xml
-
-      - name: Display Test Summary
-        run: |
-          total_tests=$(grep -o 'tests="[^"]*"' TestsResult.xml | sed -E 's/tests="([0-9]+)"/\1/')
-          total_failures=$(grep -o 'failures="[^"]*"' TestsResult.xml | sed -E 's/failures="([0-9]+)"/\1/')
-          echo "Total Tests: $total_tests"
-          echo "Failures: $total_failures"
-          echo "Succeeded: $(($total_tests - $total_failures))"
