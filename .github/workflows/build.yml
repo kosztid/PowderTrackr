@@ -3,13 +3,13 @@ name: iOS Build and Unit Tests
 on:
   push:
     branches:
-      - main # or the branch you want to run the tests on
+      - main
   pull_request:
     branches:
       - main
 
 jobs:
-  build:
+  build_and_test:
     runs-on: macos-latest
 
     steps:
@@ -20,6 +20,12 @@ jobs:
         run: |
           sudo gem install cocoapods
           pod install
+
+      - name: Clean Build
+        run: |
+          xcodebuild clean \
+            -workspace PowderTrackr.xcworkspace \
+            -scheme PowderTrackr
 
       - name: Build Project
         run: |
@@ -30,19 +36,6 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
             ONLY_ACTIVE_ARCH=YES | xcpretty
 
-  test:
-    runs-on: macos-latest
-    needs: build
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install dependencies
-        run: |
-          sudo gem install cocoapods
-          pod install
-
       - name: Run Tests
         run: |
           set -o pipefail && xcodebuild test \
@@ -50,10 +43,11 @@ jobs:
             -scheme PowderTrackr \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
-            ONLY_ACTIVE_ARCH=YES | xcpretty --test --color --report junit --output TestsResult.xml
+            ONLY_ACTIVE_ARCH=YES | xcpretty
 
-      - name: Parse Test Results
+      - name: Display Test Summary
         run: |
+          # Extracting test results and summary
           if grep -q "<failure" TestsResult.xml; then
             echo "There were test failures"
             exit 1
@@ -61,7 +55,7 @@ jobs:
             echo "All tests passed"
           fi
 
-      - name: Display Test Summary
+      - name: Parse Test Results
         run: |
           total_tests=$(grep -o 'tests="[^"]*"' TestsResult.xml | sed -E 's/tests="([0-9]+)"/\1/')
           total_failures=$(grep -o 'failures="[^"]*"' TestsResult.xml | sed -E 's/failures="([0-9]+)"/\1/')
