@@ -2,6 +2,7 @@ import Combine
 import CoreLocation
 import SwiftUI
 
+#if os(watchOS)
 extension TrackListView {
     final class ViewModel: ObservableObject {
         var connectivityProvider: WatchConnectivityProvider
@@ -48,3 +49,5 @@ extension TrackListView {
         }
     }
 }
+
+#endif
