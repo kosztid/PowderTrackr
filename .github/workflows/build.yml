@@ -49,19 +49,9 @@ jobs:
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
             -testPlan PowderTrackrTests \
-            ONLY_ACTIVE_ARCH=YES | xcpretty
+            ONLY_ACTIVE_ARCH=YES | xcpretty --report junit --output TestsResult.xml
 
       - name: Display Test Summary
-        run: |
-          # Extracting test results and summary
-          if grep -q "<failure" TestsResult.xml; then
-            echo "There were test failures"
-            exit 1
-          else
-            echo "All tests passed"
-          fi
-
-      - name: Parse Test Results
         run: |
           total_tests=$(grep -o 'tests="[^"]*"' TestsResult.xml | sed -E 's/tests="([0-9]+)"/\1/')
           total_failures=$(grep -o 'failures="[^"]*"' TestsResult.xml | sed -E 's/failures="([0-9]+)"/\1/')
