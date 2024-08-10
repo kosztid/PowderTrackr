@@ -15,7 +15,9 @@ public struct ContentView: View {
                     Text("List")
                 }
         }
+#if os(watchOS)
         .tabViewStyle(PageTabViewStyle())
+#endif
     }
 }
 
