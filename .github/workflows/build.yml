@@ -16,6 +16,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Create AWS Config Files
+        run: |
+          echo "${{ secrets.AWS_CONFIG_JSON }}" > awsconfiguration.json
+          echo "${{ secrets.AMPLIFY_CONFIG_JSON }}" > amplifyconfiguration.json
+
       - name: Install dependencies
         run: |
           sudo gem install cocoapods
