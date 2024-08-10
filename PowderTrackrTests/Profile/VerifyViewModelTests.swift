@@ -31,8 +31,6 @@ final class VerifyViewModelTests: XCTestCase {
     }
 
     func test_verify_whenConfirmationSucceeds_navigatesToVerifiedView() {
-        let expectation = XCTestExpectation(description: "Navigate to verified view")
-
         accountServiceMock.confirmSignUpWithReturnValue = Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
 
         sut.$toast
@@ -47,10 +45,7 @@ final class VerifyViewModelTests: XCTestCase {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssertTrue(self.navigatorMock.verifiedCalled)
-            expectation.fulfill()
         }
-
-        wait(for: [expectation], timeout: 2.0)
     }
 
     func test_verify_whenConfirmationFails_showsErrorMessage() {

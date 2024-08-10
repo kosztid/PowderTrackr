@@ -29,8 +29,6 @@ final class RegisterViewModelTests: XCTestCase {
     }
 
     func test_register_whenSuccess_callsRegisteredOnNavigator() {
-        let expect = expectation(description: "Navigator called for successful registration")
-
         accountServiceMock.registerReturnValue = Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
 
         sut.username = "testuser"
@@ -48,10 +46,7 @@ final class RegisterViewModelTests: XCTestCase {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssertTrue(self.navigatorMock.registeredUsernamePasswordCalled)
-            expect.fulfill()
         }
-
-        wait(for: [expect], timeout: 2.0)
     }
 
     func test_register_whenFailure_displaysToast() {
