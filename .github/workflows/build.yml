@@ -44,7 +44,7 @@ jobs:
       - name: Generate Coverage Report in lcov Format
         run: |
           mkdir -p sonar-reports
-          llvm-cov export \
+          xcrun llvm-cov export \
             -format=lcov \
             -instr-profile $(xcodebuild -workspace PowderTrackr.xcworkspace -scheme PowderTrackr -showBuildSettings | grep -m 1 OBJROOT | cut -d " " -f 3 | xargs)/Build/Intermediates.noindex/CodeCoverage/Coverage.profdata \
             $(xcodebuild -workspace PowderTrackr.xcworkspace -scheme PowderTrackr -showBuildSettings | grep -m 1 OBJROOT | cut -d " " -f 3 | xargs)/Build/Intermediates.noindex/UninstalledProducts/iphonesimulator/*.xctest/Contents/MacOS/* > sonar-reports/coverage.lcov
