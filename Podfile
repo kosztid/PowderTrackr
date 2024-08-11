@@ -13,5 +13,6 @@ target 'PowderTrackr' do
   pod 'GoogleMaps', '7.4.0'
   pod 'AWSCognitoIdentityProvider'
   pod 'ExyteChat'
+  pod 'Sourcery'
 
 end

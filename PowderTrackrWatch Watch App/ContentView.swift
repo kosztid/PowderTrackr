@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct ContentView: View {
-    var body: some View {
+public struct ContentView: View {
+    public var body: some View {
         TabView {
             HomeView()
                 .tabItem {
@@ -15,7 +15,9 @@ struct ContentView: View {
                     Text("List")
                 }
         }
+#if os(watchOS)
         .tabViewStyle(PageTabViewStyle())
+#endif
     }
 }
 

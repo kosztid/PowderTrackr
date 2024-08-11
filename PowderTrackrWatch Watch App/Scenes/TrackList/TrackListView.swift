@@ -29,7 +29,9 @@ struct TrackListView: View {
                     }
                 }
             }
+#if os(watchOS)
             .containerBackground(.blue.gradient, for: .navigation)
+#endif
             .padding(.horizontal, .su4)
         } detail: {
             if let track = viewModel.selectedTrack {

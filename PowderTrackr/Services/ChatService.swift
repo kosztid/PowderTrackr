@@ -3,6 +3,7 @@ import ExyteChat
 import SwiftUI
 import UIKit
 
+// sourcery: mock
 public protocol ChatServiceProtocol: AnyObject {
     var messagesPublisher: AnyPublisher<[ExyteChat.Message]?, Never> { get }
     var chatNotificationPublisher: AnyPublisher<[String]?, Never> { get }

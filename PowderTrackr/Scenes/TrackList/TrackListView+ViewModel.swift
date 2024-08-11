@@ -1,4 +1,5 @@
 import Combine
+import CoreLocation
 import GoogleMaps
 import SwiftUI
 
@@ -75,7 +76,7 @@ extension TrackListView {
                 }
                 .store(in: &cancellables)
 
-            mapService.queryTrackedPaths(nil)
+            mapService.queryTrackedPaths()
             friendService.queryFriends()
         }
 
@@ -92,7 +93,7 @@ extension TrackListView {
         }
 
         func onAppear() {
-            mapService.queryTrackedPaths(nil)
+            mapService.queryTrackedPaths()
             mapService.querySharedPaths()
         }
 

@@ -1,4 +1,5 @@
 import Combine
+import CoreLocation
 import SwiftUI
 
 extension TrackListView {
@@ -18,7 +19,7 @@ extension TrackListView {
 
             initBindings()
 
-            mapService.queryTrackedPaths(connectivityProvider.userID)
+            mapService.queryTrackedPathsWithId(connectivityProvider.userID)
         }
 
         func initBindings() {
@@ -31,7 +32,7 @@ extension TrackListView {
         }
 
         func load() {
-            mapService.queryTrackedPaths(connectivityProvider.userID)
+            mapService.queryTrackedPathsWithId(connectivityProvider.userID)
         }
 
         func calculateDistance(track: TrackedPath) -> Double {

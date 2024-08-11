@@ -1,4 +1,5 @@
 import Combine
+import CoreLocation
 import GoogleMaps
 import SwiftUI
 
@@ -39,7 +40,7 @@ extension ProfileView {
         func logout() {
             Task {
                 await accountService.signOut()
-                mapService.queryTrackedPaths(nil)
+                mapService.queryTrackedPaths()
             }
         }
 
@@ -52,7 +53,7 @@ extension ProfileView {
         }
 
         func loadData() {
-            self.mapService.queryTrackedPaths(nil)
+            self.mapService.queryTrackedPaths()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.currentEmail = UserDefaults(suiteName: "group.koszti.storedData")?.string(forKey: "email") ?? ""
 

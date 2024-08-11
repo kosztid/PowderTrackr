@@ -1,9 +1,11 @@
+import CoreLocation
 import SwiftUI
 
 struct TrackDetail: View {
     let track: TrackedPath
     @Namespace private var namespace
     @State private var selection = 0
+
     var body: some View {
         TabView(selection: $selection) {
             HStack {
@@ -47,7 +49,9 @@ struct TrackDetail: View {
             }
             .tag(2)
         }
+#if os(watchOS)
         .tabViewStyle(.verticalPage)
+#endif
         .padding(.su4)
     }
 }

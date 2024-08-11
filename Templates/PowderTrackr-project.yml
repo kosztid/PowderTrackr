@@ -1,0 +1,27 @@
+name: PowderTrackr
+options:
+  bundleIdPrefix: koszti
+  deploymentTarget:
+    iOS: "17.0"
+include:
+  - path: target.yml
+
+targets:
+  PowderTrackr:
+    templates:
+      - Framework
+    templateAttributes:
+      module_name: PowderTrackr
+
+  PowderTrackrTests:
+    templates:
+      - FrameworkTests
+    templateAttributes:
+      module_name: PowderTrackr
+
+schemes:
+  PowderTrackr:
+    templates:
+      - TestScheme
+    templateAttributes:
+      testTargetName: PowderTrackrTests

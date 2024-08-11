@@ -1,11 +1,12 @@
 import Combine
 import UIKit
 
+// sourcery: mock
 public protocol StatisticsServiceProtocol: AnyObject {
     var leaderboardPublisher: AnyPublisher<[LeaderBoard], Never> { get }
     var networkErrorPublisher: AnyPublisher<ToastModel?, Never> { get }
 
-    func loadLeaderboard() async
+    func loadLeaderboard()
 }
 
 final class StatisticsService {

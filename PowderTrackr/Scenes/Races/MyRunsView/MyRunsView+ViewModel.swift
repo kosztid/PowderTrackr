@@ -51,9 +51,9 @@ extension MyRunsView {
 
         func calculateDistance(_ track: TrackedPath) -> Double {
             var list: [CLLocation] = []
-            var distance = 0.0
-            for index in 0..<(track.xCoords?.count ?? 0) {
-                list.append(CLLocation(latitude: track.xCoords?[index] ?? 0, longitude: track.yCoords?[index] ?? 0))
+            var distance = Double.zero
+            for index in .zero..<(track.xCoords?.count ?? .zero) {
+                list.append(CLLocation(latitude: track.xCoords?[index] ?? .zero, longitude: track.yCoords?[index] ?? .zero))
             }
             for itemDx in 1..<list.count {
                 distance += list[itemDx].distance(from: list[itemDx - 1])

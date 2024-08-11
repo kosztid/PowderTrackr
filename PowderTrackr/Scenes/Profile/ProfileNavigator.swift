@@ -12,6 +12,7 @@ public enum ProfileScreen {
     case updatePassword
 }
 
+// sourcery: mock
 protocol ProfileViewNavigatorProtocol {
     func dismissScreen()
     func login()
@@ -19,31 +20,37 @@ protocol ProfileViewNavigatorProtocol {
     func updatePassword()
 }
 
+// sourcery: mock
 protocol RegisterViewNavigatorProtocol {
     func registered(username: String, password: String)
     func dismiss()
 }
 
+// sourcery: mock
 protocol RegisterVerificationViewNavigatorProtocol {
     func verified()
 }
 
+// sourcery: mock
 protocol LoginViewNavigatorProtocol {
     func loggedIn()
     func navigateToResetPassword()
     func dismiss()
 }
 
+// sourcery: mock
 protocol ResetPasswordViewNavigatorProtocol {
     func resetButtonTapped(username: String)
     func navigateBack()
 }
 
+// sourcery: mock
 protocol ChangePasswordViewNavigatorProtocol {
     func changeButtonTapped()
     func navigateBack()
 }
 
+// sourcery: mock
 protocol ResetPasswordVerificationNavigatorProtocol {
     func verifyButtonTapped()
     func navigateBack()

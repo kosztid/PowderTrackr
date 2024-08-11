@@ -2,6 +2,7 @@ import Combine
 import SwiftUI
 import UIKit
 
+// sourcery: mock
 public protocol MapServiceProtocol: AnyObject {
     var trackingPublisher: AnyPublisher<TrackedPath?, Never> { get }
     var trackedPathPublisher: AnyPublisher<TrackedPathModel?, Never> { get }
@@ -16,7 +17,7 @@ public protocol MapServiceProtocol: AnyObject {
     func removeTrackedPath(_ trackedPath: TrackedPath)
     func removeSharedTrackedPath(_ trackedPath: TrackedPath)
     func queryTrackedPaths()
-    func queryTrackedPaths(_ id: String?)
+    func queryTrackedPathsWithId(_ id: String?)
     func querySharedPaths()
     func sendCurrentlyTracked(_ trackedPath: TrackedPath)
     func changeRaceCreationState(_ raceCreationState: RaceCreationState)
@@ -120,10 +121,10 @@ extension MapService: MapServiceProtocol {
     }
 
     func queryTrackedPaths() {
-        queryTrackedPaths(nil)
+        queryTrackedPathsWithId(nil)
     }
 
-    func queryTrackedPaths(_ id: String? = nil) {
+    func queryTrackedPathsWithId(_ id: String? = nil) {
         var currentPaths: TrackedPathModel?
 
         DefaultAPI.userTrackedPathsGet { data, error in

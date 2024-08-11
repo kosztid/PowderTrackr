@@ -1,0 +1,9 @@
+sources:
+  - ./PowderTrackr
+templates:
+  - ./Templates/mock.stencil
+output: ./PowderTrackrMock/Generated/Mock.swift
+
+args:
+  autoMockableTestableImports:
+    - PowderTrackr

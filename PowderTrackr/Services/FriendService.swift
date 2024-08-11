@@ -2,6 +2,7 @@ import Combine
 import SwiftUI
 import UIKit
 
+// sourcery: mock
 public protocol FriendServiceProtocol: AnyObject {
     var friendListPublisher: AnyPublisher<Friendlist?, Never> { get }
     var friendRequestsPublisher: AnyPublisher<[FriendRequest], Never> { get }

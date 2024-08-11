@@ -8,16 +8,19 @@ public enum SocialScreen {
     case chat(PowderTrackrChatView.InputModel)
 }
 
+// sourcery: mock
 protocol SocialListViewNavigatorProtocol {
     func navigateToRequest()
     func navigateToAdd(users: [User])
     func navigateToChat(model: PowderTrackrChatView.InputModel)
 }
 
+// sourcery: mock
 protocol SocialAddViewNavigatorProtocol {
     func navigateBack()
 }
 
+// sourcery: mock
 protocol SocialRequestsViewNavigatorProtocol {
 }
 

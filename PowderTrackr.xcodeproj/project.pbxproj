@@ -126,6 +126,7 @@
 		B44773C42C0275DA00489E97 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49FA4742BDEFA1800DC2FC1 /* DataService.swift */; };
 		B44B8A9E2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44B8A9D2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift */; };
 		B44B8AA02B826D1400E8F25F /* PowderTrackrNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44B8A9F2B826D1400E8F25F /* PowderTrackrNavigator.swift */; };
+		B451B01D2C679CD4000BC18D /* PowderTrackrTests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = B451B01C2C679CD4000BC18D /* PowderTrackrTests.xctestplan */; };
 		B45310F62BD6709C00891ADC /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45310F52BD6709C00891ADC /* CornerRadius.swift */; };
 		B45310FF2BD7133D00891ADC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B45310FE2BD7133D00891ADC /* WidgetKit.framework */; };
 		B45311012BD7133D00891ADC /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B45311002BD7133D00891ADC /* SwiftUI.framework */; };
@@ -136,6 +137,8 @@
 		B453110E2BD7133E00891ADC /* PowderTrackrWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B45310FD2BD7133D00891ADC /* PowderTrackrWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B45E58A32B95E4BA00BA1561 /* ToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45E58A22B95E4BA00BA1561 /* ToastModifier.swift */; };
 		B45E58A62B95E54300BA1561 /* ToastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45E58A52B95E54300BA1561 /* ToastModel.swift */; };
+		B476CCC62C4F7994004AA3EE /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B476CCC42C4F7994004AA3EE /* Mock.swift */; };
+		B476CCD62C4F87E4004AA3EE /* MapViewViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B476CCC72C4F877B004AA3EE /* MapViewViewModelTests.swift */; };
 		B4899C3E2B7648EA0015BD3F /* UserfriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4899C332B7648E90015BD3F /* UserfriendList.swift */; };
 		B4899C3F2B7648EA0015BD3F /* TrackedPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4899C342B7648E90015BD3F /* TrackedPath.swift */; };
 		B4899C402B7648EA0015BD3F /* PersonalChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4899C352B7648E90015BD3F /* PersonalChat.swift */; };
@@ -186,6 +189,23 @@
 		B4B3B8BA2BF11E07009AE7B5 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4899C3D2B7648EA0015BD3F /* FriendRequest.swift */; };
 		B4C96F8B2BD419CB005B84A4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C96F8A2BD419CB005B84A4 /* User.swift */; };
 		B4C96F8D2BD4365A005B84A4 /* FriendAddRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C96F8C2BD4365A005B84A4 /* FriendAddRowView.swift */; };
+		B4DC317E2C50CBE3001428C6 /* TrackListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC317D2C50CBE3001428C6 /* TrackListViewModelTests.swift */; };
+		B4DC31802C50CD09001428C6 /* ShareListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC317F2C50CD09001428C6 /* ShareListViewModelTests.swift */; };
+		B4DC31832C50D516001428C6 /* SocialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31822C50D516001428C6 /* SocialViewModel.swift */; };
+		B4DC31862C6347B6001428C6 /* FriendRequestViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31852C6347B6001428C6 /* FriendRequestViewModelTests.swift */; };
+		B4DC31892C6392E6001428C6 /* FriendAddViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31882C6392E6001428C6 /* FriendAddViewModelTests.swift */; };
+		B4DC318C2C639591001428C6 /* PowderTrackrChatViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC318B2C639591001428C6 /* PowderTrackrChatViewModelTests.swift */; };
+		B4DC318F2C639A01001428C6 /* ProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC318E2C639A01001428C6 /* ProfileViewModelTests.swift */; };
+		B4DC31912C63A256001428C6 /* VerifyViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31902C63A256001428C6 /* VerifyViewModelTests.swift */; };
+		B4DC31932C63A3D7001428C6 /* RegisterViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31922C63A3D7001428C6 /* RegisterViewModelTests.swift */; };
+		B4DC31952C63A585001428C6 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31942C63A585001428C6 /* LoginViewModelTests.swift */; };
+		B4DC31972C63ABA7001428C6 /* ConfirmResetPasswordViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31962C63ABA7001428C6 /* ConfirmResetPasswordViewModelTests.swift */; };
+		B4DC31992C63AC7B001428C6 /* ResetPasswordViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31982C63AC7B001428C6 /* ResetPasswordViewModelTests.swift */; };
+		B4DC319B2C63ADA6001428C6 /* ChangePasswordViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC319A2C63ADA6001428C6 /* ChangePasswordViewModelTests.swift */; };
+		B4DC319E2C6780AA001428C6 /* LeaderBoardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC319D2C6780AA001428C6 /* LeaderBoardViewModelTests.swift */; };
+		B4DC31A12C6783F0001428C6 /* RacesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31A02C6783F0001428C6 /* RacesViewModelTests.swift */; };
+		B4DC31A32C678544001428C6 /* RaceRunViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31A22C678544001428C6 /* RaceRunViewModelTests.swift */; };
+		B4DC31A52C678760001428C6 /* MyRunsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DC31A42C678760001428C6 /* MyRunsViewModelTests.swift */; };
 		B4F2C0092B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2BFFB2B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift */; };
 		B4F2C00A2B2124DF00FA8DE1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2BFFC2B2124DF00FA8DE1 /* Extensions.swift */; };
 		B4F2C00B2B2124DF00FA8DE1 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2BFFD2B2124DF00FA8DE1 /* Models.swift */; };
@@ -209,6 +229,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = B45310FC2BD7133D00891ADC;
 			remoteInfo = PowderTrackrWidgetExtension;
+		};
+		B476CCD12C4F87DD004AA3EE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 554587812A3DF8F1009A5485 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 554587882A3DF8F1009A5485;
+			remoteInfo = PowderTrackr;
 		};
 		B49FA4852BDFFD1700DC2FC1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -363,6 +390,7 @@
 		B42B25142BA738D20013383D /* FriendRequestRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestRowView.swift; sourceTree = "<group>"; };
 		B44B8A9D2B826CD100E8F25F /* PowderTrackrView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PowderTrackrView+ViewModel.swift"; sourceTree = "<group>"; };
 		B44B8A9F2B826D1400E8F25F /* PowderTrackrNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrNavigator.swift; sourceTree = "<group>"; };
+		B451B01C2C679CD4000BC18D /* PowderTrackrTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PowderTrackrTests.xctestplan; sourceTree = "<group>"; };
 		B45310F52BD6709C00891ADC /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
 		B45310FD2BD7133D00891ADC /* PowderTrackrWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PowderTrackrWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B45310FE2BD7133D00891ADC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -376,6 +404,9 @@
 		B45311142BD7142400891ADC /* PowderTrackrWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PowderTrackrWidgetExtension.entitlements; sourceTree = "<group>"; };
 		B45E58A22B95E4BA00BA1561 /* ToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModifier.swift; sourceTree = "<group>"; };
 		B45E58A52B95E54300BA1561 /* ToastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModel.swift; sourceTree = "<group>"; };
+		B476CCC42C4F7994004AA3EE /* Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
+		B476CCC72C4F877B004AA3EE /* MapViewViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewViewModelTests.swift; sourceTree = "<group>"; };
+		B476CCCD2C4F87DD004AA3EE /* PowderTrackrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PowderTrackrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4899C332B7648E90015BD3F /* UserfriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserfriendList.swift; sourceTree = "<group>"; };
 		B4899C342B7648E90015BD3F /* TrackedPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackedPath.swift; sourceTree = "<group>"; };
 		B4899C352B7648E90015BD3F /* PersonalChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalChat.swift; sourceTree = "<group>"; };
@@ -407,6 +438,23 @@
 		B4B3B8A52BF11AE2009AE7B5 /* Pods_PowderTrackr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_PowderTrackr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4C96F8A2BD419CB005B84A4 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B4C96F8C2BD4365A005B84A4 /* FriendAddRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAddRowView.swift; sourceTree = "<group>"; };
+		B4DC317D2C50CBE3001428C6 /* TrackListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC317F2C50CD09001428C6 /* ShareListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareListViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC31822C50D516001428C6 /* SocialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialViewModel.swift; sourceTree = "<group>"; };
+		B4DC31852C6347B6001428C6 /* FriendRequestViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC31882C6392E6001428C6 /* FriendAddViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAddViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC318B2C639591001428C6 /* PowderTrackrChatViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowderTrackrChatViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC318E2C639A01001428C6 /* ProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC31902C63A256001428C6 /* VerifyViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC31922C63A3D7001428C6 /* RegisterViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC31942C63A585001428C6 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC31962C63ABA7001428C6 /* ConfirmResetPasswordViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmResetPasswordViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC31982C63AC7B001428C6 /* ResetPasswordViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC319A2C63ADA6001428C6 /* ChangePasswordViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC319D2C6780AA001428C6 /* LeaderBoardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC31A02C6783F0001428C6 /* RacesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RacesViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC31A22C678544001428C6 /* RaceRunViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceRunViewModelTests.swift; sourceTree = "<group>"; };
+		B4DC31A42C678760001428C6 /* MyRunsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRunsViewModelTests.swift; sourceTree = "<group>"; };
 		B4F2BFFB2B2124DF00FA8DE1 /* OpenISO8601DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenISO8601DateFormatter.swift; sourceTree = "<group>"; };
 		B4F2BFFC2B2124DF00FA8DE1 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B4F2BFFD2B2124DF00FA8DE1 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -440,6 +488,13 @@
 			files = (
 				B45311012BD7133D00891ADC /* SwiftUI.framework in Frameworks */,
 				B45310FF2BD7133D00891ADC /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B476CCCA2C4F87DD004AA3EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,10 +558,13 @@
 		554587802A3DF8F1009A5485 = {
 			isa = PBXGroup;
 			children = (
+				B451B01C2C679CD4000BC18D /* PowderTrackrTests.xctestplan */,
+				B4CA6E332C4F755500180CAF /* PowderTrackrMock */,
 				B45311142BD7142400891ADC /* PowderTrackrWidgetExtension.entitlements */,
 				5545878B2A3DF8F1009A5485 /* PowderTrackr */,
 				B45311022BD7133D00891ADC /* PowderTrackrWidget */,
 				B49FA47B2BDFFD1500DC2FC1 /* PowderTrackrWatch Watch App */,
+				B476CCCE2C4F87DD004AA3EE /* PowderTrackrTests */,
 				5545878A2A3DF8F1009A5485 /* Products */,
 				17D1273D6EAE2FD3D47D72FF /* AmplifyConfig */,
 				16F1AFC8377525AF79CBBAB9 /* Pods */,
@@ -521,6 +579,7 @@
 				554587892A3DF8F1009A5485 /* PowderTrackr.app */,
 				B45310FD2BD7133D00891ADC /* PowderTrackrWidgetExtension.appex */,
 				B49FA47A2BDFFD1500DC2FC1 /* PowderTrackrWatch Watch App.app */,
+				B476CCCD2C4F87DD004AA3EE /* PowderTrackrTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1004,6 +1063,27 @@
 			path = Toast;
 			sourceTree = "<group>";
 		};
+		B476CCC52C4F7994004AA3EE /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				B476CCC42C4F7994004AA3EE /* Mock.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		B476CCCE2C4F87DD004AA3EE /* PowderTrackrTests */ = {
+			isa = PBXGroup;
+			children = (
+				B4DC319F2C6783DA001428C6 /* Races */,
+				B4DC319C2C678091001428C6 /* LeaderBoard */,
+				B4DC318D2C6399FA001428C6 /* Profile */,
+				B4DC31812C50D50D001428C6 /* Social */,
+				B4DC31792C50CBAA001428C6 /* TrackListViewModel */,
+				B4DC31712C50C6AA001428C6 /* MapViewModel */,
+			);
+			path = PowderTrackrTests;
+			sourceTree = "<group>";
+		};
 		B48E6ED62BADF9A200B98298 /* FloatingRoundedCardBackground */ = {
 			isa = PBXGroup;
 			children = (
@@ -1093,6 +1173,98 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		B4CA6E332C4F755500180CAF /* PowderTrackrMock */ = {
+			isa = PBXGroup;
+			children = (
+				B476CCC52C4F7994004AA3EE /* Generated */,
+			);
+			path = PowderTrackrMock;
+			sourceTree = "<group>";
+		};
+		B4DC31712C50C6AA001428C6 /* MapViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B476CCC72C4F877B004AA3EE /* MapViewViewModelTests.swift */,
+			);
+			path = MapViewModel;
+			sourceTree = "<group>";
+		};
+		B4DC31792C50CBAA001428C6 /* TrackListViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B4DC317D2C50CBE3001428C6 /* TrackListViewModelTests.swift */,
+				B4DC317F2C50CD09001428C6 /* ShareListViewModelTests.swift */,
+			);
+			path = TrackListViewModel;
+			sourceTree = "<group>";
+		};
+		B4DC31812C50D50D001428C6 /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				B4DC318A2C63958A001428C6 /* PowderTrackrChatViewModel */,
+				B4DC31872C6392D9001428C6 /* FriendAddViewModel */,
+				B4DC31842C6347A2001428C6 /* FriendRequestViewModel */,
+				B4DC31822C50D516001428C6 /* SocialViewModel.swift */,
+			);
+			path = Social;
+			sourceTree = "<group>";
+		};
+		B4DC31842C6347A2001428C6 /* FriendRequestViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B4DC31852C6347B6001428C6 /* FriendRequestViewModelTests.swift */,
+			);
+			path = FriendRequestViewModel;
+			sourceTree = "<group>";
+		};
+		B4DC31872C6392D9001428C6 /* FriendAddViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B4DC31882C6392E6001428C6 /* FriendAddViewModelTests.swift */,
+			);
+			path = FriendAddViewModel;
+			sourceTree = "<group>";
+		};
+		B4DC318A2C63958A001428C6 /* PowderTrackrChatViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B4DC318B2C639591001428C6 /* PowderTrackrChatViewModelTests.swift */,
+			);
+			path = PowderTrackrChatViewModel;
+			sourceTree = "<group>";
+		};
+		B4DC318D2C6399FA001428C6 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				B4DC318E2C639A01001428C6 /* ProfileViewModelTests.swift */,
+				B4DC31902C63A256001428C6 /* VerifyViewModelTests.swift */,
+				B4DC31922C63A3D7001428C6 /* RegisterViewModelTests.swift */,
+				B4DC31942C63A585001428C6 /* LoginViewModelTests.swift */,
+				B4DC31962C63ABA7001428C6 /* ConfirmResetPasswordViewModelTests.swift */,
+				B4DC31982C63AC7B001428C6 /* ResetPasswordViewModelTests.swift */,
+				B4DC319A2C63ADA6001428C6 /* ChangePasswordViewModelTests.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		B4DC319C2C678091001428C6 /* LeaderBoard */ = {
+			isa = PBXGroup;
+			children = (
+				B4DC319D2C6780AA001428C6 /* LeaderBoardViewModelTests.swift */,
+			);
+			path = LeaderBoard;
+			sourceTree = "<group>";
+		};
+		B4DC319F2C6783DA001428C6 /* Races */ = {
+			isa = PBXGroup;
+			children = (
+				B4DC31A02C6783F0001428C6 /* RacesViewModelTests.swift */,
+				B4DC31A22C678544001428C6 /* RaceRunViewModelTests.swift */,
+				B4DC31A42C678760001428C6 /* MyRunsViewModelTests.swift */,
+			);
+			path = Races;
+			sourceTree = "<group>";
+		};
 		B4F2BFF92B2124B500FA8DE1 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -1170,6 +1342,24 @@
 			productReference = B45310FD2BD7133D00891ADC /* PowderTrackrWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		B476CCCC2C4F87DD004AA3EE /* PowderTrackrTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B476CCD32C4F87DD004AA3EE /* Build configuration list for PBXNativeTarget "PowderTrackrTests" */;
+			buildPhases = (
+				B476CCC92C4F87DD004AA3EE /* Sources */,
+				B476CCCA2C4F87DD004AA3EE /* Frameworks */,
+				B476CCCB2C4F87DD004AA3EE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B476CCD22C4F87DD004AA3EE /* PBXTargetDependency */,
+			);
+			name = PowderTrackrTests;
+			productName = PowderTrackrTests;
+			productReference = B476CCCD2C4F87DD004AA3EE /* PowderTrackrTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		B49FA4792BDFFD1500DC2FC1 /* PowderTrackrWatch Watch App */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B49FA48B2BDFFD1700DC2FC1 /* Build configuration list for PBXNativeTarget "PowderTrackrWatch Watch App" */;
@@ -1194,7 +1384,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1530;
+				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					554587882A3DF8F1009A5485 = {
@@ -1202,6 +1392,10 @@
 					};
 					B45310FC2BD7133D00891ADC = {
 						CreatedOnToolsVersion = 15.3;
+					};
+					B476CCCC2C4F87DD004AA3EE = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 554587882A3DF8F1009A5485;
 					};
 					B49FA4792BDFFD1500DC2FC1 = {
 						CreatedOnToolsVersion = 15.3;
@@ -1226,6 +1420,7 @@
 				554587882A3DF8F1009A5485 /* PowderTrackr */,
 				B45310FC2BD7133D00891ADC /* PowderTrackrWidgetExtension */,
 				B49FA4792BDFFD1500DC2FC1 /* PowderTrackrWatch Watch App */,
+				B476CCCC2C4F87DD004AA3EE /* PowderTrackrTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1241,6 +1436,7 @@
 				554587942A3DF8F2009A5485 /* Preview Assets.xcassets in Resources */,
 				554587912A3DF8F2009A5485 /* Assets.xcassets in Resources */,
 				55E1F72E2C1F7E1200DCC0D6 /* Localizable.strings in Resources */,
+				B451B01D2C679CD4000BC18D /* PowderTrackrTests.xctestplan in Resources */,
 				DB5F670D7C78E51B71D728C8 /* awsconfiguration.json in Resources */,
 				38B2EF361C3DDEE6BC819CB4 /* amplifyconfiguration.json in Resources */,
 			);
@@ -1251,6 +1447,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B453110A2BD7133E00891ADC /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B476CCCB2C4F87DD004AA3EE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1476,6 +1679,7 @@
 				55E402FC2ACB2FF500AE8043 /* MyRunsView+ViewModel.swift in Sources */,
 				B4F2C00F2B2124DF00FA8DE1 /* Validation.swift in Sources */,
 				55102ACD2A7ECAE30033E5E6 /* ChatService.swift in Sources */,
+				B476CCC62C4F7994004AA3EE /* Mock.swift in Sources */,
 				5506F7BF2A49E5F10000761D /* LoggedOutModal.swift in Sources */,
 				B4243FBF2BC45F800056C7C5 /* TextStyleModifier.swift in Sources */,
 				5506F7BB2A4724F50000761D /* SegmentedControl.swift in Sources */,
@@ -1504,6 +1708,31 @@
 				B45311042BD7133D00891ADC /* PowderTrackrWidgetBundle.swift in Sources */,
 				B49FA4752BDEFA1800DC2FC1 /* DataService.swift in Sources */,
 				B4B3B88B2BF02D18009AE7B5 /* CGFloat+Extension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B476CCC92C4F87DD004AA3EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4DC31862C6347B6001428C6 /* FriendRequestViewModelTests.swift in Sources */,
+				B4DC31A12C6783F0001428C6 /* RacesViewModelTests.swift in Sources */,
+				B4DC31952C63A585001428C6 /* LoginViewModelTests.swift in Sources */,
+				B4DC31802C50CD09001428C6 /* ShareListViewModelTests.swift in Sources */,
+				B4DC317E2C50CBE3001428C6 /* TrackListViewModelTests.swift in Sources */,
+				B4DC318C2C639591001428C6 /* PowderTrackrChatViewModelTests.swift in Sources */,
+				B476CCD62C4F87E4004AA3EE /* MapViewViewModelTests.swift in Sources */,
+				B4DC31932C63A3D7001428C6 /* RegisterViewModelTests.swift in Sources */,
+				B4DC31A52C678760001428C6 /* MyRunsViewModelTests.swift in Sources */,
+				B4DC31912C63A256001428C6 /* VerifyViewModelTests.swift in Sources */,
+				B4DC31892C6392E6001428C6 /* FriendAddViewModelTests.swift in Sources */,
+				B4DC31A32C678544001428C6 /* RaceRunViewModelTests.swift in Sources */,
+				B4DC318F2C639A01001428C6 /* ProfileViewModelTests.swift in Sources */,
+				B4DC31972C63ABA7001428C6 /* ConfirmResetPasswordViewModelTests.swift in Sources */,
+				B4DC319B2C63ADA6001428C6 /* ChangePasswordViewModelTests.swift in Sources */,
+				B4DC319E2C6780AA001428C6 /* LeaderBoardViewModelTests.swift in Sources */,
+				B4DC31992C63AC7B001428C6 /* ResetPasswordViewModelTests.swift in Sources */,
+				B4DC31832C50D516001428C6 /* SocialViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1564,6 +1793,11 @@
 			isa = PBXTargetDependency;
 			target = B45310FC2BD7133D00891ADC /* PowderTrackrWidgetExtension */;
 			targetProxy = B453110C2BD7133E00891ADC /* PBXContainerItemProxy */;
+		};
+		B476CCD22C4F87DD004AA3EE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 554587882A3DF8F1009A5485 /* PowderTrackr */;
+			targetProxy = B476CCD12C4F87DD004AA3EE /* PBXContainerItemProxy */;
 		};
 		B49FA4862BDFFD1700DC2FC1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1634,7 +1868,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1688,7 +1922,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1849,6 +2083,53 @@
 			};
 			name = Release;
 		};
+		B476CCD42C4F87DD004AA3EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4TP2UP2K7D;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = koszti.PowderTrackrTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PowderTrackr.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PowderTrackr";
+			};
+			name = Debug;
+		};
+		B476CCD52C4F87DD004AA3EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4TP2UP2K7D;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = koszti.PowderTrackrTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PowderTrackr.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PowderTrackr";
+			};
+			name = Release;
+		};
 		B49FA4892BDFFD1700DC2FC1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1950,6 +2231,15 @@
 			buildConfigurations = (
 				B45311102BD7133E00891ADC /* Debug */,
 				B45311112BD7133E00891ADC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B476CCD32C4F87DD004AA3EE /* Build configuration list for PBXNativeTarget "PowderTrackrTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B476CCD42C4F87DD004AA3EE /* Debug */,
+				B476CCD52C4F87DD004AA3EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

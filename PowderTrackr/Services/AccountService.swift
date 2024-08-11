@@ -9,6 +9,7 @@ public enum AccountServiceModel {
     }
 }
 
+// sourcery: mock
 public protocol AccountServiceProtocol: AnyObject {
     var isSignedInPublisher: AnyPublisher<Bool, Never> { get }
     var userPublisher: AnyPublisher<AWSCognitoIdentityUser?, Never> { get }

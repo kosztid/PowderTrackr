@@ -7,10 +7,12 @@ public enum RacesScreen {
     case myRuns(Race)
 }
 
+// sourcery: mock
 protocol RacesViewNavigatorProtocol {
     func navigateToRaceRuns(race: Race)
 }
 
+// sourcery: mock
 protocol RaceRunViewNavigatorProtocol {
     func navigateBack()
 }

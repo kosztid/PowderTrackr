@@ -143,13 +143,6 @@ extension SocialView {
             chatService.getChatNotifications()
         }
 
-        func navigateToChatGroup(groupId: String) {
-//            Task {
-//                await chatService.chatIdForGroup(for: groupId)
-//            }
-//            navigator.navigateToChat()
-        }
-
         func onAppear() {
             queryChatNotifications()
             friendService.queryFriends()
