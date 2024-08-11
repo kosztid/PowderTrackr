@@ -41,19 +41,24 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
             -enableCodeCoverage YES | xcpretty --report junit --output TestsResult.xml
 
-      - name: Generate Coverage Report in lcov Format
+      - name: Locate Coverage.profdata
         run: |
-          mkdir -p sonar-reports
-          PROF_DATA_PATH=$(find $(xcodebuild -workspace PowderTrackr.xcworkspace -scheme PowderTrackr -showBuildSettings | grep -m 1 OBJROOT | cut -d " " -f 3 | xargs) -name Coverage.profdata | head -n 1)
+          PROF_DATA_PATH=$(find $(xcodebuild -workspace PowderTrackr.xcworkspace -scheme PowderTrackr -showBuildSettings | grep -m 1 OBJROOT | cut -d " " -f 3 | xargs) -type f -name "Coverage.profdata" | head -n 1)
           if [ -z "$PROF_DATA_PATH" ]; then
             echo "Coverage.profdata not found!"
             exit 1
           fi
+          echo "Found Coverage.profdata at $PROF_DATA_PATH"
+          echo "PROF_DATA_PATH=$PROF_DATA_PATH" >> $GITHUB_ENV
+
+      - name: Generate Coverage Report in lcov Format
+        run: |
+          mkdir -p sonar-reports
           xcrun llvm-cov export \
             -format=lcov \
-            -instr-profile $PROF_DATA_PATH \
-            $(find $(xcodebuild -workspace PowderTrackr.xcworkspace -scheme PowderTrackr -showBuildSettings | grep -m 1 OBJROOT | cut -d " " -f 3 | xargs)/Build/Intermediates.noindex/UninstalledProducts/iphonesimulator -name "*.xctest" -exec echo {}/Contents/MacOS/* \;) > sonar-reports/coverage.lcov
-          
+            -instr-profile ${{ env.PROF_DATA_PATH }} \
+            $(find $(xcodebuild -workspace PowderTrackr.xcworkspace -scheme PowderTrackr -showBuildSettings | grep -m 1 OBJROOT | cut -d " " -f 3 | xargs)/Build/Intermediates.noindex/UninstalledProducts/iphonesimulator -type f -name "*.xctest" -exec echo {}/Contents/MacOS/* \;) > sonar-reports/coverage.lcov
+
       - name: Run SonarCloud Analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
