@@ -41,12 +41,13 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
             -enableCodeCoverage YES | xcpretty --report junit --output TestsResult.xml
 
-      - name: Convert Coverage Report to Cobertura
+      - name: Generate Coverage Report in lcov Format
         run: |
           mkdir -p sonar-reports
-          xcrun llvm-cov export \
-            -format="cobertura-xml" \
-            -instr-profile $(xcodebuild -workspace PowderTrackr.xcworkspace -scheme PowderTrackr -showBuildSettings | grep -m 1 OBJROOT | cut -d " " -f 3 | xargs)/Build/Intermediates.noindex/CodeCoverage/Coverage.profdata > sonar-reports/coverage.xml
+          llvm-cov export \
+            -format=lcov \
+            -instr-profile $(xcodebuild -workspace PowderTrackr.xcworkspace -scheme PowderTrackr -showBuildSettings | grep -m 1 OBJROOT | cut -d " " -f 3 | xargs)/Build/Intermediates.noindex/CodeCoverage/Coverage.profdata \
+            $(xcodebuild -workspace PowderTrackr.xcworkspace -scheme PowderTrackr -showBuildSettings | grep -m 1 OBJROOT | cut -d " " -f 3 | xargs)/Build/Intermediates.noindex/UninstalledProducts/iphonesimulator/*.xctest/Contents/MacOS/* > sonar-reports/coverage.lcov
 
       - name: Run SonarCloud Analysis
         env:
@@ -56,6 +57,6 @@ jobs:
             -Dsonar.organization=kosztid \
             -Dsonar.projectKey=kosztid \
             -Dsonar.sources=. \
-            -Dsonar.coverageReportPaths=sonar-reports/coverage.xml \
+            -Dsonar.javascript.lcov.reportPaths=sonar-reports/coverage.lcov \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=$SONAR_TOKEN
