@@ -1,6 +1,8 @@
+import ActivityKit
 import Combine
 import CoreLocation
 import GoogleMaps
+import PowderTrackrWidgetExtension
 import SwiftUI
 import WatchConnectivity
 import WidgetKit
@@ -181,6 +183,9 @@ extension MapView {
             isTrackingStorage = true
             WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
             watchConnectivityProvider.sendIsTracking(isTracking: true)
+
+            startPowderTrackrLiveActivity()
+
             withAnimation {
                 isTracking = true
             }
@@ -200,6 +205,32 @@ extension MapView {
                 )
             )
             self.mapMenuState = .on
+        }
+
+        func startPowderTrackrLiveActivity() {
+            let attributes = PowderTrackrWidgetAttributes(name: "Skiing Session")
+            let initialContentState = PowderTrackrWidgetAttributes.ContentState(name: "")
+            let activityContent = ActivityContent(state: initialContentState, staleDate: nil)
+
+            do {
+                let activity = try Activity<PowderTrackrWidgetAttributes>.request(
+                    attributes: attributes,
+                    content: activityContent,
+                    pushType: nil)
+
+                print("Live Activity started: \(activity.id)")
+            } catch {
+                print("Error starting live activity: \(error.localizedDescription)")
+            }
+        }
+
+        func stopPowderTrackrLiveActivity() {
+            Task {
+                for activity in Activity<PowderTrackrWidgetAttributes>.activities {
+                    let finalContentState = PowderTrackrWidgetAttributes.ContentState(name: "end")
+                    await activity.end(ActivityContent(state: finalContentState, staleDate: nil), dismissalPolicy: .immediate)
+                }
+            }
         }
 
         func calculateDistance() -> Double {
@@ -233,6 +264,8 @@ extension MapView {
             isTrackingStorage = false
             watchConnectivityProvider.sendIsTracking(isTracking: false)
             WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
+            stopPowderTrackrLiveActivity()
+
             withAnimation {
                 isTracking = false
             }

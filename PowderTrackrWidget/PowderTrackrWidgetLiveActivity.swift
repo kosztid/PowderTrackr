@@ -1,70 +1,46 @@
 import ActivityKit
+import Factory
 import SwiftUI
 import WidgetKit
 
-struct PowderTrackrWidgetAttributes: ActivityAttributes {
-    public struct ContentState: Codable, Hashable {
-        var emoji: String
-    }
-
-    var name: String
-}
-
 struct PowderTrackrWidgetLiveActivity: Widget {
+    let data = Container.dataService()
+
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: PowderTrackrWidgetAttributes.self) { context in
-            // Lock screen/banner UI goes here
             VStack {
-                Text("Hello \(context.state.emoji)")
+                Text("Tracking: \(context.attributes.name)")
+                    .font(.headline)
+                Text("Distance: \(data.distance(), specifier: "%.2f") km") // Using data.distance() directly
+                    .font(.subheadline)
+                Text("Time: \(data.time(), specifier: "%.0f") seconds") // Using data.time() directly
+                    .font(.subheadline)
             }
             .activityBackgroundTint(Color.cyan)
             .activitySystemActionForegroundColor(Color.black)
-        } dynamicIsland: { context in
+        } dynamicIsland: { _ in
             DynamicIsland {
-                // Expanded UI goes here.  Compose the expanded UI through
-                // various regions, like leading/trailing/center/bottom
                 DynamicIslandExpandedRegion(.leading) {
-                    Text("Leading")
+                    Text("Distance:")
+                    Text("\(data.distance(), specifier: "%.2f") km")
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    Text("Trailing")
+                    Text("Time:")
+                    Text("\(data.time(), specifier: "%.0f") s")
                 }
                 DynamicIslandExpandedRegion(.bottom) {
-                    Text("Bottom \(context.state.emoji)")
-                    // more content
+                    Text("Keep going!")
+                        .font(.caption)
                 }
             } compactLeading: {
-                Text("L")
+                Text("")
             } compactTrailing: {
-                Text("T \(context.state.emoji)")
+                Text("\(data.distance(), specifier: "%.2f") km")
             } minimal: {
-                Text(context.state.emoji)
+                Text("")
             }
             .widgetURL(URL(string: "http://www.apple.com"))
             .keylineTint(Color.red)
         }
     }
-}
-
-extension PowderTrackrWidgetAttributes {
-    fileprivate static var preview: PowderTrackrWidgetAttributes {
-        PowderTrackrWidgetAttributes(name: "World")
-    }
-}
-
-extension PowderTrackrWidgetAttributes.ContentState {
-    fileprivate static var smiley: PowderTrackrWidgetAttributes.ContentState {
-        PowderTrackrWidgetAttributes.ContentState(emoji: "😀")
-     }
-
-     fileprivate static var starEyes: PowderTrackrWidgetAttributes.ContentState {
-         PowderTrackrWidgetAttributes.ContentState(emoji: "🤩")
-     }
-}
-
-#Preview("Notification", as: .content, using: PowderTrackrWidgetAttributes.preview) {
-   PowderTrackrWidgetLiveActivity()
-} contentStates: {
-    PowderTrackrWidgetAttributes.ContentState.smiley
-    PowderTrackrWidgetAttributes.ContentState.starEyes
 }

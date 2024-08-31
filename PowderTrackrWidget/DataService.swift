@@ -1,25 +1,26 @@
+import Factory
 import Foundation
 import SwiftUI
 
-struct DataService {
+public class DataService {
     @AppStorage("elapsedTime", store: UserDefaults(suiteName: "group.koszti.storedData")) private var elapsedTimeStorage: Double = 0.0
     @AppStorage("avgSpeed", store: UserDefaults(suiteName: "group.koszti.storedData")) private var avgSpeedStorage: Double = 0.0
     @AppStorage("distance", store: UserDefaults(suiteName: "group.koszti.storedData")) private var distanceStorage: Double = 0.0
     @AppStorage("isTracking", store: UserDefaults(suiteName: "group.koszti.storedData")) private var isTrackingStorage = false
 
-    func isTracking() -> Bool {
+    public func isTracking() -> Bool {
         isTrackingStorage
     }
 
-    func distance() -> Double {
+    public func distance() -> Double {
         distanceStorage
     }
 
-    func time() -> Double {
+    public func time() -> Double {
         elapsedTimeStorage
     }
 
-    func speed() -> Double {
+    public func speed() -> Double {
         avgSpeedStorage
     }
 }

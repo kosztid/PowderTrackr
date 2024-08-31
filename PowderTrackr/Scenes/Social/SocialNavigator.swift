@@ -20,10 +20,6 @@ protocol SocialAddViewNavigatorProtocol {
     func navigateBack()
 }
 
-// sourcery: mock
-protocol SocialRequestsViewNavigatorProtocol {
-}
-
 public struct SocialNavigator: Navigator {
     @State var routes: Routes<SocialScreen>
     let openAccount: () -> Void
