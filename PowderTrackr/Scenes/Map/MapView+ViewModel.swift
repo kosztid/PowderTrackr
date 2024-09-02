@@ -179,60 +179,6 @@ extension MapView {
             self.friendService.queryFriendLocations()
         }
 
-        func startTracking() {
-            isTrackingStorage = true
-            WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
-            watchConnectivityProvider.sendIsTracking(isTracking: true)
-
-            startPowderTrackrLiveActivity()
-
-            withAnimation {
-                isTracking = true
-            }
-            self.trackTimer = Timer.scheduledTimer(timeInterval: Constants.trackTimer, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
-            self.widgetTimer = Timer.scheduledTimer(timeInterval: Constants.watchTimer, target: self, selector: #selector(updateWidget), userInfo: nil, repeats: true)
-            self.watchTimer = Timer.scheduledTimer(timeInterval: Constants.watchTimer, target: self, selector: #selector(updateWatchData), userInfo: nil, repeats: true)
-            startTime = Date()
-            let id = UUID().uuidString
-            self.trackedPath?.tracks?.append(
-                .init(
-                    id: id,
-                    name: "Run \(id.prefix(4))",
-                    startDate: "\(dateFormatter.string(from: Date()))",
-                    endDate: "",
-                    notes: [],
-                    tracking: true
-                )
-            )
-            self.mapMenuState = .on
-        }
-
-        func startPowderTrackrLiveActivity() {
-            let attributes = PowderTrackrWidgetAttributes(name: "Skiing Session")
-            let initialContentState = PowderTrackrWidgetAttributes.ContentState(name: "")
-            let activityContent = ActivityContent(state: initialContentState, staleDate: nil)
-
-            do {
-                let activity = try Activity<PowderTrackrWidgetAttributes>.request(
-                    attributes: attributes,
-                    content: activityContent,
-                    pushType: nil)
-
-                print("Live Activity started: \(activity.id)")
-            } catch {
-                print("Error starting live activity: \(error.localizedDescription)")
-            }
-        }
-
-        func stopPowderTrackrLiveActivity() {
-            Task {
-                for activity in Activity<PowderTrackrWidgetAttributes>.activities {
-                    let finalContentState = PowderTrackrWidgetAttributes.ContentState(name: "end")
-                    await activity.end(ActivityContent(state: finalContentState, staleDate: nil), dismissalPolicy: .immediate)
-                }
-            }
-        }
-
         func calculateDistance() -> Double {
             guard let track = selectedPath else { return 0.0 }
             var list: [CLLocation] = []
@@ -247,89 +193,6 @@ extension MapView {
                 distance += list[itemDx].distance(from: list[itemDx - 1])
             }
             return distance
-        }
-
-        func resumeTracking() {
-            self.trackTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
-            self.mapMenuState = .on
-        }
-
-        func pauseTracking() {
-            self.trackTimer?.invalidate()
-            self.trackTimer = nil
-            self.mapMenuState = .paused
-        }
-
-        func stopTracking() {
-            isTrackingStorage = false
-            watchConnectivityProvider.sendIsTracking(isTracking: false)
-            WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
-            stopPowderTrackrLiveActivity()
-
-            withAnimation {
-                isTracking = false
-            }
-            self.trackTimer?.invalidate()
-            self.trackTimer = nil
-            self.widgetTimer = nil
-            self.watchTimer = nil
-            self.mapMenuState = .off
-            self.startTime = nil
-            self.currentDistance = nil
-            var current = trackedPath?.tracks?.last
-            current?.endDate = "\(dateFormatter.string(from: Date()))"
-            guard let path = current else { return }
-            if raceTracking {
-                mapService.sendRaceRun(path, selectedRace?.id ?? "")
-                raceTracking = false
-            }
-            mapService.updateTrackedPath(path)
-        }
-
-        @objc
-        func updateWidget() {
-            let time = startTime?.distance(to: Date()) ?? 0
-            elapsedTimeStorage = time
-            avgSpeedStorage = ((currentDistance ?? 0) / time) * 3.6
-            distanceStorage = currentDistance ?? 0
-            WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
-        }
-
-        @objc
-        func updateWatchData() {
-            guard let currentDistance else { return }
-            watchConnectivityProvider.sendMetrics(elapsedTime: elapsedTime, avgSpeed: avgSpeed, distance: currentDistance)
-        }
-
-        @objc
-        func trackRoute() {
-            guard var modified = self.trackedPath?.tracks else { return }
-            var xCoords = modified.last?.xCoords
-            var yCoords = modified.last?.yCoords
-
-            xCoords?.append(locationManager.location?.coordinate.latitude ?? 0)
-            yCoords?.append(locationManager.location?.coordinate.longitude ?? 0)
-
-            modified[modified.count - 1].xCoords = xCoords ?? []
-            modified[modified.count - 1].yCoords = yCoords ?? []
-            modified[modified.count - 1].endDate = "\(dateFormatter.string(from: Date()))"
-            self.trackedPath?.tracks = modified
-            self.track = modified
-
-            let track = modified[modified.count - 1]
-            var list: [CLLocation] = []
-            var distance = 0.0
-            for index in 0..<(track.xCoords?.count ?? 0) {
-                list.append(CLLocation(latitude: track.xCoords?[index] ?? 0, longitude: track.yCoords?[index] ?? 0))
-            }
-            if list.count > 1 {
-                for itemDx in 1..<list.count {
-                    distance += list[itemDx].distance(from: list[itemDx - 1])
-                }
-            }
-            currentDistance = distance
-            guard let modifiedLast = modified.last else { return }
-            mapService.sendCurrentlyTracked(modifiedLast)
         }
 
         func stopTimer() {
@@ -399,7 +262,6 @@ extension MapView {
         }
 
         func startRaceCreation() {
-            print("called")
             mapService.changeRaceCreationState(.firstMarker)
         }
 
@@ -413,5 +275,161 @@ extension MapView {
                 }
             }
         }
+    }
+}
+
+// MARK: Tracking
+
+extension MapView.ViewModel {
+    func resumeTracking() {
+        self.trackTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
+        self.mapMenuState = .on
+    }
+
+    func pauseTracking() {
+        self.trackTimer?.invalidate()
+        self.trackTimer = nil
+        self.mapMenuState = .paused
+    }
+
+    func stopTracking() {
+        isTrackingStorage = false
+        watchConnectivityProvider.sendIsTracking(isTracking: false)
+        WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
+        stopPowderTrackrLiveActivity()
+
+        withAnimation {
+            isTracking = false
+        }
+        self.trackTimer?.invalidate()
+        self.trackTimer = nil
+        self.widgetTimer = nil
+        self.watchTimer = nil
+        self.mapMenuState = .off
+        self.startTime = nil
+        self.currentDistance = nil
+        var current = trackedPath?.tracks?.last
+        current?.endDate = "\(dateFormatter.string(from: Date()))"
+        guard let path = current else { return }
+        if raceTracking {
+            mapService.sendRaceRun(path, selectedRace?.id ?? "")
+            raceTracking = false
+        }
+        mapService.updateTrackedPath(path)
+    }
+
+    @objc
+    func trackRoute() {
+        guard var modified = self.trackedPath?.tracks else { return }
+        var xCoords = modified.last?.xCoords
+        var yCoords = modified.last?.yCoords
+
+        xCoords?.append(locationManager.location?.coordinate.latitude ?? 0)
+        yCoords?.append(locationManager.location?.coordinate.longitude ?? 0)
+
+        modified[modified.count - 1].xCoords = xCoords ?? []
+        modified[modified.count - 1].yCoords = yCoords ?? []
+        modified[modified.count - 1].endDate = "\(dateFormatter.string(from: Date()))"
+        self.trackedPath?.tracks = modified
+        self.track = modified
+
+        let track = modified[modified.count - 1]
+        var list: [CLLocation] = []
+        var distance = 0.0
+        for index in 0..<(track.xCoords?.count ?? 0) {
+            list.append(CLLocation(latitude: track.xCoords?[index] ?? 0, longitude: track.yCoords?[index] ?? 0))
+        }
+        if list.count > 1 {
+            for itemDx in 1..<list.count {
+                distance += list[itemDx].distance(from: list[itemDx - 1])
+            }
+        }
+        currentDistance = distance
+        guard let modifiedLast = modified.last else { return }
+        mapService.sendCurrentlyTracked(modifiedLast)
+    }
+
+    func startTracking() {
+        isTrackingStorage = true
+        WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
+        watchConnectivityProvider.sendIsTracking(isTracking: true)
+
+        startPowderTrackrLiveActivity()
+
+        withAnimation {
+            isTracking = true
+        }
+        self.trackTimer = Timer.scheduledTimer(timeInterval: MapView.Constants.trackTimer, target: self, selector: #selector(trackRoute), userInfo: nil, repeats: true)
+        self.widgetTimer = Timer.scheduledTimer(timeInterval: MapView.Constants.widgetTimer, target: self, selector: #selector(updateWidget), userInfo: nil, repeats: true)
+        self.watchTimer = Timer.scheduledTimer(timeInterval: MapView.Constants.watchTimer, target: self, selector: #selector(updateWatchData), userInfo: nil, repeats: true)
+        startTime = Date()
+        let id = UUID().uuidString
+        self.trackedPath?.tracks?.append(
+            .init(
+                id: id,
+                name: "Run \(id.prefix(4))",
+                startDate: "\(dateFormatter.string(from: Date()))",
+                endDate: "",
+                notes: [],
+                tracking: true
+            )
+        )
+        self.mapMenuState = .on
+    }
+}
+
+// MARK: Supplementary app management (Live Activity, Widget, Watch)
+extension MapView.ViewModel {
+    func startPowderTrackrLiveActivity() {
+        let attributes = PowderTrackrWidgetAttributes(name: "Skiing Session")
+        let initialContentState = PowderTrackrWidgetAttributes.ContentState(distance: .zero, time: .zero)
+        let activityContent = ActivityContent(state: initialContentState, staleDate: nil)
+
+        do {
+            _ = try Activity<PowderTrackrWidgetAttributes>.request(
+                attributes: attributes,
+                content: activityContent,
+                pushType: nil)
+        } catch {
+            print("Error starting live activity: \(error.localizedDescription)")
+        }
+    }
+
+    func updatePowderTrackrLiveActivity() {
+        guard let currentDistance else { return }
+
+        let updatedContentState = PowderTrackrWidgetAttributes.ContentState(distance: currentDistance, time: elapsedTime)
+        let updatedActivityContent = ActivityContent(state: updatedContentState, staleDate: nil)
+
+        Task {
+            for activity in Activity<PowderTrackrWidgetAttributes>.activities {
+                await activity.update(updatedActivityContent)
+            }
+        }
+    }
+
+    func stopPowderTrackrLiveActivity() {
+        Task {
+            for activity in Activity<PowderTrackrWidgetAttributes>.activities {
+                let finalContentState = PowderTrackrWidgetAttributes.ContentState(distance: .zero, time: .zero)
+                await activity.end(ActivityContent(state: finalContentState, staleDate: nil), dismissalPolicy: .immediate)
+            }
+        }
+    }
+
+    @objc
+    func updateWidget() {
+        let time = startTime?.distance(to: Date()) ?? 0
+        elapsedTimeStorage = time
+        avgSpeedStorage = ((currentDistance ?? 0) / time) * 3.6
+        distanceStorage = currentDistance ?? 0
+        WidgetCenter.shared.reloadTimelines(ofKind: "PowderTrackrWidget")
+    }
+
+    @objc
+    func updateWatchData() {
+        guard let currentDistance else { return }
+        watchConnectivityProvider.sendMetrics(elapsedTime: elapsedTime, avgSpeed: avgSpeed, distance: currentDistance)
+        updatePowderTrackrLiveActivity()
     }
 }
