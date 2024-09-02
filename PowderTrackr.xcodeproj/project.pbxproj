@@ -136,6 +136,7 @@
 		B45311082BD7133D00891ADC /* PowderTrackrWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45311072BD7133D00891ADC /* PowderTrackrWidget.swift */; };
 		B453110A2BD7133E00891ADC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B45311092BD7133E00891ADC /* Assets.xcassets */; };
 		B453110E2BD7133E00891ADC /* PowderTrackrWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B45310FD2BD7133D00891ADC /* PowderTrackrWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B45C753F2C8594AB00540A59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 554587902A3DF8F2009A5485 /* Assets.xcassets */; };
 		B45E58A32B95E4BA00BA1561 /* ToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45E58A22B95E4BA00BA1561 /* ToastModifier.swift */; };
 		B45E58A62B95E54300BA1561 /* ToastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45E58A52B95E54300BA1561 /* ToastModel.swift */; };
 		B476CCC62C4F7994004AA3EE /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B476CCC42C4F7994004AA3EE /* Mock.swift */; };
@@ -1461,6 +1462,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B45C753F2C8594AB00540A59 /* Assets.xcassets in Resources */,
 				B453110A2BD7133E00891ADC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1992,9 +1994,11 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationUsageDescription = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We use your location to update live activities for relevant content.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Grant access to microphone to be able to take videos";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grant access to photo library to be able to select photos";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -2037,9 +2041,11 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationUsageDescription = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We use your location to update live activities for relevant content.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Grant access to microphone to be able to take videos";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Grant access to photo library to be able to select photos";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

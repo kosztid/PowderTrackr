@@ -4,43 +4,128 @@ import SwiftUI
 import WidgetKit
 
 struct PowderTrackrWidgetLiveActivity: Widget {
-    let data = Container.dataService()
-
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: PowderTrackrWidgetAttributes.self) { context in
-            VStack {
+            VStack(alignment: .leading) {
+                Text("WORKOUT")
+                    .font(.caption)
+                    .foregroundColor(.warmDarkGray)
+
+                Spacer()
+
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("\(String(format: "%.f", context.state.distance))")
+                            .font(.system(size: 36, weight: .bold, design: .rounded))
+                            .foregroundColor(.blueSecondary)
+                        Text("m")
+                            .font(.title2)
+                            .foregroundColor(.bluePrimary)
+                    }
+
+                    Spacer()
+
+                    VStack(alignment: .leading) {
+                        Text("\(String(format: "%.2f", context.state.time))")
+                            .font(.system(size: 36, weight: .bold, design: .rounded))
+                            .foregroundColor(.blueSecondary)
+                        Text("s")
+                            .font(.title2)
+                            .foregroundColor(.bluePrimary)
+                    }
+                }
+
+                Spacer()
+
                 Text("Tracking: \(context.attributes.name)")
-                    .font(.headline)
-                Text("Distance: \(data.distance(), specifier: "%.2f") km") // Using data.distance() directly
-                    .font(.subheadline)
-                Text("Time: \(data.time(), specifier: "%.0f") seconds") // Using data.time() directly
-                    .font(.subheadline)
+                    .font(.body)
+                    .foregroundColor(.warmDarkGray)
             }
-            .activityBackgroundTint(Color.cyan)
-            .activitySystemActionForegroundColor(Color.black)
-        } dynamicIsland: { _ in
+            .padding()
+            .background(Color.softWhite)
+            .activityBackgroundTint(Color.warmGray)
+            .activitySystemActionForegroundColor(Color.green)
+        } dynamicIsland: { context in
             DynamicIsland {
-                DynamicIslandExpandedRegion(.leading) {
-                    Text("Distance:")
-                    Text("\(data.distance(), specifier: "%.2f") km")
-                }
-                DynamicIslandExpandedRegion(.trailing) {
-                    Text("Time:")
-                    Text("\(data.time(), specifier: "%.0f") s")
-                }
                 DynamicIslandExpandedRegion(.bottom) {
-                    Text("Keep going!")
-                        .font(.caption)
+                    VStack {
+                        Text(context.attributes.name)
+                            .font(.system(size: 24, weight: .bold, design: .rounded))
+                            .foregroundColor(.blueSecondary)
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("Distance")
+                                    .font(.caption)
+                                    .foregroundColor(.warmDarkGray)
+                                Text("\(String(format: "%.f", context.state.distance)) m")
+                                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                                    .foregroundColor(.blueSecondary)
+                            }
+                            .padding(.leading)
+                            Spacer()
+                            VStack(alignment: .trailing) {
+                                Text("Time")
+                                    .font(.caption)
+                                    .foregroundColor(.warmDarkGray)
+                                Text("\(String(format: "%.2f", context.state.time)) s")
+                                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                                    .foregroundColor(.blueSecondary)
+                            }
+                            .padding(.trailing)
+                        }
+                    }
                 }
             } compactLeading: {
-                Text("")
+                Text("\(String(format: "%.f", context.state.distance)) m")
+                    .font(.caption)
+                    .foregroundColor(.blueSecondary)
             } compactTrailing: {
-                Text("\(data.distance(), specifier: "%.2f") km")
+                Text("\(String(format: "%.2f", context.state.time)) s")
+                    .font(.caption)
+                    .foregroundColor(.blueSecondary)
             } minimal: {
-                Text("")
+                Text("\(String(format: "%.2f", context.state.time)) s")
+                    .font(.caption2)
+                    .foregroundColor(.blueSecondary)
             }
             .widgetURL(URL(string: "http://www.apple.com"))
             .keylineTint(Color.red)
+        }
+    }
+}
+
+struct RaceLiveActivity_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            PowderTrackrWidgetAttributes(name: "Skiing Session")
+                .previewContext(
+                    PowderTrackrWidgetAttributes.ContentState(
+                        distance: 1_234, time: 123
+                    ),
+                    viewKind: .content
+                )
+
+            PowderTrackrWidgetAttributes(name: "Skiing Session")
+                .previewContext(
+                    PowderTrackrWidgetAttributes.ContentState(
+                        distance: 1_234, time: 123
+                    ),
+                    viewKind: .dynamicIsland(.expanded)
+                )
+            PowderTrackrWidgetAttributes(name: "Skiing Session")
+                .previewContext(
+                    PowderTrackrWidgetAttributes.ContentState(
+                        distance: 1_234, time: 123
+                    ),
+                    viewKind: .dynamicIsland(.minimal)
+                )
+            PowderTrackrWidgetAttributes(name: "Skiing Session")
+                .previewContext(
+                    PowderTrackrWidgetAttributes.ContentState(
+                        distance: 1_234, time: 123
+                    ),
+                    viewKind: .dynamicIsland(.compact)
+                )
         }
     }
 }
