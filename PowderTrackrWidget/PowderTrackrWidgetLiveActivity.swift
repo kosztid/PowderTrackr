@@ -16,7 +16,7 @@ struct PowderTrackrWidgetLiveActivity: Widget {
                 HStack {
                     VStack(alignment: .leading) {
                         Text("\(String(format: "%.f", context.state.distance))")
-                            .font(.system(size: 36, weight: .bold, design: .rounded))
+                            .font(.system(size: .su36, weight: .bold, design: .rounded))
                             .foregroundColor(.blueSecondary)
                         Text("m")
                             .font(.title2)
@@ -27,7 +27,7 @@ struct PowderTrackrWidgetLiveActivity: Widget {
 
                     VStack(alignment: .leading) {
                         Text("\(String(format: "%.2f", context.state.time))")
-                            .font(.system(size: 36, weight: .bold, design: .rounded))
+                            .font(.system(size: .su36, weight: .bold, design: .rounded))
                             .foregroundColor(.blueSecondary)
                         Text("s")
                             .font(.title2)

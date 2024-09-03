@@ -20,7 +20,7 @@ import SwiftUI
             // Generate a timeline consisting of five entries an hour apart, starting from the current date.
             let currentDate = Date()
             for hourOffset in 0 ..< 5 {
-                let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
+                _ = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
                 let entry = SimpleEntry(date: Date(), isTracking: data.isTracking(), speed: data.speed(), time: data.time(), distance: data.distance())
                 entries.append(entry)
             }
@@ -44,7 +44,7 @@ import SwiftUI
         var entry: Provider.Entry
 
         var body: some View {
-            if data.isTracking() {
+            if !data.isTracking() {
                 trackingView
             } else {
                 startupView
@@ -57,56 +57,73 @@ import SwiftUI
                 Text("Tap to start tracking")
                     .font(.caption2)
             }
+            .padding()
+            .background(Color.softWhite)
         }
 
         private var trackingView: some View {
             VStack {
+                Spacer()
                 HStack(spacing: .zero) {
                     HStack {
                         Image(systemName: "arrow.forward")
                             .resizable()
                             .frame(width: .su10, height: .su10)
-                        Text("distance")
+                        Text("Distance")
+                            .foregroundColor(.bluePrimary)
                             .font(.caption2)
                     }
                     .foregroundStyle(Color.gray)
                     Spacer()
                     Text("\(String(format: "%.f", data.distance())) m")
+                        .foregroundColor(.blueSecondary)
                         .font(.caption2)
                         .bold()
                 }
-                Divider()
-                    .padding(.horizontal, .su12)
+                spacedDivider
                 HStack(spacing: .zero) {
                     HStack {
                         Image(systemName: "timer")
                             .resizable()
                             .frame(width: .su10, height: .su10)
-                        Text("total time")
+                        Text("Total time")
+                            .foregroundColor(.bluePrimary)
                             .font(.caption2)
                     }
                     .foregroundStyle(Color.gray)
                     Spacer()
                     Text("\(String(format: "%.2f", data.time())) s")
+                        .foregroundColor(.blueSecondary)
                         .font(.caption)
                         .bold()
                 }
-                Divider()
-                    .padding(.horizontal, .su12)
+                spacedDivider
                 HStack(spacing: .zero) {
                     HStack {
                         Image(systemName: "speedometer")
                             .resizable()
                             .frame(width: .su10, height: .su10)
-                        Text("avg speed")
+                        Text("Avg speed")
+                            .foregroundColor(.bluePrimary)
                             .font(.caption2)
                     }
                     .foregroundStyle(Color.gray)
                     Spacer()
                     Text("\(String(format: "%.2f", data.speed())) km/h")
+                        .foregroundColor(.blueSecondary)
                         .font(.caption)
                         .bold()
                 }
+                Spacer()
+            }
+        }
+
+        private var spacedDivider: some View {
+            VStack(spacing: .zero) {
+                Spacer()
+                Divider()
+                    .padding(.horizontal, .su12)
+                Spacer()
             }
         }
     }
@@ -125,12 +142,12 @@ import SwiftUI
                         .background()
                 }
             }
-            .configurationDisplayName("My Widget")
-            .description("This is an example widget.")
+            .configurationDisplayName("PowderTrackr")
+            .description("Track your skiing data")
         }
     }
 
-    #Preview(as: .systemSmall) {
+    #Preview(as: .systemMedium) {
         PowderTrackrWidget()
     } timeline: {
         SimpleEntry(date: Date(), isTracking: true, speed: 100, time: 100, distance: 100)
