@@ -45,7 +45,7 @@ import SwiftUI
 
         var body: some View {
             VStack {
-                if !data.isTracking() {
+                if data.isTracking() {
                     trackingView
                 } else {
                     startupView
