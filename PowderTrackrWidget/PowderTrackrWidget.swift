@@ -44,21 +44,24 @@ import SwiftUI
         var entry: Provider.Entry
 
         var body: some View {
-            if !data.isTracking() {
-                trackingView
-            } else {
-                startupView
+            VStack {
+                if !data.isTracking() {
+                    trackingView
+                } else {
+                    startupView
+                }
             }
         }
         private var startupView: some View {
-            VStack {
+            VStack(spacing: .su16) {
                 Text("Are you up?")
-                    .font(.caption2)
+                    .foregroundColor(.darkSlateGray)
+                    .bold()
                 Text("Tap to start tracking")
-                    .font(.caption2)
+                    .foregroundColor(.darkSlateGray)
+                    .bold()
+                    .multilineTextAlignment(.center)
             }
-            .padding()
-            .background(Color.softWhite)
         }
 
         private var trackingView: some View {
@@ -68,15 +71,17 @@ import SwiftUI
                     HStack {
                         Image(systemName: "arrow.forward")
                             .resizable()
-                            .frame(width: .su10, height: .su10)
+                            .frame(width: .su12, height: .su12)
+                            .foregroundStyle(.warmDarkGray)
                         Text("Distance")
-                            .foregroundColor(.bluePrimary)
+                            .foregroundColor(.warmDarkGray)
                             .font(.caption2)
+                            .bold()
                     }
                     .foregroundStyle(Color.gray)
                     Spacer()
                     Text("\(String(format: "%.f", data.distance())) m")
-                        .foregroundColor(.blueSecondary)
+                        .foregroundColor(.darkSlateGray)
                         .font(.caption2)
                         .bold()
                 }
@@ -85,15 +90,17 @@ import SwiftUI
                     HStack {
                         Image(systemName: "timer")
                             .resizable()
-                            .frame(width: .su10, height: .su10)
+                            .frame(width: .su12, height: .su12)
+                            .foregroundStyle(.warmDarkGray)
                         Text("Total time")
-                            .foregroundColor(.bluePrimary)
+                            .foregroundColor(.warmDarkGray)
                             .font(.caption2)
+                            .bold()
                     }
                     .foregroundStyle(Color.gray)
                     Spacer()
                     Text("\(String(format: "%.2f", data.time())) s")
-                        .foregroundColor(.blueSecondary)
+                        .foregroundColor(.darkSlateGray)
                         .font(.caption)
                         .bold()
                 }
@@ -102,20 +109,23 @@ import SwiftUI
                     HStack {
                         Image(systemName: "speedometer")
                             .resizable()
-                            .frame(width: .su10, height: .su10)
+                            .frame(width: .su12, height: .su12)
+                            .foregroundStyle(.warmDarkGray)
                         Text("Avg speed")
-                            .foregroundColor(.bluePrimary)
+                            .foregroundColor(.warmDarkGray)
                             .font(.caption2)
+                            .bold()
                     }
                     .foregroundStyle(Color.gray)
                     Spacer()
                     Text("\(String(format: "%.2f", data.speed())) km/h")
-                        .foregroundColor(.blueSecondary)
+                        .foregroundColor(.darkSlateGray)
                         .font(.caption)
                         .bold()
                 }
                 Spacer()
             }
+            .padding()
         }
 
         private var spacedDivider: some View {
@@ -135,19 +145,21 @@ import SwiftUI
             StaticConfiguration(kind: kind, provider: Provider()) { entry in
                 if #available(iOS 17.0, *) {
                     PowderTrackrWidgetEntryView(entry: entry)
-                        .containerBackground(.fill.tertiary, for: .widget)
+                        .preferredColorScheme(.light)
+                        .containerBackground(.bluePrimary.opacity(0.35), for: .widget)
                 } else {
                     PowderTrackrWidgetEntryView(entry: entry)
-                        .padding()
-                        .background()
+                        .preferredColorScheme(.light)
+                        .background(.bluePrimary.opacity(0.35))
                 }
             }
+            .contentMarginsDisabled()
             .configurationDisplayName("PowderTrackr")
             .description("Track your skiing data")
         }
     }
 
-    #Preview(as: .systemMedium) {
+    #Preview(as: .systemSmall) {
         PowderTrackrWidget()
     } timeline: {
         SimpleEntry(date: Date(), isTracking: true, speed: 100, time: 100, distance: 100)
