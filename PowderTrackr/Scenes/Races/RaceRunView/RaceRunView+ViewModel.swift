@@ -68,7 +68,29 @@ extension RaceRunView {
             arrayBreakPoint = Int((Double(race.xCoords?.count ?? .zero) / 100.0).rounded())
         }
 
+        func initStartEnd() {
+            let startPointMarker = GMSMarker(
+                position: CLLocationCoordinate2D(
+                    latitude: race.xCoords?.first ?? 0,
+                    longitude: race.yCoords?.first ?? 0
+                )
+            )
+            let flag = UIImage(systemName: "flag")
+            startPointMarker.icon = flag
+
+            let endPointMarker = GMSMarker(
+                position: CLLocationCoordinate2D(
+                    latitude: race.xCoords?.last ?? 0,
+                    longitude: race.yCoords?.last ?? 0
+                )
+            )
+            let flagCheckered = UIImage(systemName: "flag.checkered")
+            endPointMarker.icon = flagCheckered
+            raceMarkers = [startPointMarker, endPointMarker]
+        }
+
         func calculateDistanceFromStartingPoint(index: Int) {
+            initStartEnd()
             var distance = 0.0
             var list: [CLLocation] = []
             var markers: [GMSMarker] = []
@@ -82,7 +104,7 @@ extension RaceRunView {
             cameraPos = .init(
                 latitude: race.xCoords?[index] ?? .zero,
                 longitude: race.yCoords?[index] ?? .zero,
-                zoom: 17
+                zoom: 16
             )
             for itemDx in 1..<list.count {
                 distance += list[itemDx].distance(from: list[itemDx - 1])
@@ -104,7 +126,8 @@ extension RaceRunView {
 
             currentDistanceToFinish = totalDistance - distance
             playerPosition = Int((distance / totalDistance * 100).rounded())
-            raceMarkers = markers
+
+            raceMarkers.append(contentsOf: markers)
         }
 
         func calculateDistance() -> Double {
