@@ -60,11 +60,10 @@ jobs:
       - name: Generate Coverage Report with Slather
         run: |
           slather coverage \
-            --binary-basename PowderTrackr \
+            --sonarqube-xml \
+            --output-directory . \
             --workspace PowderTrackr.xcworkspace \
             --scheme PowderTrackr \
-            --output-directory . \
-            --coverage-format lcov \
             PowderTrackr.xcodeproj
 
       - name: SonarCloud Scan
@@ -73,6 +72,6 @@ jobs:
           args: >
             -Dsonar.organization=kosztid
             -Dsonar.projectKey=kosztid_PowderTrackr
-            -Dsonar.coverageReportPaths=lcov.info
+            -Dsonar.coverageReportPaths=sonarqube.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
