@@ -1,4 +1,4 @@
-name: iOS Build and Unit Tests
+name: iOS Build, Unit Tests, and SonarCloud Analysis
 
 on:
   push:
@@ -41,7 +41,7 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
             ONLY_ACTIVE_ARCH=YES | xcpretty
 
-      - name: Run Tests
+      - name: Run Tests with Coverage
         run: |
           set -o pipefail && xcodebuild test \
             -workspace PowderTrackr.xcworkspace \
@@ -49,4 +49,40 @@ jobs:
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
             -testPlan PowderTrackrTests \
-            ONLY_ACTIVE_ARCH=YES | xcpretty --report junit --output TestsResult.xml
+            -enableCodeCoverage YES \
+            ONLY_ACTIVE_ARCH=YES \
+            -resultBundlePath TestResults.xcresult \
+            | xcpretty --report junit --output TestsResult.xml
+
+      - name: Download xccov-to-sonarqube-generic.sh
+        run: |
+          curl -L -O https://raw.githubusercontent.com/SonarSource/sonar-scanning-examples/master/swift-coverage/swift-coverage/scripts/xccov-to-sonarqube-generic.sh
+          chmod +x xccov-to-sonarqube-generic.sh
+
+      - name: Generate Coverage Report
+        run: |
+          ./xccov-to-sonarqube-generic.sh TestResults.xcresult > coverage.xml
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage.xml
+
+      - name: Install SonarScanner CLI
+        run: |
+          brew install sonar-scanner
+
+      - name: SonarCloud Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner \
+            -Dsonar.organization=kosztid \
+            -Dsonar.projectKey=kosztid_PowderTrackr \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=$SONAR_TOKEN \
+            -Dsonar.swift.coverage.reportPaths=coverage.xml \
+            -Dsonar.sources=PowderTrackr \
+            -Dsonar.tests=PowderTrackrTests \
+            -Dsonar.scm.exclusions.disabled=true
