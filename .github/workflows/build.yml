@@ -26,6 +26,10 @@ jobs:
           sudo gem install cocoapods
           pod install
 
+      - name: Install Slather
+        run: |
+          sudo gem install slather
+
       - name: Clean Build
         run: |
           xcodebuild clean \
@@ -49,19 +53,19 @@ jobs:
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
             -testPlan PowderTrackrTests \
-            ENABLE_CODE_COVERAGE=YES \
+            -enableCodeCoverage YES \
             ONLY_ACTIVE_ARCH=YES \
-            -resultBundlePath TestResults.xcresult \
             | xcpretty --report junit --output TestsResult.xml
 
-      - name: Download xccov-to-lcov Script
+      - name: Generate Coverage Report with Slather
         run: |
-          curl -o xccov-to-lcov.sh https://raw.githubusercontent.com/tristanhimmelman/xccov-to-lcov/master/xccov-to-lcov.sh
-          chmod +x xccov-to-lcov.sh
-
-      - name: Generate Coverage Report
-        run: |
-          ./xccov-to-lcov.sh TestResults.xcresult > coverage.lcov
+          slather coverage \
+            --binary-basename PowderTrackr \
+            --workspace PowderTrackr.xcworkspace \
+            --scheme PowderTrackr \
+            --output-directory . \
+            --coverage-format lcov \
+            PowderTrackr.xcodeproj
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v1
@@ -69,6 +73,6 @@ jobs:
           args: >
             -Dsonar.organization=kosztid
             -Dsonar.projectKey=kosztid_PowderTrackr
-            -Dsonar.coverageReportPaths=coverage.lcov
+            -Dsonar.coverageReportPaths=lcov.info
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
