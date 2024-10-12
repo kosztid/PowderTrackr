@@ -56,12 +56,12 @@ jobs:
 
       - name: Download xccov-to-sonarqube-generic.sh
         run: |
-          curl -L -O https://raw.githubusercontent.com/SonarSource/sonar-scanning-examples/master/swift-coverage/swift-coverage-example/scripts/xccov-to-sonarqube-generic.sh
+          curl -L -O https://raw.githubusercontent.com/SonarSource/sonar-scanning-examples/master/swift-coverage/swift-coverage/scripts/xccov-to-sonarqube-generic.sh
           chmod +x xccov-to-sonarqube-generic.sh
 
       - name: Generate Coverage Report
         run: |
-          ./xccov-to-sonarqube-generic.sh TestResults.xcresult/ > coverage.xml
+          ./xccov-to-sonarqube-generic.sh TestResults.xcresult > coverage.xml
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v3
