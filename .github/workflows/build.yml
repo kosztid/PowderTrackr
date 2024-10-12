@@ -1,4 +1,4 @@
-name: iOS Build, Test, and SonarCloud Analysis
+name: iOS Build, Unit Tests, and SonarCloud Analysis
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build_test_analyze:
+  build_and_test:
     runs-on: macos-latest
 
     steps:
@@ -32,41 +32,43 @@ jobs:
             -workspace PowderTrackr.xcworkspace \
             -scheme PowderTrackr
 
-      - name: Run iOS Tests with Coverage
+      - name: Build Project
+        run: |
+          xcodebuild build \
+            -workspace PowderTrackr.xcworkspace \
+            -scheme PowderTrackr \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
+            ONLY_ACTIVE_ARCH=YES | xcpretty
+
+      - name: Run Tests with Coverage
         run: |
           set -o pipefail && xcodebuild test \
             -workspace PowderTrackr.xcworkspace \
             -scheme PowderTrackr \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
-            -enableCodeCoverage YES | xcpretty --report junit --output TestsResult.xml
+            -testPlan PowderTrackrTests \
+            ENABLE_CODE_COVERAGE=YES \
+            ONLY_ACTIVE_ARCH=YES \
+            -resultBundlePath TestResults.xcresult \
+            | xcpretty --report junit --output TestsResult.xml
 
-      - name: Locate Coverage.profdata
+      - name: Download xccov-to-lcov Script
         run: |
-          PROF_DATA_PATH=$(find $(xcodebuild -workspace PowderTrackr.xcworkspace -scheme PowderTrackr -showBuildSettings | grep -m 1 OBJROOT | cut -d " " -f 3 | xargs) -type f -name "Coverage.profdata" | head -n 1)
-          if [ -z "$PROF_DATA_PATH" ]; then
-            echo "Coverage.profdata not found!"
-            exit 1
-          fi
-          echo "Found Coverage.profdata at $PROF_DATA_PATH"
-          echo "PROF_DATA_PATH=$PROF_DATA_PATH" >> $GITHUB_ENV
+          curl -o xccov-to-lcov.sh https://raw.githubusercontent.com/tristanhimmelman/xccov-to-lcov/master/xccov-to-lcov.sh
+          chmod +x xccov-to-lcov.sh
 
-      - name: Generate Coverage Report in lcov Format
+      - name: Generate Coverage Report
         run: |
-          mkdir -p sonar-reports
-          xcrun llvm-cov export \
-            -format=lcov \
-            -instr-profile ${{ env.PROF_DATA_PATH }} \
-            $(find $(xcodebuild -workspace PowderTrackr.xcworkspace -scheme PowderTrackr -showBuildSettings | grep -m 1 OBJROOT | cut -d " " -f 3 | xargs)/Build/Intermediates.noindex/UninstalledProducts/iphonesimulator -type f -name "*.xctest" -exec echo {}/Contents/MacOS/* \;) > sonar-reports/coverage.lcov
+          ./xccov-to-lcov.sh TestResults.xcresult > coverage.lcov
 
-      - name: Run SonarCloud Analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v1
+        with:
+          args: >
+            -Dsonar.organization=kosztid
+            -Dsonar.projectKey=kosztid_PowderTrackr
+            -Dsonar.coverageReportPaths=coverage.lcov
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          sonar-scanner \
-            -Dsonar.organization=kosztid \
-            -Dsonar.projectKey=kosztid \
-            -Dsonar.sources=. \
-            -Dsonar.javascript.lcov.reportPaths=sonar-reports/coverage.lcov \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=$SONAR_TOKEN
