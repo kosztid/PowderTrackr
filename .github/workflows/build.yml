@@ -75,8 +75,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           sonar-scanner \
-            -Dsonar.organization=kosztid
-            -Dsonar.projectKey=kosztid_PowderTrackr
+            -Dsonar.organization=kosztid \
+            -Dsonar.projectKey=kosztid_PowderTrackr \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=$SONAR_TOKEN \
             -Dsonar.coverageReportPaths=sonarqube.xml
