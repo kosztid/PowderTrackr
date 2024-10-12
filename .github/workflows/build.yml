@@ -55,16 +55,23 @@ jobs:
             -testPlan PowderTrackrTests \
             -enableCodeCoverage YES \
             ONLY_ACTIVE_ARCH=YES \
+            -resultBundlePath TestResults.xcresult \
             | xcpretty --report junit --output TestsResult.xml
 
       - name: Generate Coverage Report with Slather
         run: |
           slather coverage \
-            --sonarqube-xml \
+            --cobertura-xml \
             --output-directory . \
             --workspace PowderTrackr.xcworkspace \
             --scheme PowderTrackr \
             PowderTrackr.xcodeproj
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: cobertura.xml
 
       - name: Install SonarScanner CLI
         run: |
@@ -79,4 +86,4 @@ jobs:
             -Dsonar.projectKey=kosztid_PowderTrackr \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=$SONAR_TOKEN \
-            -Dsonar.coverageReportPaths=sonarqube.xml
+            -Dsonar.coverageReportPaths=cobertura.xml
