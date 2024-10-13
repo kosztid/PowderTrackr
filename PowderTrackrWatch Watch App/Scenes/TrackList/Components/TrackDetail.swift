@@ -15,24 +15,23 @@ struct TrackDetail: View {
                 VStack(alignment: .trailing) {
                     Text("Date")
                     Text(track.startDate)
+                        .multilineTextAlignment(.trailing)
                         .bold()
                 }
             }
             .tag(0)
-
-            VStack(spacing: .su4) {
-                HStack {
+            HStack {
+                VStack(alignment: .center, spacing: .su8) {
                     Text("Total distance moved:")
-                    Spacer()
-                    Text("\(calculateDistance(), specifier: "%.f") meters")
-                }
-                .padding(.bottom, .su4)
-                HStack {
+                        .multilineTextAlignment(.center)
                     Text("Duration:")
-                    Spacer()
-                    Text("\(elapsedTime())")
                 }
-                .padding(.bottom, .su8)
+                Spacer()
+                VStack(alignment: .center, spacing: .su8) {
+                        Text("\(calculateDistance(), specifier: "%.f") meters")
+                        .multilineTextAlignment(.center)
+                        Text("\(elapsedTime())")
+                }
             }
             .tag(1)
 

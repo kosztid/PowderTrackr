@@ -14,9 +14,13 @@ class LoginViewModelTests: XCTestCase {
         navigatorMock = LoginViewNavigatorProtocolMock()
         accountServiceMock = AccountServiceProtocolMock()
 
-        accountServiceMock.isSignedInPublisher = CurrentValueSubject<Bool, Never>(false).eraseToAnyPublisher()
+        accountServiceMock
+            .isSignedInPublisher = CurrentValueSubject<Bool, Never>(false).eraseToAnyPublisher()
 
-        sut = LoginView.ViewModel(navigator: navigatorMock, accountService: accountServiceMock)
+        sut = LoginView.ViewModel(
+            navigator: navigatorMock,
+            accountService: accountServiceMock
+        )
     }
 
     override func tearDownWithError() throws {
@@ -28,8 +32,12 @@ class LoginViewModelTests: XCTestCase {
     }
 
     func test_login_whenCredentialsAreValid_shouldNavigateToLoggedIn() {
-        accountServiceMock.signInFirstTimeReturnValue = Just(AccountServiceModel.AccountData(userID: "123")).setFailureType(to: Error.self).eraseToAnyPublisher()
-
+        accountServiceMock.signInFirstTimeReturnValue = Just(
+            AccountServiceModel.AccountData(userID: "123")
+        )
+        .setFailureType(to: Error.self)
+        .eraseToAnyPublisher()
+         /* 1 */
         sut.login()
 
         XCTAssertTrue(navigatorMock.loggedInCalled)
@@ -37,7 +45,10 @@ class LoginViewModelTests: XCTestCase {
 
     func test_login_whenCredentialsAreInvalid_shouldShowLoginError() {
         let failureCompletionExpectation = expectation(description: "Login failure should be called")
-        accountServiceMock.signInFirstTimeReturnValue = Fail<AccountServiceModel.AccountData, Error>(error: NSError(domain: "LoginError", code: -1, userInfo: nil)).eraseToAnyPublisher()
+        accountServiceMock.signInFirstTimeReturnValue = Fail<AccountServiceModel.AccountData, Error>(
+            error: NSError(domain: "LoginError", code: -1, userInfo: nil)
+        )
+        .eraseToAnyPublisher()
 
         sut.login()
 

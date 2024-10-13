@@ -45,6 +45,7 @@ extension HomeView {
 
         func startTracking() {
             connectivityProvider.sendIsTracking(isTracking: true)
+            isTracking = true
         }
     }
 }

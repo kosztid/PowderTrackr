@@ -103,7 +103,7 @@ struct RaceRunView: View {
             HStack {
                 Text(Str.Data.Distance.label)
                     .textStyle(.body)
-                Text(Str.Data.Distance.description((viewModel.totalDistance, specifier: "%.f")))
+                Text(Str.Data.Distance.description(String(format: "%.f", viewModel.totalDistance)))
                     .textStyle(.bodyBold)
                 Spacer()
             }

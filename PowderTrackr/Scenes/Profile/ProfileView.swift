@@ -128,7 +128,7 @@ struct ProfileView: View {
                 Text(Str.Stats.Distance.label)
                     .textStyle(.body)
                 Spacer()
-                Text(Str.Stats.Distance.description((viewModel.totalDistance / 1_000.0, specifier: "%.2f")))
+                Text(Str.Stats.Distance.description(String(format: "%.2f", viewModel.totalDistance / 1_000.0)))
                     .textStyle(.bodyBold)
             }
             HStack {

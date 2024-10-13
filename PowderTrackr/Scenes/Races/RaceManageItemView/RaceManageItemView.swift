@@ -45,7 +45,7 @@ struct RaceManageItemView: View {
             HStack {
                 Text(Str.Data.Distance.label)
                     .textStyle(.body)
-                Text(Str.Data.Distance.description((race.shortestDistance, specifier: "%.2f")))
+                Text(Str.Data.Distance.description(String(format: "%.2f", race.shortestDistance)))
                     .textStyle(.bodyBold)
                 Spacer()
             }

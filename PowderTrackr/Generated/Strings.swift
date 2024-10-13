@@ -321,6 +321,10 @@ internal enum Rsc {
       /// You have a new friendrequest(s)
       internal static let message = Rsc.tr("Localizable", "SocialView.Infocard.Message", fallback: "You have a new friendrequest(s)")
     }
+    internal enum SwipeToDelete {
+      /// Delete
+      internal static let label = Rsc.tr("Localizable", "SocialView.SwipeToDelete.Label", fallback: "Delete")
+    }
   }
   internal enum TrackListItem {
     internal enum Alert {

@@ -32,7 +32,7 @@ struct LeaderBoardView: View {
                     .foregroundColor(.black)
                     .frame(minWidth: .zero, maxWidth: .infinity)
                     .padding(.vertical, .su8)
-                    .background(viewModel.tabState == .distance ? Color.cyanPrimary : Color.softWhite)
+                    .background(viewModel.tabState == .distance ? Color.cyanSecondary : Color.softWhite)
                     .cornerRadius(.su8, corners: [.bottomRight, .topRight])
             }
             Button {
@@ -43,7 +43,7 @@ struct LeaderBoardView: View {
                     .foregroundColor(.black)
                     .frame(minWidth: .zero, maxWidth: .infinity)
                     .padding(.vertical, .su8)
-                    .background(viewModel.tabState == .time ? Color.cyanPrimary : Color.softWhite)
+                    .background(viewModel.tabState == .time ? Color.cyanSecondary : Color.softWhite)
                     .cornerRadius(.su8, corners: [.bottomLeft, .topLeft])
             }
         }

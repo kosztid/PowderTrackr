@@ -16,3 +16,12 @@ target 'PowderTrackr' do
   pod 'Sourcery'
 
 end
+
+target 'PowderTrackrWidgetExtension' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for PowderTrackr
+  pod 'Factory', '~> 1.2.0'
+
+end

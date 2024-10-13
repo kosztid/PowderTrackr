@@ -29,6 +29,8 @@ public extension CGFloat {
     static let su32: CGFloat = 32
     /// 34 pt
     static let su34: CGFloat = 34
+    /// 36 pt
+    static let su36: CGFloat = 32
     /// 40 pt
     static let su40: CGFloat = 40
     /// 42 pt
