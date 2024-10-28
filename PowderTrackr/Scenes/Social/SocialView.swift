@@ -6,7 +6,7 @@ public struct SocialView: View {
     @StateObject var viewModel: ViewModel
 
     public var body: some View {
-        VStack(spacing: .su16) {
+        VStack(spacing: .su16) { /* 1 */
             notificationSection
             friendsList
         }
@@ -38,25 +38,33 @@ public struct SocialView: View {
                 }
             }
         }
-        .toolbar(.hidden)
     }
 
     private var friendsList: some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(viewModel.friendList?.friends ?? []) { friend in
-                    FriendListItem(
-                        friend: friend,
-                        notification: viewModel.notification(for: friend.id),
-                        lastMessage: viewModel.lastMessage(for: friend.id)
-                    ) {
-                        viewModel.updateTracking(id: friend.id)
-                    } navigationAction: {
-                        viewModel.navigateToChatWithFriend(friendId: friend.id, friendName: friend.name)
+        List {
+            ForEach(viewModel.friendList?.friends ?? [], id: \.id) { friend in
+                FriendListItem(
+                    friend: friend,
+                    notification: viewModel.notification(for: friend.id),
+                    lastMessage: viewModel.lastMessage(for: friend.id)
+                ) {
+                    viewModel.updateTracking(id: friend.id)
+                } navigationAction: {
+                    viewModel.navigateToChatWithFriend(friendId: friend.id, friendName: friend.name)
+                }
+                .swipeActions {
+                    Button(role: .destructive) {
+                        viewModel.removeFriend(friend: friend)
+                    } label: {
+                        Label(Str.SwipeToDelete.label, systemImage: "trash")
                     }
                 }
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(Color.grayPrimary)
+                .listRowSeparator(.hidden)
             }
         }
+        .listStyle(PlainListStyle())
         .background(Color.grayPrimary)
     }
 

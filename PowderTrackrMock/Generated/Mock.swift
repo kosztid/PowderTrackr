@@ -1286,12 +1286,6 @@ public init() {}
     }
 
 }
-public final class SocialRequestsViewNavigatorProtocolMock: SocialRequestsViewNavigatorProtocol {
-private let lock = NSLock()
-
-public init() {}
-
-}
 public final class StatisticsServiceProtocolMock: StatisticsServiceProtocol {
 private let lock = NSLock()
     public var leaderboardPublisher: AnyPublisher<[LeaderBoard], Never> {

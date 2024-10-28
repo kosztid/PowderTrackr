@@ -1,44 +1,92 @@
 import ActivityKit
+import Factory
 import SwiftUI
 import WidgetKit
-
-struct PowderTrackrWidgetAttributes: ActivityAttributes {
-    public struct ContentState: Codable, Hashable {
-        var emoji: String
-    }
-
-    var name: String
-}
 
 struct PowderTrackrWidgetLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: PowderTrackrWidgetAttributes.self) { context in
-            // Lock screen/banner UI goes here
-            VStack {
-                Text("Hello \(context.state.emoji)")
+            VStack(alignment: .leading) {
+                Text("WORKOUT")
+                    .font(.caption)
+                    .foregroundColor(.warmDarkGray)
+
+                Spacer()
+
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("\(String(format: "%.f", context.state.distance))")
+                            .font(.system(size: .su36, weight: .bold, design: .rounded))
+                            .foregroundColor(.blueSecondary)
+                        Text("m")
+                            .font(.title2)
+                            .foregroundColor(.bluePrimary)
+                    }
+
+                    Spacer()
+
+                    VStack(alignment: .leading) {
+                        Text("\(String(format: "%.2f", context.state.time))")
+                            .font(.system(size: .su36, weight: .bold, design: .rounded))
+                            .foregroundColor(.blueSecondary)
+                        Text("s")
+                            .font(.title2)
+                            .foregroundColor(.bluePrimary)
+                    }
+                }
+
+                Spacer()
+
+                Text("Tracking: \(context.attributes.name)")
+                    .font(.body)
+                    .foregroundColor(.warmDarkGray)
             }
-            .activityBackgroundTint(Color.cyan)
-            .activitySystemActionForegroundColor(Color.black)
+            .padding()
+            .background(Color.softWhite)
+            .activityBackgroundTint(Color.warmGray)
+            .activitySystemActionForegroundColor(Color.green)
         } dynamicIsland: { context in
             DynamicIsland {
-                // Expanded UI goes here.  Compose the expanded UI through
-                // various regions, like leading/trailing/center/bottom
-                DynamicIslandExpandedRegion(.leading) {
-                    Text("Leading")
-                }
-                DynamicIslandExpandedRegion(.trailing) {
-                    Text("Trailing")
-                }
                 DynamicIslandExpandedRegion(.bottom) {
-                    Text("Bottom \(context.state.emoji)")
-                    // more content
+                    VStack {
+                        Text(context.attributes.name)
+                            .font(.system(size: 24, weight: .bold, design: .rounded))
+                            .foregroundColor(.blueSecondary)
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("Distance")
+                                    .font(.caption)
+                                    .foregroundColor(.warmDarkGray)
+                                Text("\(String(format: "%.f", context.state.distance)) m")
+                                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                                    .foregroundColor(.blueSecondary)
+                            }
+                            .padding(.leading)
+                            Spacer()
+                            VStack(alignment: .trailing) {
+                                Text("Time")
+                                    .font(.caption)
+                                    .foregroundColor(.warmDarkGray)
+                                Text("\(String(format: "%.2f", context.state.time)) s")
+                                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                                    .foregroundColor(.blueSecondary)
+                            }
+                            .padding(.trailing)
+                        }
+                    }
                 }
             } compactLeading: {
-                Text("L")
+                Text("\(String(format: "%.f", context.state.distance)) m")
+                    .font(.caption)
+                    .foregroundColor(.blueSecondary)
             } compactTrailing: {
-                Text("T \(context.state.emoji)")
+                Text("\(String(format: "%.2f", context.state.time)) s")
+                    .font(.caption)
+                    .foregroundColor(.blueSecondary)
             } minimal: {
-                Text(context.state.emoji)
+                Text("\(String(format: "%.2f", context.state.time)) s")
+                    .font(.caption2)
+                    .foregroundColor(.blueSecondary)
             }
             .widgetURL(URL(string: "http://www.apple.com"))
             .keylineTint(Color.red)
@@ -46,25 +94,38 @@ struct PowderTrackrWidgetLiveActivity: Widget {
     }
 }
 
-extension PowderTrackrWidgetAttributes {
-    fileprivate static var preview: PowderTrackrWidgetAttributes {
-        PowderTrackrWidgetAttributes(name: "World")
+struct RaceLiveActivity_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            PowderTrackrWidgetAttributes(name: "Skiing Session")
+                .previewContext(
+                    PowderTrackrWidgetAttributes.ContentState(
+                        distance: 1_234, time: 123
+                    ),
+                    viewKind: .content
+                )
+
+            PowderTrackrWidgetAttributes(name: "Skiing Session")
+                .previewContext(
+                    PowderTrackrWidgetAttributes.ContentState(
+                        distance: 1_234, time: 123
+                    ),
+                    viewKind: .dynamicIsland(.expanded)
+                )
+            PowderTrackrWidgetAttributes(name: "Skiing Session")
+                .previewContext(
+                    PowderTrackrWidgetAttributes.ContentState(
+                        distance: 1_234, time: 123
+                    ),
+                    viewKind: .dynamicIsland(.minimal)
+                )
+            PowderTrackrWidgetAttributes(name: "Skiing Session")
+                .previewContext(
+                    PowderTrackrWidgetAttributes.ContentState(
+                        distance: 1_234, time: 123
+                    ),
+                    viewKind: .dynamicIsland(.compact)
+                )
+        }
     }
-}
-
-extension PowderTrackrWidgetAttributes.ContentState {
-    fileprivate static var smiley: PowderTrackrWidgetAttributes.ContentState {
-        PowderTrackrWidgetAttributes.ContentState(emoji: "😀")
-     }
-
-     fileprivate static var starEyes: PowderTrackrWidgetAttributes.ContentState {
-         PowderTrackrWidgetAttributes.ContentState(emoji: "🤩")
-     }
-}
-
-#Preview("Notification", as: .content, using: PowderTrackrWidgetAttributes.preview) {
-   PowderTrackrWidgetLiveActivity()
-} contentStates: {
-    PowderTrackrWidgetAttributes.ContentState.smiley
-    PowderTrackrWidgetAttributes.ContentState.starEyes
 }

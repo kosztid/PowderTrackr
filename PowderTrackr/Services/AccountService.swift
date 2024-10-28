@@ -197,21 +197,22 @@ extension AccountService: AccountServiceProtocol {
             guard let self = self else {
                 promise(.failure(NSError(domain: "LoginError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Self is nil"])))
                 return
-            }
+            } /* 1 */
 
-            let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
-            let user = pool?.getUser(username)
-            user?.getSession(username, password: password, validationData: nil).continueWith { task -> Any? in
-                DispatchQueue.main.async {
-                    if let error = task.error {
-                        promise(.failure(error))
-                    } else if let session = task.result {
-                        self.accessToken = session.idToken?.tokenString
-                        self.fetchUserAttributes(user: user!, firstTime: firstTime, promise: promise)
+            let pool = AWSCognitoIdentityUserPool(forKey: "UserPool") /* 2 */
+            let user = pool?.getUser(username) /* 3 */
+            user?.getSession(username, password: password, validationData: nil) /* 4 */
+                .continueWith { task -> Any? in
+                    DispatchQueue.main.async {
+                        if let error = task.error {
+                            promise(.failure(error))
+                        } else if let session = task.result {
+                            self.accessToken = session.idToken?.tokenString
+                            self.fetchUserAttributes(user: user!, firstTime: firstTime, promise: promise)
+                        }
                     }
-                }
-                return nil
-            }
+                    return nil
+                } /* 5 */
         }
         .eraseToAnyPublisher()
     }
