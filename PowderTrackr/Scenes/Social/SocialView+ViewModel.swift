@@ -17,7 +17,6 @@ extension SocialView {
 
     final class ViewModel: ObservableObject {
         @Published var friendList: Friendlist?
-        @Published var groupList = ["asd", "asd"]
         @Published var notification: Bool
         @Published var signedIn = false
         @Published var chatNotifications: [String] = []
@@ -127,7 +126,6 @@ extension SocialView {
                 .sink(
                     receiveCompletion: { completion in
                         guard case .failure(let error) = completion else { return }
-                        print(error)
                     }, receiveValue: { [weak self] users in
                         self?.navigator.navigateToAdd(users: users)
                     }
